@@ -1,0 +1,15 @@
+<html>
+<body>
+<form action ="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}   
+            <table> 
+				{{ form.as_p }}
+                 <p>{{ message }}</p>
+			</table>
+<input type="submit" value="upload"class = "float_right button_input">
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+</form>
+</body>
+</html>

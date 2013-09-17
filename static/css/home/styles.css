@@ -1,0 +1,91 @@
+/* For login & Register Modal */
+
+
+/* Hexaflip */
+#hexaflip {
+  margin: 0 auto;
+  -webkit-filter: drop-shadow(30px 30px 23px rgba(0,0,0,0.3));
+  -moz-filter: drop-shadow(30px 30px 23px rgba(0,0,0,0.3));
+  filter: drop-shadow(30px 30px 23px rgba(0,0,0,0.3));
+  margin-bottom: 4rem;
+}
+#hexaflip .hexaflip-cube {
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+}
+#hexaflip .hexaflip-cube .hexaflip-left,
+#hexaflip .hexaflip-cube .hexaflip-right {
+  background-color: #222 !important;
+}
+#hexaflip .hexaflip-cube > div {
+  font-weight: 100;
+  text-shadow: none;
+}
+#hexaflip .hexaflip-cube > div:nth-child(1n+1) {
+  background-color: #444;
+}
+#hexaflip .hexaflip-cube > div:nth-child(2n+2) {
+  background-color: #666;
+  background-color: #666;
+}
+#hexaflip .hexaflip-cube > div:nth-child(3n+3) {
+  background-color: #555;
+}
+#hexaflip .hexaflip-cube > div:nth-child(4n+4) {
+  background-color: #eee;
+  color: #222;
+}
+.hexaflip-cube {
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  cursor: move;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  display: inline-block;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 0.4s;
+  -moz-transition: -moz-transform 0.4s;
+  -o-transition: -o-transform 0.4s;
+  -ms-transition: -ms-transform 0.4s;
+  transition: transform 0.4s;
+}
+.hexaflip-cube.no-tween {
+  -webkit-transition-duration: 0;
+  -moz-transition-duration: 0;
+  -o-transition-duration: 0;
+  -ms-transition-duration: 0;
+  transition-duration: 0;
+}
+.hexaflip-cube > div {
+  width: 100%;
+  overflow: hidden;
+  height: 100.5%;
+  position: absolute;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  text-align: center;
+  background-color: #333;
+  color: #fff;
+  font-weight: 100;
+  text-shadow: 0 -2px 0 rgba(0,0,0,0.2);
+  line-height: 1.5;
+}
+.hexaflip-left,
+.hexaflip-right {
+  background-color: #555 !important;
+}
+.hexaflip-timepicker .hexaflip-cube:last-child > div:nth-child(odd) {
+  background-color: #ff575b;
+}

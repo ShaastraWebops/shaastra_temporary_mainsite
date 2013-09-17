@@ -1,0 +1,50 @@
+{% load staticfiles %}
+
+<!-- EVENTS SECTION  -->
+<section id="events" class='sec'>
+    <div class="container">
+        <div class="row">
+            <div class="span12 centered">
+                <h2>Events</h2>
+                <div class="breaker"><span class="left"></span><div class="dice"></div><span class="right"></span></div>
+            </div>
+        </div>
+        <!-- Carousel
+        ================================================== -->
+       
+        <div class="container main_event">
+            <div class='event_wrapper row'>
+                <div class='main_event_item span12'>
+                </div>
+            </div>
+        </div>
+        
+        <div id="my_carousel" class='container'>
+            <div class="row">
+                <div class="columns">
+                    <div id="myCarousel" class="carousel slide">
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item active"> <!-- Page 2 for the carousel -->
+                                {% include 'events/small/page_1.html' %}
+                            </div>
+                            <div class="item"> <!-- Page 2 for the carousel -->
+                                {% include 'events/small/page_2.html' %}
+                            </div>  
+                            <div class="item"> <!-- Page 3 for the carousel -->
+                                {% include 'events/small/page_3.html' %}
+                            </div>  
+                        </div>
+                        <a class="left pull-left carousel-control " href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                        <a class="right pull-right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</section>
+<!-- END EVENTS SECTION  -->

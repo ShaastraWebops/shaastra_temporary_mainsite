@@ -1,0 +1,287 @@
+{% load dajaxice_templatetags %}
+{% load staticfiles %}
+<html>
+<head class=" js csstransitions">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="iitm, team, robocon, robotics, auto, autonomous, bot, manual, iit, madras, mit, pune, abu, dd, doordarshan, india, chennai, shaastra, iitmadras ">
+    <meta name="description" content="Shaastra 2014 the techfest of IIT Madras. Breaking boundaries this time to showcase the radical tech and skills.">
+    <meta name="author" content="Abdeali JK">
+    
+    <title>{% block page_title %}Shaastra | 2014{% endblock %}</title>
+    
+    {% include 'base/head.html' %}
+    {% block extra_css %} {% endblock %}
+    {% block extra_js %} {% endblock %}
+</head>
+
+<body>
+    
+    {% include 'home/header.html' %}
+    {% include 'base/navbar.html' %}
+    {% include 'events/main.html' %}
+    {% include 'shows/main.html' %}
+    {% include 'spons/main.html' %}
+    {% include 'hospi/main.html' %}
+    {% include 'contact/main.html' %}
+
+    {% include 'home/login.html' %}
+
+    {% comment %}
+
+
+
+
+    <!-- ----------------  EVENTS ------------------------- -->
+    <div id="events" class="container-fluid">
+       <br><br><br> <div class="title"><h1>SHAASTRA EVENTS</h1></div>
+        <div class="cont">
+            <div class="container">
+        
+           <!-- Carousel
+        ================================================== -->
+        <section id="carousel">
+          <div class="row">
+            <div class="columns">
+              <div id="myCarousel" class="carousel slide">
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <div class="row-fluid">
+                         <div class="row-fluid">
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                         </div>
+                         <div class="row-fluid">
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                         </div> 
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row-fluid">
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                    </div>
+                    <div class="row-fluid">
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                            <div class="demo"></div>
+                    </div>
+                  </div>  
+                </div>
+                <a class="left carousel-control " href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+              </div>
+             </div>
+        </section> 
+       </div>
+       
+      
+        
+              <!-- Descrption Of Events 
+        ================================================== --> 
+        <div id="aero" class="main" >
+        <div id="big">
+            <br><br><br>
+            <div id="maero">
+                <div id="WD" class="button"><center>Wright Design</center></div>
+                <br>
+                <div id="PP" class="button"><center>Paper Planes</center></div>
+                <br>
+                <div id="AE" class="button"><center>Aerobotics</center></div>
+                <br>
+                <div id="TG" class="button"><center>Top Gun</center></div>
+                <br>
+            </div>
+            <div id='aero_wd'><a class="glow" id='wd1' href="#">Wright Design</a>
+                <div id="text" class="bs-example bs-example-tabs">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active"><a href="#home5" data-toggle="tab">Home</a></li>
+                        <li><a href="#profile" data-toggle="tab">Profile</a></li>
+                        <li><a href="#dropdown" data-toggle="tab">Dropdown</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade in active" id="home5">
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                        </div>
+                        <div class="tab-pane fade" id="profile">
+                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                        </div>
+                        <div class="tab-pane fade" id="dropdown">
+                            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id='aero_pp' class='event_description'><a class="glow" id='wd1' href="#">Paper Planes</a>
+                <div id="text" class="bs-example bs-example-tabs">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active"><a href="#home_pp" data-toggle="tab">Home</a></li>
+                        <li><a href="#profile_pp" data-toggle="tab">Profile</a></li>
+                        <li><a href="#dropdown_pp" data-toggle="tab">Dropdown</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade in active" id="home_pp">
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                        </div>
+                        <div class="tab-pane fade" id="profile_pp">
+                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                        </div>
+                        <div class="tab-pane fade" id="dropdown_pp">
+                            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id='aero_abt' class='event_description'><a class="glow" id='wd1' href="#">Aerobotics</a>
+                <div id="text" class="bs-example bs-example-tabs">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active"><a href="#home_abt" data-toggle="tab">Home</a></li>
+                        <li><a href="#profile_abt" data-toggle="tab">Profile</a></li>
+                        <li><a href="#dropdown_abt" data-toggle="tab">Dropdown</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade in active" id="home_abt">
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                        </div>
+                        <div class="tab-pane fade" id="profile_abt">
+                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                        </div>
+                        <div class="tab-pane fade" id="dropdown_abt">
+                            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id='aero_tg' class='event_description'><a class="glow" id='wd1' href="#">Top Gun</a>
+                <div id="text" class="bs-example bs-example-tabs">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active"><a href="#home_tg" data-toggle="tab">Home</a></li>
+                        <li><a href="#profile_tg" data-toggle="tab">Profile</a></li>
+                        <li><a href="#dropdown_tg" data-toggle="tab">Dropdown</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade in active" id="home_tg">
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                        </div>
+                        <div class="tab-pane fade" id="profile_tg">
+                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                        </div>
+                        <div class="tab-pane fade" id="dropdown_tg">
+                            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+        </div>
+        </div>
+    </div>
+
+    
+          <!-- NavBar Bottom
+    ================================================== -->
+   <div class="foot">
+        <div class="row-fluid">
+                        <div class="demo2" ></div>
+                        <div class="demo2"  ></div>
+                        <div class="demo2"  ></div>
+                        <div class="demo2"  ></div>
+                    
+                        <div class="demo2"  ></div>
+                        <div class="demo2"  ></div>
+                        <div class="demo2"  ></div>
+                        <div class="demo2"  ></div>
+                
+                        <div class="demo2"  ></div>
+                        <div class="demo2"  ></div>
+                        <div class="demo2"  ></div>
+                        <div class="demo2"  ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ----------------  SHOWS ------------------------- -->
+    <div id="shows" class="container-fluid">
+        BLAH
+    </div>
+    
+    <!-- ----------------  SPONS ------------------------- -->
+    <div id="spons" class="container-fluid">
+        <br>
+        <br>
+        <br>
+        <div class="title_spons"><h1><center>SPONSORS</center></h1></div>
+
+        <div class="contact_spons"><h1><center>CONTACT OF SPONSORS</center></h1></div>
+    </div>
+    
+    <!-- ----------------  HOSPI ------------------------- -->
+    <div id="hospi" class="container-fluid">
+        <br>
+        <br>
+        <br>
+        <h1><center><strong>HOSPITALITY</strong></center> </h1>
+        <div id="hospi_center">
+        <h3>BLAH BLAH BLAH BLAHBLAH BLAHBLAH .
+        BLAH BLAH
+        BLAH BLAH.
+        BLAH BLAHBLAH.BLAH BLAH
+        BLAH BLAHBLAHv
+        vBLAH BLAH
+        </h3>
+        </div>
+        <h2 id="hospi_bottom"><center><strong>Contact for hospitality</strong></center> </h2>
+    </div>
+    
+    <!-- ----------------  CONTACT US ------------------------- -->
+    <div id="contact" class="container-fluid">
+        <div style="top:50px; position:relative;">
+    <div class="page-header">
+      <h1><center><strong>Contact Us<strong></center></h1>
+        </div>
+        <form method="post" action="#" class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="input1"><b>Name:</b></label>
+                <div class="controls">
+                    <input type="text" name="contact_name" id="input1" style="height:30px; width:250px;" placeholder="Your name">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="input2"><b>Email Address:</b></label>
+                <div class="controls">
+                    <input type="text" name="contact_email" id="input2" style="height:30px; width:250px;"placeholder="Your email address">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="input3"><b>Message:</b></label>
+                <div class="controls">
+                    <textarea name="contact_message" id="input3" rows="8" class="span5" placeholder="The message you want to send us."></textarea>
+                </div>
+            </div>
+            <div style="left:450px; position:absolute; ">
+                <button type="submit" class="btn btn-inverse">Contact Us</button>
+                <button type="reset" class="btn btn-inverse">Reset</button>
+            </div>
+        </form>
+    
+    </div>
+    </div>
+    </div>
+    </div>
+    {% endcomment %}
+    
+    {% include 'base/footer.html' %}
+    {% include 'base/foot.html' %}
+    {% block extra_css_end %} {% endblock %}
+    {% block extra_js_end %} {% endblock %}
+    
+</body>
