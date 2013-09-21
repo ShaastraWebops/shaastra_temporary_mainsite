@@ -22,14 +22,16 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    
+    url(r'^register/$','frontend.views.register'),
+    url(r'^login/$','frontend.views.login'),
+
+    url(r'^logout/$','frontend.views.logout'),
     url(r'^/$', 'frontend.views.home'),#redirect_to, {'url': '/login/'}),
     url(r'^$', 'frontend.views.home'),#redirect_to, {'url': '/login/'}),
     url(r'^serenity$', 'frontend.views.serenity'),#redirect_to, {'url': '/login/'}),
     url(r'^files_upload$', 'files_upload.views.upload_file'),
-
-
     url(dajaxice_config.dajaxice_url, include('misc.dajaxice.urls')), # For dajaxice to function corrently
 )
 
 urlpatterns += staticfiles_urlpatterns() # To enable serving static files
+    
