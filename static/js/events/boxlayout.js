@@ -43,7 +43,6 @@ var Boxlayout = (function() {
 	}
 
 	function initEvents() {
-					console.log("Starting to init");
 		
 		$sections.each( function() {
 			
@@ -52,9 +51,7 @@ var Boxlayout = (function() {
 			// expand the clicked section and scale down the others
 			$section.on( 'click', function() {
 
-					console.log("Clicked !");
 				if( !$section.data( 'open' ) ) {
-					console.log("Before expanding");
 					$section.data( 'open', true ).addClass( 'bl-expand bl-expand-top' );
 					$el.addClass( 'bl-expand-item' );	
 				}
