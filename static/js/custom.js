@@ -167,23 +167,8 @@ function show_event(el) {
         $(".event_items_div").addClass("offset2");
         $(".event_items_div .event_item").removeClass("span3");
         $(".event_items_div .event_item").addClass("span1");
-        Boxlayout.init();
     } else { // Unknown error messages pop up ...
     }
     
 };
 
-$(window).scroll(function() {
-    var ypos = window.pageYOffset;
-    var h = $("body").height();
-    console.log(ypos + "   " + h);
-    if(ypos < h) {
-        var left_rad = 50 * (h-ypos) / h;
-        var right_rad = 20 * (h-ypos) / h;
-        $("#home").css( {
-            'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
-            'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',
-        } );
-        //do stuff here
-    }
-});
