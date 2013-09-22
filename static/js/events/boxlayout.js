@@ -1,141 +1,90 @@
-/**
- * boxlayout.js v1.0.0
- * http://www.codrops.com
- *
- * Licensed under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
- * 
- * Copyright 2013, Codrops
- * http://www.codrops.com
- */
-var Boxlayout = (function() {
+/* ---------- EVENT GROUPS -------- */
+//
+function show_event_group(el) {
+    el = $(el);
+    item = el.parent();
+    
+    if (item.hasClass("event_item") || el.hasClass("event_item")) {
+        if( el.hasClass("event_item") )
+            item = el;
+        // Item is the div that is required.
+        
+        $(".main_event_item").addClass("event_item"); // tell main_event it has data to show
+        $(".main_event_item > div > div").hide();
+        $(".main_event_item > div > div.title").show(); // Show the title for the boxes.
+        $( '.main_event_item.event_item > div' ).show().removeClass( 'expand' ); // Tell the section that it is small.
+        
+        // Clean up main event
 
-	var $el = $( '#bl-main' ),
-		$sections = $el.children( 'section' ),
-		// works section
-		$sectionWork = $( '#bl-work-section' ),
-		// work items
-		$workItems = $( '#bl-work-items > li' ),
-		// work panels
-		$workPanelsContainer = $( '#bl-panel-work-items' ),
-		$workPanels = $workPanelsContainer.children( 'div' ),
-		totalWorkPanels = $workPanels.length,
-		// navigating the work panels
-		$nextWorkItem = $workPanelsContainer.find( 'nav > span.bl-next-work' ),
-		// if currently navigating the work items
-		isAnimating = false,
-		// close work panel trigger
-		$closeWorkItem = $workPanelsContainer.find( 'nav > span.bl-icon-close' ),
-		transEndEventNames = {
-			'WebkitTransition' : 'webkitTransitionEnd',
-			'MozTransition' : 'transitionend',
-			'OTransition' : 'oTransitionEnd',
-			'msTransition' : 'MSTransitionEnd',
-			'transition' : 'transitionend'
-		},
-		// transition end event name
-		transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-		// support css transitions
-		supportTransitions = Modernizr.csstransitions;
+        // make other events smaller
+        $(".event_items_div").addClass("offset2");
+        $(".event_items_div .event_item").removeClass("span3");
+        $(".event_items_div .event_item").addClass("span1");
+    }
+};
 
-	function init() {
-		initEvents();
-	}
+// A function to bring a person from the event main page to the event group page
+function hide_event_group () {
+    var main_event = $('.main_event_item'),
+        events = $('.event_items_div .event_item');
+        
+    $(".main_event_item").removeClass("event_item"); // tell main_event it has data to show
+    $(".main_event_item > div > div").hide();
+    $(".main_event_item.event_item > div").hide().removeClass( 'expand' ); // Tell the section that it is small.
+    
+    // make other events bigger
+    $(".event_items_div").removeClass("offset2");
+    $(".event_items_div .event_item").removeClass("span1");
+    $(".event_items_div .event_item").addClass("span3");
+}
 
-	function initEvents() {
-		
-		$sections.each( function() {
-			
-			var $section = $( this );
 
-			// expand the clicked section and scale down the others
-			$section.on( 'click', function() {
+/* ---------- Shows the page which has list of pages for an event -------- */
+function show_event(me) {
+    var $el = $( '.main_event_item.event_item' ),
+        $sections = $el.children( 'div' ),
+        $section = $(me).parent();
+        
+    // expand the clicked section and hide the others
+    $sections.hide();
+    $section.show();
+    $sections.removeClass( 'expand' );
+    $section.addClass( 'expand' );
+    $section.children("div").hide();
+    $($section.children("div").get(1)).show();
+    
+};
 
-				if( !$section.data( 'open' ) ) {
-					$section.data( 'open', true ).addClass( 'bl-expand bl-expand-top' );
-					$el.addClass( 'bl-expand-item' );	
-				}
+// A function to bring a person from the event main page to the event group page
+function hide_event () {
+    var $el = $( '.main_event_item.event_item' ),
+        $sections = $el.children( 'div' );
+        
+    $sections.show();
+    $sections.removeClass( 'expand' );
+    $sections.children("div").hide();
+    $($sections.children("div").get(0)).show();
+}
 
-			} ).find( 'span.bl-icon-close' ).on( 'click', function() {
-				
-				// close the expanded section and scale up the others
-				$section.data( 'open', false ).removeClass( 'bl-expand' ).on( transEndEventName, function( event ) {
-					if( !$( event.target ).is( 'section' ) ) return false;
-					$( this ).off( transEndEventName ).removeClass( 'bl-expand-top' );
-				} );
+/* -------------------- EVENT PAGE ----------------- */
 
-				if( !supportTransitions ) {
-					$section.removeClass( 'bl-expand-top' );
-				}
+// A function to bring a person from the event main page to a specific page
+function show_event_page(me) {
+    var elem_number = $(me).parent().index(),
+        $section = $( '.main_event_item.event_item > div.expand' );
+        
+    if ( elem_number != -1 ) {
+        $section.children("div").hide();
+        $($section.children("div").get(elem_number+1)).show(); // +1 as title will also be there
+    }
+}
 
-				$el.removeClass( 'bl-expand-item' );
-				
-				return false;
+// A function to bring a person from the event-page to the event main page
+function hide_event_page() {
+    var $section = $( '.main_event_item.event_item > div.expand' );
+    
+    $section.children("div").hide();
+    $($section.children("div").get(1)).show(); // +1 as title will also be there
+    
+}
 
-			} );
-
-		} );
-
-		// clicking on a work item: the current section scales down and the respective work panel slides up
-		$workItems.on( 'click', function( event ) {
-
-			// scale down main section
-			$sectionWork.addClass( 'bl-scale-down' );
-
-			// show panel for this work item
-			$workPanelsContainer.addClass( 'bl-panel-items-show' );
-
-			var $panel = $workPanelsContainer.find("[data-panel='" + $( this ).data( 'panel' ) + "']");
-			currentWorkPanel = $panel.index();
-			$panel.addClass( 'bl-show-work' );
-
-			return false;
-
-		} );
-
-		// navigating the work items: current work panel scales down and the next work panel slides up
-		$nextWorkItem.on( 'click', function( event ) {
-			
-			if( isAnimating ) {
-				return false;
-			}
-			isAnimating = true;
-
-			var $currentPanel = $workPanels.eq( currentWorkPanel );
-			currentWorkPanel = currentWorkPanel < totalWorkPanels - 1 ? currentWorkPanel + 1 : 0;
-			var $nextPanel = $workPanels.eq( currentWorkPanel );
-
-			$currentPanel.removeClass( 'bl-show-work' ).addClass( 'bl-hide-current-work' ).on( transEndEventName, function( event ) {
-				if( !$( event.target ).is( 'div' ) ) return false;
-				$( this ).off( transEndEventName ).removeClass( 'bl-hide-current-work' );
-				isAnimating = false;
-			} );
-
-			if( !supportTransitions ) {
-				$currentPanel.removeClass( 'bl-hide-current-work' );
-				isAnimating = false;
-			}
-			
-			$nextPanel.addClass( 'bl-show-work' );
-
-			return false;
-
-		} );
-
-		// clicking the work panels close button: the current work panel slides down and the section scales up again
-		$closeWorkItem.on( 'click', function( event ) {
-
-			// scale up main section
-			$sectionWork.removeClass( 'bl-scale-down' );
-			$workPanelsContainer.removeClass( 'bl-panel-items-show' );
-			$workPanels.eq( currentWorkPanel ).removeClass( 'bl-show-work' );
-			
-			return false;
-
-		} );
-
-	}
-
-	return { init : init };
-
-})();

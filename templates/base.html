@@ -11,19 +11,12 @@
     <title>{% block page_title %}Shaastra | 2014{% endblock %}</title>
     
     {% include 'base/head.html' %}
-    <script src="{% static 'js/jquery-1.9.1.js' %}"></script>
-    <script src="{% static 'js/jquery-ui-1.10.3.custom.js' %}"></script> 
-    <script src="{% static 'js/bootstrap.js' %}"></script>
-    <script src="{% static 'js/jquery.dajax.core.js' %}"></script>
-    <script src="{% static 'js/base.js' %}"></script>
-
     {% block extra_css %} {% endblock %}
     {% block extra_js %} {% endblock %}
 </head>
 
 <body>
-        
-    <a href="{% url files_upload.views.upload_file %}">upload file</a>    
+    
     {% include 'home/header.html' %}
     {% include 'base/navbar.html' %}
     {% include 'events/main.html' %}

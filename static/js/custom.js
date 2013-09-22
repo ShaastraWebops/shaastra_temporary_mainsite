@@ -149,26 +149,19 @@ $(document).ready(function() {
 });
 */
 
-function show_event(el) {
-    el = $(el);
-    item = el.parent();
-    
-    if (item.hasClass("event_item") || el.hasClass("event_item")) {
-        if( el.hasClass("event_item") )
-            item = el;
-        // Item is the div that is required.
-        
-        $(".main_event_item").addClass("event_item"); // tell main_event it has data to show
-        $(".main_event_item").html(item.children(".info").html());
 
-        // Clean up main event
-
-        // make other events smaller
-        $(".event_items_div").addClass("offset2");
-        $(".event_items_div .event_item").removeClass("span3");
-        $(".event_items_div .event_item").addClass("span1");
-    } else { // Unknown error messages pop up ...
+$(window).scroll(function() {
+    var ypos = window.pageYOffset;
+    var h = $("body").height();
+    console.log(ypos + "   " + h);
+    if(ypos < h) {
+        var left_rad = 50 * (h-ypos) / h;
+        var right_rad = 20 * (h-ypos) / h;
+        $("#home").css( {
+            'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
+            'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',
+        } );
+        //do stuff here
     }
-    
-};
+});
 

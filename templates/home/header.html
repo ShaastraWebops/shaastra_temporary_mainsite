@@ -2,7 +2,15 @@
 <!-- HEADER HOME  -->
 <section id="home">
     <div class="row centered">
-        <h1 class="fade-it"><div id="hexaflip" class='logo_bottom_home'></div></h1>
+        <h1 class="fade-it">
+            <script>
+                if( document.getElementsByTagName("html")[0].className.indexOf("csstransitions") )
+                    document.write('<div id="hexaflip" class="logo_bottom_home">');
+                else
+                    document.write('<h1>SHAASTRA</h1>');
+                
+            </script>
+        </div></h1>
     </div>
 
     <!-- LITTLE LOGO SEE WHAT WE DO --> 
