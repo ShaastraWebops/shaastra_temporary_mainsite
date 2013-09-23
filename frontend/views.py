@@ -33,7 +33,7 @@ def logout(request):
     print 'logged out'
     print request.user.username
     #MESGS.success(request, msg_super)
-    #formr=AddUserForm()
+    #form_registration=AddUserForm()
     #form=LoginForm()
     return HttpResponseRedirect('/')
     #return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
@@ -42,7 +42,7 @@ def home(request):
     form=LoginForm()
     if request.user.is_authenticated():
         logged_in=True
-    formr=AddUserForm()
+    form_registration=AddUserForm()
     return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
 
 def login(request):
@@ -101,14 +101,14 @@ def register(request):
                 return HttpResponseRedirect('/')
         else:
             ifreg=True
-            formr=form
+            form_registration=form
             form=LoginForm()
             logged_in=True
             msg_login='%s, You are logged in!!' % request.user.username
             return render_to_response('home/home.html', locals(),
                                   context_instance=RequestContext(request))
     if request.method == 'GET':
-        formr = AddUserForm()
+        form_registration = AddUserForm()
         try:
             msg=request.session['msg']
             del request.session['msg']
@@ -116,7 +116,7 @@ def register(request):
             msg=''
         return render_to_response('home/home.html', locals(),
                                   context_instance=RequestContext(request))
-    formr=AddUserForm()
+    form_registration=AddUserForm()
     return HttpResponseRedirect('/')
 
 def serenity(request):
