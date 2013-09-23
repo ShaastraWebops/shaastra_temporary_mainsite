@@ -7,6 +7,7 @@
         <script src="{% static 'js/waypoints.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/custom.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/bootstrap/bootstrap.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/bootstrap/bootstrap-growl.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/home/hexaflip.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/events/boxlayout.js' %}" type="text/javascript"></script>
         
@@ -18,7 +19,7 @@
         // ------------------------------------------------
         //      For the HexaCube
         // -------------------------------------------------
-        var hexa,
+        var hexa, hexa_pid = null,
             text = 'SHAASTRA'.split(''),
             settings = {
                 size: 75,
@@ -46,136 +47,44 @@
                     o['letter' + i] = a[p];
                 }
                 return o;
+            },
+            hexa_init = function() {
+                hexa_pid = setInterval(function(){
+                    hexa.setValue(getSequence(text, false, true));
+                    $(".modal").each( function() {
+                        if ( $(this).hasClass("in") ) {
+                            clearInterval(hexa_pid);
+                            hexa_pid = -1;
+                        }
+                    });
+                    if( hexa_pid == -1 )
+                        hexa_stop();
+                }, 1000);
+                hexa.setValue(getSequence(text, false, true));
+            },
+            hexa_stop = function() {
+                clearInterval(hexa_pid);
+                hexa_pid = setInterval(function(){
+                    $(".modal").each( function() {
+                        if ( ! $(this).hasClass("in") ) {
+                            clearInterval(hexa_pid);
+                            hexa_pid = -1;
+                        }
+                    });
+                    if( hexa_pid == -1 )
+                        hexa_init();
+                }, 1000);
+                
             };
-    
+
+        /*-----------------------------------------------
+                        ON BODY LOAD HANDLER
+        --------------------------------------------------------- */
+        
         document.addEventListener('DOMContentLoaded', function(){
             hexa = new HexaFlip(document.getElementById('hexaflip'), makeObject(text), settings);
-    
-            setTimeout(function(){
-                hexa.setValue(getSequence(text, false, true));
-            }, 0);
-    
-            setTimeout(function(){
-                setInterval(function(){
-                    hexa.setValue(getSequence(text, false, true));
-                }, 1000);
-            }, 1000);
+            hexa_init();
+            
         }, false);
 
     </script>
-{% comment %}
-<script>
-    $(document).ready(function(){
-        $(window).scroll(function(){
-        if($(window).scrollTop()+5 > $(window).height() ) {
-       
-            $('#logo').attr("src","img/logo_white.png");
-            $('#name').attr("src","img/name_white.png");
-            $('#nav').css("background-color","#000");
-            $('.navbar .nav > li > a').css("color","#fff");
-            $('.navbar .nav > li > a:hover').css("color","fff");
-        //  $('#nav').css("height","50px");
-            }
-        else
-        {
-            $('#logo').attr("src","img/logo_black.png");
-            $('#name').attr("src","img/name_black.png");
-            $('#nav').css("background-color","#ccc");
-            $('.navbar .nav > li > a').css("color","#000");
-            $('.navbar .nav > li > a:hover').css("color","FFF");
-        //  $('#nav').css("height","65px");
-        }
-        });
-        $("#aevents").click(function() {
-        $('html, body').animate({
-            scrollTop: $("#events_page").offset().top
-        }, 1000);
-    });
-    $("#ahospi").click(function() {
-        $('html, body').animate({
-            scrollTop: $("#hospi_page").offset().top
-        }, 1000);
-    });
-    $("#ashows").click(function() {
-        $('html, body').animate({
-            scrollTop: $("#shows_page").offset().top
-        }, 1000);
-    });
-    
-    
-    $("#aspons").click(function() {
-        $('html, body').animate({
-            scrollTop: $("#spons_page").offset().top
-        }, 1000);
-    });
-    $("#acontact").click(function() {
-        $('html, body').animate({
-            scrollTop: $("#contact_page").offset().top
-        }, 1000);
-    });
-    $("#alogin").click(function() {
-        $('#login_big').css("visibility","visible");
-    });
-    
-    $('#myTab a').click(function (e) {
-      e.preventDefault()
-      $(this).tab('show')
-    })
-    $('#maero').css('top','30px');
-    $('.foot').hide(); 
-         $(".demo").click(function(){
-        $(".container").fadeTo("slow",0.0);
-        setTimeout(function(){ $('.carousel').remove();}, 700); 
-            $('.foot').show(1500);
-            $('.foot').animate({bottom:'0px'},1500);
-            $('.foot').animate({bottom:'0px'},500);
-            $('#aero').show(1000);
-        setTimeout(function(){$('#content').fadeTo("slow",1);},800);
-        setTimeout(function(){$('#navbar').fadeTo("slow",1);},800);
-        setTimeout(function(){$('#menu').fadeTo("slow",1);},800);
-     });
-     
-     
-     
-    $("#PP").click(function() {
-        $('#aero_wd').css('visibility','hidden');
-        $('#aero_tg').css('visibility','hidden');
-        $('#aero_abt').css('visibility','hidden');
-        $('#aero_pp').css('visibility','visible');
-    });
-    $("#WD").click(function() {
-        $('#aero_wd').css('visibility','visible');
-        $('#aero_tg').css('visibility','hidden');
-        $('#aero_abt').css('visibility','hidden');
-        $('#aero_pp').css('visibility','hidden');
-    });
-    $("#AE").click(function() {
-        $('#aero_wd').css('visibility','hidden');
-        $('#aero_tg').css('visibility','hidden');
-        $('#aero_abt').css('visibility','visible');
-        $('#aero_pp').css('visibility','hidden');
-    });
-    $("#TG").click(function() {
-        $('#aero_wd').css('visibility','hidden');
-        $('#aero_tg').css('visibility','visible');
-        $('#aero_abt').css('visibility','hidden');
-        $('#aero_pp').css('visibility','hidden');
-    });
-    
-        });
-        $('.nav li a').on('click', function() {
-        
-        $(this).parent().parent().find('.active').removeClass('active');
-        $(this).parent().addClass('active');
-    });
-    function goto(id, t){
-        //animate to the div id.
-        $(".contentbox-wrapper").animate({"left": -($(id).position().left)}, 600);
-     
-        // remove "active" class from all links inside #nav
-        
-        // add active class to the current link
-        $(t).addClass('active');
-    }
-</script>
-{% endcomment %}
