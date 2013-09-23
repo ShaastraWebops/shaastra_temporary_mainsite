@@ -2,8 +2,6 @@
 import django
 import sha,random
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
 
 from django.contrib import messages as MESGS
 
@@ -24,9 +22,6 @@ from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 
-def homee(request):
-    return HttpResponse('ssup')
-
 def logout(request):
     auth_logout(request)
     logged_in=True
@@ -37,13 +32,6 @@ def logout(request):
     #form=LoginForm()
     return HttpResponseRedirect('/')
     #return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
-    
-def home(request):  
-    form=LoginForm()
-    if request.user.is_authenticated():
-        logged_in=True
-    form_registration=AddUserForm()
-    return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
 
 def login(request):
     if request.user.is_authenticated():
@@ -76,7 +64,7 @@ def login(request):
         return render_to_response('home/home.html', locals(),
                                   context_instance=RequestContext(request))
     return HttpResponseRedirect('/')
-   
+
 def register(request):
     #logged in user cannot register, but just in case
     if request.user.is_authenticated():
@@ -126,5 +114,3 @@ def register(request):
     form_registration=AddUserForm()
     return HttpResponseRedirect('/')
 
-def serenity(request):
-    return render_to_response ('index.html', locals(), context_instance=RequestContext(request))

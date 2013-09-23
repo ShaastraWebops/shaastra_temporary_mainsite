@@ -19,13 +19,12 @@ urlpatterns = patterns('',
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^register/$','frontend.views.register'),
-    url(r'^login/$','frontend.views.login'),
+    url(r'^register/$','users.views.register'),
+    url(r'^login/$','users.views.login'),
 
-    url(r'^logout/$','frontend.views.logout'),
+    url(r'^logout/$','users.views.logout'),
     url(r'^/$', 'frontend.views.home'),#redirect_to, {'url': '/login/'}),
     url(r'^$', 'frontend.views.home'),#redirect_to, {'url': '/login/'}),
     url(r'^serenity$', 'frontend.views.serenity'),#redirect_to, {'url': '/login/'}),
