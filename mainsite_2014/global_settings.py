@@ -97,7 +97,10 @@ INSTALLED_APPS = (
     'users',
     'django.contrib.comments',
     'misc.dajaxice',
-    'misc.dajax'
+    'misc.dajax',
+    
+    'events',
+    'frontend'
 )
 
 AUTH_PROFILE_MODULE = ''

@@ -5,8 +5,8 @@ from django.utils import simplejson
 from django.views.generic.base import View
 from django.http import HttpResponse, Http404
 
-from misc.dajaxice.exceptions import FunctionNotCallableError
-from misc.dajaxice.core import dajaxice_functions, dajaxice_config
+from dajaxice.exceptions import FunctionNotCallableError
+from dajaxice.core import dajaxice_functions, dajaxice_config
 
 log = logging.getLogger('dajaxice')
 

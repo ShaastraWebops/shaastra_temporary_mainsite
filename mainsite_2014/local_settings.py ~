@@ -3,7 +3,6 @@
 
 import global_settings
 from global_settings import *
-import imp
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -18,26 +17,26 @@ STATIC_URL = '/static/'
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
-# getting the database name of erp for syncing erp dn with mainsite db
-erp_global_settings = imp.load_source('global_settings', 'PATH_TO_ERP_global_settings.py') # set the path to erp global_settings.py file
-erp_local_settings = imp.load_source('local_settings', 'PATH_TO_ERP_local_settings.py') # set the path to erp local_settings.py file
+# getting the database name of erp
+erp_global_settings = imp.load_source('global_settings', '/home/akshay/ERP14/erp/global_settings.py')
+erp_local_settings = imp.load_source('local_settings', '/home/akshay/ERP14/erp/local_settings.py')
 erp_db_name = erp_local_settings.DATABASES['default']['NAME']
 
 # *********************** DATABASE DETAILS ADDED ***************
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'NAME': 'shaastra_temporary_mainsite_1',                      # Or path to database file if using sqlite3.
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': '1fn1lewuto',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     },
     'erp': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': erp_db_name,                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': '1fn1lewuto',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
