@@ -140,13 +140,13 @@ class AddUserForm(BaseUserForm):
             'email',
             'password',
             'password_again',
-            'college',
             'college_roll',
             'gender',
             'age',
             'branch',
             'mobile_number',
             'want_accomodation',
+            'college',
             )
 
         # exclude = {'is_coord','coord_event','shaastra_id','activation_key','key_expires','UID','user',}

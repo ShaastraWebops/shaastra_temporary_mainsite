@@ -1,155 +1,67 @@
 {% load staticfiles %}
 
-<div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="login" class="modal modal-large hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <center>
         <div class="modal-header">
-            <button type="button" class="close" onclick="javascript:modal_hide()">&times;</button>
+            <button type="button" class="close" data-dismiss='modal'>&times;</button>
             <h3>Login | Register</h3>
         </div>
-        {% if not request.user.username%}    
-        <div class="modal-body">
-            <div class='span3' style="padding-right:5%; border-right: 1px solid #ccc;">
-            <button class="button" onclick="show_reg()">Register</button>
-            {% if form_registration.errors %}
-                <p style="color: red;">
-                    Please correct the error{{ form.errors|pluralize }} below.
-                    <button class="btn btn-primary" onclick="show_reg()">Click to view errors</button>
-                </p>
-            {% endif %}
-            <div id="reg_form">
-            <button onclick="show_help_text()">Help me</button>
-            <form method="post" action="/register/">
-            {% csrf_token %}
-            <p style="color: red;">{{ form_registration.non_field_errors }}</p>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form_registration.first_name.errors }}</p>
-                <label for="first_name">First Name :</label>
-                {{ form_registration.first_name }}
-            </div>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form_registration.last_name.errors }}</p>
-                <label for="last_name">Last Name  :</label>
-                {{ form_registration.last_name }}
-            </div>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form_registration.username.errors }}</p>
-                <label for="username">User Name  :</label>
-                {{ form_registration.username }}
-                <div id='help_text1'>{{ form_registration.username.help_text}}</div>
-            </div>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form_registration.password.errors }}</p>
-                <label for="password">Password : </label>
-                {{ form_registration.password }}
-                <div id='help_text2'>{{ form_registration.password.help_text}}</div>
-            </div>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form_registration.password_again.errors }}</p>
-                <label for="password_again">Password Again:</label>
-                {{ form_registration.password_again }}
-            </div>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form_registration.gender.errors }}</p>
-                <label for="gender">Gender :</label>
-                {{ form_registration.gender }}
-            </div>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form_registration.age.errors }}</p>
-                <label for="age">Age :</label>
-                {{ form_registration.age }}
-            </div>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form_registration.email.errors }}</p>
-                <label for="email">EMAIL ID :</label>
-                {{ form_registration.email }}
-            </div>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form_registration.college_roll.errors }}</p>
-                <label for="college_roll">College Rollno:</label>
-                {{ form_registration.college_roll}}
-                <div id='help_text3'>{{ form_registration.college_roll.help_text}}</div>
-            </div>
-            <div class="fieldWrapper" id="college">
-             <p style="color: red;">{{ form_registration.college.errors }}</p>
-                <label for="college">College :</label>
-                {{ form_registration.college}}
-                <div id='help_text4'>{{ form_registration.college.help_text}}</div>
-            </div>
-            <div id="click here">
-            <input type="button" id="coll_submit" onclick="" value="Click here if your college is not listed">
-            </div>            <!--<input type="button" value="Save" onclick="Dajaxice.users.alerter(callback,{'text1':$('#text1').val(),'text2':$('#text2').val(),'text3':$('#text3').val()})"></button>-->
-            
-            <div class="coll_text"></div>
-            <div class="fieldWrapper">
-                {{ form_registration.mobile_number.errors }}
-                <label for="mobile_number">Mobile number :</label>
-                {{ form_registration.mobile_number }}
-                <div id='help_text5'>{{ form_registration.mobile_number.help_text}}</div>
-            </div>
-            <div class="fieldWrapper">
-                {{ form_registration.want_accomodation.errors }}
-                <label for="first_name">Want Accomodation :</label>{{ form_registration.want_accomodation  }}
-                <div id='help_text6'>{{ form_registration.want_accomodation.help_text}}</div>
-            </div>
-            <div id = "middle_center">
-                <div id="error">{{msg}}</div> 
-            <input type="submit" value="Submit" class="btn btn-primary"/>
-            </form>
-            </div>
-            </div>
-            </div>
-            <div class='span3'>
-                <button onclick="show_login()" class="button">Click below to Login</button>
-            
-            <div id="login_form">
+
+        
+        {% if not request.user.username%}
+            <div class="modal-body login_register">
+
+                <div class='span4 form_login_div' style="padding-right: 0%; border-right: 1px solid #ccc; ">
                     {% if form.errors %}
-                <p style="color: red;">
-                    Please correct the error{{ form.errors|pluralize }} below.
-                </p>
+                        <p style="color: red;">
+                            Please correct the error{{ form.errors|pluralize }} below.
+                        </p>
                     {% endif %}
-            <form action="/login/" method="post">{% csrf_token %}
-            {{ form.non_field_errors }}
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form.username.errors }}</p>
-                <label for="username">Username:</label>
-                {{ form.username }}
+                    <form action="/login/" method="post">{% csrf_token %}
+                        {{ form.as_table }}
+                        <tr class='submit_tr'>
+                            <td colspan="2">
+                                <input type="submit" value="Login" class="btn btn-primary"/>
+                                
+                            </td>
+                        </tr>
+                    </form>            
+                </div>
+
+                <div class='span5 offset4 form_registration_div' style="padding-left: 5%;">
+                    {% if form_registration.errors %}
+                        <p style="color: red;">
+                            Please correct the error{{ form.errors|pluralize }} below.
+                            <button class="btn btn-primary" onclick="show_reg()">Click to view errors</button>
+                        </p>
+                    {% endif %}
+                    <form id='form_registration' method="post" action="/register/">
+                        {% csrf_token %}
+                        <table class='span6'>
+                        {{ form_registration.as_table }}
+                        <tr class='submit_tr'>
+                            <center><td colspan="2">
+                                <div id="error">{{msg}}</div> 
+                                <input type="submit" value="Submit" class="btn btn-primary"/>
+                            </td></center>
+                        </tr>
+                        </table>
+                    </form>
+                </div>
             </div>
-            <div class="fieldWrapper">
-                <p style="color: red;">{{ form.password.errors }}</p>
-                <label for="password">Password : </label>
-                {{ form.password }}
+        {%else%} <!-- User is already logged in ... tell him that -->
+            <div class="modal-body already_loggedin">
+                <div='logged_in'>
+                    <br />
+                    {% if msg_login %}
+                    <p style="color: red;" id="msg_login">
+                        {{msg_login}}
+                        <br>
+                    </p>
+                    {% endif %}
+                </div>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
             </div>
-            <div id = "middle_center">
-                <p id="error" style="color:red">{{msg}}</p> 
-            <div class="modal-footer">
-            <div class='btn-group'>
-                <input type="submit" value="Login" class="btn btn-primary"/>
-            </div>
-        </div><br>
-        </form>
-            </div>
-            </div>
-            {% comment %}
-            Here below, in else, the part for logged in users
-            msg_login is for people who pressed login even if logged in
-            {% endcomment %}
-        {%else%}
-            <div='logged_in'>
-                <br>
-                
-                {% if msg_login %}
-                <p style="color: red;" id="msg_login">
-                    {{msg_login}}
-                    <br>
-                </p>
-                {% endif %}                
-                
-            </div>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
         {%endif%}
-           
-        </div>
     </center>
-
 </div>
-
