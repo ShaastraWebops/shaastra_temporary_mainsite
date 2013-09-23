@@ -24,8 +24,12 @@ from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 
+def homee(request):
+    return HttpResponse('ssup')
+
 def logout(request):
     auth_logout(request)
+    logged_in=True
     print 'logged out'
     print request.user.username
     #MESGS.success(request, msg_super)
@@ -36,6 +40,8 @@ def logout(request):
     
 def home(request):  
     form=LoginForm()
+    if request.user.is_authenticated():
+        logged_in=True
     formr=AddUserForm()
     return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
 
@@ -53,6 +59,7 @@ def login(request):
                 auth_login(request, user)
                 currentuser=user
                 print currentuser.username
+                logged_in=True
                 msg='Hi %s' % request.user.username
                 return HttpResponseRedirect('/')
             else:
@@ -86,6 +93,7 @@ def register(request):
             userprofile = UserProfile(user=new_user,activation_key=activation_key,gender=data['gender'],age=data['age'],branch=data['branch'],mobile_number=data['mobile_number'],college=data['college'],college_roll=data['college_roll'],shaastra_id= ("SHA" + str(x)),)
             userprofile.save()
             print "here"
+            logged_in=True
             currentuser = authenticate(username=new_user.username, password=data['password'])
             if currentuser:
                 print 'hi'
@@ -95,6 +103,7 @@ def register(request):
             ifreg=True
             formr=form
             form=LoginForm()
+            logged_in=True
             msg_login='%s, You are logged in!!' % request.user.username
             return render_to_response('home/home.html', locals(),
                                   context_instance=RequestContext(request))

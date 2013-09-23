@@ -44,7 +44,7 @@
                     <a class="brand_bw hide" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
-                            <li><a href="#login" onclick="$('#login').modal();">Login</a></li>
+                            <li><a href="#login" onclick="$('#login').modal();">{% if not logged_in %}Login|Register {% else %} Logout:( {% endif %}</a></li>
 <!--                            <li><a href="#register" onclick="$('#register').modal();">Register</a></li>-->
                         <!--</ul>
                         <ul class="nav pull-right nav-scrollspy">-->
