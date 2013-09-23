@@ -4,7 +4,11 @@
     <center>
         <div class="modal-header">
             <button type="button" class="close" data-dismiss='modal'>&times;</button>
-            <h3>Login | Register</h3>
+            <h3 style='width : 100%;'>
+                <span style='position:absolute; left : 17%; display : inline-block;'>Login</span>
+                <span style='position:absolute; right : 24%;display : inline-block;'>Register</span>
+                &nbsp;
+            </h3>
         </div>
 
         
@@ -38,14 +42,11 @@
                     <form id='form_registration' method="post" action="/register/">
                         {% csrf_token %}
                         <table class='span6'>
-                        {{ form_registration.as_table }}
-                        <tr class='submit_tr'>
-                            <center><td colspan="2">
-                                <div id="error">{{msg}}</div> 
-                                <input type="submit" value="Submit" class="btn btn-primary"/>
-                            </td></center>
-                        </tr>
+                            {{ form_registration.as_table }}
+                            
                         </table>
+                        <div id="error">{{msg}}</div> 
+                        <input type="submit" value="Register" class="btn btn-primary"/>
                     </form>
                 </div>
             </div>
