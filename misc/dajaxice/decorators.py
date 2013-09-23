@@ -1,6 +1,6 @@
 import functools
 
-from misc.dajaxice.core import dajaxice_functions
+from dajaxice.core import dajaxice_functions
 
 
 def dajaxice_register(*dargs, **dkwargs):
