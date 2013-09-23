@@ -24,19 +24,25 @@ from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 
+def homee(request):
+    return HttpResponse('ssup')
+
 def logout(request):
     auth_logout(request)
+    logged_in=True
     print 'logged out'
     print request.user.username
     #MESGS.success(request, msg_super)
-    #formr=AddUserForm()
+    #form_registration=AddUserForm()
     #form=LoginForm()
     return HttpResponseRedirect('/')
     #return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
     
 def home(request):  
     form=LoginForm()
-    formr=AddUserForm()
+    if request.user.is_authenticated():
+        logged_in=True
+    form_registration=AddUserForm()
     return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
 
 def login(request):
@@ -53,6 +59,7 @@ def login(request):
                 auth_login(request, user)
                 currentuser=user
                 print currentuser.username
+                logged_in=True
                 msg='Hi %s' % request.user.username
                 return HttpResponseRedirect('/')
             else:
@@ -74,7 +81,7 @@ def register(request):
     if request.method=="POST":
         form = AddUserForm(request.POST)
         print "comes"
-        if form.is_valid(): 
+        if form.is_valid():
             print "here"
             data = form.cleaned_data
             new_user = User(first_name=data['first_name'],last_name=data['last_name'], username=data['username'], email=data['email'])
@@ -84,22 +91,27 @@ def register(request):
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt + new_user.username).hexdigest()
             userprofile = UserProfile(user=new_user,activation_key=activation_key,gender=data['gender'],age=data['age'],branch=data['branch'],mobile_number=data['mobile_number'],college=data['college'],college_roll=data['college_roll'],shaastra_id= ("SHA" + str(x)),)
+            print 'registered'
             userprofile.save()
             print "here"
+            logged_in=True
             currentuser = authenticate(username=new_user.username, password=data['password'])
             if currentuser:
                 print 'hi'
                 auth_login(request,currentuser)
+                #code for first time login
                 return HttpResponseRedirect('/')
         else:
+            print 'ERROROROROR'
             ifreg=True
-            formr=form
+            form_registration=form
             form=LoginForm()
+#           logged_in=True
             msg_login='%s, You are logged in!!' % request.user.username
             return render_to_response('home/home.html', locals(),
                                   context_instance=RequestContext(request))
     if request.method == 'GET':
-        formr = AddUserForm()
+        form_registration = AddUserForm()
         try:
             msg=request.session['msg']
             del request.session['msg']
@@ -107,7 +119,7 @@ def register(request):
             msg=''
         return render_to_response('home/home.html', locals(),
                                   context_instance=RequestContext(request))
-    formr=AddUserForm()
+    form_registration=AddUserForm()
     return HttpResponseRedirect('/')
 
 def serenity(request):

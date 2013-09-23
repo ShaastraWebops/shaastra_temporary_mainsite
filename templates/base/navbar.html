@@ -44,12 +44,16 @@
                     <a class="brand_bw hide" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
-                            <li><a href="#login" onclick="$('#login').modal();">Login</a></li>
+                        {% if not logged_in %}
+                            <li><a href="#login" onclick="$('#login').modal();">Login|Register </a></li>
+                        {% else %}
+                            <li><a onclick="window.location.href='/logout/';" style="cursor:pointer;">Logout :( </a></li>
+                        {% endif %}
 <!--                            <li><a href="#register" onclick="$('#register').modal();">Register</a></li>-->
                         <!--</ul>
                         <ul class="nav pull-right nav-scrollspy">-->
                                 <li><a> </a></li>
-                                <li><a href="#home" class="">Home</a></li>
+                               <li><a href="#home" class="">Home</a></li>
                                 <li><a href="#events" class="">Events</a></li>
                                 <li><a href="#shows" class="">Shows</a></li>
                                 <li><a href="#spons" class="">Sponsors</a></li>
