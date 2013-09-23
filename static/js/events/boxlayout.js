@@ -71,11 +71,13 @@ function hide_event () {
 // A function to bring a person from the event main page to a specific page
 function show_event_page(me) {
     var elem_number = $(me).parent().index(),
-        $section = $( '.main_event_item.event_item > div.expand' );
+        $section = $($( '.main_event_item.event_item > div.expand > div' ).get(1));
         
     if ( elem_number != -1 ) {
-        $section.children("div").hide();
-        $($section.children("div").get(elem_number+1)).show(); // +1 as title will also be there
+        $section.children("div").hide(500);
+        $($section.children("div").get(elem_number)).show(500); // +1 as title will also be there
+        $(me).parent().parent().children("li").removeClass("active")
+        $(me).parent().addClass("active")
     }
 }
 
