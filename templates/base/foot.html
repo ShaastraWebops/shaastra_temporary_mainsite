@@ -20,6 +20,11 @@
         // ------------------------------------------------
         //      For the HexaCube
         // -------------------------------------------------
+        if( document.getElementsByTagName("html")[0].className.indexOf("csstransitions") )
+            $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
+        else
+            $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
+                
         var hexa, hexa_pid = null,
             text = 'SHAASTRA'.split(''),
             settings = {

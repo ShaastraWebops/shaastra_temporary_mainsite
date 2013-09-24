@@ -134,16 +134,16 @@ class AddUserForm(BaseUserForm):
 	model = UserProfile
 
         fields = (
-            'first_name',
             'last_name',
+            'first_name',
             'username',
             'email',
-            'password',
             'password_again',
+            'password',
             'college_roll',
             'gender',
-            'age',
             'branch',
+            'age',
             'mobile_number',
             'want_accomodation',
             'college',

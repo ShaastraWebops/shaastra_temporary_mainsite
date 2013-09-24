@@ -1,13 +1,29 @@
 {% load staticfiles %}
 <div class="row event_items_div sub_events">
-    <div class="span3 event_item">
+    <div class="span4 event_item">
+    
+        <img src="{% static 'img/events/7.jpg' %}" alt="" class="event_item_img">
+        <a href="javascript:show_event_group(this);" onclick="javascript:Dajaxice.frontend.show_events_list(Dajax.process, {'event_category':'Department Flagship', 'el_object_id':this.id});" id="a_category_department_flagship" class="" data-title-id="title-01" rel="portfolio" data-toggle='tooltip' title='Project Details for first type of event'>
+            <span class="overlay"></span>
+            <div class="cnt"></div>
+        </a>
+    </div>
+    <div class="span4 event_item">
+
+        <img src="{% static 'img/events/8.jpg' %}" alt="" class="event_item_img">
+        <a href="javascript:show_event_group(this);" onclick="javascript:Dajaxice.frontend.show_events_list(Dajax.process, {'event_category':'Spotlight', 'el_object_id':this.id});" id="a_category_spotlight" class="" data-title-id="title-01" rel="portfolio" data-toggle='tooltip' title='Project Details for first type of event'>
+            <span class="overlay"></span>
+            <div class="cnt"></div>
+        </a>
+    </div>
+    <div class="span4 event_item">
         <img src="{% static 'img/events/1.png' %}" alt="" class="event_item_img">
         <a href="javascript:show_event_group(this);" onclick="javascript:Dajaxice.frontend.show_events_list(Dajax.process, {'event_category':'Workshops', 'el_object_id':this.id});" id="a_category_workshops" class="" data-title-id="title-01" rel="portfolio" data-toggle='tooltip' title='Project Details for first type of event'>
             <span class="overlay"></span>
             <div class="cnt"></div>
         </a>
     </div>
-    <div class="span3 event_item">
+    <div class="span4 event_item">
 
         <img src="{% static 'img/events/2.png' %}" alt="" class="event_item_img">
         <a href="javascript:show_event_group(this);" onclick="javascript:Dajaxice.frontend.show_events_list(Dajax.process, {'event_category':'Exhibitions', 'el_object_id':this.id});" id="a_category_exhibitions" class="" data-title-id="title-01" rel="portfolio" data-toggle='tooltip' title='Project Details for first type of event'>
@@ -15,7 +31,7 @@
             <div class="cnt"></div>
         </a>
     </div>
-    <div class="span3 event_item">
+    <div class="span4 event_item">
 
         <img src="{% static 'img/events/3.png' %}" alt="" class="event_item_img">
         <a href="javascript:show_event_group(this);" onclick="javascript:Dajaxice.frontend.show_events_list(Dajax.process, {'event_category':'Miscellaneous', 'el_object_id':this.id});" id="a_category_miscellaneous" class="" data-title-id="title-01" rel="portfolio" data-toggle='tooltip' title='Project Details for first type of event'>
@@ -23,16 +39,12 @@
             <div class="cnt"></div>
         </a>
     </div>
-    <div class="span3 event_item">
+    <div class="span4 event_item">
 
         <img src="{% static 'img/events/4.png' %}" alt="" class="event_item_img">
         <a href="javascript:show_event_group(this);" onclick="javascript:Dajaxice.frontend.show_events_list(Dajax.process, {'event_category':'Sampark', 'el_object_id':this.id});" id="a_category_sampark" class="" data-title-id="title-01" rel="portfolio" data-toggle='tooltip' title='Project Details for first type of event'>
             <span class="overlay"></span>
             <div class="cnt"></div>
         </a>
-    </div>
-    <!-- The following div is put to maintain the height of the event page in the carousel -->
-    <div class="span3 event_item">
-        <img src="{% static 'img/events/4.png' %}" alt="" class="event_item_img" style="opacity:0;">
     </div>
 </div>

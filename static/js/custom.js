@@ -161,6 +161,12 @@ $(window).scroll(function() {
             'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
             'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',
         } );
+
+        $("#home > div#banner_div").css( {
+            'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
+            'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',
+        } );
+
         //do stuff here
     }
 });
