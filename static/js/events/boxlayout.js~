@@ -30,17 +30,21 @@ function populate_event_group(category_name, dest){
     dest.html(""); // make the dest empty to fill the events belonging to the given category
     
     for (var i in event_list){
-        if (i%4 == 0 && i!=0){ //provide proper span to center the 5th, 10th, ... elements
+        if (i%4 == 0 && i!=0){ //provide proper span to center the 5th, 10th, ... element groups
             span_amount = ( 12 - 3*(event_list.length-4) )/2;
             span_amount = span_amount.toString().replace(/\./g, "_");
             dest.append("<div class='span"+span_amount+"' style='opacity:0; z-index:-99;'></div>");
         }
         
-        dest.append("<div class='span3' id='event_"+event_list[i].event_type+"_"+event_list[i].pk+"'>"+
-                        "<div class='span12 title' onclick='show_event(this);'><h3>"+event_list[i].title+"</h3></div>"+
+        //event_title = event_list[i].title.replace(/ /g,'.');
+        onclick_handler = "Dajaxice.events.show_event(Dajax.process,{'event_pk':'"+event_list[i].pk+"','event_name':'"+event_list[i].title+"'})";
+        dest.append("<div class='span3'>"+
+                        "<div class='span12 title' onclick="+onclick_handler+" id='event_no_"+event_list[i].pk+"'><h3>"+event_list[i].title+"</h3></div>"+
+                        "<div class='span12 event_content'></div>"+
                     "</div>");
     }
 }
+
 /* ---------- EVENT GROUPS -------- */
 //
 function show_event_group(el) {
@@ -57,14 +61,17 @@ function show_event_group(el) {
         $(".main_event_item > div > div.title").show(); // Show the title for the boxes.
         $( '.main_event_item.event_item > div' ).show().removeClass( 'expand' ); // Tell the section that it is small.
         
-        // Clean up main event
+        // Populate with events
         category_name = el.attr("id").substring(11);
         populate_event_group(category_name, $(".main_event_item"));
 
         // make other events smaller
-        $(".event_items_div").addClass("offset2");
         $(".event_items_div .event_item").removeClass("span3");
         $(".event_items_div .event_item").addClass("span1");
+
+        $("#myCarousel > ol").hide(500);
+        $("#myCarousel > a").hide(500);
+        $("#myCarousel > div > div").addClass("span6 active");
     }
 };
 
@@ -78,9 +85,13 @@ function hide_event_group () {
     $(".main_event_item.event_item > div").hide().removeClass( 'expand' ); // Tell the section that it is small.
     
     // make other events bigger
-    $(".event_items_div").removeClass("offset2");
     $(".event_items_div .event_item").removeClass("span1");
-    $(".event_items_div .event_item").addClass("span3");
+    $(".event_items_div .event_item").addClass("span4");
+    
+    $("#myCarousel > ol").show(500);
+    $("#myCarousel > a").show(500);
+    $("#myCarousel > div > div").removeClass("span6 active");
+    $($("#myCarousel > div > div").get(1)).addClass("active");
 }
 
 
@@ -119,10 +130,11 @@ function hide_event () {
 function show_event_page(me) {
     var elem_number = $(me).parent().index(),
         $section = $($( '.main_event_item.event_item > div.expand > div' ).get(1));
-        
+    $('.sidr li')
+    $(me).parent().addClass("active")
     if ( elem_number != -1 ) {
-        $section.children("div").hide(500);
-        $($section.children("div").get(elem_number)).show(500); // +1 as title will also be there
+        $section.children("div").slice(1).hide(500);
+        $($section.children("div").slice(1).get(elem_number)).show(500); // +1 as title will also be there
         $(me).parent().parent().children("li").removeClass("active")
         $(me).parent().addClass("active")
     }
@@ -136,4 +148,8 @@ function hide_event_page() {
     $($section.children("div").get(1)).show(); // +1 as title will also be there
     
 }
+
+
+
+
 

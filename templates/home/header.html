@@ -1,23 +1,27 @@
 {% load staticfiles %}
 <!-- HEADER HOME  -->
 <section id="home">
-    <div class="row centered">
-        <h1 class="fade-it">
-            <script>
-                if( document.getElementsByTagName("html")[0].className.indexOf("csstransitions") )
-                    document.write('<div id="hexaflip" class="logo_bottom_home">');
-                else
-                    document.write('<h1>SHAASTRA</h1>');
-                
-            </script>
-        </div></h1>
+    <div id='banner_div'>
+        <script>
+//            for( var i = 0; i < 33; i++ )
+  //              document.write("<div></div>");
+        </script>
     </div>
-
+    <div class='row' style='height : 65%;'></div>
+    <div class="row centered">
+        <h1 class="fade-it" id='hexa-dice-container'>
+        </h1>
+    </div>
     <!-- LITTLE LOGO SEE WHAT WE DO --> 
-    <div id="down_button" class="fade-it"><a href="#events"></a></div>
+    <div id="down_button" class="fade-it" style=''><a href="#events"></a></div>
     
     </div>
     <!-- END LITTLE LOGO SEE WHAT WE DO --> 
-
+    <a class='social-fb' href="https://www.facebook.com/Shaastra" target="_blank">
+        <img src='{% static "img/home/fb.png" %}' style='position : absolute; bottom : 0; left : 0;' />
+    </a>
+    <a class='social-twitter' href="https://twitter.com/ShaastraIITM" target="_blank">
+        <img src='{% static "img/home/twit.png" %}' style='position : absolute; bottom : 0; right : 0;' />
+    </a>
 </section>
 <!-- END HEADER HOME  -->

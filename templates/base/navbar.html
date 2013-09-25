@@ -1,35 +1,4 @@
 {% load staticfiles %}
-{% comment %}
-<div class="navbar navbar-fixed-top">
-    <div id="nav" class="navbar-inner">
-        <div class="container-fluid">
-            <button class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="#">
-                <img id="logo" height="100%" src="{% static 'img/logo_black.png' %}">
-                <img id="name" src="img/name_black.png">
-            </a>
-            
-            <ul class="nav">
-                <li id="alogin" class="menu_text"><a href="#">Login</a></li>
-                <li id="aregister" class="menu_text"><a href="#register_page">Register</a></li>
-            </ul>
-            <ul class="nav pull-right">
-                <li id="ahome" class="menu_text"><a href="#">Home</a></li>
-                <li id="aevents" class="menu_text"><a href="#">Events</a></li>
-                <li id="ashows" class="menu_text"><a href="#">Shows</a></li>
-                <li id="aspons" class="menu_text"><a href="#">Sponsors</a></li>
-                <li id="ahospi" class="menu_text"><a href="#">Hospitality</a></li>
-                <li id="acontact" class="menu_text"><a href="#">Contact</a></li>
-                
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</div><!--/.navbar -->
-{% endcomment %}
 <!-- NAVIGATION  -->        
         <div class="navbar-wrapper" style="height: auto;">
             <div class="navbar" id="navigation" style="top: 0px;">
@@ -39,13 +8,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href=""><img src="{% static 'img/logo/small_color.png' %}" /></a>
-                    <a class="brand_color hide" href=""><img src="{% static 'img/logo/small_color.png' %}" /></a>
+                    <a class="brand" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
+                    <a class="brand_color hide" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
                     <a class="brand_bw hide" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
                         {% if not logged_in %}
-                            <li><a href="#login" onclick="$('#login').modal();">Login|Register </a></li>
+                            <li><a href="#login" onclick="$('#login').modal();">Login | Register </a></li>
                         {% else %}
                             <li><a onclick="window.location.href='/logout/';" style="cursor:pointer;">Logout :( </a></li>
                         {% endif %}

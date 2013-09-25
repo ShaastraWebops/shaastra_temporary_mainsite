@@ -134,19 +134,19 @@ class AddUserForm(BaseUserForm):
 	model = UserProfile
 
         fields = (
-            'first_name',
             'last_name',
+            'first_name',
             'username',
             'email',
-            'password',
             'password_again',
-            'college',
+            'password',
             'college_roll',
             'gender',
-            'age',
             'branch',
+            'age',
             'mobile_number',
             'want_accomodation',
+            'college',
             )
 
         # exclude = {'is_coord','coord_event','shaastra_id','activation_key','key_expires','UID','user',}

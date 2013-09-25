@@ -1,7 +1,33 @@
-/* For login & Register Modal */
+
+/* ----------------------------------------------------
+                LOGIN & REGISTER
+------------------------------------------------------*/
+.modal-small { width: 200px; margin-left: -100px; }
+.modal-large { width: 900px; margin-left: -450px; }
+#login .modal-body.login_register {
+}
+#login .modal-body.login_register > .form_login_div {
+    position : fixed;
+}
+#login span.helptext {
+    display : none;
+}
+#login .modal-body.login_register table th {
+    display : none;
+}
+#login .modal-body.login_register table td {
+    width : 50%;
+    float : right;
+}
+#login .modal-body.login_register input {
+    height : auto;
+}
 
 
-/* Hexaflip */
+
+/* ----------------------------------------------------
+                    DICE HEXAFLIP
+------------------------------------------------------*/
 #hexaflip {
   margin: 0 auto;
   -webkit-filter: drop-shadow(30px 30px 23px rgba(0,0,0,0.3));
@@ -88,4 +114,75 @@
 }
 .hexaflip-timepicker .hexaflip-cube:last-child > div:nth-child(odd) {
   background-color: #ff575b;
+}
+
+
+/* ----------------------------------------------------
+                FOR BANNER
+------------------------------------------------------*/
+#home {
+    overflow : hidden;
+    position : relative;
+}
+#home > div#banner_div {
+    position : absolute;
+    height : 100%;
+    width : 100%;
+    top : 0;
+    z-index : 10;
+    width:100%;
+    height:100%;
+    margin-bottom : 1%;
+    color:#FFF;
+    background:url('../../img/home/banner.png') no-repeat center 0 fixed;
+    background-color: rgba(0, 0, 0, 0.25); 
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    background-attachment : fixed;  /* FIXED FOR IE */
+    border-bottom-left-radius : 50% 20%;
+    border-bottom-right-radius : 50% 20%;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+    z-index : 5;
+}
+#home > div#banner_div > div:nth-child(1) {
+    display : inline-block;
+    width : 9.50%;
+    height : 21.8%;
+    
+}
+#home > div#banner_div > div:nth-child(2) ,
+#home > div#banner_div > div:nth-child(12),
+#home > div#banner_div > div:nth-child(13),
+#home > div#banner_div > div:nth-child(23),
+#home > div#banner_div > div:nth-child(24),
+#home > div#banner_div > div:nth-child(34) {
+    width : 7.20%;
+}
+
+
+/* --------------------------------------------------
+                SOCIAL STUFF
+ ----------------------------------------------------- */
+
+.social-fb {
+    position : absolute;
+    bottom : 0;
+    left : 0;
+    height : 20%;
+    width : 30%;
+    background : transparent;
+    background:url('../../img/home/fb.png') no-repeat right 0 fixed;
+    z-index : 1;
+}
+.social-twitter {
+    position : absolute;
+    bottom : 0;
+    right : 0;
+    height : 20%;
+    width : 30%;
+    background : transparent;
+    background:url('../../img/home/twit.png') no-repeat left 0 fixed;
+    z-index : 1;
 }
