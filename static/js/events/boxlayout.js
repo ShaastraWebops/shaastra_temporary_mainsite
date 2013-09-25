@@ -36,8 +36,8 @@ function populate_event_group(category_name, dest){
             dest.append("<div class='span"+span_amount+"' style='opacity:0; z-index:-99;'></div>");
         }
         
-        //event_title = event_list[i].title.replace(/ /g,'.');
-        onclick_handler = "Dajaxice.events.show_event(Dajax.process,{'event_pk':'"+event_list[i].pk+"','event_name':'"+event_list[i].title+"'})";
+        onclick_handler = "Dajaxice.events.show_event(Dajax.process,{'event_pk':'"+event_list[i].pk+"','event_name':'"+event_list[i].title+"','event_type':'"+event_list[i].event_type+"'})";
+        
         dest.append("<div class='span3' id='event_no_"+event_list[i].pk+"'>"+
                         "<div class='span12 title' onclick="+onclick_handler+"  id='event_no_"+event_list[i].pk+"_click'><h3>"+event_list[i].title+"</h3></div>"+
                         "<div class='span12 event_content'></div>"+

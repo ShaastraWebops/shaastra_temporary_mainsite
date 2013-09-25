@@ -18,16 +18,19 @@ def get_json_file_path(filename):
     return os.path.join(file_path, filename)
     
 @dajaxice_register
-def show_event(request, event_pk=None, event_name=None):
+def show_event(request, event_pk=None, event_name=None, event_type=None):
     '''
         Gets the data for the requested event from the JSON file and renders it.
         
         args-
             event_pk: holds the pk of the event that throwed the request
             event_name: holds the name of the event that throwed the request
+            event_type: holds the type of the event (Participant or Audience)
         vars-
             json_dict: holds the data retrieved from the event json file
             erp_db: holds the database alias of the erp database
+            event_details: holds events details part of json_dict
+            tab_details_list: holds tab details for each tab in json_dict
     '''
     dajax = Dajax()
     json_dict = {}
@@ -35,7 +38,7 @@ def show_event(request, event_pk=None, event_name=None):
     tab_details = {}
     tab_details_list = []
     
-    if not (event_pk or event_type):
+    if not (event_pk and event_type):
         dajax.script('$.bootstrapGrowl("Oops : There is some error on the site, please report to WebOps team.", {type:"danger"} );' )
         return dajax.json()
         
@@ -55,59 +58,37 @@ def show_event(request, event_pk=None, event_name=None):
             json_dict = json.load(f)
             f.close()
     
-    #getting number of tabs present
+    #getting event and tab data separately from json_dict
     tab_pk_list = []
-#    for key in json_dict.keys():
-#        if key.startswith('tab'):
-#            underscore_posn = key.find('_')
-#            tab_pk = str(key[3:underscore_posn])
-#            if not (tab_pk in tab_pk_list):
-#                tab_pk_list.append( tab_pk )
-#    
-#    #getting event and tab data separately from json_dict
-#    for key in json_dict.keys():
-#        if key.startswith('event_'):
-#            event_details[ key[6:] ] = json_dict.pop(key)
-#        else:
-#                tab_pk_list.append( tab_pk )
-#            start_posn = key.find('_') + 1
-#            tab_details[ key[start_posn:] ] = json_dict[key]
-#            tab_details_list.append(tab_details)
-
     json_dict_keys = sorted(json_dict) # sorted keys
     count=1
     
+    for key in json_dict_keys:
+        if key.startswith('event_'):
+            event_details[ key[6:] ] = json_dict.pop(key)
+        else:
+            underscore_posn = key.find('_')
+            tab_pk = key[3:underscore_posn]
+            if count==1:
+                tab_details[ key[underscore_posn+1:] ] = json_dict.pop(key)
+            elif ( int(tab_pk) == int(tab_pk_list[-1]) ) and (count>1) :
+                tab_details[ key[underscore_posn+1:] ] = json_dict.pop(key)
+            elif ( int(tab_pk) != int(tab_pk_list[-1]) ) and (count>1) :
+                tab_details_list.append(tab_details)
+                tab_details = {}
+                tab_details[ key[underscore_posn+1:] ] = json_dict.pop(key)
 
+            tab_pk_list.append(tab_pk)
+            count += 1
             
-    context_dict = {'event' : event_details, 'tab_list': tab_details_list }
+    tab_details_list.append(tab_details) #appending the last tab_details dict that was not appended in the loop
+    
+    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'event_type': event_type }
     html_content = render_to_string('events/small/event_page.html', context_dict, RequestContext(request))
     
     if html_content:
         dajax.assign("#event_no_"+str(event_pk)+" > .event_content", "innerHTML", html_content)
         dajax.script("$el = document.getElementById('event_no_"+str(event_pk)+"_click');\
                       show_event($el);")
-#        dajax.script("$('#event_no_"+str(event_pk)+"').find('.event_content').html('"+html_content+"');")
     
     return dajax.json()
-    
-    #version2 : event_name is given, querry the db and get the json filename
-    '''erp_db = DATABASES.keys()[1] # the second key in DATABASES dict in settings.py corresponds to erp db
-    if not event_name:
-        show_alert(dajax, "error", "There is some error on the site, please report to WebOps team")
-        return dajax.json()
-    else:
-        event_instance = GenericEvent.objects.using(erp_db).filter(title=event_name)[0]
-        event_pk = event_instance.pk
-    
-    event_json_filepath = get_json_file_path( str(event_pk) + "_" + event_name )
-    if not os.path.exists(event_json_filepath):
-        show_alert(dajax, "error", "There is some error on the site, please report to WebOps team")
-        return dajax.json()
-    else:
-        with open(event_json_filepath) as f:
-            json_dict = json.dumps(json.load(f), sort_keys=False, indent=4) # This is a json object
-            html_content = render_to_string('events/'+ 'test_event' +'.html', locals(), RequestContext(request))
-            f.close()
-    
-    if html_content:
-        dajax.assign()'''

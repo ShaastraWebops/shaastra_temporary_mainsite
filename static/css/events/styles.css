@@ -267,11 +267,6 @@
 }
 
 /* span 1.5, 4.5 for events display */
-[class*="span"] {
-  float: left;
-  min-height: 1px;
-  margin-left: 20px;
-}
 .span1_5 {
   width: 100px;
 }
