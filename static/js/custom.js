@@ -157,11 +157,7 @@ $(window).scroll(function() {
     if(ypos < h) {
         var left_rad = 50 * (h-ypos) / h;
         var right_rad = 20 * (h-ypos) / h;
-        $("#home").css( {
-            'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
-            'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',
-        } );
-
+        
         $("#home > div#banner_div").css( {
             'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
             'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',

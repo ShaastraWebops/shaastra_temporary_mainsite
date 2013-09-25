@@ -201,15 +201,12 @@ section:nth-child(2n+3) {
     margin-bottom : 1%;
     color:#FFF;
     /*background:url('../img/home/banner.png') no-repeat center 0 fixed;*/
-    background-color: rgba(0, 0, 0, 0.25); 
+    
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     -o-background-size: 100%;
     background-size: 100%;
     background-attachment : fixed;  /* FIXED FOR IE */
-    border-bottom-left-radius : 50% 20%;
-    border-bottom-right-radius : 50% 20%;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
 }
 
 #twitter_module {
@@ -492,6 +489,7 @@ footer a:hover{color: #ccc; text-decoration: none;}
 .contactSkype {background: url("../img/icons/icon-skype-grey.png") no-repeat scroll left 7px transparent;}
 .contactFB {background: url("../img/icons/icon-fb-grey.png") no-repeat scroll left 1px transparent;}
 .contactTwitter {background: url("../img/icons/icon-twitter-grey.png") no-repeat scroll left 4px transparent;}
+.contactYoutube {background: url("../img/icons/icon-youtube-grey.png") no-repeat scroll -5px 2px transparent;}
 .contactTime {background: url("../img/icons/icon-time-grey.png") no-repeat scroll left 7px transparent;}
 
 #contact .info a {
