@@ -1,0 +1,24 @@
+# This script syns the json directories of ERP and Mainsite
+# script assumes that you are in misc folder
+MAINSITE_PATH_TEMP=$(pwd)
+MAINSITE_PATH=${MAINSITE_PATH_TEMP:0:(-4)}
+MAINSITE_JSON_PATH="$MAINSITE_PATH""media/json/events/"
+
+ERP_PATH_TEMP=$(grep 'ERP_PROJECT_PATH = ' ./../mainsite_2014/local_settings.py)
+ERP_PATH=${ERP_PATH_TEMP:20:(-1)}
+ERP_JSON_PATH="$ERP_PATH""media/json/events/"
+
+echo "Mainsite json folder path: "$MAINSITE_JSON_PATH
+echo "ERP json folder path: "$ERP_JSON_PATH
+
+crontab -l > mycron
+#echo new cron into cron file
+if (grep -q "rsync -rsu --delete-delay $ERP_JSON_PATH $MAINSITE_JSON_PATH" /var/log/syslog) then
+    echo "Cron already running"
+else
+    echo "* * * * * rsync -rsu --delete-delay $ERP_JSON_PATH $MAINSITE_JSON_PATH" >> mycron
+    echo "Cron installed successfully"
+fi
+#install new cron file
+crontab mycron
+rm mycron

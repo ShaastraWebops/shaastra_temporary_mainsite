@@ -1,3 +1,46 @@
+/* ---------- GET DATA -------- */
+function boxlayout_init(){
+    Dajaxice.frontend.show_events_list(process_json);
+}
+
+/* ---------- JSON PROCESSING -------- */
+var json_content;
+
+function process_json(json_data){
+    json_content = json_data;//JSON.stringify(json_data);
+}
+
+function populate_event_group(category_name, dest){
+    /*get the category name as stored in json file: underscores replaced with spaces and first letter capital for all words*/
+    category_name = category_name.replace(/_/g, " ");
+    str_array = category_name.split(/([_\W])/); // split based on spaces
+    category_name = "";
+    for(var i=0; i<str_array.length; i++){
+        if(str_array[i] == "design"){
+            category_name = "Design and build";
+            break;
+        }
+        else{
+            category_name += str_array[i].charAt(0).toUpperCase() + str_array[i].slice(1);
+        }
+    }
+    
+    /*populate the category with events*/
+    event_list = json_content[category_name];
+    dest.html(""); // make the dest empty to fill the events belonging to the given category
+    
+    for (var i in event_list){
+        if (i%4 == 0 && i!=0){ //provide proper span to center the 5th, 10th, ... element groups
+            span_amount = ( 12 - 3*(event_list.length-4) )/2;
+            span_amount = span_amount.toString().replace(/\./g, "_");
+            dest.append("<div class='span"+span_amount+"' style='opacity:0; z-index:-99;'></div>");
+        }
+        
+        dest.append("<div class='span3' id='event_"+event_list[i].event_type+"_"+event_list[i].pk+"'>"+
+                        "<div class='span12 title' onclick='show_event(this);'><h3>"+event_list[i].title+"</h3></div>"+
+                    "</div>");
+    }
+}
 /* ---------- EVENT GROUPS -------- */
 //
 function show_event_group(el) {
@@ -15,6 +58,8 @@ function show_event_group(el) {
         $( '.main_event_item.event_item > div' ).show().removeClass( 'expand' ); // Tell the section that it is small.
         
         // Clean up main event
+        category_name = el.attr("id").substring(11);
+        populate_event_group(category_name, $(".main_event_item"));
 
         // make other events smaller
         $(".event_items_div").addClass("offset2");

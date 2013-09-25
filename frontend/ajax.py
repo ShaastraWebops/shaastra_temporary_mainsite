@@ -11,10 +11,10 @@ from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 # From Misc to show bootstrap alert
-from misc.utilities import show_alert
+#from misc.utilities import show_alert
 
 # From shaasta_mainsite_2014
-from mainsite_2014.settings import DATABASES, MEDIA_ROOT
+from mainsite_2014.settings import DATABASES, ERP_PROJECT_PATH
 
 #from events
 from events.models import GenericEvent, EVENT_CATEGORIES
@@ -25,13 +25,13 @@ import os
 
 
 def get_category_json_file_path(filename):
-    file_path = os.path.abspath( os.path.join( MEDIA_ROOT, 'json') )
+    file_path = os.path.abspath( os.path.join( ERP_PROJECT_PATH, 'media','json') )
     if not os.path.exists(file_path):
         os.makedirs(file_path)
     return os.path.join(file_path, filename)
 
 @dajaxice_register
-def say_hello(request):
+def say_hello(request): 
     """
         Used for testing Dajax + Dajaxice
     """
@@ -40,6 +40,55 @@ def say_hello(request):
     return dajax.json()
 
 @dajaxice_register
+def show_events_list(request):
+    '''
+        This function returns a json file containing events corresponding to each category.
+        If this json file does not exist, it creates one.
+        
+        vars-
+            event_category_dict: holds events corresponding to each category
+            For generating json file:
+                erp_db: holds the database alias of the erp database
+                event_details_dict: holds pk, title, event_type of a particular event
+                event_details_list: holds event_details_dict for all events in a particular category
+            Data retrived from json file:
+                event_list: holds events corresponding to the category requested
+                Structure of event_list:
+                    event_list = [ event1_details, event2_details, ... ]
+                    event1_details, event2_details, etc. are events that belong to the requested category
+                    These event_details are dicts of the format {'pk': event_pk, 'title': event_title, 'event_type':event_type}
+    '''
+    dajax = Dajax()
+    event_category_dict = {}
+    event_list = []
+    
+    event_category_filepath = get_category_json_file_path('event_category.json')
+    if not os.path.exists(event_category_filepath):
+        erp_db = DATABASES.keys()[1] # the key in DATABASES dict in settings.py corresponding to erp db
+        for category in EVENT_CATEGORIES:
+            event_queryset = GenericEvent.objects.using(erp_db).filter(category=category[0])
+            
+            event_details_list = []
+            for event in event_queryset:
+                event_details_dict = {}
+                event_details_dict['pk'] = event.pk
+                event_details_dict['title'] = event.title
+                event_details_dict['event_type'] = event.event_type
+                event_details_list.append(event_details_dict)
+            
+            event_category_dict[category[0]] = event_details_list
+        with open(event_category_filepath, 'w') as f:
+            json.dump(event_category_dict, f)
+            f.close()
+    else:
+        with open(event_category_filepath) as f:
+            event_category_dict = json.load(f)
+            f.close()
+    
+    #render the content
+    return simplejson.dumps(event_category_dict)
+
+"""@dajaxice_register
 def show_events_list(request, event_category=None, el_object_id=None):
     '''
         Shows the events corresponding to a particular category in FullscreenLayoutPageTransitions format.
@@ -108,4 +157,4 @@ def show_events_list(request, event_category=None, el_object_id=None):
     dajax.script("$el_object = $( document.getElementById('"+el_object_id+"') );\
                   show_event_group($el_object);")
     
-    return dajax.json()
+    return dajax.json()"""

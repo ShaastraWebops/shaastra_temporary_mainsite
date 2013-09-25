@@ -152,7 +152,7 @@
     -o-transition: all .2s;
 }
 .main_event_item.event_item > div:nth-child(5n+1) {
-    background: rgba(57, 76, 73, 0.6);
+    background: rgba(57, 76, 73, 0.60);
 }
 .main_event_item.event_item > div:nth-child(5n+2) {
     background: rgba(91, 116, 133, 0.45);
@@ -161,13 +161,13 @@
     background: rgba(0, 0, 0, 0.55);
 }
 .main_event_item.event_item > div:nth-child(5n+4) {
-    background: rgba(86, 114, 109, 0.5);
+    background: rgba(86, 114, 109, 0.50);
 }
 .main_event_item.event_item > div:nth-child(5n) {
     background: rgba(115, 152, 146, 0.65);
 }
 .main_event_item.event_item > div:nth-child(1) {
-    background: rgba(100, 133, 128, 0.4);
+    background: rgba(100, 133, 128, 0.40);
 }
 
 .main_event_item.event_item > div > div {
@@ -222,4 +222,17 @@
 }
 .main_event_item.event_item > div.expand > div.title {
     overflow : hidden;
+}
+
+/* span 1.5, 4.5 for events display */
+[class*="span"] {
+  float: left;
+  min-height: 1px;
+  margin-left: 20px;
+}
+.span1_5 {
+  width: 100px;
+}
+.span4_5 {
+  width: 430px;
 }
