@@ -56,7 +56,7 @@ def show_event(request, event_pk=None, event_name=None):
             f.close()
     
     #getting number of tabs present
-#    tab_pk_list = []
+    tab_pk_list = []
 #    for key in json_dict.keys():
 #        if key.startswith('tab'):
 #            underscore_posn = key.find('_')
@@ -69,17 +69,16 @@ def show_event(request, event_pk=None, event_name=None):
 #        if key.startswith('event_'):
 #            event_details[ key[6:] ] = json_dict.pop(key)
 #        else:
+#                tab_pk_list.append( tab_pk )
 #            start_posn = key.find('_') + 1
 #            tab_details[ key[start_posn:] ] = json_dict[key]
 #            tab_details_list.append(tab_details)
 
-    json_dict = sorted(json_dict)
+    json_dict_keys = sorted(json_dict) # sorted keys
+    count=1
     
-    for key in json_dict.keys():
-        if key.startswith('event_'):
-            event_details[ key[6:] ] = json_dict.pop(key)
-        
-    
+
+            
     context_dict = {'event' : event_details, 'tab_list': tab_details_list }
     html_content = render_to_string('events/small/event_page.html', context_dict, RequestContext(request))
     

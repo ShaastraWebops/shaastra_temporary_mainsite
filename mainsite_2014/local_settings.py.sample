@@ -18,9 +18,12 @@ STATIC_URL = '/static/'
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
+# path to erp project
+ERP_PROJECT_PATH = ''
+
 # getting the database name of erp for syncing erp dn with mainsite db
-erp_global_settings = imp.load_source('global_settings', 'PATH_TO_ERP_global_settings.py') # set the path to erp global_settings.py file
-erp_local_settings = imp.load_source('local_settings', 'PATH_TO_ERP_local_settings.py') # set the path to erp local_settings.py file
+erp_global_settings = imp.load_source('global_settings', os.path.abspath( os.path.join( ERP_PROJECT_PATH, 'erp', 'global_settings.py') ) )
+erp_local_settings = imp.load_source('local_settings', os.path.abspath( os.path.join( ERP_PROJECT_PATH, 'erp', 'local_settings.py') ) )
 erp_db_name = erp_local_settings.DATABASES['default']['NAME']
 
 # *********************** DATABASE DETAILS ADDED ***************
