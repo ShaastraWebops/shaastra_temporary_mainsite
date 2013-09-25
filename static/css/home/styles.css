@@ -9,33 +9,11 @@
 #login .modal-body.login_register > .form_login_div {
     position : fixed;
 }
-#login .modal-body.login_register span.helptext {
+#login span.helptext {
     display : none;
-}
-#login .modal-body.login_register table tr:nth-child(2n) {
-    width : 50%;
-    float : left;
-}
-#login .modal-body.login_register table tr:nth-child(2n+1) {
-    width : 50%;
-    float : right;
-}
-
-#login .modal-body.login_register table tr.submit_tr,
-#login .modal-body.login_register table tr.college_tr {
-    margin : auto;
-    padding : auto;
-    width : 100%;
-}
-#login .modal-body.login_register table td {
-    width : 100%;
 }
 #login .modal-body.login_register table th {
     display : none;
-    width :50%;
-    
-    float : left;
-    padding-right : -20px;
 }
 #login .modal-body.login_register table td {
     width : 50%;

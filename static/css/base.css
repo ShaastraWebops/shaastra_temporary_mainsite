@@ -13,7 +13,8 @@ a:hover {
     text-decoration : none;
 }
 
-input.error { /* This only handles input tags in forms */
+input.error,
+select.error { /* This only handles input tags in forms */
     border-color: rgba(200, 0, 0, 0.8);
     outline: 0;
     outline: thin dotted 9;

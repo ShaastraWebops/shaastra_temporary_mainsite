@@ -25,7 +25,7 @@
                         {{ form.as_table }}
                         <tr class='submit_tr'>
                             <td colspan="2">
-                                <input type="submit" value="Login" class="btn btn-primary"/>
+                                <input type="submit" value="        Login        " class="btn btn-primary"/>
                                 
                             </td>
                         </tr>
@@ -33,20 +33,50 @@
                 </div>
 
                 <div class='span5 offset4 form_registration_div' style="padding-left: 5%;">
-                    {% if form_registration.errors %}
-                        <p style="color: red;">
-                            Please correct the error{{ form.errors|pluralize }} below.
-                            <button class="btn btn-primary" onclick="show_reg()">Click to view errors</button>
-                        </p>
-                    {% endif %}
                     <form id='form_registration' method="post" action="/register/">
                         {% csrf_token %}
                         <table class='span6'>
-                            {{ form_registration.as_table }}
-                            
+                            {% csrf_token %}
+                            <p style="color: red;">{{ form_registration.non_field_errors }}</p>
+                            <tr>
+                                <th>First Name</th>
+                                <td>{{ form_registration.first_name }}</td>
+                                <th>Last Name</th>
+                                <td>{{ form_registration.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>User Name</th>
+                                <td>{{ form_registration.username }}</td>
+                                <th>E-Mail</th>
+                                <td>{{ form_registration.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Password (atleast 6 chars)</th>
+                                <td>{{ form_registration.password }}</td>
+                                <th>Repeat password</th>
+                                <td>{{ form_registration.password_again }}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{ form_registration.gender }}</td>
+                                <th>Age</th></th>
+                                <td>{{ form_registration.age }}</td>
+                            </tr>
+                            <tr>
+                                <th>Mobile Number</th>
+                                <td>{{ form_registration.mobile_number }}</td>
+                                <th>College Roll Number</th>
+                                <td>{{ form_registration.college_roll }}</td>
+                            </tr>
+                            <tr>
+                                <th>College</th>
+                                <td>{{ form_registration.college }}</td>
+                                <th>Want Accomodation</th>
+                                <td>{{ form_registration.want_accomodation }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan='4' class='centered'><input type="submit" value="        Register        " class="btn btn-primary"/></td></tr>
                         </table>
-                        <div id="error">{{msg}}</div> 
-                        <input type="submit" value="Register" class="btn btn-primary"/>
                     </form>
                 </div>
             </div>
@@ -66,3 +96,4 @@
         {%endif%}
     </center>
 </div>
+

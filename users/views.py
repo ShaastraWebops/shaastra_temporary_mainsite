@@ -98,8 +98,12 @@ def register(request):
         else:
             print 'ERROROROROR'
             ifreg=True
+            #for error in form.errors:
+            #    dajax.add_css_class('#id_%s' % error, 'error')
+            #    dajax.script('$.bootstrapGrowl("Oops : There were errors when you tried to register !", {type:"danger"} );' )
             form_registration=form
             form=LoginForm()
+            registration_form_error_list = ["#id_" + str(error) for error in form.errors]
             return render_to_response('home/home.html', locals(),
                                   context_instance=RequestContext(request))
     if request.method == 'GET':

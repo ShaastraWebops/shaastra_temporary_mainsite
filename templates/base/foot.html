@@ -89,18 +89,19 @@
         var tds = $('#login td');
         for ( var i = 0; i < tds.length; i++ ) {
             if ( $(tds[i]).prev().prop("tagName") == "TH" ) {
-                var st = $($(tds[i]).prev().children("label")[0]).html().slice(0, -1)
-                if( st == "Password") {
+                var st = $(tds[i]).prev().html()//.slice(0, -1)
+                if( st.toLowerCase() == "password") {
                     st = "Password (atleast 6 char)"
-                } else if( st == "Want accomodation") {
-                    $(tds[i]).children("br").remove();
+                } else if( st.toLowerCase() == "want accomodation") {
+                    //$(tds[i]).children("br").remove();
                     $(tds[i]).html($(tds[i]).html() + "  " + st);
                     continue;
-                } else if( st == 'College') {
-                    $(tds[i]).prev().html("Choose Your college : ");
-                    $(tds[i]).prev().show();
-                    $(tds[i]).parent().addClass("college_tr");
-                    $(tds[i]).addClass("college");
+                } else if( st.toLowerCase() == 'college') {
+                    $(tds[i]).children("select").children("option").html("Choose College");
+                    //$(tds[i]).prev().html("Choose Your college : ");
+                    //$(tds[i]).prev().show();
+                    //$(tds[i]).parent().addClass("college_tr");
+                    //$(tds[i]).addClass("college");
                     continue;
                 }
                 $($(tds[i]).children("input")).attr("value", "");
