@@ -38,10 +38,16 @@ html, body {
 
 .centered {
     text-align: center;}
+.underline{
+    text-decoration : underline;
+}
+.show {
+    display : block;
+}
 strong, .bold{
     /*font-family: 'Open Sans', sans-serif;*/
     font-family:'Helvetica-Neue', sans-serif;
-    font-weight: 400;}
+    font-weight: 900;}
 
 .black {
     color : #000;
@@ -1155,4 +1161,33 @@ footer a:hover{color: #ccc; text-decoration: none;}
     position: absolute;
     left: 5%;
     bottom: 15%;
+}
+
+.superheader h1 {
+    position : relative;
+    background-color : transparent;
+    text-align : center;
+    vertical-align : middle;
+    margin : auto;
+    height : 10%;
+    top : 40%;
+    font-size : 4em;
+    font-weight : bold;
+    font-family: "Courier New", Courier, mono;
+    font-family:"Times New Roman", Times, serif;
+    text-shadow: 0 0 20px #000, 2px 2px 10px #000;
+}
+
+.icon-envelope-bootstrap {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-top: 1px;
+  *margin-right: .3em;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../img/glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: -72px 0;
 }
