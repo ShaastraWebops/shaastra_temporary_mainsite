@@ -21,6 +21,53 @@ from django.utils.translation import ugettext as _
 from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
+from django.utils import timezone
+
+def activate(request, a_key = None ): 
+    """
+       The activation_key (a_key) is trapped from the url. If the key is not empty then the corresponding userprofile object is retrieved. If the object doesn't exist and ObjectDoesNotExist error is flagged.
+       
+       The the key has already expired then the userprofile and the corresponding user objects are deleted, otherwise, the is_active field in the user model is set to true.
+       
+       Note that, if is_active is not set to true, the user cannot login. 
+       Note: timezone .now() is used instead of datetime.datetime.now() as it is difference betweem naive and timezone aware objects : Throws TypeError!!
+    """
+    SITE_URL = settings.SITE_URL
+    link_to_site = False
+    if (a_key == '' or a_key==None):
+        msg="Key error"
+    else:
+        try:
+            print 'ssup-000000000'
+            user_profile = UserProfile.objects.get(activation_key = a_key)
+            print 'ssup-00sdfsfsfs'
+            if user_profile.user.is_active == True:
+                print 'ssup111'
+                msg="Your account is already activated. Please visit our site at :"
+                link_to_site = True
+            elif user_profile.key_expires < timezone.now():
+                print 'EXPIRED'
+                user = user_profile.user
+                user.delete()
+                user_profile.delete()
+                msg="Sorry, your activation key expired, please register again"
+            else:
+                print 'ssup'
+                user = user_profile.user
+                user.is_active = True
+                user.save()
+                user_profile.save()
+                msg="Successfully registered. Please visit our site at:"
+                link_to_site = True
+        except ObjectDoesNotExist:
+            msg = "Incorrect activation key, please check the link you copied on your browser"
+        # try-except-else is actually there! God knows what for... Nested try blocks work just as well...
+        except :
+            msg = "Activation Error, please contact our webOps Team"
+            link_to_site  = True
+    return render_to_response('users/activation_process.html',locals(), context_instance= RequestContext(request))
+
+
 
 def logout(request):
     auth_logout(request)
