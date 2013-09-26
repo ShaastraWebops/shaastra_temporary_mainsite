@@ -27,7 +27,7 @@
         else
             $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
                 
-        var hexa, hexa_pid = null,
+        var hexa, hexa_pid = -1,
             text = 'SHAASTRA'.split(''),
             settings = {
                 size: 75,
@@ -110,8 +110,53 @@
                 $($(tds[i]).children("input")).attr("placeholder", st);
             }
         }
-            
 
+        /* --------------------------------------------------------
+                            HOME BANNER
+            ------------------------------------------------------ */
+        
+        for( var i = 0; i < 33; i++ ) {
+            $("#banner_div").html("<div></div>" + $("#banner_div").html());
+            $("#behind_banner_div").html("<div></div>" + $("#banner_div").html());
+            setTimeout( function() {
+                $("#banner_div > div").hover( function() {
+                    var pk = $(this).index();
+                    $("#behind_banner_div > div").removeClass("black")
+                    $($("#behind_banner_div > div").get(pk)).addClass("black")
+                } )
+            }, 10 );
+        }
+        var banner_pid = -1;
+        function init_banner() {
+            banner_pid = setInterval(function(){
+                pk = Math.floor(Math.random() * $("#banner_div > div").length);
+                $("#behind_banner_div > div").removeClass("black")
+                $($("#behind_banner_div > div").get(pk)).addClass("black")
+                $(".modal").each( function() {
+                    if ( $(this).hasClass("in") ) {
+                        clearInterval(banner_pid);
+                        banner_pid = -1;
+                    }
+                });
+                if( banner_pid == -1 )
+                    banner_stop();
+            }, 1000);
+        }
+        function banner_stop() {
+            clearInterval(banner_pid);
+            banner_pid = setInterval(function(){
+                $(".modal").each( function() {
+                    if ( ! $(this).hasClass("in") ) {
+                        clearInterval(banner_pid);
+                        banner_pid = -1;
+                    }
+                });
+                if( banner_pid == -1 )
+                    banner_init();
+            }, 1000);
+        }
+        
+            
         /*--------------------------------------------------------
                         ON BODY LOAD HANDLER
         --------------------------------------------------------- */
@@ -119,7 +164,7 @@
         document.addEventListener('DOMContentLoaded', function(){
             hexa = new HexaFlip(document.getElementById('hexaflip'), makeObject(text), settings);
             hexa_init();
-            
+            init_banner()
         }, false);
 
     </script>
