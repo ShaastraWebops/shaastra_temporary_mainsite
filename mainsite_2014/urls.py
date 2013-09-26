@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^register/$','users.views.register'),
     url(r'^login/$','users.views.login'),
-
+    url(r'^user/register/activate/(?P<a_key>.*)/$','users.views.activate'),
     url(r'^logout/$','users.views.logout'),
     url(r'^/$', 'frontend.views.home'),#redirect_to, {'url': '/login/'}),
     url(r'^$', 'frontend.views.home'),#redirect_to, {'url': '/login/'}),
