@@ -4,13 +4,15 @@
 <center><h4>{{event.title}} </h4></center>
 <div id="sidr" class="sidr span3">
     <ul>
-        <li class='active' onclick='show_event_page(this)'><center>Home</center></li>
         {% for tab in tab_list %}
-            <li onclick='show_event_page(this)'><center>{{tab.title}}</center></li>
+            {% if forloop.first %}<li class="active" onclick='show_event_page(this)'> {% else %} <li onclick='show_event_page(this)'>{% endif %}
+                <center>{{tab.title|title}}</center>
+            </li>
         {% endfor %}
     </ul>
 </div>
 
+{% comment %}
 {% ifequal event_type 'Participant' %}
     <div class="span9 pull-right" style="">
         Category: {{event.category}} <br>
@@ -27,10 +29,10 @@
     </div>
     {% endifequal %}
 {% endifequal %}
-
+{% endcomment %}
 
 {% for tab in tab_list %}
-    <div class="span9 pull-right" style="display:none;">
+    {% if forloop.first %}<div class="span9 pull-right">{% else %}<div class="span9 pull-right" style="display:none;">{% endif %}
         {{tab.text|safe}}
     </div>
 {% endfor %}
