@@ -31,6 +31,6 @@
 
 {% for tab in tab_list %}
     <div class="span9 pull-right" style="display:none;">
-        {{tab.text}}
+        {{tab.text|safe}}
     </div>
 {% endfor %}
