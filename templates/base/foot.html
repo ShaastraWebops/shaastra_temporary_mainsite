@@ -31,7 +31,7 @@
             text = 'SHAASTRA'.split(''),
             settings = {
                 size: 75,
-                margin: 5,
+                margin: 0,
                 fontSize: 50,
                 perspective: 3250
             },
@@ -67,7 +67,7 @@
                     });
                     if( hexa_pid == -1 )
                         hexa_stop();
-                }, 1000);
+                }, 900);
                 hexa.setValue(getSequence(text, false, true));
             },
             hexa_stop = function() {
@@ -81,7 +81,7 @@
                     });
                     if( hexa_pid == -1 )
                         hexa_init();
-                }, 1000);
+                }, 900);
                 
             };
 
@@ -118,7 +118,7 @@
         for( var i = 0; i < 33; i++ ) {
             $("#banner_div").html("<div></div>" + $("#banner_div").html());
             $("#behind_banner_div").html("<div></div>" + $("#banner_div").html());
-            setTimeout( function() {
+            setTimeout( function() { // On hover the banner items become black
                 $("#banner_div > div").hover( function() {
                     var pk = $(this).index();
                     $("#behind_banner_div > div").removeClass("black")
@@ -140,7 +140,7 @@
                 });
                 if( banner_pid == -1 )
                     banner_stop();
-            }, 1000);
+            }, 1100);
         }
         function banner_stop() {
             clearInterval(banner_pid);
@@ -153,7 +153,7 @@
                 });
                 if( banner_pid == -1 )
                     banner_init();
-            }, 1000);
+            }, 1100);
         }
         
             

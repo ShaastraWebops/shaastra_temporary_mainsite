@@ -127,7 +127,7 @@
 
 #home > div#behind_banner_div {
     position : absolute;
-    height : 100%;
+    height : 99%;
     width : 100%;
     top : 0;
     width:100%;
@@ -138,11 +138,9 @@
 }
 #home > div#banner_div {
     position : absolute;
-    height : 100%;
+    height : 99%;
     width : 100%;
     top : 0;
-    width:100%;
-    height:100%;
     margin-bottom : 1%;
     color:#FFF;
     background:url('../../img/home/banner.png') no-repeat center 0 fixed;
@@ -159,6 +157,7 @@
 }
 #home > div#banner_div > div,
 #home > div#behind_banner_div > div {
+    position : relative;
     display : inline-block;
     width : 9.50%;
     height : 21.8%;

@@ -149,6 +149,7 @@ $(document).ready(function() {
 });
 */
 
+var black_h = $("#behind_banner_div > div").height();
 
 $(window).scroll(function() {
     var ypos = window.pageYOffset;
@@ -157,10 +158,17 @@ $(window).scroll(function() {
     if(ypos < h) {
         var left_rad = 50 * (h-ypos) / h;
         var right_rad = 20 * (h-ypos) / h;
-        
+        console.log(h + " . " + ypos + " -- ", left_rad);
         $("#home > div#banner_div").css( {
             'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
             'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',
+            'height' : (h-ypos)*0.9 + 'px',
+        } );
+        $('#banner_div').css( {
+            'top' : ypos + 'px',
+        } );
+        $('#behind_banner_div').css( {
+            'top' : ypos + 'px',
         } );
 
         //do stuff here
