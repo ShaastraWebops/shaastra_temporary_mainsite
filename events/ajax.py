@@ -80,8 +80,9 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
 
             tab_pk_list.append(tab_pk)
             count += 1
-            
-    tab_details_list.append(tab_details) #appending the last tab_details dict that was not appended in the loop
+    
+    if tab_details:        
+        tab_details_list.append(tab_details) #appending the last tab_details dict that was not appended in the loop
     
     context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'event_type': event_type }
     html_content = render_to_string('events/small/event_page.html', context_dict, RequestContext(request))

@@ -1,20 +1,21 @@
 {% load staticfiles %}
 
 <button type="button" class="close pull-left" onclick="javascript:hide_event(this);"><img src="{% static 'img/back-arrow.png' %}"/></button>
-<h4>{{event.title}} </h4>
+<center><h4>{{event.title}} </h4></center>
 <div id="sidr" class="sidr span3">
     <ul>
-        <li class='active'><a href='javascript:show_event_page(this)' onclick='show_event_page(this)'>Home</a></li>
+        <li class='active' onclick='show_event_page(this)'><center>Home</center></li>
         {% for tab in tab_list %}
-            <li><a href='javascript:show_event_page(this)' onclick='show_event_page(this)'>{{tab.title}}</a></li>
+            <li onclick='show_event_page(this)'><center>{{tab.title}}</center></li>
         {% endfor %}
     </ul>
 </div>
+
 {% ifequal event_type 'Participant' %}
-<div class="span9 pull-right" style="">
-    Category: {{event.category}} <br>
-    Min. Team size: {{event.team_size_min}}
-</div>
+    <div class="span9 pull-right" style="">
+        Category: {{event.category}} <br>
+        Min. Team size: {{event.team_size_min}}
+    </div>
 {% else %}
     {% ifequal event_type 'Audience' %}
     <div class="span9 pull-right" style="">

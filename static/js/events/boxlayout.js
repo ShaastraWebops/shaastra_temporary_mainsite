@@ -128,15 +128,15 @@ function hide_event () {
 
 // A function to bring a person from the event main page to a specific page
 function show_event_page(me) {
-    var elem_number = $(me).parent().index(),
+    var elem_number = $(me).index(),
         $section = $($( '.main_event_item.event_item > div.expand > div' ).get(1));
-    $('.sidr li')
-    $(me).parent().addClass("active")
+//    $('.sidr li')
+    $(me).addClass("active");
     if ( elem_number != -1 ) {
         $section.children("div").slice(1).hide(500);
         $($section.children("div").slice(1).get(elem_number)).show(500); // +1 as title will also be there
-        $(me).parent().parent().children("li").removeClass("active")
-        $(me).parent().addClass("active")
+        $(me).parent().children("li").removeClass("active");
+        $(me).addClass("active");
     }
 }
 
