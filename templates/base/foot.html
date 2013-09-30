@@ -87,6 +87,7 @@
             $("#register").modal();
         }
         submit_registration=function(){
+	    alert("starting");
             if ($("#add_coll_result").text()=='')
             if ($("#add_coll_result").text()!=''){
                 Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").text()});
@@ -94,6 +95,7 @@
             else{
             Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true)});
             }
+	    alert("ending!!");
         }    
         var tds = $('#login td');
         for ( var i = 0; i < tds.length; i++ ) {
@@ -142,13 +144,13 @@
                     $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w / numx) + "px;'></div>" );
                 }
                 $($("#behind_banner_div div").get(-1)).hide()
-                setTimeout( function() { // On hover the banner items become black
+                /*setTimeout( function() { // On hover the banner items become black
                     $("#banner_div > div").hover( function() {
                         var pk = $(this).index();
                         $("#behind_banner_div > div").removeClass("black")
                         $($("#behind_banner_div > div").get(pk+1)).addClass("black") // pk + 1 because it 
                     } )
-                }, 10 );
+                }, 10 );*/
             }
         }
         var banner_pid = -1;
