@@ -22,9 +22,7 @@
     -moz-border-radius:50%;
     -webkit-border-radius:50%;
     -o-border-radius:50%;
-    filter: url(../../svg/filters.svg#grayscale); /* Firefox */
-    filter: none;
-    -webkit-filter: grayscale(0);
+    filter: url(../../svg/filters.svg#grayscale); /* Firefox */         
 }
 
 #events .event_item:hover img {
