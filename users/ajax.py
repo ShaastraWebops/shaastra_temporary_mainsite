@@ -185,7 +185,7 @@ def register(request,form_registration=None,college_name=None):
             dajax.script("$('#form_registration #id_password_again').val('');")
             dajax.script("$('#form_registration #id_phone_number').val('');")
 
-            send_mail('Your new Shaastra2013 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
+#            send_mail('Your new Shaastra2013 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
             dajax.script('$(".modal-header").find(".close").click()')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:12000} );'% msg )
@@ -226,7 +226,7 @@ def forgot_password(request,email=None):
                     'SITE_URL':settings.SITE_URL,
                     'passwordkey':profile.activation_key,
                 }))
-            send_mail('Shaastra2013 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
+#            send_mail('Shaastra2013 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
             dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id%s", {type:"success",timeout:12000} );' % email)
             dajax.script('$.bootstrapGrowl("Please also check your spam", {type:"danger",timeout:12000} );')
         except ValidationError:
