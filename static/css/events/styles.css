@@ -161,7 +161,7 @@
 
 .main_event_item.event_item > div {
     margin : 3px;
-    color : #fff;
+/*    color : #fff;*/
 }
 .main_event_item.event_item > div > div {
     height : 100%;
