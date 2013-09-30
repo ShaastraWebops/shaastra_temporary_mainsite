@@ -22,17 +22,13 @@
         // ------------------------------------------------
         //      For the HexaCube
         // -------------------------------------------------
-        if( document.getElementsByTagName("html")[0].className.indexOf("csstransitions") )
-            $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
-        else
-            $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
                 
         var hexa, hexa_pid = -1,
             text = 'SHAASTRA'.split(''),
             settings = {
-                size: 75,
-                margin: 0,
-                fontSize: 50,
+                size: 50,
+                margin: 5,
+                fontSize: 35,
                 perspective: 3250
             },
             makeObject = function(a){
@@ -115,21 +111,35 @@
                             HOME BANNER
             ------------------------------------------------------ */
         
-        for( var i = 0; i < 33; i++ ) {
-            $("#banner_div").html("<div></div>" + $("#banner_div").html());
-            $("#behind_banner_div").html("<div></div>" + $("#banner_div").html());
-            setTimeout( function() { // On hover the banner items become black
-                $("#banner_div > div").hover( function() {
-                    var pk = $(this).index();
-                    $("#behind_banner_div > div").removeClass("black")
-                    $($("#behind_banner_div > div").get(pk)).addClass("black")
-                } )
-            }, 10 );
+        
+        function make_banner() {
+            var max_banner_h = $("#banner_img").height(), max_banner_w = $("#banner_img").width();
+            $("#banner_div div").remove()
+            $("#behind_banner_div div").remove()
+            for( var i = 0; i < 33; i++ ) { // 11 items in 1 row
+                if( i == 0 || i == 10 || i == 11 || i == 10 || i == 21 ||  i == 22 || i == 32) {
+                    $("#banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / 3.1) + "px; width:" + (max_banner_w * 3 / 4 / 10.5) + "px;'></div>" );
+                    $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / 3.1) + "px; width:" + (max_banner_w * 3 / 4 / 10.5) + "px;'></div>" );
+                } else {
+                    $("#banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / 3.1) + "px; width:" + (max_banner_w / 10.5) + "px;'></div>" );
+                    $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / 3.1) + "px; width:" + (max_banner_w / 10.5) + "px;'></div>" );
+                }
+                $($("#behind_banner_div div").get(-1)).hide()
+                setTimeout( function() { // On hover the banner items become black
+                    $("#banner_div > div").hover( function() {
+                        var pk = $(this).index();
+                        $("#behind_banner_div > div").removeClass("black")
+                        $($("#behind_banner_div > div").get(pk+1)).addClass("black") // pk + 1 because it 
+                    } )
+                }, 10 );
+            }
         }
         var banner_pid = -1;
         function init_banner() {
             banner_pid = setInterval(function(){
                 pk = Math.floor(Math.random() * $("#banner_div > div").length);
+                if ( pk == 16 )
+                    return
                 $("#behind_banner_div > div").removeClass("black")
                 $($("#behind_banner_div > div").get(pk)).addClass("black")
                 $(".modal").each( function() {
@@ -155,17 +165,39 @@
                     banner_init();
             }, 1100);
         }
+        $("#social-icons-header > img").hover(  function() {
+                //$(this).fadeOut(200, function() {
+                    $(this).attr("src", $(this).attr("src").replace("_bw.", "_color."));
+                //} ).fadeIn(200)
+            }, function() {
+                //$(this).fadeOut(200, function() {
+                    $(this).attr("src", $(this).attr("src").replace("_color.", "_bw."));
+                //} ).fadeIn(200)
+            }
+        );
+
         
-            
         /*--------------------------------------------------------
                         ON BODY LOAD HANDLER
         --------------------------------------------------------- */
         
-        document.addEventListener('DOMContentLoaded', function(){
-            hexa = new HexaFlip(document.getElementById('hexaflip'), makeObject(text), settings);
-            hexa_init();
-            init_banner()
+        document.addEventListener('DOMContentLoaded', function() {
+            if( document.getElementsByTagName("html")[0].className.indexOf("csstransitions") ) {
+                $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
+                hexa = new HexaFlip(document.getElementById('hexaflip'), makeObject(text), settings);
+                hexa_init();
+            } else {
+                $("#hexa-dice-container").html('S H A A S T R A');
+                $("#hexa-dice-container").css( {
+                    'color' : '#000',
+                } );
+            }
+            make_banner();
+            init_banner();
         }, false);
-
+        $(window).resize( function () {
+            make_banner();
+            init_banner();
+        } );
     </script>
     

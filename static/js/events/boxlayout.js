@@ -57,9 +57,9 @@ function show_event_group(el) {
         // Item is the div that is required.
         
         $(".main_event_item").addClass("event_item"); // tell main_event it has data to show
-        $(".main_event_item > div > div").hide();
-        $(".main_event_item > div > div.title").show(); // Show the title for the boxes.
-        $( '.main_event_item.event_item > div' ).show().removeClass( 'expand' ); // Tell the section that it is small.
+        $(".main_event_item > div > div").hide(500);
+        $(".main_event_item > div > div.title").show(500); // Show the title for the boxes.
+        $(".main_event_item.event_item > div").show(500).removeClass( 'expand' ); // Tell the section that it is small.
         
         // Populate with events
         category_name = el.attr("id").substring(11);
@@ -68,10 +68,9 @@ function show_event_group(el) {
         // make other events smaller
         $(".event_items_div .event_item").removeClass("span3");
         $(".event_items_div .event_item").addClass("span1");
-
-        $("#myCarousel > ol").hide(500);
-        $("#myCarousel > a").hide(500);
-        $("#myCarousel > div > div").addClass("span6 active");
+        $(".event_items_div .buffer").hide();
+        $(".event_items_div .event_back").show();
+        //$(".event_items_div .buffer_event").addClass("s");
     }
 };
 
@@ -86,12 +85,9 @@ function hide_event_group () {
     
     // make other events bigger
     $(".event_items_div .event_item").removeClass("span1");
-    $(".event_items_div .event_item").addClass("span4");
-    
-    $("#myCarousel > ol").show(500);
-    $("#myCarousel > a").show(500);
-    $("#myCarousel > div > div").removeClass("span6 active");
-    $($("#myCarousel > div > div").get(1)).addClass("active");
+    $(".event_items_div .event_item").addClass("span3");
+    $(".event_items_div .buffer").show();
+    $(".event_items_div .event_back").hide();
 }
 
 
@@ -100,11 +96,13 @@ function show_event(me) {
     var $el = $( '.main_event_item.event_item' ),
         $sections = $el.children( 'div' ),
         $section = $(me).parent();
-        
+
+    
     // expand the clicked section and hide the others
     $sections.hide();
     $section.show();
     $sections.removeClass( 'expand' );
+    $section.addClass( 'expand' );
     $section.addClass( 'expand' );
     $section.children("div").hide();
     $($section.children("div").get(1)).show();
