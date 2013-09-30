@@ -87,15 +87,12 @@
             $("#register").modal();
         }
         submit_registration=function(){
-	    alert("starting");
-            if ($("#add_coll_result").text()=='')
             if ($("#add_coll_result").text()!=''){
-                Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").text()});
+                Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").html()});
             }
             else{
             Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true)});
             }
-	    alert("ending!!");
         }    
         var tds = $('#login td');
         for ( var i = 0; i < tds.length; i++ ) {

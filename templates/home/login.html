@@ -40,7 +40,7 @@
                     <form id='form_registration' method="post" action="">
                         {% csrf_token %}
                         <table class='span5'>
-
+    
                             <p style="color: red;" class="registration_errors">{{ form_registration.non_field_errors }}</p>
                             <tr>
                                 <th>First Name</th>
@@ -92,14 +92,14 @@
                              <td><div class="registration_errors"><td>{{form_registration.college.errors}}</td></div>
                              </tr>
                              <tr>
-                             <td><div id="add_college"><a id='add_coll_message' onclick='addcoll();' style="cursor:pointer;">Can't find your college in the list?</a><text id='add_coll_result'></text><text id='add_coll_name'></text></div></td>
+                             <td><div id="add_college"><a id='add_coll_message' onclick='addcoll();' style="cursor:pointer;">Can't find your college in the list?</a><span id='add_coll_result'></span><span id='add_coll_name'></span></div></td>
                             <td>
                              </tr>
                              <tr>
-                                <th>Want accomodation?</th>
+                                <td>Want accomodation?<td>
                                 <td>{{ form_registration.want_accomodation }}
                                 {{form_registration.want_accomodation.help_text}}</td>
-                                <div class="registration_errors"><td>{{form_registration.want_accomodation.errors}}</td></div>
+                                <div class="registration_errors"><td><i>{{form_registration.want_accomodation.errors}}</i></td></div>
                             </tr>
                             <tr>
                                 <td colspan='4' class='centered'>
