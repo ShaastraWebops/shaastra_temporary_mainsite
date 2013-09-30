@@ -23,13 +23,13 @@
     -webkit-border-radius:50%;
     -o-border-radius:50%;
     filter: url(../../svg/filters.svg#grayscale); /* Firefox */
-    filter: gray; /* IE */
-    -webkit-filter: grayscale(1); /* Webkit */
+    filter: none;
+    -webkit-filter: grayscale(0);
 }
 
 #events .event_item:hover img {
-    filter: none;
-    -webkit-filter: grayscale(0);
+    filter: gray; /* IE */
+    -webkit-filter: grayscale(1); /* Webkit */
 }
 #events .event_item.hidden {
     display:none;
@@ -112,7 +112,7 @@
     color : #000;
     height : 50%;
     padding : 0;
-    margin : 0;
+    margin : 2px;
     cursor : pointer;
     z-index : 10;
     vertical-align : middle;
