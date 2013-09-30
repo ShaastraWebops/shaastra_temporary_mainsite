@@ -124,24 +124,23 @@
                     $("#login_form #login_form_submit").click();
                 }
         });
-            
-
+        
         /* --------------------------------------------------------
                             HOME BANNER
             ------------------------------------------------------ */
-        
         
         function make_banner() {
             var max_banner_h = $("#banner_img").height(), max_banner_w = $("#banner_img").width();
             $("#banner_div div").remove()
             $("#behind_banner_div div").remove()
             for( var i = 0; i < 33; i++ ) { // 11 items in 1 row
+                var numx = 10.53, numy = 3.05;
                 if( i == 0 || i == 10 || i == 11 || i == 10 || i == 21 ||  i == 22 || i == 32) {
-                    $("#banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / 3.1) + "px; width:" + (max_banner_w * 3 / 4 / 10.5) + "px;'></div>" );
-                    $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / 3.1) + "px; width:" + (max_banner_w * 3 / 4 / 10.5) + "px;'></div>" );
+                    $("#banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w * 3 / 4 / numx) + "px;'></div>" );
+                    $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w * 3 / 4 / numx) + "px;'></div>" );
                 } else {
-                    $("#banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / 3.1) + "px; width:" + (max_banner_w / 10.5) + "px;'></div>" );
-                    $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / 3.1) + "px; width:" + (max_banner_w / 10.5) + "px;'></div>" );
+                    $("#banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w / numx) + "px;'></div>" );
+                    $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w / numx) + "px;'></div>" );
                 }
                 $($("#behind_banner_div div").get(-1)).hide()
                 setTimeout( function() { // On hover the banner items become black
