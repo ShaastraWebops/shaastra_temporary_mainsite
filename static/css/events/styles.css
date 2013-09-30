@@ -22,10 +22,12 @@
     -moz-border-radius:50%;
     -webkit-border-radius:50%;
     -o-border-radius:50%;
-    filter: url(../../svg/filters.svg#grayscale); /* Firefox */           
+    filter: gray; /* IE */
+    -webkit-filter: grayscale(0); /* Webkit */
 }
 
 #events .event_item:hover img {
+    filter: url(../../svg/filters.svg#grayscale); /* Firefox */
     filter: gray; /* IE */
     -webkit-filter: grayscale(1); /* Webkit */
 }
