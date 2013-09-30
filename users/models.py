@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.conf import settings
 import os,datetime
+from django.utils import timezone
 #from events.models import Event
 def upload_handler(model_name):
     def upload_func(instance, filename):
@@ -90,7 +91,7 @@ class UserProfile(models.Model):
     shaastra_id = models.CharField(max_length = 20, unique = True, null=True)
 
     activation_key = models.CharField(max_length=40, null=True)
-    key_expires = models.DateTimeField(default = datetime.datetime.now()+datetime.timedelta(2))
+    key_expires = models.DateTimeField(default = timezone.now()+datetime.timedelta(2))
     want_accomodation = models.BooleanField(default=False, help_text = "This doesn't guarantee accommodation during Shaastra.")
     is_core = models.BooleanField(default=False)
     is_hospi = models.BooleanField(default=False)
