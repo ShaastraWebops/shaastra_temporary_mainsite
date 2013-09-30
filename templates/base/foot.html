@@ -88,6 +88,18 @@
         /* ---------------------------------------------------
                         FOR LOGIN AND REGISTRATIONS
         ---------------------------------------------------------- */
+        addcoll=function(){
+            $("#login").hide();
+            $("#register").modal();
+        }
+        submit_registration=function(){
+            if ($("#add_coll_result").text()!=''){
+                Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").text()});
+            }
+            else{
+            Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true)});
+            }
+        }    
         var tds = $('#login td');
         for ( var i = 0; i < tds.length; i++ ) {
             if ( $(tds[i]).prev().prop("tagName") == "TH" ) {
@@ -99,7 +111,7 @@
                     $(tds[i]).html($(tds[i]).html() + "  " + st);
                     continue;
                 } else if( st.toLowerCase() == 'college') {
-                    $(tds[i]).children("select").children("option").html("Choose College");
+                    //$(tds[i]).children("select").children("option").html("Choose College");
                     //$(tds[i]).prev().html("Choose Your college : ");
                     //$(tds[i]).prev().show();
                     //$(tds[i]).parent().addClass("college_tr");
@@ -110,6 +122,13 @@
                 $($(tds[i]).children("input")).attr("placeholder", st);
             }
         }
+        $("#login_form input").keypress(function(event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    $("#login_form #login_form_submit").click();
+                }
+        });
+            
 
         /* --------------------------------------------------------
                             HOME BANNER
