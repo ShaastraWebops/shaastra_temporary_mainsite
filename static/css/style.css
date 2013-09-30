@@ -1,6 +1,7 @@
 @import url(flexslider.css);
 @import url(fancybox.css);
 
+
 html, body {
     font-family:'Helvetica', sans-serif;
     margin:0px auto;
@@ -9,6 +10,9 @@ html, body {
     background-color:#FFF;
 }
 
+input[type="text"] {
+    height : auto;
+}
 .centered {
     text-align: center;}
 .underline{

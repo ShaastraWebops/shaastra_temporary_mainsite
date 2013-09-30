@@ -12,70 +12,98 @@
         </div>
 
         
-        {% if not request.user.username%}
+        {% if not request.user.is_authenticated%}
             <div class="modal-body login_register">
-
                 <div class='span4 form_login_div' style="padding-right: 0%; border-right: 1px solid #ccc; ">
                     {% if form.errors %}
                         <p style="color: red;">
                             Please correct the error{{ form.errors|pluralize }} below.
                         </p>
                     {% endif %}
-                    <form action="/login/" method="post">{% csrf_token %}
+                    <form action="" method="post" id="login_form">{% csrf_token %}
                         {{ form.as_table }}
                         <tr class='submit_tr'>
                             <td colspan="2">
-                                <input type="submit" value="        Login        " class="btn btn-primary"/>
-                                
+                                <input id="login_form_submit" type="button" onclick="Dajaxice.users.login(Dajax.process, {'login_form':$('#login_form').serialize(true)});" value="        Login        " class="btn btn-primary"/>
                             </td>
                         </tr>
-                    </form>            
+                    </form>
+                    <div id="login_error"></div>
+                    <div id="forgot_password"><a onclick="$('#forgot_form').toggle();" style="cursor:pointer;">Forgot your password?</a></div>
+                    <div id="forgot_form" style="display:none">
+                    <input type="text" maxlength="70" value placeholder="Enter your registered email-id" id="forgot_form_email"></text>
+                    <button class="btn btn-primary" onclick ="Dajaxice.users.forgot_password(Dajax.process, {'email':$('#forgot_form_email').val()});" > Request for a new password</button>
+                    </div>
                 </div>
 
-                <div class='span5 offset4 form_registration_div' style="padding-left: 5%;">
-                    <form id='form_registration' method="post" action="/register/">
+                <div class='span5 offset form_registration_div' style="padding-left: 35%;">
+                    <form id='form_registration' method="post" action="">
                         {% csrf_token %}
-                        <table class='span6'>
+                        <table class='span5'>
                             {% csrf_token %}
-                            <p style="color: red;">{{ form_registration.non_field_errors }}</p>
+                            <p style="color: red;" class="registration_errors">{{ form_registration.non_field_errors }}</p>
                             <tr>
                                 <th>First Name</th>
                                 <td>{{ form_registration.first_name }}</td>
+                                <div class="registration_errors"><td>{{form_registration.first_name.errors}}</td></div>
                                 <th>Last Name</th>
                                 <td>{{ form_registration.last_name }}</td>
+                                <div class="registration_errors"><td>{{form_registration.last_name.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>User Name</th>
                                 <td>{{ form_registration.username }}</td>
+                                <div class="registration_errors"><td>{{form_registration.username.errors}}</td></div>
                                 <th>E-Mail</th>
                                 <td>{{ form_registration.email }}</td>
+                                <div class="registration_errors"><td>{{form_registration.email.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>Password (atleast 6 chars)</th>
                                 <td>{{ form_registration.password }}</td>
-                                <th>Repeat password</th>
+                                <div class="registration_errors"><td>{{form_registration.password.errors}}</td></div>
+                                <th >Repeat password</th>
                                 <td>{{ form_registration.password_again }}</td>
+                                <div class="registration_errors"><td>{{form_registration.password_again.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>Gender</th>
                                 <td>{{ form_registration.gender }}</td>
+                                <div class="registration_errors"><td>{{form_registration.gender.errors}}</td></div>
                                 <th>Age</th></th>
                                 <td>{{ form_registration.age }}</td>
+                                <div class="registration_errors"><td>{{form_registration.age.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>Mobile Number</th>
                                 <td>{{ form_registration.mobile_number }}</td>
+                                <div class="registration_errors"><td>{{form_registration.mobile_number.errors}}</td></div>
                                 <th>College Roll Number</th>
                                 <td>{{ form_registration.college_roll }}</td>
+                                <div class="registration_errors"><td>{{form_registration.college_roll.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>College</th>
                                 <td>{{ form_registration.college }}</td>
-                                <th>Want Accomodation</th>
-                                <td>{{ form_registration.want_accomodation }}</td>
+<!--                                <td>-->                                
+<!--                                </br>-->
+<!--                                <input type="text" class="span3" style="margin: 0 auto;" data-provide="typeahead" data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;]">-->
+<!--    </td>-->
+                             <td><div class="registration_errors"><td>{{form_registration.college.errors}}</td></div>
+                             </tr>
+                             <tr>
+                             <td><div id="add_college"><a id='add_coll_message' onclick='addcoll();' style="cursor:pointer;">Can't find your college in the list?</a><text id='add_coll_result'></text><text id='add_coll_name'></text></div></td>
+                            <td>
+                             </tr>
+                             <tr>
+                                <th>Want accomodation?</th>
+                                <td>{{ form_registration.want_accomodation }}
+                                {{form_registration.want_accomodation.help_text}}</td>
+                                <div class="registration_errors"><td>{{form_registration.want_accomodation.errors}}</td></div>
                             </tr>
                             <tr>
-                                <td colspan='4' class='centered'><input type="submit" value="        Register        " class="btn btn-primary"/></td></tr>
+                                <td colspan='4' class='centered'>
+                                <input  id="form_registration_submit" type="button" onclick="submit_registration();" value="        Register        " class="btn btn-primary"/>
                         </table>
                     </form>
                 </div>
@@ -83,17 +111,10 @@
         {%else%} <!-- User is already logged in ... tell him that -->
             <div class="modal-body already_loggedin">
                 <div='logged_in'>
-                    <br />
-                    {% if msg_login %}
-                    <p style="color: red;" id="msg_login">
-                        {{msg_login}}
-                        <br>
-                    </p>
-                    {% endif %}
                 </div>
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
             </div>
         {%endif%}
+        
     </center>
 </div>
 

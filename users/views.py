@@ -24,6 +24,7 @@ from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 from django.utils import timezone
 
+
 def forgot_password(request,password_key = None):
     SITE_URL = settings.SITE_URL
     if request.user.is_authenticated():
