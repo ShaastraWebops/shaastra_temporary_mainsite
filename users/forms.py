@@ -53,9 +53,28 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput,
                                help_text='Your password')
     
-   
 
-	
+class ResetPasswordForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput)
+    password_again = forms.CharField(widget=forms.PasswordInput)
+    def clean_password(self):
+        if self.prefix:
+            field_name1 = '%s-password' % self.prefix
+            field_name2 = '%s-password_again' % self.prefix
+        else:
+            field_name1 = 'password'
+            field_name2 = 'password_again'
+
+        if self.data[field_name1] != '' and self.data[field_name1] \
+            != self.data[field_name2]:
+            raise forms.ValidationError('The entered passwords do not match.')
+        elif len(self.data[field_name1])<6:
+            raise forms.ValidationError('Password minumum length is 6')
+        else:
+            return self.data[field_name1]
+
+
+
     #errors=[]
 class BaseUserForm(forms.ModelForm):
 
