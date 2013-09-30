@@ -22,8 +22,6 @@
     -moz-border-radius:50%;
     -webkit-border-radius:50%;
     -o-border-radius:50%;
-    filter: gray; /* IE */
-    -webkit-filter: grayscale(0); /* Webkit */
 }
 
 #events .event_item:hover img {
