@@ -49,7 +49,7 @@
 }
 
 
-#events .event_item a {
+#events .event_item > a {
     position:absolute;
     z-index:10;
     left:0;
@@ -159,7 +159,7 @@
     background: #3E6AB7;
 }
 
-.main_event_item.event_item > div {
+.main_event_item.event_item > div > div:nth-child(1) {
     margin : 3px;
     color : #fff;
 }

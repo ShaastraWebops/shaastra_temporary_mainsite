@@ -114,7 +114,6 @@ h2 {
     display:inline-block;
     margin:0px;
     list-style:none;
-    padding-top:5px;
 }
 
 .navbar ul li {
@@ -126,7 +125,6 @@ h2 {
 
 
 .navbar ul li a {
-
     color:#333;
     position:relative;
     display:inline-block;
@@ -184,12 +182,30 @@ section:nth-child(2n+3) {
     background-size: 100%;
     background-attachment : fixed;  /* FIXED FOR IE */
 }
-#events { background : #eef; }
-#shows  { background : #000; }
-#spons  { background : #fff; }
-#hospi  { background : #000; }
-#contact  { background : #fff; }
+#events {
+    background : #eef;
+}
+#shows {
+    background : #000;
+    color : #fff;
+}
+#spons  {
+    background : #fff;
+}
+#hospi  {
+    background : #000;
+    color : #fff;
+}
+#contact  {
+    background : #fff;
+}
 
+#shows h2 {
+    color : #fff;
+}
+#hospi h2 {
+    color : #fff;
+}
 #twitter_module {
     background-color:#FFF;
     padding:40px 0px 40px;}
