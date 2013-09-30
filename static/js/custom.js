@@ -159,11 +159,11 @@ $(window).scroll(function() {
         var left_rad = 50 * (h-ypos) / h;
         var right_rad = 20 * (h-ypos) / h;
         console.log(h + " . " + ypos + " -- ", left_rad);
-        $("#home > div#banner_div").css( {
+/*        $("#home > div#banner_div").css( {
             'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
             'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',
             'height' : (h-ypos)*0.9 + 'px',
-        } );
+        } );*/
         $('#banner_div').css( {
             'top' : ypos + 'px',
         } );
@@ -174,4 +174,3 @@ $(window).scroll(function() {
         //do stuff here
     }
 });
-
