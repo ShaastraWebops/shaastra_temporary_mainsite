@@ -158,7 +158,6 @@ def register(request,form_registration=None,college_name=None):
     if request.method=="POST" and (form_registration !=None or not college_name is None) :
         form = AddUserForm(deserialize_form(form_registration))
         if form.is_valid():
-            print 'registration'
             #TODO: if we change college to be a compulsory, then this must be changed
 #            dajax.remove_css_class('#form_registration input', 'error')
             data = form.cleaned_data
@@ -167,7 +166,6 @@ def register(request,form_registration=None,college_name=None):
             new_user.save()
             new_user.is_active = False
             new_user.save()
-            print 'new users'
             x = 1300000 + new_user.id 
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt + new_user.username).hexdigest()
@@ -176,7 +174,6 @@ def register(request,form_registration=None,college_name=None):
             else:
                 userprofile = UserProfile(user=new_user,activation_key=activation_key,gender=data['gender'],age=data['age'],branch=data['branch'],mobile_number=data['mobile_number'],college=college,college_roll=data['college_roll'],shaastra_id= ("SHA" + str(x)),key_expires = timezone.now()+datetime.timedelta(2))
             userprofile.save()
-            print 'userprofile'
             mail_template = get_template('email/activate.html')
             body = mail_template.render( Context( {
                     'username':new_user.username,
@@ -184,7 +181,6 @@ def register(request,form_registration=None,college_name=None):
                     'SITE_URL':settings.SITE_URL,
                     'shaastra_id':userprofile.shaastra_id,
                 }))
-            print body+'\n\n\n\n\n\n'
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")
             dajax.script("$('#form_registration #id_phone_number').val('');")
@@ -202,15 +198,6 @@ def register(request,form_registration=None,college_name=None):
                 print error,errdict[error]
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")
-#            dajax.remove_css_class('#form_registration input', 'error')
-#            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.errors )
-#            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.last_name.errors )
-#            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.username.errors )
-#            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.password.errors ) 
-#            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.password_again.errors ) 
-#            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.email.errors ) 
-#            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.college.errors ) 
-#            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.mobile_number.errors )
             for error in form.errors:
                 dajax.add_css_class('#form_registration #id_%s' % error, 'error')
             dajax.script('$.bootstrapGrowl("Oops : There were errors when you tried to register !", {type:"danger",timeout:12000} );' )
