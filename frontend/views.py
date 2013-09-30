@@ -23,12 +23,12 @@ from django.utils.translation import ugettext as _
 from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
+from users.models import STATE_CHOICES
 
 def home(request):  
     form=LoginForm()
-    if request.user.is_authenticated():
-        logged_in=True
     form_registration=AddUserForm()
+    stlist=[st[0] for st in STATE_CHOICES]
     return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
 
 def serenity(request):
