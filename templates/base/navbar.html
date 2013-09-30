@@ -13,11 +13,14 @@
                     <a class="brand_bw hide" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
-                        {% if not logged_in %}
-                            <li><a href="#login" onclick="$('#login').modal();">Login | Register </a></li>
+                        <li id="login_logout">
+                        {% if not request.user.is_authenticated%}
+                            <a href="#login" onclick="$('#login').modal();">Login | Register </a>
                         {% else %}
-                            <li><a onclick="window.location.href='/logout/';" style="cursor:pointer;">Logout :( </a></li>
+                            <a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Dajax Logout :( </a>
                         {% endif %}
+                        </li>
+<!--                
 <!--                            <li><a href="#register" onclick="$('#register').modal();">Register</a></li>-->
                         <!--</ul>
                         <ul class="nav pull-right nav-scrollspy">-->
