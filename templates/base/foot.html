@@ -146,13 +146,13 @@
                     $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w / numx) + "px;'></div>" );
                 }
                 $($("#behind_banner_div div").get(-1)).hide()
-                setTimeout( function() { // On hover the banner items become black
+                /*setTimeout( function() { // On hover the banner items become black
                     $("#banner_div > div").hover( function() {
                         var pk = $(this).index();
                         $("#behind_banner_div > div").removeClass("black")
                         $($("#behind_banner_div > div").get(pk+1)).addClass("black") // pk + 1 because it 
                     } )
-                }, 10 );
+                }, 10 );*/
             }
         }
         var banner_pid = -1;
