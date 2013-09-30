@@ -10,9 +10,14 @@
             <div id="add_coll_form">
                <tr><input type="text" maxlength="70" value placeholder="Enter your college name" id="add_coll_form_college"></text>
                <tr><td><input type="text" maxlength="70" value placeholder="Enter the city of your college" id="add_coll_form_city"></text></td>
-               <td><input type="text" maxlength="70" value placeholder="Enter the state of your college" id="add_coll_form_state"></text></td>
+               <td><select id="state_select">
+                <option value="" disabled="disabled" selected="selected">Please select a state</option>
+                {% for state in stlist %}
+                <option value="{{state}}">{{state}}</option>
+                {% endfor %}
+                </select></td>
                </tr>
-               <tr><a id="add_coll_submit" class="btn btn-primary" onclick ="Dajaxice.users.add_college(Dajax.process, {'college':$('#add_coll_form_college').val(),'city':$('#add_coll_form_city').val(),'state':$('#add_coll_form_state').val()});" > Add your college to Shaastra!</a></tr>
+               <tr><a id="add_coll_submit" class="btn btn-primary" onclick ="Dajaxice.users.add_college(Dajax.process, {'college':$('#add_coll_form_college').val(),'city':$('#add_coll_form_city').val(),'state':$('#state_select').val()});" > Add your college to Shaastra!</a></tr>
             </div>
         </div>
     </center>
