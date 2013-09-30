@@ -183,14 +183,12 @@ def register(request,form_registration=None,college_name=None):
                     'SITE_URL':settings.SITE_URL,
                     'shaastra_id':userprofile.shaastra_id,
                 }))
-            print 'going to send'
             print body+'\n\n\n\n\n\n'
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")
             dajax.script("$('#form_registration #id_phone_number').val('');")
 
-#            send_mail('Your new Shaastra2013 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
-            print 'mail sent'
+            send_mail('Your new Shaastra2013 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
             #TODO: code to clear up the entire form!
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
             dajax.script('$(".modal-header").find(".close").click()')
@@ -202,9 +200,16 @@ def register(request,form_registration=None,college_name=None):
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")
             dajax.remove_css_class('#form_registration input', 'error')
-            for error in form.errors:
-                dajax.script('$.bootstrapGrowl("%s", {type:"danger"} )  ;'% error )
-                dajax.add_css_class('#form_registration #id_%s' % error, 'error')
+#            dajax.script('$.bootstrapGrowl("%s", {type:"danger"} )  ;'% form.errors )
+#            dajax.script('$.bootstrapGrowl("%s", {type:"danger"} )  ;'% form.last_name.errors )
+#            dajax.script('$.bootstrapGrowl("%s", {type:"danger"} )  ;'% form.username.errors )
+#            dajax.script('$.bootstrapGrowl("%s", {type:"danger"} )  ;'% form.password.errors ) 
+#            dajax.script('$.bootstrapGrowl("%s", {type:"danger"} )  ;'% form.password_again.errors ) 
+#            dajax.script('$.bootstrapGrowl("%s", {type:"danger"} )  ;'% form.email.errors ) 
+#            dajax.script('$.bootstrapGrowl("%s", {type:"danger"} )  ;'% form.college.errors ) 
+#            dajax.script('$.bootstrapGrowl("%s", {type:"danger"} )  ;'% form.mobile_number.errors )
+#            for error in form.errors:
+            dajax.add_css_class('#form_registration #id_%s' % error, 'error')
             dajax.script('$.bootstrapGrowl("Oops : There were errors when you tried to register !", {type:"danger"} );' )
             return dajax.json()
     if request.method == 'GET':
@@ -228,16 +233,12 @@ def forgot_password(request,email=None):
             email = profile.user.email
             user = profile.user
             mail_template = get_template('email/forgot_password.html')
-            print 'to mail'
-            
             body = mail_template.render( Context( {
                     'username':user.username,
                     'SITE_URL':settings.SITE_URL,
                     'passwordkey':profile.activation_key,
                 }))
-            print body+'\n\n\n\n\n\n'
-#            send_mail('Shaastra2013 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
-            print 'sent mail!!'
+            send_mail('Shaastra2013 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
             dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id%s", {type:"danger"} );' % email)
             dajax.script('$.bootstrapGrowl("Please also check your spam", {type:"danger"} );')
 #       except ValidationError:
@@ -249,20 +250,3 @@ def forgot_password(request,email=None):
     dajax.script('$.bootstrapGrowl("Enter your email id!", {type:"danger"} );')
     return dajax.json()
 
-'''
-@dajaxice_register
-def alerter(request,**kwargs):
-    print 'sssssssssssssssssss\n\n\n\n\n'
-    dajax=Dajax()
-    try:
-        col=College(name=text1,city=text2,state=text3)
-        col.save()
-        #form['college']=col
-    except:
-        col=College.objects.get(name=text1)
-        dajax.alert("Your college is already present")
-    
-    #return dajax.json()
-    return simplejson.dumps({'message':'Added your college:: %s'% text1,'col':col})
-'''
-    

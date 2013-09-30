@@ -17,7 +17,7 @@
                         {% if not request.user.is_authenticated%}
                             <a href="#login" onclick="$('#login').modal();">Login | Register </a>
                         {% else %}
-                            <a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Dajax Logout :( </a>
+                            <a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout</a>
                         {% endif %}
                         </li>
 <!--                
