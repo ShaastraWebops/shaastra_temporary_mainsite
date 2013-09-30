@@ -40,7 +40,7 @@
                     <form id='form_registration' method="post" action="">
                         {% csrf_token %}
                         <table class='span5'>
-                            {% csrf_token %}
+
                             <p style="color: red;" class="registration_errors">{{ form_registration.non_field_errors }}</p>
                             <tr>
                                 <th>First Name</th>
