@@ -90,7 +90,7 @@ class UserProfile(models.Model):
     shaastra_id = models.CharField(max_length = 20, unique = True, null=True)
 
     activation_key = models.CharField(max_length=40, null=True)
-    #key_expires = models.DateTimeField(null=True)
+    key_expires = models.DateTimeField(null=True)
     want_accomodation = models.BooleanField(default=False, help_text = "This doesn't guarantee accommodation during Shaastra.")
     is_core = models.BooleanField(default=False)
     is_hospi = models.BooleanField(default=False)
