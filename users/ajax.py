@@ -38,7 +38,7 @@ from misc.dajaxice.decorators import dajaxice_register
 from misc.dajax.core import Dajax
 from django.dispatch import receiver
 from django.template.loader import render_to_string
-
+import datetime
 
 
 @dajaxice_register
@@ -60,16 +60,10 @@ def add_college(request,college=None,city=None,state=None):
             
         except:
             coll=None
-#        dajax.script('$("#register").modal(\'hide\');')
-        dajax.script('$(".modal-header").find(".close").click()')
-        dajax.script('$("#login").modal(\'show\');')
-#        dajax.script("$('.modal-backdrop').remove();")
-        #TODO: modal shows and dissappears???
-#        dajax.script('$("#login").modal(\'show\');')
+        dajax.script('$("#register").modal(\'hide\');')
+        dajax.script('$("#login").show();')
         coll=College(name=college,city=city,state=state)
         coll.save()
-        print coll
-        print 'saved college'
         dajax.assign("#add_coll_name",'innerHTML','%s'% college)
         dajax.assign("#add_coll_result",'innerHTML','Added your college:')
         dajax.script('$.bootstrapGrowl("Your college:<strong>%s</strong> was added. Welcome", {type:"danger",timeout:12000} );'% str(coll.name) )
@@ -114,9 +108,9 @@ def login(request,login_form = None):
                 dajax.script("$('#login_form #id_password').val('');")
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
-#                dajax.assign("#login_logout", "innerHTML", '<a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout </a>')
+                dajax.assign("#login_logout", "innerHTML", '<a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout </a>')
                 #display logout| edit profile on navbar
-                print user.username
+
                 return dajax.json()
             else:
                 msg = 'Username and Password does not match!!!'
@@ -162,6 +156,7 @@ def register(request,form_registration=None,college_name=None):
     if request.method=="POST" and (form_registration !=None or not college_name is None) :
         form = AddUserForm(deserialize_form(form_registration))
         if form.is_valid():
+            print 'registration'
             #TODO: if we change college to be a compulsory, then this must be changed
             dajax.remove_css_class('#form_registration input', 'error')
             data = form.cleaned_data
@@ -170,14 +165,17 @@ def register(request,form_registration=None,college_name=None):
             new_user.save()
             new_user.is_active = False
             new_user.save()
+            print 'new users'
             x = 1300000 + new_user.id 
-            salt = sha.new(str(random.random())).hexdigest()[:5]
-            activation_key = sha.new(salt + new_user.username).hexdigest()
+#            salt = sha.new(str(random.random())).hexdigest()[:5]
+#            activation_key = sha.new(salt + new_user.username).hexdigest()
+            activation_key = '933909sdsd'
             if college is None:
                 userprofile = UserProfile(user=new_user,activation_key=activation_key,gender=data['gender'],age=data['age'],branch=data['branch'],mobile_number=data['mobile_number'],college=data['college'],college_roll=data['college_roll'],shaastra_id= ("SHA" + str(x)),key_expires = timezone.now()+datetime.timedelta(2))
             else:
                 userprofile = UserProfile(user=new_user,activation_key=activation_key,gender=data['gender'],age=data['age'],branch=data['branch'],mobile_number=data['mobile_number'],college=college,college_roll=data['college_roll'],shaastra_id= ("SHA" + str(x)),key_expires = timezone.now()+datetime.timedelta(2))
             userprofile.save()
+            print 'userprofile'
             mail_template = get_template('email/activate.html')
             body = mail_template.render( Context( {
                     'username':new_user.username,
