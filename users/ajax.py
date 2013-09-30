@@ -12,6 +12,8 @@ from django.contrib.auth import login as auth_login
 from django.template.loader import render_to_string
 from django.template.context import Context, RequestContext
 from forms import AddUserForm,LoginForm
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 from misc.dajaxice.utils import deserialize_form
 from django.contrib.auth import authenticate
@@ -149,7 +151,7 @@ def register(request,form_registration=None,college_name=None):
             return dajax.json()
     
     if request.user.is_authenticated():
-        msg_login = '%s, You are logged in!!' % request.user.username
+        msg_login = '%s, You are already logged in!!' % request.user.username
         dajax.script('$.bootstrapGrowl("Hi %s" , {type:"danger",timeout:12000} );'% msg_login )
         return dajax.json()
         
@@ -158,7 +160,7 @@ def register(request,form_registration=None,college_name=None):
         if form.is_valid():
             print 'registration'
             #TODO: if we change college to be a compulsory, then this must be changed
-            dajax.remove_css_class('#form_registration input', 'error')
+#            dajax.remove_css_class('#form_registration input', 'error')
             data = form.cleaned_data
             new_user = User(first_name=data['first_name'],last_name=data['last_name'], username=data['username'], email=data['email'])
             new_user.set_password(data['password']) 
@@ -197,7 +199,7 @@ def register(request,form_registration=None,college_name=None):
 #            print form.errors
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")
-            dajax.remove_css_class('#form_registration input', 'error')
+#            dajax.remove_css_class('#form_registration input', 'error')
 #            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.errors )
 #            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.last_name.errors )
 #            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.username.errors )
@@ -206,8 +208,8 @@ def register(request,form_registration=None,college_name=None):
 #            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.email.errors ) 
 #            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.college.errors ) 
 #            dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} )  ;'% form.mobile_number.errors )
-#            for error in form.errors:
-            dajax.add_css_class('#form_registration #id_%s' % error, 'error')
+            for error in form.errors:
+                dajax.add_css_class('#form_registration #id_%s' % error, 'error')
             dajax.script('$.bootstrapGrowl("Oops : There were errors when you tried to register !", {type:"danger",timeout:12000} );' )
             return dajax.json()
     if request.method == 'GET':
@@ -216,17 +218,15 @@ def register(request,form_registration=None,college_name=None):
     form_registration=AddUserForm()
     return dajax.json()
 
-#from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
 
 @dajaxice_register
 def forgot_password(request,email=None):
     dajax = Dajax()
     if not email is None and not email == '' :
         try:
-            #validate_email(email)
-            #validate_email is a django inbuilt function that throws ValidationError for wrong email address
-            #Issue: starts with _ not acceptable
+            validate_email(email)
+#            validate_email is a django inbuilt function that throws ValidationError for wrong email address
+#            Issue: starts with _ not acceptable
             profile = UserProfile.objects.get(user__email = str(email))
             email = profile.user.email
             user = profile.user
@@ -239,8 +239,8 @@ def forgot_password(request,email=None):
             send_mail('Shaastra2013 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
             dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id%s", {type:"success",timeout:12000} );' % email)
             dajax.script('$.bootstrapGrowl("Please also check your spam", {type:"danger",timeout:12000} );')
-#       except ValidationError:
-#           dajax.script('$.bootstrapGrowl("Your email:%s is invalid", {type:"danger",timeout:12000} );' % email)
+        except ValidationError:
+            dajax.script('$.bootstrapGrowl("Your email:%s is invalid", {type:"danger",timeout:12000} );' % email)
             return dajax.json()
         except:
             dajax.script('$.bootstrapGrowl("Not a registered email id", {type:"danger",timeout:12000} );')
