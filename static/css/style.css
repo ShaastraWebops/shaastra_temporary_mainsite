@@ -83,16 +83,22 @@ h2 {
     display:inline-block;
     margin:14px 0 6px 0;
 }
+.dice {
+    width : 51px;
+    height : 28px;
+    margin : 0 8px;
+}
+
 .breaker .dice {
     width:51px;
     height:28px;
     float:left;
     margin:0 8px;
 }
-.breaker .dice {
+.dice {
     background:url(../img/logo/dice.png) no-repeat;
 }
-.breaker .dice.white {
+.dice.white {
     background:url(../img/logo/dice_white.png) no-repeat;
 }
 
