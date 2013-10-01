@@ -159,7 +159,7 @@ def register(request,form_registration=None,college_name=None):
         form = AddUserForm(deserialize_form(form_registration))
         if form.is_valid():
             #TODO: if we change college to be a compulsory, then this must be changed
-#            dajax.remove_css_class('#form_registration input', 'error')
+            dajax.remove_css_class('#form_registration input', 'error')
             data = form.cleaned_data
             new_user = User(first_name=data['first_name'],last_name=data['last_name'], username=data['username'], email=data['email'])
             new_user.set_password(data['password']) 
@@ -181,13 +181,15 @@ def register(request,form_registration=None,college_name=None):
                     'SITE_URL':settings.SITE_URL,
                     'shaastra_id':userprofile.shaastra_id,
                 }))
-            dajax.script("$('#form_registration #id_password').val('');\
-                          $('#form_registration #id_password_again').val('');\
-                          $('#form_registration #id_phone_number').val('');")
+            #TODO: empty the entire form!!
+            dajax.script("$('#form_registration').val('');")\
+#                          $('#form_registration #id_password_again').val('');\
+#                          $('#form_registration #id_mobile_number').val('');")
 #            send_mail('Your new Shaastra2013 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
             dajax.script('$(".modal-header").find(".close").click()')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:24000} );'% msg )
+           
             return dajax.json()
         else:
             errdict=dict()
