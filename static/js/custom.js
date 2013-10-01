@@ -170,7 +170,7 @@ $(window).scroll(function() {
         $('#behind_banner_div').css( {
             'top' : ypos + 'px',
         } );
-
+        
         //do stuff here
     }
 });

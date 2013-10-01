@@ -35,6 +35,6 @@
 
 {% for tab in tab_list %}
     {% if forloop.first %}<div class="span9 pull-right">{% else %}<div class="span9 pull-right" style="display:none;">{% endif %}
-        <div style="position:relative; right:13%;">{{tab.text|safe}}</div>
+        {{tab.text|safe}}
     </div>
 {% endfor %}

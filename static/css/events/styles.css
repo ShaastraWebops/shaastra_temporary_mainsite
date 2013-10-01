@@ -113,6 +113,8 @@
     margin : 2px;
     cursor : pointer;
     z-index : 10;
+    
+    display: inline-block;
     vertical-align : middle;
     vertical-align : center;
     text-align : middle;
@@ -131,9 +133,17 @@
     vertical-align : center;
     padding : 0;
     margin : 0;
+    line-height : 200px;
+    height : 200px;
 }
-.main_event_item.event_item > div > div:nth-child(1) > h3 {
+.main_event_item.event_item > div > div:nth-child(1) > span {
+    display:inline-block;
+    line-height:0;
+    vertical-align:middle;
+}
+.main_event_item.event_item > div > div:nth-child(1) h3 {
     font-size : 1.4em;
+    text-align:center;
 }
 .main_event_item.event_item > div:nth-child(4n+1) {
     /*background: rgba(57, 76, 73, 0.60);*/
@@ -160,13 +170,16 @@
     opacity : 1;
 }
 .main_event_item.event_item:hover > div:not(:hover) {
-    opacity : 0.4;
+    opacity : 0.6;
     color : rgba(0, 0, 0, 1);
     box-shadow : 0px 0  px 10px rgba(255, 255, 255, 0.6);
 }
 .main_event_item.event_item:hover > div:not(:hover) > div:nth-child(1) {
     opacity : 0.3;
     text-shadow : -2px 0px 1px rgba(255, 255, 255, 0.6), 2px 0px 1px rgba(255, 255, 255, 1);
+}
+.main_event_item.event_item:hover > div:hover > div:nth-child(1) {
+    
 }
 .main_event_item.event_item > div > div {
     height : 100%;
