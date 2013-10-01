@@ -96,24 +96,22 @@ class UserProfile(models.Model):
     is_core = models.BooleanField(default=False)
     is_hospi = models.BooleanField(default=False)
 
-#    is_coord        = models.BooleanField....(default = False)
-
-#    is_coord_of = models.ForeignKey(Event, null=True)
-
 #    registered      = models.ManyToManyField(Event, null=True, related_name='registered_users')        #Events which this user has registered for
 
 #    facebook_id = models.CharField(max_length=20)
 #    access_token = models.CharField(max_length=250)
 #    registered_events = models.ManyToManyField(Event,
 #            related_name='participants', null=True)
+    def save(self, *args, **kwargs):
+        self.user.save()
+        super(UserProfile, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.user.first_name
 
     class Admin:
-
         pass
-import os
+        
 class shows_updates(models.Model):
     shows_name = models.CharField(max_length=255,
                             help_text='Name of the Show'

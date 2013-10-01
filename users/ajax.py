@@ -227,7 +227,7 @@ def forgot_password(request,email=None):
                     'passwordkey':profile.activation_key,
                 }))
 #            send_mail('Shaastra2013 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
-            dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id%s", {type:"success",timeout:24000} );' % email)
+            dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id: %s", {type:"success",timeout:24000} );' % email)
             dajax.script('$.bootstrapGrowl("Please also check your spam", {type:"danger",timeout:24000} );')
         except ValidationError:
             dajax.script('$.bootstrapGrowl("Your email:%s is invalid", {type:"danger",timeout:24000} );' % email)
