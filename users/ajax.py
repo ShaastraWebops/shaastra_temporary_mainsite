@@ -50,13 +50,13 @@ def add_college(request,college=None,city=None,state=None):
     
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if city is None or college is None or state is None or city =='' or college =='' or state =='':
-        dajax.script('$.bootstrapGrowl("Please enter relevant details for adding your college", {type:"danger",timeout:12000} );' )
+        dajax.script('$.bootstrapGrowl("Please enter relevant details for adding your college", {type:"danger",timeout:24000} );' )
         return dajax.json()
     else:
         try:
             for coll in College.objects.all():
                 if coll.name.lower() == college.lower():
-                    dajax.script('$.bootstrapGrowl("Your college is already on our list, please check again", {type:"danger",timeout:12000} );')
+                    dajax.script('$.bootstrapGrowl("Your college is already on our list, please check again", {type:"danger",timeout:24000} );')
                     return dajax.json()    
 #            coll=College.objects.get(name=college.lower())
             
@@ -68,7 +68,7 @@ def add_college(request,college=None,city=None,state=None):
         coll.save()
         dajax.assign("#add_coll_name",'innerHTML','%s'% college)
         dajax.assign("#add_coll_result",'innerHTML','Added your college:')
-        dajax.script('$.bootstrapGrowl("Your college:<strong>%s</strong> was added. Welcome", {type:"success",timeout:12000} );'% str(coll.name) )
+        dajax.script('$.bootstrapGrowl("Your college:<strong>%s</strong> was added. Welcome", {type:"success",timeout:24000} );'% str(coll.name) )
         # : populate the id_college with the given college details?
         dajax.script("$('#add_coll_message').toggle();")
         dajax.script("$('#form_registration #id_college').toggle();")
@@ -80,7 +80,7 @@ def add_college(request,college=None,city=None,state=None):
 def logout(request,**kwargs):
     dajax = Dajax()
     auth_logout(request)
-    dajax.script('$.bootstrapGrowl("Successfully logged out!", {type:"success",timeout:12000} );' )
+    dajax.script('$.bootstrapGrowl("Successfully logged out!", {type:"success",timeout:24000} );' )
     dajax.assign("#login_logout", "innerHTML", '<a href="#login" onclick="$(\'#login\').modal(\'show\');">Login | Register </a>')
     return dajax.json()
 
@@ -102,11 +102,11 @@ def login(request,login_form = None):
             if user:
                 if not user.is_active:
                     msg = 'Please click the activation link sent to your registered email id to activate your account'
-                    dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} );' % msg)
+                    dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:24000} );' % msg)
                     dajax.script("$('#login_form #id_password').val('');")
                     return dajax.json()
                 auth_login(request, user)
-                dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:12000} );'% user.username )
+                dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:24000} );'% user.username )
                 dajax.script("$('#login_form #id_password').val('');")
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
@@ -118,7 +118,7 @@ def login(request,login_form = None):
                 msg = 'Username and Password does not match!!!'
                 if User.objects.filter(username=username).count()==0:
                     msg = 'Username not created, did you want to register?'
-                dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:12000} );' % msg)
+                dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:24000} );' % msg)
                 dajax.script("$('#login_form #id_password').val('');")
                 form = LoginForm()
                 form_registration = AddUserForm()
@@ -130,7 +130,7 @@ def login(request,login_form = None):
             return dajax.json()
             #Code for error rendering
     else:
-        dajax.script('$.bootstrapGrowl("Fill in required details", {type:"danger",timeout:12000} );')
+        dajax.script('$.bootstrapGrowl("Fill in required details", {type:"danger",timeout:24000} );')
         #empty form case
         return dajax.json()
     return dajax.json()
@@ -152,10 +152,10 @@ def register(request,form_registration=None,college_name=None):
     
     if request.user.is_authenticated():
         msg_login = '%s, You are already logged in!!' % request.user.username
-        dajax.script('$.bootstrapGrowl("Hi %s" , {type:"danger",timeout:12000} );'% msg_login )
+        dajax.script('$.bootstrapGrowl("Hi %s" , {type:"danger",timeout:24000} );'% msg_login )
         return dajax.json()
         
-    if request.method=="POST" and (form_registration !=None or not college_name is None) :
+    if request.method=="POST" and (form_registration !=None or not college_name is None):
         form = AddUserForm(deserialize_form(form_registration))
         if form.is_valid():
             #TODO: if we change college to be a compulsory, then this must be changed
@@ -181,15 +181,13 @@ def register(request,form_registration=None,college_name=None):
                     'SITE_URL':settings.SITE_URL,
                     'shaastra_id':userprofile.shaastra_id,
                 }))
-            dajax.script("$('#form_registration #id_password').val('');")
-            dajax.script("$('#form_registration #id_password_again').val('');")
-            dajax.script("$('#form_registration #id_phone_number').val('');")
-
+            dajax.script("$('#form_registration #id_password').val('');\
+                          $('#form_registration #id_password_again').val('');\
+                          $('#form_registration #id_phone_number').val('');")
 #            send_mail('Your new Shaastra2013 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
             dajax.script('$(".modal-header").find(".close").click()')
-            dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:12000} );'% msg )
-
+            dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:24000} );'% msg )
             return dajax.json()
         else:
             errdict=dict()
@@ -200,7 +198,7 @@ def register(request,form_registration=None,college_name=None):
             dajax.script("$('#form_registration #id_password_again').val('');")
             for error in form.errors:
                 dajax.add_css_class('#form_registration #id_%s' % error, 'error')
-            dajax.script('$.bootstrapGrowl("Oops : There were errors when you tried to register !", {type:"danger",timeout:12000} );' )
+            dajax.script('$.bootstrapGrowl("Oops : There were errors when you tried to register !", {type:"danger",timeout:24000} );' )
             return dajax.json()
     if request.method == 'GET':
         form_registration = AddUserForm()
@@ -227,14 +225,14 @@ def forgot_password(request,email=None):
                     'passwordkey':profile.activation_key,
                 }))
 #            send_mail('Shaastra2013 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
-            dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id%s", {type:"success",timeout:12000} );' % email)
-            dajax.script('$.bootstrapGrowl("Please also check your spam", {type:"danger",timeout:12000} );')
+            dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id%s", {type:"success",timeout:24000} );' % email)
+            dajax.script('$.bootstrapGrowl("Please also check your spam", {type:"danger",timeout:24000} );')
         except ValidationError:
-            dajax.script('$.bootstrapGrowl("Your email:%s is invalid", {type:"danger",timeout:12000} );' % email)
+            dajax.script('$.bootstrapGrowl("Your email:%s is invalid", {type:"danger",timeout:24000} );' % email)
             return dajax.json()
         except:
-            dajax.script('$.bootstrapGrowl("Not a registered email id", {type:"danger",timeout:12000} );')
+            dajax.script('$.bootstrapGrowl("Not a registered email id", {type:"danger",timeout:24000} );')
             return dajax.json()
-    dajax.script('$.bootstrapGrowl("Enter your email id!", {type:"danger",timeout:12000} );')
+    dajax.script('$.bootstrapGrowl("Enter your email id!", {type:"danger",timeout:24000} );')
     return dajax.json()
 

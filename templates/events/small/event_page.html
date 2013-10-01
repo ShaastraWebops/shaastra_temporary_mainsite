@@ -34,7 +34,11 @@
 {% endcomment %}
 
 {% for tab in tab_list %}
-    {% if forloop.first %}<div class="span9 pull-right">{% else %}<div class="span9 pull-right" style="display:none;">{% endif %}
+    {% if forloop.first %}
+        <div class="span9 pull-right" style="height:100%; overflow-y:auto;">
+    {% else %}
+        <div class="span9 pull-right" style="display:none; height:100%; overflow-y:auto;">
+    {% endif %}
         {{tab.text|safe}}
     </div>
 {% endfor %}

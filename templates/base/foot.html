@@ -8,6 +8,7 @@
         <script src="{% static 'js/waypoints.min.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/custom.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/bootstrap/bootstrap.js' %}" type="text/javascript"></script>
+        <!--<script src="{% static 'js/bootstrap/bootstrap-tooltip.js' %}" type="text/javascript"></script>-->
         <script src="{% static 'js/bootstrap/bootstrap-growl.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/home/hexaflip.js' %}" type="text/javascript"></script>
         <script src="{% static 'js/events/boxlayout.js' %}" type="text/javascript"></script>
@@ -16,9 +17,6 @@
     <script>
         $(".tooltip").tooltip(); // For tooltips
         $(".main_event_item div").hide()
-        $(document).ready(function(){
-            boxlayout_init();
-        });
         // ------------------------------------------------
         //      For the HexaCube
         // -------------------------------------------------
@@ -89,9 +87,8 @@
             $("#register").modal();
         }
         submit_registration=function(){
-            if ($("#add_coll_result").text()=='')
             if ($("#add_coll_result").text()!=''){
-                Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").text()});
+                Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").html()});
             }
             else{
             Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true)});
@@ -213,6 +210,8 @@
             }
             make_banner();
             init_banner();
+            boxlayout_init();
+            // $(".tooltip").tooltip({placement:"bottom"});
         }, false);
         $(window).resize( function () {
             make_banner();
