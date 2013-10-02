@@ -183,6 +183,7 @@ def register(request,form_registration=None,college_name=None):
                 }))
             #TODO: empty the entire form!!
 #            dajax.script("$('#form_registration').val('');")\
+
             dajax.script("$('#form_registration #id_password_again').val('');")
             dajax.script("$('#form_registration #id_mobile_number').val('');")
             send_mail('Your new Shaastra2013 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
