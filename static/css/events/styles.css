@@ -150,20 +150,18 @@
     /*background: #4E7AC7;*/
     background: #3E6AB7;
 }
-.main_event_item.event_item > div:nth-child(4n+2) {
+.main_event_item.event_item > div:nth-child(2n) {
     /*background: rgba(91, 116, 133, 0.45);*/
     background: #35478C;
 }
-.main_event_item.event_item > div:nth-child(4n+3) {
+.main_event_item.event_item > div:nth-child(2n+1) {
     /*background: rgba(0, 0, 0, 0.55);*/
     background: #16193B;
 }
-.main_event_item.event_item > div:nth-child(4n+4) {
-    /*background: rgba(86, 114, 109, 0.50);*/
-    /*background: #7FB2F0;*/
-    background: #3E6AB7;
-}
 
+.main_event_item.event_item > div  {
+    background : url(../../img/events/square/aerofes.png) no-repeat center center;
+}
 .main_event_item.event_item > div > div:nth-child(1) {
     margin : 3px;
     color : #fff;
@@ -219,6 +217,18 @@
 }
 .main_event_item.event_item > div.expand > div:not(first) > h4 > span {
     padding-right : 100px;
+}
+.main_event_item.event_item > div.expand > div:not(first) > div.page_content {
+
+    /*background : #444;
+    background : rgba(0, 0, 0, 0.6);
+    color : #fff;
+    padding : 10px;*/
+    position : relative;
+    height : 87%;
+    left : -1%;
+    overflow-y : auto;
+    text-align : left;
 }
 .main_event_item.event_item > div.expand > div:not(first) > h4 > span:hover {
     color : rgba(0, 0, 0, 0.9);
@@ -299,4 +309,16 @@
 }
 .span5_5 {
   width: 373.333px;
+}
+.offset0_5 {
+  margin-left: 33.333px;
+}
+.offset1_5 {
+  margin-left: 100px;
+}
+.offset4_5 {
+  margin-left: 340px;
+}
+.offset5_5 {
+  margin-left: 373.333px;
 }

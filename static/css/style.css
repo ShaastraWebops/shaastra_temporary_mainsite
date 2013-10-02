@@ -13,6 +13,9 @@ html, body {
 input[type="text"] {
     height : auto;
 }
+.loading {
+    background : url(../img/loading.gif) no-repeat center center;
+}
 .centered {
     text-align: center;}
 .underline{
@@ -82,6 +85,7 @@ h2 {
     height:1px;
     display:inline-block;
     margin:14px 0 6px 0;
+    color : #000;
 }
 .dice {
     width : 51px;
@@ -103,10 +107,28 @@ h2 {
 }
 
 .breaker span {
-    background:#d5d5d5;
+    background: #d5d5d5;
+    background: #000;
 }
-.breaker .left{float: left;}
-.breaker .right{float: right;}
+.breaker.white span {
+    background: #fff;
+}
+.breaker .left{
+    float: left;
+    background: linear-gradient(to left, #000, transparent);
+}
+.breaker .right{
+    float: right;
+    background: linear-gradient(to right, #000, transparent);
+}
+.breaker.white .left{
+    float: left;
+    background: linear-gradient(to left, #fff, transparent);
+}
+.breaker.white .right{
+    float: right;
+    background: linear-gradient(to right, #fff, transparent);
+}
 
 
 /* NAVIGATION */
@@ -239,22 +261,27 @@ section:nth-child(2n+3) {
     background-attachment : fixed;  /* FIXED FOR IE */
 }
 #events {
-    background : #eef;
+    background : #fff;
+    background : url(../img/events/bg.png) repeat;
 }
 #shows {
     background : #000;
+    background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
 }
 #spons  {
     background : #fff;
+    background : url(../img/events/bg.png) repeat;
 }
 #hospi  {
     background : #000;
+    background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
     /*display : none;*/
 }
 #contact  {
     background : #fff;
+    background : url(../img/events/bg.png) repeat;
 }
 
 #shows h2 {
@@ -322,7 +349,8 @@ footer a:hover{color: #ccc; text-decoration: none;}
     -moz-transition: all 0.5s ease-in-out;
     -ms-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;}
+    transition: all 0.5s ease-in-out;
+}
 
 #down_button_contact a:hover {
     color:#121212;

@@ -1,8 +1,8 @@
 {% load staticfiles %}
 
-<button type="button" class="close pull-left" onclick="javascript:hide_event(this);">
+<div class="pull-left" style='cursor : pointer;' onclick="javascript:hide_event(this);">
     <img src="{% static 'img/back-arrow.png' %}"/>
-</button>
+</div>
 <center><h4> {{event.title}} </h4></center>
 <div id="sidr" class="sidr span3">
     <ul>
@@ -11,9 +11,6 @@
         {% endfor %}
     </ul>
 </div>
-
-
-
 {% comment %}
     <!--{% ifequal event_type 'Participant' %}
         <div class="span9 pull-right" style="">
@@ -32,12 +29,11 @@
         {% endifequal %}
     {% endifequal %}-->
 {% endcomment %}
-
 {% for tab in tab_list %}
     {% if forloop.first %}
-        <div class="span9 pull-right" style="height:100%; overflow-y:auto;">
+        <div class="span9 pull-right page_content">
     {% else %}
-        <div class="span9 pull-right" style="display:none; height:100%; overflow-y:auto;">
+        <div class="span9 pull-right page_content" style="display:none;">
     {% endif %}
         {{tab.text|safe}}
     </div>
