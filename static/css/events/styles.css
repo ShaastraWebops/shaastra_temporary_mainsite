@@ -167,7 +167,14 @@
     color : #fff;
     opacity : 1;
 }
-.main_event_item.event_item:hover > div:not(:hover) {
+.main_event_item.event_item > div {
+    opacity : 0.8;
+}
+.main_event_item.event_item > div:hover {
+    opacity : 1;
+}
+/*FOR THE BLUR REST ANIMATION
+ * .main_event_item.event_item:hover > div:not(:hover) {
     opacity : 0.6;
     color : rgba(0, 0, 0, 1);
     box-shadow : 0px 0  px 10px rgba(255, 255, 255, 0.6);
@@ -178,7 +185,7 @@
 }
 .main_event_item.event_item:hover > div:hover > div:nth-child(1) {
     
-}
+}*/
 .main_event_item.event_item > div > div {
     height : 100%;
     width : 100%;

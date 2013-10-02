@@ -1,9 +1,10 @@
 {% load staticfiles %}
-
-<div class="pull-left" style='cursor : pointer;' onclick="javascript:hide_event(this);">
-    <img src="{% static 'img/back-arrow.png' %}"/>
-</div>
-<center><h4> {{event.title}} </h4></center>
+<div class='pull-left' style='cursor : pointer;' onclick="javascript:hide_event(this);" ><img src="{% static 'img/back-arrow.png' %}"/></div>
+<center>
+    <h4>
+        {{event.title}}
+    </h4>
+</center>
 <div id="sidr" class="sidr span3">
     <ul>
         {% for tab in tab_list %}

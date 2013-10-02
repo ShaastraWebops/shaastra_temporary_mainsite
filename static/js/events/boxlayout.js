@@ -140,8 +140,8 @@ function show_event_page(me) {
 //    $('.sidr li')
     $(me).addClass("active");
     if ( elem_number != -1 ) {
-        $section.children("div").slice(1).hide(500);
-        $($section.children("div").slice(1).get(elem_number)).show(500); // +1 as title will also be there
+        $section.children("div").slice(2).hide(500);
+        $($section.children("div").slice(2).get(elem_number)).show(500); // +1 as title will also be there
         $(me).parent().children("li").removeClass("active");
         $(me).addClass("active");
     }
