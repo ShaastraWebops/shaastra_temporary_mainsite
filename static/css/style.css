@@ -189,7 +189,7 @@ h2 {
 .navbar .nav > li a.selected,
 .navbar .nav > li a.active { 
     font-weight : bold;
-    background : #777;
+    background : #000;
     color : #fff;
 }
 .navbar .nav > li a:hover {
