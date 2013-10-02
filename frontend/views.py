@@ -30,6 +30,7 @@ def home(request):
     form_registration=AddUserForm()
     colllist=[coll.name+'| '+coll.city for coll in College.objects.all()]
     collstr=''
+    s=""
     for l in colllist:
         s+="\""+l+"\""+","
     collstr=collstr[:len(collstr)-1]
