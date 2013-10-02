@@ -86,8 +86,17 @@
             $("#login").hide();
             $("#register").modal();
         }
+        user_login=function(){
+            $('#gif_login').toggle();
+            $('#login_form_submit').toggle();
+            Dajaxice.users.login(Dajax.process, {'login_form':$('#login_form').serialize(true)});
+            $('#gif_login').toggle();
+            $('#login_form_submit').toggle()
+        
+        }
+        
         submit_registration=function(){
-            $("#loading_registration").toggle();
+            $("#gif_registration").toggle();
             $("#form_registration_submit").toggle();
             var x='1'
             if ($("#form_registration #id_first_name").val()=='' ||
@@ -129,7 +138,7 @@
             }
             }
             }
-            $("#loading_registration").toggle();
+            $("#gif_registration").toggle();
             $("#form_registration_submit").toggle();
         }   
         
