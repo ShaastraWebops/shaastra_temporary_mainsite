@@ -150,7 +150,7 @@ def register(request,form_registration=None,college_name=None):
     if request.method=="POST" and (form_registration !=None or not college_name is None):
         form = AddUserForm(deserialize_form(form_registration))
         print form.errors
-        if len(form.errors)==1 or len(form.errors)==0:
+        if len(form.errors)==0:
             #TODO: if we change college to be a compulsory, then this must be changed
             dajax.remove_css_class('#form_registration input', 'error')
             data = form.cleaned_data
@@ -186,12 +186,11 @@ def register(request,form_registration=None,college_name=None):
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:50000} );'% msg )
             return dajax.json()
         else:
-            errdict=dict()
-            errdict=form.errors
+            errdict=dict(form.errors)
             dajax.script('$.bootstrapGrowl("Oops : Following errors cropped up when you tried to register !", {type:"danger",timeout:50000} );')
             for error in form.errors:
                 print errdict[error]
-#                dajax.script('$.bootstrapGrowl(" %s" , {type:"success",timeout:50000} );'% str(errdict[error]))
+                dajax.script('$.bootstrapGrowl(" %s" , {type:"success",timeout:50000} );'% str(errdict[error][0]))
             print '***********************'
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")
