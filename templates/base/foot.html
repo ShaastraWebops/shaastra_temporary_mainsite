@@ -86,9 +86,7 @@
             $("#login").hide();
             $("#register").show();
         }
-        $( document ).ajaxStart(function() {
-              $( ".loading" ).show();
-        });
+        
         user_login=function(){
             //$('#gif_login').toggle();
             $('#login_form_submit').toggle();
@@ -165,7 +163,12 @@
                 $($(tds[i]).children("input")).attr("placeholder", st);
             }
         }
+      
       $(".loading").hide();
+      $( document ).ajaxStart(function() {
+              alert('ssup');
+              $( ".loading" ).show();
+      });
       $("#form_registration #id_gender" ).width($("#form_registration #id_age").width());
       $("#login_form input").keypress(function(event) {
                 if (event.which == 13) {
