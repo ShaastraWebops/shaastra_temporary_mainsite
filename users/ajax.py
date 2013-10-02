@@ -79,6 +79,7 @@ def logout(request,**kwargs):
 @dajaxice_register
 def login(request,login_form = None):
     dajax = Dajax()
+    dajax.script("$('#gif_login').toggle();$('#login_form_submit').toggle();")
     if request.user.is_authenticated():
         msg_login='%s, You are logged in!!' % request.user.username
         dajax.script('$.bootstrapGrowl("%s", {type:"danger",delay:20000} );'% msg_login )
@@ -96,6 +97,7 @@ def login(request,login_form = None):
                     msg = 'Please click the activation link sent to your registered email id to activate your account'
                     dajax.script('$.bootstrapGrowl("%s", {type:"danger",timeout:50000} );' % msg)
                     dajax.script("$('#login_form #id_password').val('');")
+                    dajax.script("$('#gif_login').toggle();$('#login_form_submit').toggle();")
                     return dajax.json()
                 auth_login(request, user)
                 dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:50000} );'% user.username )
@@ -104,7 +106,8 @@ def login(request,login_form = None):
                 dajax.script('$(".modal-header").find(".close").click()')
                 dajax.assign("#login_logout", "innerHTML", '<a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout </a>')
                 #display logout| edit profile on navbar
-
+                dajax.script("$('#gif_login').toggle();$('#login_form_submit').toggle();")
+    
                 return dajax.json()
             else:
                 msg = 'Username and Password does not match!!!'
@@ -114,17 +117,22 @@ def login(request,login_form = None):
                 dajax.script("$('#login_form #id_password').val('');")
                 form = LoginForm()
                 form_registration = AddUserForm()
+                dajax.script("$('#gif_login').toggle();$('#login_form_submit').toggle();")
                 return dajax.json()
         else:
             dajax.remove_css_class('#my_form input', 'error')
             for error in form.errors:
                 dajax.add_css_class('#login_form #id_%s' % error, 'error')
+            dajax.script("$('#gif_login').toggle();$('#login_form_submit').toggle();")
             return dajax.json()
             #Code for error rendering
     else:
         dajax.script('$.bootstrapGrowl("Fill in required details", {type:"danger",timeout:50000} );')
+        dajax.script("$('#gif_login').toggle();$('#login_form_submit').toggle();")
         #empty form case
         return dajax.json()
+    dajax.script("$('#gif_login').toggle();$('#login_form_submit').toggle();")
+    
     return dajax.json()
 
 @dajaxice_register
@@ -149,6 +157,8 @@ def register(request,form_registration=None,college_name=None):
         
     if request.method=="POST" and (form_registration !=None or not college_name is None):
         form = AddUserForm(deserialize_form(form_registration))
+        
+        dajax.script("$('#gif_registration').toggle();$('#form_registration_submit').toggle();")
         if len(form.errors)==0:
             #TODO: if we change college to be a compulsory, then this must be changed
             dajax.remove_css_class('#form_registration input', 'error')
@@ -183,6 +193,7 @@ def register(request,form_registration=None,college_name=None):
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
 #            dajax.script('$(".modal-header").find(".close").click();')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:50000} );'% msg )
+            dajax.script("$('#gif_registration').toggle();$('#form_registration_submit').toggle();")
             return dajax.json()
         else:
             errdict=dict(form.errors)
@@ -194,11 +205,14 @@ def register(request,form_registration=None,college_name=None):
             dajax.script("$('#form_registration #id_password_again').val('');")
             for error in form.errors:
                 dajax.add_css_class('#form_registration #id_%s' % error, 'error')
+            dajax.script("$('#gif_registration').toggle();$('#form_registration_submit').toggle();")
             return dajax.json()
     if request.method == 'GET':
         form_registration = AddUserForm()
+        dajax.script("$('#gif_registration').toggle();$('#form_registration_submit').toggle();")
         return dajax.json()
     form_registration=AddUserForm()
+    dajax.script("$('#gif_registration').toggle();$('#form_registration_submit').toggle();")
     return dajax.json()
 
 
