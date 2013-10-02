@@ -96,6 +96,7 @@
             $("#college").val() == ''){
                 $.bootstrapGrowl("Please fill up the registration form completely. All fields are mandatory.");        
         }
+        else{
             if ($("#add_coll_result").text()!=''){
                 Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").html()});
             }
@@ -111,7 +112,9 @@
                 $.bootstrapGrowl("Please choose your college from the list, or add it!", {type:"danger",timeout:24000} );
             }
             }
-        }
+            }
+        }   
+        
  
         var tds = $('#login td');
         for ( var i = 0; i < tds.length; i++ ) {

@@ -22,24 +22,18 @@ from django.core.mail import send_mail
 from django.contrib import messages as MESGS
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User, Group
-from django.template.context import Context, RequestContext
 from django.template.loader import get_template
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import logout as auth_logout
-from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 #from events.models import Event
 from django.utils.translation import ugettext as _
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 
-from models import *
 from django.utils import simplejson
 from misc.dajaxice.decorators import dajaxice_register
-from misc.dajax.core import Dajax
 from django.dispatch import receiver
-from django.template.loader import render_to_string
 import datetime
 
 
@@ -58,8 +52,6 @@ def add_college(request,college=None,city=None,state=None):
                 if coll.name.lower() == college.lower():
                     dajax.script('$.bootstrapGrowl("Your college is already on our list, please check again", {type:"danger",timeout:50000} );')
                     return dajax.json()    
-#            coll=College.objects.get(name=college.lower())
-            
         except:
             coll=None
         dajax.script('$("#register").modal(\'hide\');')
