@@ -183,8 +183,8 @@ def register(request,form_registration=None,college_name=None):
                 }))
             #TODO: empty the entire form!!
 #            dajax.script("$('#form_registration').val('');")\
-              $('#form_registration #id_password_again').val('');
-              $('#form_registration #id_mobile_number').val('');")
+            dajax.script("$('#form_registration #id_password_again').val('');")
+            dajax.script("$('#form_registration #id_mobile_number').val('');")
             send_mail('Your new Shaastra2013 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
             dajax.script('$(".modal-header").find(".close").click()')
