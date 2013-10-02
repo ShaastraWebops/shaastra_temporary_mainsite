@@ -149,7 +149,8 @@ def register(request,form_registration=None,college_name=None):
         
     if request.method=="POST" and (form_registration !=None or not college_name is None):
         form = AddUserForm(deserialize_form(form_registration))
-        if form.is_valid():
+        print form.errors
+        if len(form.errors)==1 or len(form.errors)==0:
             #TODO: if we change college to be a compulsory, then this must be changed
             dajax.remove_css_class('#form_registration input', 'error')
             data = form.cleaned_data
@@ -175,7 +176,7 @@ def register(request,form_registration=None,college_name=None):
                 }))
             #TODO: empty the entire form!!
 #            dajax.script("$('#form_registration').val('');")\
-            dajax.script("$('#form_registration #id_'email).val('');\
+            dajax.script("$('#form_registration #id_email').val('');\
                          $('#form_registration #id_password').val('');\
                          $('#form_registration #id_password_again').val('');\
                          $('#form_registration #id_mobile_number').val('');")
@@ -187,10 +188,10 @@ def register(request,form_registration=None,college_name=None):
         else:
             errdict=dict()
             errdict=form.errors
-            dajax.script('$.bootstrapGrowl("Oops : Following errors you tried to register !", {type:"danger",timeout:50000} );')
+            dajax.script('$.bootstrapGrowl("Oops : Following errors cropped up when you tried to register !", {type:"danger",timeout:50000} );')
             for error in form.errors:
                 print errdict[error]
-                dajax.script('$.bootstrapGrowl(" %s" , {type:"success",timeout:50000} );'% errdict[error] )
+#                dajax.script('$.bootstrapGrowl(" %s" , {type:"success",timeout:50000} );'% str(errdict[error]))
             print '***********************'
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")
