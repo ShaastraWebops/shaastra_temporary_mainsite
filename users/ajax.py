@@ -180,7 +180,7 @@ def register(request,form_registration=None,college_name=None):
                          $('#form_registration #id_password').val('');\
                          $('#form_registration #id_password_again').val('');\
                          $('#form_registration #id_mobile_number').val('');")
-#            send_mail('Your new Shaastra2014 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
+            send_mail('Your new Shaastra2014 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
 #            dajax.script('$(".modal-header").find(".close").click();')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:50000} );'% msg )
@@ -190,7 +190,7 @@ def register(request,form_registration=None,college_name=None):
             dajax.script('$.bootstrapGrowl("Oops : Following errors cropped up when you tried to register !", {type:"danger",timeout:50000} );')
             for error in form.errors:
                 print errdict[error]
-                dajax.script('$.bootstrapGrowl(" %s" , {type:"success",timeout:50000} );'% str(errdict[error][0]))
+                dajax.script('$.bootstrapGrowl(" %s" , {type:"error",timeout:50000} );'% str(errdict[error][0]))
             print '***********************'
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")

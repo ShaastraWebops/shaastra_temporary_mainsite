@@ -148,8 +148,8 @@
                 $($(tds[i]).children("input")).attr("placeholder", st);
             }
         }
-        $("#form_registration #id_gender" ).width($("#form_registration #id_age").width()/2);
-        $("#login_form input").keypress(function(event) {
+      $("#form_registration #id_gender" ).width($("#form_registration #id_age").width()/2);
+      $("#login_form input").keypress(function(event) {
                 if (event.which == 13) {
                     event.preventDefault();
                     $("#login_form #login_form_submit").click();
