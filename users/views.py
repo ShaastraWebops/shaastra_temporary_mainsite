@@ -30,7 +30,7 @@ def forgot_password(request,password_key = None):
     if request.user.is_authenticated():
         msg = "You are logged in!!"
     if request.method=='POST':
-        reset_password_form = ResetPasswordForm(request.POST)
+        reset_form_password = ResetPasswordForm(request.POST)
         success=True
         if reset_form_password.is_valid() and request.POST.has_key('user'):
             profile = UserProfile.objects.get(user__username=request.POST['user'])
