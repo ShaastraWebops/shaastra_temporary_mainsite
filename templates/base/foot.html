@@ -87,6 +87,8 @@
             $("#register").modal();
         }
         submit_registration=function(){
+            $("#loading_registration").toggle();
+            $("#form_registration_submit").toggle();
             var x='1'
             if ($("#form_registration #id_first_name").val()=='' ||
             $("#form_registration #id_last_name").val()=='' ||
@@ -127,6 +129,8 @@
             }
             }
             }
+            $("#loading_registration").toggle();
+            $("#form_registration_submit").toggle();
         }   
         
  
@@ -152,6 +156,7 @@
                 $($(tds[i]).children("input")).attr("placeholder", st);
             }
         }
+      $(".loading").hide();
       $("#form_registration #id_gender" ).width($("#form_registration #id_age").width());
       $("#login_form input").keypress(function(event) {
                 if (event.which == 13) {

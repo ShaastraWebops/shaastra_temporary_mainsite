@@ -24,8 +24,10 @@
                         {{ form.as_table }}
                         <tr class='submit_tr'>
                             <td colspan="2">
-                                <input id="login_form_submit" type="button" onclick="Dajaxice.users.login(Dajax.process, {'login_form':$('#login_form').serialize(true)});" value="        Login        " class="btn btn-primary"/>
+                                <input id="login_form_submit" type="button" onclick="$('#loading_login').toggle();$('#login_form_submit').toggle();Dajaxice.users.login(Dajax.process, {'login_form':$('#login_form').serialize(true)});$('#loading_login').toggle();$('#login_form_submit').toggle()" value="        Login        " class="btn btn-primary"/>
                             </td>
+                                <img src='{{SITE_URL}}static/img/loading.gif' style="height:25;" id="#loading_login" class="loading" title="loading..."/>
+
                         </tr>
                     </form>
                     <div id="login_error"></div>
@@ -87,7 +89,7 @@
                             <tr>
                                 <td colspan='4' class='centered'>
                                 <input  id="form_registration_submit" type="button" onclick="submit_registration();" value="        Register        " class="btn btn-primary"/>
-<!--                                <img src='/static/img/loading.gif' class="loading" title="loading..."/>-->
+                                <img src='{{SITE_URL}}static/img/loading.gif' style="height:25" id="#loading_registration" class="loading" title="loading..." />
                         </table>
                     </form>
                 </div>
