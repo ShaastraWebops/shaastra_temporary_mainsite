@@ -97,7 +97,6 @@
         submit_registration=function(){
             $("#gif_registration").toggle();
             $("#form_registration_submit").toggle();
-            alert('Time begins');
             var x='1'
             if ($("#form_registration #id_first_name").val()=='' ||
             $("#form_registration #id_last_name").val()=='' ||
@@ -138,7 +137,6 @@
             }
             }
             }
-            alert('Time ends');
             $("#gif_registration").toggle();
             $("#form_registration_submit").delay('slow').toggle()
         }   
