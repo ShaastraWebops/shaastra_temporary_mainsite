@@ -168,10 +168,10 @@
     opacity : 1;
 }
 .main_event_item.event_item > div {
-    opacity : 0.8;
+    opacity : 1;
 }
 .main_event_item.event_item > div:hover {
-    opacity : 1;
+    opacity : 0.8;
 }
 /*FOR THE BLUR REST ANIMATION
  * .main_event_item.event_item:hover > div:not(:hover) {
