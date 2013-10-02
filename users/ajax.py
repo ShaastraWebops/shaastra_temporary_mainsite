@@ -175,24 +175,27 @@ def register(request,form_registration=None,college_name=None):
                 }))
             #TODO: empty the entire form!!
 #            dajax.script("$('#form_registration').val('');")\
-
-            dajax.script("$('#form_registration #id_password_again').val('');")
-            dajax.script("$('#form_registration #id_mobile_number').val('');")
-            send_mail('Your new Shaastra2014 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
+            dajax.script("$('#form_registration #id_'email).val('');\
+                         $('#form_registration #id_password').val('');\
+                         $('#form_registration #id_password_again').val('');\
+                         $('#form_registration #id_mobile_number').val('');")
+#            send_mail('Your new Shaastra2014 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
-            dajax.script('$(".modal-header").find(".close").click()')
+#            dajax.script('$(".modal-header").find(".close").click();')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:50000} );'% msg )
             return dajax.json()
         else:
             errdict=dict()
             errdict=form.errors
+            dajax.script('$.bootstrapGrowl("Oops : Following errors you tried to register !", {type:"danger",timeout:50000} );')
             for error in form.errors:
-                print error,errdict[error]
+                print errdict[error]
+                dajax.script('$.bootstrapGrowl(" %s" , {type:"success",timeout:50000} );'% errdict[error] )
+            print '***********************'
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")
             for error in form.errors:
                 dajax.add_css_class('#form_registration #id_%s' % error, 'error')
-            dajax.script('$.bootstrapGrowl("Oops : There were errors when you tried to register !", {type:"danger",timeout:50000} );' )
             return dajax.json()
     if request.method == 'GET':
         form_registration = AddUserForm()
@@ -227,6 +230,5 @@ def forgot_password(request,email=None):
         except:
             dajax.script('$.bootstrapGrowl("Not a registered email id", {type:"danger",timeout:50000} );')
             return dajax.json()
-    dajax.script('$.bootstrapGrowl("Enter your email id!", {type:"danger",timeout:50000} );')
     return dajax.json()
 
