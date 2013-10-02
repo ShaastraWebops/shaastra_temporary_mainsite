@@ -190,7 +190,8 @@ def register(request,form_registration=None,college_name=None):
             dajax.script('$.bootstrapGrowl("Oops : Following errors cropped up when you tried to register !", {type:"danger",timeout:50000} );')
             for error in form.errors:
                 print errdict[error]
-                dajax.script('$.bootstrapGrowl(" %s" , {type:"error",timeout:50000} );'% str(errdict[error][0]))
+                if str(a['username'][0])!='This field is required':
+                    dajax.script('$.bootstrapGrowl(" %s" , {type:"error",timeout:50000} );'% str(errdict[error][0]))
             print '***********************'
             dajax.script("$('#form_registration #id_password').val('');")
             dajax.script("$('#form_registration #id_password_again').val('');")
