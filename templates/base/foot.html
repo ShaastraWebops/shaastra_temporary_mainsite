@@ -92,12 +92,15 @@
             $("#form_registration #id_last_name").val()=='' ||
             $("#form_registration #id_age").val()=='' ||
             $("#form_registration #id_mobile_number").val()=='' ||
+            $("#form_registration #id_password").val()=='' ||
+            $("#form_registration #id_password_again").val()=='' ||
             $("#form_registration #id_first_name").val()=='' ||
             $("#form_registration #id_college_roll").val()=='' ||
             $("#college").val() == ''){
                 $.bootstrapGrowl("Please fill up the registration form completely. All fields are mandatory.");
                 x='0'
             }
+            else{
             if ($("#form_registration #id_mobile_number").val().length !=10){
                 $.bootstrapGrowl("Mobile number must be a 10 digit number!");
                 x='0'
@@ -105,6 +108,7 @@
             if (!($.isNumeric($("#form_registration #id_mobile_number").val()) && $.isNumeric($("#form_registration #id_age").val()))){
                 $.bootstrapGrowl("Please enter numeric values for age and mobile number");
                 x='0'
+            }
             }
             if (x=='1'){
             if ($("#add_coll_result").text()!=''){
