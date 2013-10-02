@@ -147,7 +147,7 @@ def register(request,form_registration=None,college_name=None):
             new_coll = True
         except:
             #impossible scenario!!
-            dajax.alert('You must have entered your college first!')
+            dajax.script("$.bootstrapGrowl('You must have entered your college first!', {type:'danger',timeout:24000});")
             return dajax.json()
     
     if request.user.is_authenticated():
