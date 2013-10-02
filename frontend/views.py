@@ -30,9 +30,8 @@ def home(request):
     form_registration=AddUserForm()
     colllist=[coll.name+'| '+coll.city for coll in College.objects.all()]
     collstr=''
-    s=""
     for l in colllist:
-        s+="\""+l+"\""+","
+        collstr+="\""+l+"\""+","
     collstr=collstr[:len(collstr)-1]
     stlist=[st[0] for st in STATE_CHOICES]
     return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
