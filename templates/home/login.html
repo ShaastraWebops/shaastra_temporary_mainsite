@@ -40,64 +40,50 @@
                     <form id='form_registration' method="post" action="">
                         {% csrf_token %}
                         <table class='span5'>
-    
-                            <p style="color: red;" class="registration_errors">{{ form_registration.non_field_errors }}</p>
                             <tr>
                                 <th>First Name</th>
                                 <td>{{ form_registration.first_name }}</td>
-                                <div class="registration_errors"><td>{{form_registration.first_name.errors}}</td></div>
                                 <th>Last Name</th>
                                 <td>{{ form_registration.last_name }}</td>
-                                <div class="registration_errors"><td>{{form_registration.last_name.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>User Name</th>
                                 <td>{{ form_registration.username }}</td>
-                                <div class="registration_errors"><td>{{form_registration.username.errors}}</td></div>
                                 <th>E-Mail</th>
                                 <td>{{ form_registration.email }}</td>
-                                <div class="registration_errors"><td>{{form_registration.email.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>Password (atleast 6 chars)</th>
                                 <td>{{ form_registration.password }}</td>
-                                <div class="registration_errors"><td>{{form_registration.password.errors}}</td></div>
                                 <th >Repeat password</th>
                                 <td>{{ form_registration.password_again }}</td>
-                                <div class="registration_errors"><td>{{form_registration.password_again.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>Gender</th>
                                 <td>{{ form_registration.gender }}</td>
-                                <div class="registration_errors"><td>{{form_registration.gender.errors}}</td></div>
                                 <th>Age</th></th>
                                 <td>{{ form_registration.age }}</td>
-                                <div class="registration_errors"><td>{{form_registration.age.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>Mobile Number</th>
                                 <td>{{ form_registration.mobile_number }}</td>
-                                <div class="registration_errors"><td>{{form_registration.mobile_number.errors}}</td></div>
                                 <th>College Roll Number</th>
                                 <td>{{ form_registration.college_roll }}</td>
-                                <div class="registration_errors"><td>{{form_registration.college_roll.errors}}</td></div>
                             </tr>
                             <tr>
                                 <th>College</th>
 <!--                                <td>{{ form_registration.college }}</td>-->
-                                 <td><input id="college" type="text" class="span3" placeholder="Enter Your college" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[{{collstr}}]"></td>
-                             <td><div class="registration_errors"><td>{{form_registration.college.errors}}</td></div>
+                                 <td><input id="college" type="text" class="span3" placeholder="Enter Your college" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[{{collstr}}]">
+                             
+                             <div id="add_college"><a id='add_coll_message' onclick='addcoll();' style="cursor:pointer;font-size:11pt">Can't find your college in the list?</a></td><td><span id='add_coll_result'></span><span id='add_coll_name'></span></div></td>
                              </tr>
                              <tr>
-                             <td><div id="add_college"><a id='add_coll_message' onclick='addcoll();' style="cursor:pointer;">Can't find your college in the list?</a><span id='add_coll_result'></span><span id='add_coll_name'></span></div></td>
-                            <td>
-                             </tr>
-                             <tr>
-                                <td>Want accomodation?<td>
-                                <td>{{ form_registration.want_accomodation }}
-                                {{form_registration.want_accomodation.help_text}}</td>
-                                <div class="registration_errors"><td><i>{{form_registration.want_accomodation.errors}}</i></td></div>
-                            </tr>
+                                <td>Want accomodation?
+                                {{ form_registration.want_accomodation }}
+                                </td>
+                                <td>
+                                <span style="font-size:11pt;color:blue">{{form_registration.want_accomodation.help_text}}</span></td>
+                            </tr><br>
                             <tr>
                                 <td colspan='4' class='centered'>
                                 <input  id="form_registration_submit" type="button" onclick="submit_registration();" value="        Register        " class="btn btn-primary"/>
