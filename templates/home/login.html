@@ -84,11 +84,8 @@
                             </tr>
                             <tr>
                                 <th>College</th>
-                                <td>{{ form_registration.college }}</td>
-<!--                                <td>-->                                
-<!--                                </br>-->
-<!--                                <input type="text" class="span3" style="margin: 0 auto;" data-provide="typeahead" data-source="[&quot;Alabama&quot;,&quot;Alaska&quot;]">-->
-<!--    </td>-->
+<!--                                <td>{{ form_registration.college }}</td>-->
+                                 <td><input id="college" type="text" class="span3" placeholder="Enter Your college" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[{{collstr}}]"></td>
                              <td><div class="registration_errors"><td>{{form_registration.college.errors}}</td></div>
                              </tr>
                              <tr>

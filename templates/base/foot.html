@@ -87,13 +87,35 @@
             $("#register").modal();
         }
         submit_registration=function(){
+            if ($("#form_registration #id_first_name").val()=='' ||
+            $("#form_registration #id_last_name").val()=='' ||
+            $("#form_registration #id_age").val()=='' ||
+            $("#form_registration #id_mobile_number").val()=='' ||
+            $("#form_registration #id_first_name").val()=='' ||
+            $("#form_registration #id_college_roll").val()=='' ||
+            $("#college").val() == ''){
+                $.bootstrapGrowl("Please fill up the registration form completely. All fields are mandatory.");        
+        }
+        else{
             if ($("#add_coll_result").text()!=''){
                 Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").html()});
             }
             else{
-            Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true)});
+            if ($("#college").val()!='')
+            {
+                var coll = $("#college").val();
+                var coll_list = coll.split("|");
+                var coll_name = coll_list[0];
+                Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':coll_name});
             }
-        }    
+            else{
+                $.bootstrapGrowl("Please choose your college from the list, or add it!", {type:"danger",timeout:24000} );
+            }
+            }
+            }
+        }   
+        
+ 
         var tds = $('#login td');
         for ( var i = 0; i < tds.length; i++ ) {
             if ( $(tds[i]).prev().prop("tagName") == "TH" ) {
