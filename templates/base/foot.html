@@ -89,6 +89,7 @@
         user_login=function(){
             $('#gif_login').toggle();
             $('#login_form_submit').toggle();
+            $.delay(1000);
             Dajaxice.users.login(Dajax.process, {'login_form':$('#login_form').serialize(true)});
             $('#gif_login').toggle();
             $('#login_form_submit').toggle()
@@ -98,6 +99,7 @@
         submit_registration=function(){
             $("#gif_registration").toggle();
             $("#form_registration_submit").toggle();
+            $.delay(1000);
             var x='1'
             if ($("#form_registration #id_first_name").val()=='' ||
             $("#form_registration #id_last_name").val()=='' ||
