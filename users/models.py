@@ -111,14 +111,18 @@ class UserProfile(models.Model):
 
     class Admin:
         pass
-        
+
+class Team(models.Model):
+    team_id = models.IntegerField(default=0)
+    users = models.ManyToManyField(User, blank = True, null = True)
+    def size(self):
+        return len(self.users.all())
+
 class shows_updates(models.Model):
     shows_name = models.CharField(max_length=255,
                             help_text='Name of the Show'
                             )
-    update    = models.CharField(max_length=255,
-					   help_text='Update field'
-					        )
+    update    = models.CharField(max_length=255,help_text='Update field')
     def __unicode__(self):
         return '%s  %s'%(self.show_name,self.update)
     class meta:
