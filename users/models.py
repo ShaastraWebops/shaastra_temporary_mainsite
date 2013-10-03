@@ -96,8 +96,6 @@ class UserProfile(models.Model):
     is_core = models.BooleanField(default=False)
     is_hospi = models.BooleanField(default=False)
 
-#    registered      = models.ManyToManyField(Event, null=True, related_name='registered_users')        #Events which this user has registered for
-
 #    facebook_id = models.CharField(max_length=20)
 #    access_token = models.CharField(max_length=250)
 #    registered_events = models.ManyToManyField(Event,
@@ -114,9 +112,13 @@ class UserProfile(models.Model):
 
 class Team(models.Model):
     team_id = models.IntegerField(default=0)
+    team_name = models.CharField(max_length = 30,blank = True)
     users = models.ManyToManyField(User, blank = True, null = True)
     def size(self):
         return len(self.users.all())
+    def save(self, *args, **kwargs):
+        super(UserProfile, self).save(*args, **kwargs)
+
 
 class shows_updates(models.Model):
     shows_name = models.CharField(max_length=255,
