@@ -8,44 +8,6 @@ from users.models import *
 #from django.core.validators import alnum_re
 
 GENDER_CHOICES = ((1, 'Male'), (2, 'Female'))
-BRANCH_CHOICES = (
-    ('Arts', 'Arts'),
-    ('Accounting', 'Accounting'),
-    ('Applied Mechanics', 'Applied Mechanics'),
-    ('Mechatronics', 'Mechatronics'),
-    ('Aerospace Engineering', 'Aerospace Engineering'),
-    ('Automobile Engineering', 'Automobile Engineering'),
-    ('Biotech / Biochemical / Biomedical', 'Biotech / Biochemical / Biomedical'),
-    ('Biology', 'Biology'),
-    ('Ceramic Engineering', 'Ceramic Engineering'),
-    ('Chemical Engineering', 'Chemical Engineering'),
-    ('Chemistry', 'Chemistry'),
-    ('Design', 'Design'),
-    ('Engineering Design', 'Engineering Design'),
-    ('Civil Engineering', 'Civil Engineering'),
-    ('Computer Science and Engineering', 'Computer Science and Engineering'),
-    ('Electronics and Communications Engineering', 'Electronics and Communications Engineering'),
-    ('Electrical and Electronics Engineering', 'Electrical and Electronics Engineering'),
-    ('Electrical Engineering', 'Electrical Engineering'),
-    ('Electronics and Instrumentation Engineering', 'Electronics and Instrumentation Engineering'),
-    ('Engineering Physics', 'Engineering Physics'),
-    ('Economics', 'Economics'),
-    ('Fashion Technology', 'Fashion Technology'),
-    ('Humanities and Social Sciences', 'Humanities and Social Sciences'),
-    ('Industrial Production', 'Industrial Production'),
-    ('Production', 'Production'),
-    ('Information Technology and Information Science', 'Information Technology and Sciences'),
-    ('Management', 'Management'),
-    ('Manufacturing', 'Manufacturing'),
-    ('Mathematics', 'Mathematics'),
-    ('Metallurgy and Material Science', 'Metallurgy and Material Science'),
-    ('Mechanical Engineering', 'Mechanical Engineering'),
-    ('Ocean Engineering and Naval Architecture', 'Ocean Engineering and Naval Architecture'),
-    ('Physics', 'Physics'),
-    ('Telecom', 'Telecom'),
-    ('Textile Engineering', 'Textile Engineering'),
-    ('Others', 'Others'),
-)
 
 class LoginForm(forms.Form):
     username = forms.CharField(help_text='Your Shaastra 2013 username')

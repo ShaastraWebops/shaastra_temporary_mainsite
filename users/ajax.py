@@ -143,11 +143,15 @@ def register(request,form_registration=None,college_name=None):
     new_coll = False
     if not college_name is None:
         try:
+            if str(college_name)!='':
+                dajax.script("$.bootstrapGrowl('Please either choose a college from the list, or add your college!', {type:'danger',timeout:50000});")
             college=College.objects.filter(name=str(college_name))[0]
             new_coll = True
         except:
-            #impossible scenario!!
-            dajax.script("$.bootstrapGrowl('You must have entered your college first!', {type:'danger',timeout:50000});")
+            if str(college_name)!='':
+                dajax.script("$.bootstrapGrowl('Please either choose a college from the list, or add your college!', {type:'danger',timeout:50000});")
+            else:
+                dajax.script("$.bootstrapGrowl('You must have entered your college first!', {type:'danger',timeout:50000});")
             return dajax.json()
     
     if request.user.is_authenticated():
@@ -168,7 +172,7 @@ def register(request,form_registration=None,college_name=None):
             new_user.save()
             new_user.is_active = False
             new_user.save()
-            x = 1300000 + new_user.id 
+            x = 1400000 + new_user.id 
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt + new_user.username).hexdigest()
             if college is None:
