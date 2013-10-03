@@ -110,15 +110,6 @@ class UserProfile(models.Model):
     class Admin:
         pass
 
-class Team(models.Model):
-    team_id = models.IntegerField(default=0)
-    team_name = models.CharField(max_length = 30,blank = True)
-    users = models.ManyToManyField(User, blank = True, null = True)
-    def size(self):
-        return len(self.users.all())
-    def save(self, *args, **kwargs):
-        super(UserProfile, self).save(*args, **kwargs)
-
 
 class shows_updates(models.Model):
     shows_name = models.CharField(max_length=255,
