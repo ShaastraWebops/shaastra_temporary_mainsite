@@ -12,25 +12,25 @@
                     <a class="brand_color hide" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
                     <a class="brand_bw hide" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
                     <div class="nav-collapse collapse">
-                        <ul class="nav pull-right">
-                        <li id="login_logout">
-                        {% if not request.user.is_authenticated%}
-                            <a href="#login" onclick="$('#login').modal();">Login | Register </a>
-                        {% else %}
-                            <a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout</a>
-                        {% endif %}
-                        </li>
-<!--                
-<!--                            <li><a href="#register" onclick="$('#register').modal();">Register</a></li>-->
+                        <ul class="nav pull-right" id='navbar_list'>
+                            <li id="login_logout">
+                            {% if not request.user.is_authenticated%}
+                                <a href="#login" onclick="$('#login').modal();">Login </a>
+                            {% else %}
+                                <a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout</a>
+                            {% endif %}
+                            </li>
+<!--                        <li><a href="#register" onclick="$('#register').modal();">Register</a></li>-->
                         <!--</ul>
                         <ul class="nav pull-right nav-scrollspy">-->
-                                <li><a> </a></li>
-                               <li><a href="#home" class="">Home</a></li>
-                                <li><a href="#events" class="">Events</a></li>
-                                <li><a href="#shows" class="">Shows</a></li>
-                                <li><a href="#spons" class="">Sponsors</a></li>
-<!--                                <li><a href="#hospi" class="">Hospitality</a></li> -->
-                                <li><a href="#contact" class="">Contact Us</a></li>
+                            <li><a> </a></li>
+                            <li><a href="#home" class="">Home</a></li>
+                            <li><a href="#aboutus" class="">AboutUs</a></li>
+                            <li><a href="#events" class="">Events</a></li>
+                            <li><a href="#shows" class="">Shows</a></li>
+                            <li><a href="#spons" class="">Sponsors</a></li>
+<!--                            <li><a href="#hospi" class="">Hospitality</a></li> -->
+                            <li><a href="#contact" class="">Contact Us</a></li>
                         </ul>
                     </div>
 

@@ -94,7 +94,7 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
     
     if html_content:
         dajax.assign("#event_no_"+str(event_pk)+" > .event_content", "innerHTML", html_content)
-        dajax.script("$el = document.getElementById('event_no_"+str(event_pk)+"_click');\
-                      show_event($el);")
+        #dajax.script("show_event(document.getElementById('event_no_"+str(event_pk)+"_click'));")
+        dajax.script("$('#event_no_"+str(event_pk)+"_click').parent().children('.event_content').removeClass('loading');")
     
     return dajax.json()

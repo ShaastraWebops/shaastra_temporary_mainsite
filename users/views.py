@@ -32,7 +32,11 @@ def forgot_password(request,password_key = None):
     if request.method=='POST':
         reset_password_form = ResetPasswordForm(request.POST)
         success=True
-        if reset_password_form.is_valid():
+        if reset_password_form.is_valid() and request.POST.has_key('user'):
+            profile = UserProfile.objects.get(user__username=request.POST['user'])
+            password = reset_password_form.cleaned_data['password']
+            profile.user.set_password(password)
+            profile.save()
             return HttpResponse('You have successfully changed your password!!!Visit our site here: <a href="%s">SHAASTRA</a>'% SITE_URL)
         else:
             return render_to_response('users/reset_password_form.html', locals(), context_instance = RequestContext(request))

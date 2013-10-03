@@ -1,9 +1,7 @@
-@import url(flexslider.css);
-@import url(fancybox.css);
-
 
 html, body {
     font-family:'Helvetica', sans-serif;
+    font-family:'Titillium Web', sans-serif;
     margin:0px auto;
     padding: 0px;
     height: 100%;
@@ -12,6 +10,12 @@ html, body {
 
 input[type="text"] {
     height : auto;
+}
+.tooltip {
+    position : fixed;
+}
+.loading {
+    background : url(../img/loading.gif) no-repeat center center;
 }
 .centered {
     text-align: center;}
@@ -82,25 +86,50 @@ h2 {
     height:1px;
     display:inline-block;
     margin:14px 0 6px 0;
+    color : #000;
 }
+.dice {
+    width : 51px;
+    height : 28px;
+    margin : 0 8px;
+}
+
 .breaker .dice {
     width:51px;
     height:28px;
     float:left;
     margin:0 8px;
 }
-.breaker .dice {
+.dice {
     background:url(../img/logo/dice.png) no-repeat;
 }
-.breaker .dice.white {
+.dice.white {
     background:url(../img/logo/dice_white.png) no-repeat;
 }
 
 .breaker span {
-    background:#d5d5d5;
+    background: #d5d5d5;
+    background: #000;
 }
-.breaker .left{float: left;}
-.breaker .right{float: right;}
+.breaker.white span {
+    background: #fff;
+}
+.breaker .left{
+    float: left;
+    background: linear-gradient(to left, #000, transparent);
+}
+.breaker .right{
+    float: right;
+    background: linear-gradient(to right, #000, transparent);
+}
+.breaker.white .left{
+    float: left;
+    background: linear-gradient(to left, #fff, transparent);
+}
+.breaker.white .right{
+    float: right;
+    background: linear-gradient(to right, #fff, transparent);
+}
 
 
 /* NAVIGATION */
@@ -113,7 +142,6 @@ h2 {
     margin: 0;
     z-index: 42;
     height: 60px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 .navbar ul {
@@ -132,7 +160,7 @@ h2 {
 
 
 .navbar ul li a {
-    color:#333;
+    color:#000;
     position:relative;
     display:inline-block;
     text-decoration:none;
@@ -152,32 +180,67 @@ h2 {
 }
 .navbar .nav > li > a {
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-    color:  #555;
+    color:  #000;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
-.navbar .nav > li > a:hover {    
-    color:  #000;
-    
+.navbar .nav > li a.selected,
+.navbar .nav > li a.active { 
+    font-weight : bold;
+    background : #000;
+    color : #fff;
 }
+.navbar .nav > li a:hover {
+    background : #ddd;
+}
+.navbar .nav > li a::before,
+.navbar .nav > li a::after {
+    display: inline-block;
+    opacity: 0;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.2s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.2s;
+    transition: transform 0.3s, opacity 0.2s;
+}
+
+.navbar .nav > li a::before {
+    margin-right: 10px;
+    content: '[';
+    -webkit-transform: translateX(20px);
+    -moz-transform: translateX(20px);
+    transform: translateX(20px);
+}
+
+.navbar .nav > li a::after {
+    margin-left: 10px;
+    content: ']';
+    -webkit-transform: translateX(-20px);
+    -moz-transform: translateX(-20px);
+    transform: translateX(-20px);
+}
+
+.navbar .nav > li a:hover::before,
+.navbar .nav > li a:hover::after,
+.navbar .nav > li a:focus::before,
+.navbar .nav > li a:focus::after {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    transform: translateX(0px);
+}
+
 .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner{
 }
 
 /* MAIN SECTIONS */
 
-section:nth-child(2n) {
-    background-color: #000;
+section:not(:first-child) {
     padding:25px 0px 50px;
-    height : 100%;
 }
-
-section:nth-child(2n+3) {
-    background-color: EEF;
-    padding:25px 0px 50px;
-    height : 100% !important;
+section:nth-child(2n) {
+    height : 100%;
 }
 
 #home {
@@ -185,6 +248,7 @@ section:nth-child(2n+3) {
     height:90%;
     margin-bottom : 1%;
     color:#FFF;
+    padding : 0px;
     /*background:url('../img/home/banner.png') no-repeat center 0 fixed;*/
     
     -webkit-background-size: 100%;
@@ -193,25 +257,39 @@ section:nth-child(2n+3) {
     background-size: 100%;
     background-attachment : fixed;  /* FIXED FOR IE */
 }
+#aboutus  {
+    background : #000;
+    background : url(../img/shows/bg.jpg) repeat;
+    color : #fff;
+}
 #events {
-    background : #eef;
+    background : #fff;
+    background : url(../img/events/bg.png) repeat;
 }
 #shows {
     background : #000;
+    background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
 }
 #spons  {
     background : #fff;
+    background : url(../img/events/bg.png) repeat;
 }
 #hospi  {
     background : #000;
+    background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
-    /*display : none;*/
+    display : none;
 }
 #contact  {
     background : #fff;
+    background : url(../img/events/bg.png) repeat;
+    height : 80%;
 }
 
+#aboutus h2 {
+    color : #fff;
+}
 #shows h2 {
     color : #fff;
 }
@@ -277,7 +355,8 @@ footer a:hover{color: #ccc; text-decoration: none;}
     -moz-transition: all 0.5s ease-in-out;
     -ms-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;}
+    transition: all 0.5s ease-in-out;
+}
 
 #down_button_contact a:hover {
     color:#121212;

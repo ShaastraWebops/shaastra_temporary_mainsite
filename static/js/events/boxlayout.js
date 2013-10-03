@@ -36,13 +36,18 @@ function populate_event_group(category_name, dest){
             dest.append("<div class='span"+span_amount+"' style='opacity:0; z-index:-99;'></div>");
         }
         
-        onclick_handler = "Dajaxice.events.show_event(Dajax.process,{'event_pk':'"+event_list[i].pk+"','event_name':'"+event_list[i].title.replace(/ /g, "~")+"','event_type':'"+event_list[i].event_type+"'})";
-        
+        onclick_handler = "show_event(document.getElementById('event_no_" +event_list[i].pk+"_click'));" + "Dajaxice.events.show_event(Dajax.process,{'event_pk':'"+event_list[i].pk+"','event_name':'"+event_list[i].title.replace(/ /g, "~")+"','event_type':'"+event_list[i].event_type+"'});";
         dest.append("<div class='span3' id='event_no_"+event_list[i].pk+"'>"+
-                        "<div class='span12 title' onclick="+onclick_handler+"  id='event_no_"+event_list[i].pk+"_click'><h3>"+event_list[i].title+"</h3></div>"+
+                        "<div class='span12 title' onclick="+onclick_handler+"  id='event_no_"+event_list[i].pk+"_click'><span><h3>"+event_list[i].title+"</h3></span><br /><span class='white dice' style='opacity : 0.4'></span></div>"+
                         "<div class='span12 event_content'></div>"+
                     "</div>");
     }
+    /*setTimeout(function() {
+        dest.find("div.title").css ( {
+            'height' : dest.height() + "px",
+            'line-height' : dest.height() + "px",
+        } );
+    }, 5000);*/
 }
 
 /* ---------- EVENT GROUPS -------- */
@@ -99,6 +104,7 @@ function show_event(me) {
 
     
     // expand the clicked section and hide the others
+    $section.children(".event_content").addClass("loading")
     $sections.hide();
     $section.show();
     $sections.removeClass( 'expand' );
@@ -134,8 +140,8 @@ function show_event_page(me) {
 //    $('.sidr li')
     $(me).addClass("active");
     if ( elem_number != -1 ) {
-        $section.children("div").slice(1).hide(500);
-        $($section.children("div").slice(1).get(elem_number)).show(500); // +1 as title will also be there
+        $section.children("div").slice(2).hide(500);
+        $($section.children("div").slice(2).get(elem_number)).show(500); // +1 as title will also be there
         $(me).parent().children("li").removeClass("active");
         $(me).addClass("active");
     }

@@ -164,13 +164,21 @@ $(window).scroll(function() {
             'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',
             'height' : (h-ypos)*0.9 + 'px',
         } );*/
+        
+        
+        
         $('#banner_div').css( {
             'top' : ypos + 'px',
         } );
         $('#behind_banner_div').css( {
             'top' : ypos + 'px',
         } );
-
+        
         //do stuff here
+    }
+    if(ypos < h*0.8) {
+        $('.nav a[href="#home"]').addClass("active")
+    } else {
+        $('.nav a[href="#home"]').removeClass("active")
     }
 });
