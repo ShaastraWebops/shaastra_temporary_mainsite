@@ -19,12 +19,13 @@ EVENT_CATEGORIES = (
     ('Involve', 'Involve'),
     ('Quizzes', 'Quizzes'),
     ('Online', 'Online'),
-    ('Department Flagship', 'Department Flagship Event'),
+    ('Department Flagship Event', 'Department Flagship Event'),
     ('Spotlight', 'Spotlight'),
     ('Workshops', 'Workshops'),
     ('Exhibitions', 'Exhibitions and Shows'),
     ('Miscellaneous', 'Miscellaneous'),
     ('Sampark', 'Sampark'),
+    ('B- Events','B- Events'),
     )
 
 UPDATE_CATEGORY = (
