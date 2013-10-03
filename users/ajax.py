@@ -40,11 +40,9 @@ import datetime
 @dajaxice_register
 def add_college(request,college=None,city=None,state=None):
     dajax = Dajax()
-    #TODO: get the Login modal back up
-    
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if city is None or college is None or state is None or city =='' or college =='' or state =='':
-        dajax.script('$.bootstrapGrowl("Please enter relevant details for adding your college", {type:"danger",timeout:50000} );' )
+        dajax.script('$.bootstrapGrowl("Please enter relevant details for adding your college", {type:"danger",timeout:50000} );')
         return dajax.json()
     else:
         try:
@@ -54,7 +52,7 @@ def add_college(request,college=None,city=None,state=None):
                     return dajax.json()    
         except:
             coll=None
-        dajax.script('$("#register").modal(\'hide\');')
+        dajax.script('$("#add_college").modal(\'hide\');')
         dajax.script('$("#login").show();')
         coll=College(name=college,city=city,state=state)
         coll.save()

@@ -116,7 +116,7 @@ from django.utils import timezone
 def registrable_events(time=timezone.now()):
     #TODO:change erp
     eventlist = []
-    for event in ParticipantEvent.objects.using('erp').filter(registration_ends > time).filter(registration_starts<time):
+    for event in ParticipantEvent.objects.using('erp').filter(registrable_online=True).filter(registration_ends > time).filter(registration_starts<time):
         eventlist.append(event.title)
     return eventlist
     
