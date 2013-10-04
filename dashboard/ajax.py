@@ -96,4 +96,3 @@ def register_event_form(request,event_id = None):
                 dajax.script('$("#event_register").modal();')
     return dajax.json()
 
-
