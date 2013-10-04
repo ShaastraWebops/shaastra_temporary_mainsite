@@ -1,18 +1,43 @@
 {% load staticfiles %}
 <h3 style='width : 100%;'>
+<<<<<<< HEAD
+<span id='#event_regd_title' style='position:absolute; left : 25%; display : inline-block;'>Registration for {{event.title}}</span>
+&nbsp;
+</h3>
+<div id="event_registration">
+<table>
+<form action="" method="POST" id="form_team"> {% csrf_token %}
+{% for i in teammates %}
+<tr> <input type="text" id="shid_{{i}}" style="width:500"placeholder = "Enter Shaastra ID of your teammate {{i}}"/></tr>
+{% endfor %}
+=======
             <span id='#event_regd_title' style='position:absolute; left : 25%; display : inline-block;'>Registration for {{event.title}}</span>
                 &nbsp;
             </h3>
             <div id="event_registration">
             <table>
             <form action="" method="POST" id="form_team"> {% csrf_token %}
-                {% for i in range(teammates) %}
-                   <tr> <input type="text" id="shid_{{i}}" placeholder = "Enter Shaastra ID of your teammate {{i}}"/></tr>
+                {% for i in teammates %}
+                   <tr> <input type="text" id="shid_{{i}}" style="width:500"placeholder = "Enter Shaastra ID of your teammate {{i}}"/></tr>
                 {% endfor %}
                 
             <tr>
-            <input id="login_form_submit" type="button" onclick="Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},{% for i in teammates %}'teammate#{{i}}':$('#shid_{{i}}').val(),{%endfor %}}" value="Register for {{event.title}}!!" class="btn btn-primary"/>
+            <br>
+            <input id="login_form_submit" type="button" onclick="Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},{{inputhtml}}})" value="Register for {{event.title}}!!" class="btn btn-primary"/>
             </tr>
             </form>
            </table>
+>>>>>>> 32efa9dfd1f83418561bee2068a3ef5d29288e55
 
+<tr>
+<br>
+Are you want to register for {{event.title}}?
+<input type="radio" name="yes" value="yes"/>Yes<br>
+<input id="login_form_submit" type="button" onclick="Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},{{inputhtml}}})" value="Register for {{event.title}}!!" class="btn btn-primary"/>
+</tr>
+</form>
+</table>
+</div>
+{% comment %}
+{% for i in teammates %}'teammate#{{i}}':$('#shid_{{i}}').val(),{%endfor %}}
+{% endcomment %}
