@@ -101,7 +101,7 @@
             $("#form_registration #id_password_again").val()=='' ||
             $("#form_registration #id_first_name").val()=='' ||
             $("#form_registration #id_college_roll").val()=='' ||
-            $("#college").val() == ''){
+            ($("#college").val() == '') && $("#add_coll_name").text()==''){
                 $.bootstrapGrowl("Please fill up the registration form completely. All fields are mandatory.");
                 x='0'
             }

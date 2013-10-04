@@ -51,7 +51,7 @@ def add_college(request,college=None,city=None,state=None):
             for coll in College.objects.all():
                 if coll.name.lower() == college.lower():
                     dajax.script('$.bootstrapGrowl("Your college is already on our list, please check again", {type:"danger",timeout:50000} );')
-                    return dajax.json()    
+                    return dajax.json()
         except:
             coll=None
         dajax.script('$("#add_college").modal(\'hide\');')
@@ -63,7 +63,7 @@ def add_college(request,college=None,city=None,state=None):
         dajax.script('$.bootstrapGrowl("Your college:<strong>%s</strong> was added. Welcome", {type:"success",timeout:50000} );'% str(coll.name) )
         # : populate the id_college with the given college details?
         dajax.script("$('#add_coll_message').toggle();")
-        dajax.script("$('#form_registration #id_college').toggle();")
+        dajax.script("$('#form_registration #college').toggle();")
         dajax.script("$('#add_coll_form').toggle();")
 #    colllist=College.objects.all()
     return dajax.json()
@@ -143,14 +143,12 @@ def register(request,form_registration=None,college_name=None):
     new_coll = False
     if not college_name is None:
         try:
-            if str(college_name)!='':
-                dajax.script("$.bootstrapGrowl('Please either choose a college from the list, or add your college!', {type:'danger',timeout:50000});")
+#            if str(college_name)!='':
+#                dajax.script("$.bootstrapGrowl('Please either choose a college from the list, or add your college!', {type:'danger',timeout:50000});")
             college=College.objects.filter(name=str(college_name))[0]
             new_coll = True
         except:
-            if str(college_name)!='':
-                dajax.script("$.bootstrapGrowl('Please either choose a college from the list, or add your college!', {type:'danger',timeout:50000});")
-            else:
+            if not str(college_name)!='':
                 dajax.script("$.bootstrapGrowl('You must have entered your college first!', {type:'danger',timeout:50000});")
             return dajax.json()
     
