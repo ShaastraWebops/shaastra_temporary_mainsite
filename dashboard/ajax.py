@@ -91,7 +91,6 @@ def register_event_form(request,event_id = None):
                 dajax.script('$.bootstrapGrowl("Deadline for the event is %s/%s/%s", {timeout:50000} );'% (enddate.day,enddate.month,enddate.year))
                 return dajax.json()
             html_stuff = render_to_string('dashboard/event_registration_form.html',context_dict,RequestContext(request))
-            print html_stuff
             if html_stuff:
                 dajax.assign('#FormRegd','innerHTML',html_stuff)
                 dajax.script('$("#event_register").modal();')
