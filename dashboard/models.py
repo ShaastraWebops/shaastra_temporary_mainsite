@@ -16,16 +16,13 @@ class TeamEvent(models.Model):
         #Here, for event title, TODO:shorthand version of the name needed, for now truncated
         self.team_id = 'TEAM#'+ str(event.title)[:5]+'#'+  +str(self.id)
         super(UserProfile, self).save(*args, **kwargs)
-
     def __unicode__(self):
         return "%(project_name)s - %(user_name)s" % { 'project_name' : str(self.event), 'user_name' : self.user.username }
-
 
 #Updates for each user:: The user will get this on login:: He has to approve
 
 UPDATE_CHOICES = (
     ('Team Add', 'Team Add'),
-    ('Deadline for Registration', 'Deadline for Registration'),
     ('Deadline for Registration', 'Deadline for Registration'),
     )
 class Update(models.Model):

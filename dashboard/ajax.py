@@ -41,6 +41,15 @@ from models import TeamEvent
 @dajaxice_register
 def register_event(request,**kwargs):
     dajax=Dajax()
+    i=0
+    shalist=dict()
+    while 1>0:
+        try:
+            shalist['%d'%i]=kwargs['teammate#%d' % i]
+        except:
+            break
+        i=i+1
+    print shalist
     dajax.script('alert("success");')
     return dajax.json()
 
@@ -66,40 +75,41 @@ def register_event_form(request,event_id = None):
         if not event.registrable_online:
             dajax.script('$.bootstrapGrowl("You cannot register online for this event", {type:"danger",timeout:50000} );')
             return dajax.json()
-        if event.registration_starts and event.registration_starts:
+        elif event.registration_starts and event.registration_ends:
             if event.registration_starts > timezone.now():
                 days = (event.registration_starts - timezone.now()).days
                 dajax.script('$.bootstrapGrowl("Please wait until %d days for registrations to open", {type:"danger",timeout:100000} );' % days)
                 return dajax.json()
-            if event.registration_ends < timezone.now():
+            elif event.registration_ends < timezone.now():
                 dajax.script('$.bootstrapGrowl("Registrations closed! Sorry", {type:"danger",timeout:100000} );' % days)
                 return dajax.json()
-        else:
-            maxteam = event.team_size_max
-            if maxteam >1:
-                dajax.script('$.bootstrapGrowl("Note that you need to have a team of %d members to register", {timeout:50000} );'% event.team_size_max)
-                teammates = range(maxteam-1)
-                inputhtml = ""
-                for i in teammates:
-                    inputhtml +="\'teammate#%d\':$(\'#shid_%d\').val()," %(i,i)
-                inputhtml=inputhtml[:len(inputhtml)-1]
-                print '/////////////////'
-                print inputhtml
-                print '++++++++++++++++'
-                context_dict = {'event': event,'teammates':teammates,'inputhtml':inputhtml}
             else:
-                #TODO : register him for the event
-                tev = TeamEvent(event=event)
-                tev.save()
-                tev.add(user)
-                tev.save()
-                dajax.script('$.bootstrapGrowl("You have been registerd for the event: %s.", {timeout:50000} );'% event.title)
-                enddate = event.registration_ends
-                dajax.script('$.bootstrapGrowl("Deadline for the event is %s/%s/%s", {timeout:50000} );'% (enddate.day,enddate.month,enddate.year))
-                return dajax.json()
-            html_stuff = render_to_string('dashboard/event_registration_form.html',context_dict,RequestContext(request))
-            if html_stuff:
-                dajax.assign('#FormRegd','innerHTML',html_stuff)
-                dajax.script('$("#event_register").modal();')
+                maxteam = event.team_size_max
+                if maxteam >1:
+                    dajax.script('$.bootstrapGrowl("Note that you need to have a team of atleast %d members to register", {timeout:50000} );'% event.team_size_max)
+                    teammates = range(maxteam-1)
+                    inputhtml = ""
+                    for i in teammates:
+                        inputhtml +="\'teammate#%d\':$(\'#shid_%d\').val()," %(i,i)
+                    inputhtml=inputhtml[:len(inputhtml)-1]
+                    print maxteam-1
+                    context_dict = {'event': event,'teammates':teammates,'inputhtml':inputhtml,'team_max':maxteam-2}
+                else:
+                    #TODO : register him for the event
+                    tev = TeamEvent(event=event)
+                    tev.save()
+                    tev.add(user)
+                    tev.save()
+                    dajax.script('$.bootstrapGrowl("You have been registered for the event: %s.", {timeout:50000} );'% event.title)
+                    enddate = event.registration_ends
+                    dajax.script('$.bootstrapGrowl("Deadline for the event is %s/%s/%s", {timeout:50000} );'% (enddate.day,enddate.month,enddate.year))
+                    return dajax.json()
+                html_stuff = render_to_string('dashboard/event_registration_form.html',context_dict,RequestContext(request))
+                if html_stuff:
+                    dajax.assign('#FormRegd','innerHTML',html_stuff)
+                    dajax.script('$("#event_register").modal();')
+        else:
+            dajax.script('$.bootstrapGrowl("Registrations not put up yet, please wait!", {timeout:50000} );'% event.title)
+
     return dajax.json()
 
