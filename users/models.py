@@ -141,7 +141,11 @@ class UserProfile(models.Model):
     def save(self, *args, **kwargs):
         self.user.save()
         super(UserProfile, self).save(*args, **kwargs)
-
+    
+    def delete(self, *args, **kwargs):
+        self.user.delete()
+        super(UserProfile, self).delete(*args, **kwargs)
+    
     def __unicode__(self):
         return self.user.first_name
 
