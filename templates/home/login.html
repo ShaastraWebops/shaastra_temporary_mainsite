@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 <div id="login" class="modal modal-large hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<center>
+<!--	<center>-->
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss='modal'>&times;</button>
 			<h3 style='width : 100%;'>
@@ -78,7 +78,7 @@
 							<td>{{form_registration.branch}}</td>
 					</tr>
 					<tr>                                
-							<td><div id="add_college"><a id='add_coll_message' onclick='addcoll();' style="cursor:pointer;font-size:11pt">Can't find your college in the list?</a></td><td><span id='add_coll_result'></span><span id='add_coll_name'></span></div></td>
+							<td><div id="add_college_display"><a id='add_coll_message' onclick='addcoll();' style="cursor:pointer;font-size:11pt">Can't find your college in the list?</a></td><td><span id='add_coll_result'></span><span id='add_coll_name'></span></div></td>
 						</tr>
 						<tr>
 							<td>Want accomodation?
@@ -102,6 +102,6 @@
 				</div>
 				{%endif%}
 
-			</center>
+<!--			</center>-->
 		</div>
-
+<!--</div>-->
