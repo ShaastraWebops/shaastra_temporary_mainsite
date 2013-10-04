@@ -54,7 +54,7 @@ def add_college(request,college=None,city=None,state=None):
                     return dajax.json()    
         except:
             coll=None
-        dajax.script('$("#register").modal(\'hide\');')
+        dajax.script('$("#add_college").modal(\'hide\');')
         dajax.script('$("#login").show();')
         coll=College(name=college,city=city,state=state)
         coll.save()
@@ -160,7 +160,7 @@ def register(request,form_registration=None,college_name=None):
             new_user.save()
             new_user.is_active = False
             new_user.save()
-            x = 1300000 + new_user.id 
+            x = 1400000 + new_user.id 
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt + new_user.username).hexdigest()
             if college is None:
