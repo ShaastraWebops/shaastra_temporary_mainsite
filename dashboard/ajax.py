@@ -65,6 +65,7 @@ def register_event_form(request,event_id = None):
         if not event.registrable_online:
             dajax.script('$.bootstrapGrowl("You cannot register online for this event", {type:"danger",timeout:50000} );')
             return dajax.json()
+<<<<<<< HEAD
         if event.registration_starts and event.registration_starts:
             if event.registration_starts > timezone.now():
                 days = (event.registration_starts - timezone.now()).days
@@ -73,6 +74,15 @@ def register_event_form(request,event_id = None):
             if event.registration_ends < timezone.now():
                 dajax.script('$.bootstrapGrowl("Registrations closed! Sorry", {type:"danger",timeout:100000} );' % days)
                 return dajax.json()
+=======
+        elif event.registration_starts > timezone.now():
+            days = (event.registration_starts - timezone.now()).days
+            dajax.script('$.bootstrapGrowl("Please wait until %d days for registrations to open", {type:"danger",timeout:100000} );' % days)
+            return dajax.json()
+        elif event.registration_ends < timezone.now():
+            dajax.script('$.bootstrapGrowl("Registrations closed! Sorry", {type:"danger",timeout:100000} );' % days)
+            return dajax.json()
+>>>>>>> 67aad41648399dd92c0b0c4886038222203156c7
         else:
             max_team = event.team_size_max
             if max_team >1:
