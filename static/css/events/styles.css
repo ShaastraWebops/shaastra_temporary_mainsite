@@ -186,7 +186,7 @@
 .main_event_item.event_item > div {
     opacity : 1;
 }
-.main_event_item.event_item > div:hover {
+.main_event_item.event_item > div:nth-child(1):hover {
     opacity : 0.8;
 }
 /*FOR THE BLUR REST ANIMATION
