@@ -25,7 +25,12 @@
 				Are you want to register for {{event.title}}?
 				<input type="radio" name="yes" value="yes" id="sure"/>Yes<br/>
 				<br/>
-				<input id="event_registration_submit" type="button" onclick="if ($('#sure')[0].checked){Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},{{inputhtml}}});}else{$.bootstrapGrowl('Are you sure?');}" value="Register for {{event.title}}!!" class="btn btn-primary"/>
+				<input id="event_registration_submit" type="button" onclick="if ($('#sure')[0].checked){
+				Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},{{inputhtml}}});
+				}
+				else{
+				$.bootstrapGrowl('Are you sure?');
+				}" value="Register for {{event.title}}!!" class="btn btn-primary"/>
 			</tr>
 		</form>
 	</table>

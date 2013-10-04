@@ -39,17 +39,24 @@ import datetime
 from models import TeamEvent
 
 @dajaxice_register
-def register_event(request,**kwargs):
+def register_event(request,event_id,**kwargs):
     dajax=Dajax()
     i=0
     shalist=dict()
+    teamevent = TeamEvent()
+    teamevent.event = None
     while 1>0:
         try:
             shalist['%d'%i]=kwargs['teammate#%d' % i]
         except:
             break
         i=i+1
-    print shalist
+    if len(shalist)!=len(set(shalist)):
+        dajax.script('alert(":(");')
+
+#        dajax.script('$.bootstrapGrowl("No duplicates allowed", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    
     dajax.script('alert("success");')
     return dajax.json()
 
@@ -109,7 +116,7 @@ def register_event_form(request,event_id = None):
                     dajax.assign('#FormRegd','innerHTML',html_stuff)
                     dajax.script('$("#event_register").modal();')
         else:
-            dajax.script('$.bootstrapGrowl("Registrations not put up yet, please wait!", {timeout:50000} );'% event.title)
+            dajax.script('$.bootstrapGrowl("Registrations not put up yet, please wait!", {timeout:50000} );')
 
     return dajax.json()
 

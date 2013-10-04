@@ -14,8 +14,8 @@ class TeamEvent(models.Model):
         return len(self.users.all())
     def save(self, *args, **kwargs):
         #Here, for event title, TODO:shorthand version of the name needed, for now truncated
-        self.team_id = 'TEAM#'+ str(event.title)[:5]+'#'+  +str(self.id)
-        super(UserProfile, self).save(*args, **kwargs)
+        self.team_id = 'TEAM#'+ str(self.event.title[:5])+'#'+str(self.id)
+        super(TeamEvent, self).save(*args, **kwargs)
     def __unicode__(self):
         return "%(project_name)s - %(user_name)s" % { 'project_name' : str(self.event), 'user_name' : self.user.username }
 
