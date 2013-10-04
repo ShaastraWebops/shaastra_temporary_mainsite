@@ -140,11 +140,15 @@ def register(request,form_registration=None,college_name=None):
         except:
             #impossible scenario!!
             dajax.script("$.bootstrapGrowl('You must have entered your college first!', {type:'danger',timeout:50000});")
+            dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show()')
+    
             return dajax.json()
     
     if request.user.is_authenticated():
         msg_login = '%s, You are already logged in!!' % request.user.username
         dajax.script('$.bootstrapGrowl("Hi %s" , {type:"danger",timeout:50000} );'% msg_login )
+        dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show()')
+    
         return dajax.json()
         
     if request.method=="POST" and (form_registration !=None or not college_name is None):
@@ -185,6 +189,8 @@ def register(request,form_registration=None,college_name=None):
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
 #            dajax.script('$(".modal-header").find(".close").click();')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:50000} );'% msg )
+            dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show()')
+    
             return dajax.json()
         else:
             errdict=dict(form.errors)
@@ -196,11 +202,14 @@ def register(request,form_registration=None,college_name=None):
             dajax.script("$('#form_registration #id_password_again').val('');")
             for error in form.errors:
                 dajax.add_css_class('#form_registration #id_%s' % error, 'error')
+            dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show()')
             return dajax.json()
     if request.method == 'GET':
         form_registration = AddUserForm()
+        dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show()')
         return dajax.json()
     form_registration=AddUserForm()
+    dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show()')
     return dajax.json()
 
 
