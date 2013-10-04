@@ -40,6 +40,7 @@ from models import TeamEvent
 
 @dajaxice_register
 def register_event(request,**kwargs):
+    dajax=Dajax()
     dajax.script('alert("success");')
     return dajax.json()
 
@@ -78,8 +79,14 @@ def register_event_form(request,event_id = None):
             if maxteam >1:
                 dajax.script('$.bootstrapGrowl("Note that you need to have a team of %d members to register", {timeout:50000} );'% event.team_size_max)
                 teammates = range(maxteam-1)
-                
-                context_dict = {'event': event,'teammates':teammates}
+                inputhtml = ""
+                for i in teammates:
+                    inputhtml +="\'teammate#%d\':$(\'#shid_%d\').val()," %(i,i)
+                inputhtml=inputhtml[:len(inputhtml)-1]
+                print '/////////////////'
+                print inputhtml
+                print '++++++++++++++++'
+                context_dict = {'event': event,'teammates':teammates,'inputhtml':inputhtml}
             else:
                 #TODO : register him for the event
                 tev = TeamEvent(event=event)
