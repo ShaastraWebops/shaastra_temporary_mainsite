@@ -4,7 +4,7 @@ from users.models import *
 # Create your models here.
 
 class TeamEvent(models.Model):
-    team_id = models.CharField(default=0,null=True)
+    team_id = models.CharField(default=0,null=True,max_length = 50)
     team_name = models.CharField(max_length = 30,blank = True,null=True)
     users = models.ManyToManyField(User, blank = True, null = True)
     is_active = models.BooleanField(default = True)

@@ -46,6 +46,7 @@ def register_event(request,**kwargs):
 @dajaxice_register
 def register_event_form(request,event_id = None):
     dajax = Dajax()
+    print '********'
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if event_id is None:
         dajax.script('$.bootstrapGrowl("Invalid Event specified.", {type:"danger",timeout:50000} );')
