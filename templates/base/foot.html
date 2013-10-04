@@ -88,10 +88,13 @@
         }
         
         user_login=function(){
+            
             Dajaxice.users.login(Dajax.process, {'login_form':$('#login_form').serialize(true)});
         }
         
         submit_registration=function(){
+            $("#gif_registration").show()
+            $("#form_registration_submit").toggle()
             var x='1'
             if ($("#form_registration #id_first_name").val()=='' ||
             $("#form_registration #id_last_name").val()=='' ||
@@ -100,7 +103,7 @@
             $("#form_registration #id_password").val()=='' ||
             $("#form_registration #id_password_again").val()=='' ||
             $("#form_registration #id_first_name").val()=='' ||
-            $("#form_registration #id_college_roll").val()=='' ||
+            $("#form_registration #college_roll").val()=='' ||
             ($("#college").val() == '') && $("#add_coll_name").text()==''){
                 $.bootstrapGrowl("Please fill up the registration form completely. All fields are mandatory.");
                 x='0'
@@ -132,6 +135,8 @@
             }
             }
             }
+            $("#gif_registration").hide()
+            $("#form_registration_submit").toggle()
         }   
         
  
@@ -157,12 +162,8 @@
                 $($(tds[i]).children("input")).attr("placeholder", st);
             }
         }
-      
+      $("#form_registration #id_branch" ).width($("#form_registration #id_age").width());
       $(".loading").hide();
-      $( document ).ajaxStart(function() {
-              //alert('ssup');
-              $( ".loading" ).show();
-      });
       $("#form_registration #id_gender" ).width($("#form_registration #id_age").width());
       $("#login_form input").keypress(function(event) {
                 if (event.which == 13) {
