@@ -25,13 +25,24 @@ function populate_event_group(category_name, dest){
         }
     }
     
+    
     /*populate the category with events*/
     event_list = json_content[category_name];
     dest.html(""); // make the dest empty to fill the events belonging to the given category
     
+    $(".main_event_item.event_item").removeClass("rows_0") // gen
+    $(".main_event_item.event_item").removeClass("rows_1")
+    $(".main_event_item.event_item").removeClass("rows_2")
+    $(".main_event_item.event_item").removeClass("rows_3")
+    $(".main_event_item.event_item").addClass("rows_" + ( 1 + Math.floor(event_list.length/4) ))
+    
     for (var i in event_list){
-        if (i%4 == 0 && i!=0){ //provide proper span to center the 5th, 10th, ... element groups
-            span_amount = ( 12 - 3*(event_list.length-4) )/2;
+        if ( i == Math.floor(event_list.length/4)*4 ){ //provide proper span to center the 5th, 10th, ... element groups
+            
+            var left_over = event_list.length - Math.floor(event_list.length/4)*4,
+                done = Math.floor(event_list.length/4)*4;
+            span_amount = ( 12 - 3*left_over )/2;
+            //console.log(span_amount)
             span_amount = span_amount.toString().replace(/\./g, "_");
             dest.append("<div class='span"+span_amount+"' style='opacity:0; z-index:-99;'></div>");
         }
@@ -75,7 +86,7 @@ function show_event_group(el) {
         $(".event_items_div .event_item").addClass("span1");
         $(".event_items_div .buffer").hide();
         $(".event_items_div .event_back").show();
-        //$(".event_items_div .buffer_event").addClass("s");
+        
     }
 };
 
