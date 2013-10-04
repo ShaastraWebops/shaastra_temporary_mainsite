@@ -6,7 +6,7 @@
             <div id="event_registration">
             <table>
             <form action="" method="POST" id="form_team"> {% csrf_token %}
-                {% for i in teammates %}
+                {% for i in range(teammates) %}
                    <tr> <input type="text" id="shid_{{i}}" placeholder = "Enter Shaastra ID of your teammate {{i}}"/></tr>
                 {% endfor %}
                 
