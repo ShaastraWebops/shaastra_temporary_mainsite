@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<h3 style='width : 100%;'>
+            <span id='#event_regd_title' style='position:absolute; left : 25%; display : inline-block;'>Registration for {{event.title}}</span>
+                &nbsp;
+            </h3>
+            <div id="event_registration">
+            <table>
+            <form action="" method="POST" id="form_team"> {% csrf_token %}
+                {% for i in teammates %}
+                   <tr> <input type="text" id="shid_{{i}}" placeholder = "Enter Shaastra ID of your teammate {{i}}"/></tr>
+                {% endfor %}
+                
+            <tr>
+            <input id="login_form_submit" type="button" onclick="Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},{% for i in teammates %}'teammate#{{i}}':$('#shid_{{i}}').val(),{%endfor %}}" value="Register for {{event.title}}!!" class="btn btn-primary"/>
+            </tr>
+            </form>
+           </table>
+
