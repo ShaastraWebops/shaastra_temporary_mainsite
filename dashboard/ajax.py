@@ -74,10 +74,11 @@ def register_event_form(request,event_id = None):
                 dajax.script('$.bootstrapGrowl("Registrations closed! Sorry", {type:"danger",timeout:100000} );' % days)
                 return dajax.json()
         else:
-            max_team = event.team_size_max
-            if max_team >1:
+            maxteam = event.team_size_max
+            if maxteam >1:
                 dajax.script('$.bootstrapGrowl("Note that you need to have a team of %d members to register", {timeout:50000} );'% event.team_size_max)
-                teammates = maxteam-1
+                teammates = range(maxteam-1)
+                
                 context_dict = {'event': event,'teammates':teammates}
             else:
                 #TODO : register him for the event
@@ -89,12 +90,11 @@ def register_event_form(request,event_id = None):
                 enddate = event.registration_ends
                 dajax.script('$.bootstrapGrowl("Deadline for the event is %s/%s/%s", {timeout:50000} );'% (enddate.day,enddate.month,enddate.year))
                 return dajax.json()
-            html_stuff = render_to_string('dashboard/event_registration.html',context_dict,RequestContext(request))
+            html_stuff = render_to_string('dashboard/event_registration_form.html',context_dict,RequestContext(request))
+            print html_stuff
             if html_stuff:
+                dajax.assign('#FormRegd','innerHTML',html_stuff)
                 dajax.script('$("#event_register").modal();')
-                dajax.assign('#event_registration','innerHTML',html_stuff)
-            dajax.assign("#add_coll_name",'innerHTML','%s'% college)
-            dajax.assign("#add_coll_result",'innerHTML','Added your college:')
     return dajax.json()
 
 
