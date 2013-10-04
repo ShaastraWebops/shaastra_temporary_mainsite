@@ -166,7 +166,7 @@ def register(request,form_registration=None,college_name=None):
             new_user.save()
             new_user.is_active = False
             new_user.save()
-            x = 1300000 + new_user.id 
+            x = 1400000 + new_user.id 
             salt = sha.new(str(random.random())).hexdigest()[:5]
             activation_key = sha.new(salt + new_user.username).hexdigest()
             if college is None:

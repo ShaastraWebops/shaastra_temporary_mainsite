@@ -49,10 +49,11 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
         return dajax.json()
     
     event_name = event_name.replace("~", " ")
-    
+
     event_json_filepath = get_json_file_path( str(event_pk) + "_" + event_name +".json" )
     print event_json_filepath
     if not os.path.exists(event_json_filepath):
+        dajax.script('$.bootstrapGrowl("Oops : The json file is missing@!!!!", {type:"danger"} );' )
         dajax.script('$.bootstrapGrowl("Oops : There is some error on the site, please report to WebOps team.", {type:"danger"} );' )
         return dajax.json()
     else:
@@ -97,4 +98,4 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
         #dajax.script("show_event(document.getElementById('event_no_"+str(event_pk)+"_click'));")
         dajax.script("$('#event_no_"+str(event_pk)+"_click').parent().children('.event_content').removeClass('loading');")
     
-    return dajax.json()
+    return dajax.json() 

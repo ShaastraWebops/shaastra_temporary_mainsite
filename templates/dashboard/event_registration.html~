@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<h3 style='width : 100%;'>
+            <span id='#event_regd_title' style='position:absolute; left : 25%; display : inline-block;'>Registration for {{event.title}}</span>
+                &nbsp;
+            </h3>
+            <div id="event_registration">
+            <table>
+            {% if event.team_size_max ==1 %}
+            <form action="" method="POST" id="form_single"> {% csrf_token %}
+                {{form_single.as_table}}
+            </form>
+            {% else %}
+            <form action="" method="POST" id="form_team"> {% csrf_token %}
+                {{form_team.as_table}}
+            </form>
+            {% endif %}
+            <tr><a id="event_registration_submit" class="btn btn-primary" onclick ="Dajaxice.dashboard.register_event(Dajax.process, {'form_team':$('#form_team').serialize(true)}"> Add your college to Shaastra!</a></tr>
+           </table>
+            </div>
+      {% endif %}
+  {% endif %}
+{% endif %}
