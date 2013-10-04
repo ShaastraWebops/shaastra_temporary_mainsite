@@ -70,9 +70,8 @@ def activate(request, a_key = None ):
         msg="Key error"
     else:
         try:
-            print 'ssup-000000000'
+            
             user_profile = UserProfile.objects.get(activation_key = a_key)
-            print 'ssup-00sdfsfsfs'
             if user_profile.user.is_active == True:
                 msg="%s, Your account is already activated. Please visit our site at :"% user_profile.user.username
                 link_to_site = True
@@ -87,8 +86,7 @@ def activate(request, a_key = None ):
                 user.is_active = True
                 user.save()
                 user_profile.save()
-                print 'testing'
-                x = 1300000 + user_profile.user.id
+                x = 1400000 + user_profile.user.id
                 salt = sha.new(str(random.random())).hexdigest()[:5]
                 user_profile.activation_key = sha.new(salt + user.username).hexdigest()
                 user_profile.save()
@@ -152,64 +150,4 @@ def activate(request, a_key = None ):
 #        return render_to_response('home/home.html', locals(),
 #                                  context_instance=RequestContext(request))
 #    return HttpResponseRedirect('/')
-
-def register(request):
-    #logged in user cannot register, but just in case
-    if request.user.is_authenticated():
-        msg_login = '%s, You are logged in!!' % request.user.username
-        logged_in = True
-        return render_to_response('home/home.html', locals(),context_instance=RequestContext(request))
-
-    if request.method=="POST":
-        form = AddUserForm(request.POST)
-        print "comes"
-        if form.is_valid():
-            print "here"
-            data = form.cleaned_data
-            new_user = User(first_name=data['first_name'],last_name=data['last_name'], username=data['username'], email=data['email'])
-            new_user.set_password(data['password']) 
-            new_user.save()
-            new_user.is_active = False
-            new_user.save()
-            x = 1300000 + new_user.id 
-            salt = sha.new(str(random.random())).hexdigest()[:5]
-            activation_key = sha.new(salt + new_user.username).hexdigest()
-            userprofile = UserProfile(user=new_user,activation_key=activation_key,gender=data['gender'],age=data['age'],branch=data['branch'],mobile_number=data['mobile_number'],college=data['college'],college_roll=data['college_roll'],shaastra_id= ("SHA" + str(x)),key_expires = timezone.now()+datetime.timedelta(2))
-            print 'registered'
-            userprofile.save()
-            mail_template = get_template('email/activate.html')
-            body = mail_template.render( Context( {
-                    'username':new_user.username,
-                    'SITE_URL':settings.SITE_URL,
-                    'activationkey':userprofile.activation_key,
-                    'shaastra_id':userprofile.shaastra_id,
-                }))
-            print body
-            send_mail('Your new Shaastra2013 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
-            print 'mail sent'
-            #Ajax alert for mail has been sent
-#            form = LoginForm()
-            msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
-            return HttpResponseRedirect('/')
-        else:
-            print 'ERROROROROR'
-            ifreg=True
-            #for error in form.errors:
-            #    dajax.add_css_class('#id_%s' % error, 'error')
-            #    dajax.script('$.bootstrapGrowl("Oops : There were errors when you tried to register !", {type:"danger"} );' )
-            form_registration=form
-            form=LoginForm()
-            return render_to_response('home/home.html', locals(),
-                                  context_instance=RequestContext(request))
-    if request.method == 'GET':
-        form_registration = AddUserForm()
-        try:
-            msg=request.session['msg']
-            del request.session['msg']
-        except:
-            msg=''
-        return render_to_response('home/home.html', locals(),
-                                  context_instance=RequestContext(request))
-    form_registration=AddUserForm()
-    return HttpResponseRedirect('/')
 
