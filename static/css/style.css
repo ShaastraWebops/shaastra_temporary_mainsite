@@ -275,6 +275,11 @@ section:nth-child(2n) {
     background : #fff;
     background : url(../img/events/bg.png) repeat;
 }
+#lectures  {
+    background : #000;
+    background : url(../img/shows/bg.jpg) repeat;
+    color : #fff;
+}
 #hospi  {
     background : #000;
     background : url(../img/shows/bg.jpg) repeat;
@@ -294,6 +299,9 @@ section:nth-child(2n) {
     color : #fff;
 }
 #hospi h2 {
+    color : #fff;
+}
+#lectures h2 {
     color : #fff;
 }
 #twitter_module {
