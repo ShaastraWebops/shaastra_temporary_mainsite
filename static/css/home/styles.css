@@ -49,18 +49,20 @@
   text-shadow: none;
 }
 #hexaflip .hexaflip-cube > div:nth-child(1n+1) {
-  background-color: #444;
+  background-color: #010340;
+  color : #ADD5F7;
 }
 #hexaflip .hexaflip-cube > div:nth-child(2n+2) {
-  background-color: #666;
-  background-color: #666;
+  background-color: #ADD5F7;
+  color : #000000;
 }
 #hexaflip .hexaflip-cube > div:nth-child(3n+3) {
-  background-color: #555;
+  background-color: #010340;
+  color : #ADD5F7
 }
 #hexaflip .hexaflip-cube > div:nth-child(4n+4) {
-  background-color: #eee;
-  color: #222;
+  background-color: #ADD5F7;
+  color : #000000;
 }
 .hexaflip-cube {
   font-family: 'Helvetica', Arial, Helvetica, sans-serif;
@@ -263,4 +265,12 @@
 }
 .links-rect a.black:hover{
     background: #444;
+}
+#dice {
+    
+    z-index : 10;
+    position: absolute; 
+    bottom: 12.5%; 
+    left: 0;
+    width : 100%; 
 }
