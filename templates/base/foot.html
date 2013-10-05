@@ -83,11 +83,12 @@
                         FOR LOGIN AND REGISTRATIONS
         ---------------------------------------------------------- */
         addcoll=function(){
-            $("#login").hide();
-            $("#register").modal();
+            $("#login").modal('toggle');
+            $("#add_college").modal('toggle');
         }
         
         user_login=function(){
+            
             Dajaxice.users.login(Dajax.process, {'login_form':$('#login_form').serialize(true)});
         }
         
@@ -100,8 +101,9 @@
             $("#form_registration #id_password").val()=='' ||
             $("#form_registration #id_password_again").val()=='' ||
             $("#form_registration #id_first_name").val()=='' ||
-            $("#form_registration #id_college_roll").val()=='' ||
-            $("#college").val() == ''){
+            $("#form_registration #college_roll").val()=='' ||
+            $("#form_registration #id_branch").val()==''||
+            ($("#college").val() == '') && $("#add_coll_name").text()==''){
                 $.bootstrapGrowl("Please fill up the registration form completely. All fields are mandatory.");
                 x='0'
             }
@@ -117,6 +119,8 @@
             }
             if (x=='1'){
             if ($("#add_coll_result").text()!=''){
+                $("#gif_registration").show();
+                $("#form_registration_submit").toggle();
                 Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").html()});
             }
             else{
@@ -125,6 +129,8 @@
                 var coll = $("#college").val();
                 var coll_list = coll.split("|");
                 var coll_name = coll_list[0];
+                $("#gif_registration").show();
+                $("#form_registration_submit").toggle();
                 Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':coll_name});
             }
             else{
@@ -157,12 +163,8 @@
                 $($(tds[i]).children("input")).attr("placeholder", st);
             }
         }
-      
+      $("#form_registration #id_branch" ).width($("#form_registration #id_age").width());
       $(".loading").hide();
-      $( document ).ajaxStart(function() {
-              //alert('ssup');
-              $( ".loading" ).show();
-      });
       $("#form_registration #id_gender" ).width($("#form_registration #id_age").width());
       $("#login_form input").keypress(function(event) {
                 if (event.which == 13) {

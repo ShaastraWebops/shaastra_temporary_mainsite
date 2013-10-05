@@ -28,7 +28,7 @@ from users.models import STATE_CHOICES
 def home(request):  
     form=LoginForm()
     form_registration=AddUserForm()
-    colllist=[coll.name+'| '+coll.city for coll in College.objects.all()]
+    colllist=[coll.name+' | '+coll.city for coll in College.objects.all()]
     collstr=''
     for l in colllist:
         collstr+="\""+l+"\""+","

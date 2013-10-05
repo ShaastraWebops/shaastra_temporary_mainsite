@@ -118,7 +118,7 @@ class UserProfile(models.Model):
     age = models.IntegerField(default=18)
                               # help_text='You need to be over 12 and under 80 years of age to participate'
                               # No age limit now.
-    branch = models.CharField(max_length=40, choices=BRANCH_CHOICES)
+    branch = models.CharField(max_length=80, choices=BRANCH_CHOICES)
     mobile_number = models.CharField(max_length=15, blank=True, null=True,
             help_text='Please enter your current mobile number')
     college = models.ForeignKey(College, null=True, blank=True)
@@ -141,7 +141,11 @@ class UserProfile(models.Model):
     def save(self, *args, **kwargs):
         self.user.save()
         super(UserProfile, self).save(*args, **kwargs)
-
+    
+    def delete(self, *args, **kwargs):
+        self.user.delete()
+        super(UserProfile, self).delete(*args, **kwargs)
+    
     def __unicode__(self):
         return self.user.first_name
 
