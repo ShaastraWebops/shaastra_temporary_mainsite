@@ -49,17 +49,19 @@
   text-shadow: none;
 }
 #hexaflip .hexaflip-cube > div:nth-child(1n+1) {
-  background-color: #444;
+  /*background-color: #444;*/
+  background-color: #000;
 }
 #hexaflip .hexaflip-cube > div:nth-child(2n+2) {
-  background-color: #666;
-  background-color: #666;
+  /*background-color: #666;*/
+  background-color: #000;
 }
 #hexaflip .hexaflip-cube > div:nth-child(3n+3) {
-  background-color: #555;
+  /*background-color: #555;*/
+  background-color: #000;
 }
 #hexaflip .hexaflip-cube > div:nth-child(4n+4) {
-  background-color: #eee;
+  background-color: #fff;
   color: #222;
 }
 .hexaflip-cube {
