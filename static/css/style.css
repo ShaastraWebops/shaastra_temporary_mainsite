@@ -249,7 +249,7 @@ section:nth-child(2n) {
     margin-bottom : 1%;
     color:#FFF;
     padding : 0px;
-    background : url(../img/events/bg.png) repeat;
+    /*background : url(../img/events/bg.png) repeat;*/
     
 }
 #aboutus  {
