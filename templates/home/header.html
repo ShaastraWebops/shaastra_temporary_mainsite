@@ -6,11 +6,7 @@
         <img id='banner_img' src='{% static "img/home/banner.png" %} ' style='visibility : hidden; position : absolute; top : 0px; left : 0px;' />
     </div>
     <div class='row' style='height : 65%;'></div>
-    <div class="row centered">
-        <img class='pull-left' src='{% static "img/logo/iitm.png" %}' onclick="window.open('','_blank');" style='margin-left : 10%; margin-top : 2%;' />
-        <img class='pull-left' src='{% static "img/logo/iso_black.png" %}' onclick="window.open('','_blank');" style='margin-left : 1%; margin-top : 2%;' />
-        <h1 class="fade-it" id='hexa-dice-container'></h1>
-    </div>
+    
     <div id='social-icons-header'>
         
         <img src='{% static "img/icons/social_fb_bw.png" %}' onclick="window.open('','_blank');" />
@@ -21,7 +17,17 @@
         <span style='color : #000;'>January 4th - 7th, 2014</span>
     </div>
     <!-- LITTLE LOGO SEE WHAT WE DO --> 
-    <div id="down_button" class="fade-it" style=''><a href="#events"></a></div>
+    <div class='links-rect'>
+        <a class='black' href="http://sampark.shaastra.org"> Sampark</a>
+        <a class='black' href="http://www.shaastra.org"><i class='icon_shaastra'></i> About Us</a>
+        <a class='black' href="http://lunar.shaastra.org"><i class="icon-globe"></i> LRC</a>
+    </div>
+    <div class="row centered" style=''>
+        <img class='pull-left' src='{% static "img/logo/iitm.png" %}' onclick="window.open('','_blank');" style='margin-left : 10%; margin-top : 2%;' />
+        <img class='pull-right' src='{% static "img/logo/iso_black.png" %}' onclick="window.open('','_blank');" style='margin-right : 10%; margin-top : 2%;' />
+        <h1 class="fade-it" id='hexa-dice-container'></h1>
+    </div>
+    <!--<div id="down_button" class="fade-it" style=''><a href="#events"></a></div>-->
     
 </section>
 <!-- END HEADER HOME  -->

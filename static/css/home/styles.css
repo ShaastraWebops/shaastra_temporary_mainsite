@@ -230,3 +230,37 @@
 #social-icons-header > img{
     margin : 0.5%;
 }
+
+/* Demo Buttons */
+.links-rect {
+    z-index : 10;
+    position: absolute; 
+    bottom: 5%; 
+    left: 0;
+    width : 100%;
+}
+.links-rect a{
+    z-index : 10;
+    display: inline-block;
+    font-size: 12px;
+    width: 100px;
+    height: 24px;
+    color: #000;
+    line-height: 24px;
+    text-align: center;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.9);
+    text-transform: uppercase;
+}
+.links-rect a:hover {
+    background: #ddd;
+    cursor : pointer;
+    color: #000;
+}
+.links-rect a.black {
+    background: #000;
+    color: #fff;
+}
+.links-rect a.black:hover{
+    background: #444;
+}
