@@ -249,13 +249,8 @@ section:nth-child(2n) {
     margin-bottom : 1%;
     color:#FFF;
     padding : 0px;
-    /*background:url('../img/home/banner.png') no-repeat center 0 fixed;*/
+    background : url(../img/events/bg.png) repeat;
     
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
-    background-attachment : fixed;  /* FIXED FOR IE */
 }
 #aboutus  {
     background : #000;

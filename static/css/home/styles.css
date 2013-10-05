@@ -36,9 +36,9 @@
   margin-bottom: 4rem;
 }
 #hexaflip .hexaflip-cube {
-  opacity: 0.9;
+  /*opacity: 0.9;
   filter: alpha(opacity=90);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";*/
 }
 #hexaflip .hexaflip-cube .hexaflip-left,
 #hexaflip .hexaflip-cube .hexaflip-right {
