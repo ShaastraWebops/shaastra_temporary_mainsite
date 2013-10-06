@@ -162,7 +162,7 @@ def logout(request,**kwargs):
     dajax.script('$.bootstrapGrowl("Successfully logged out!", {type:"success",timeout:50000} );' )
     dajax.assign("#login_logout", "innerHTML", '<a href="#login" onclick="$(\'#login\').modal(\'show\');">Login | Register </a>')
     return dajax.json()
-
+    
 @dajaxice_register
 def login(request,login_form = None):
     dajax = Dajax()
