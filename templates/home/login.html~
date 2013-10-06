@@ -1,0 +1,107 @@
+{% load staticfiles %}
+
+<div id="login" class="modal modal-large hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--	<center>-->
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss='modal'>&times;</button>
+			<h3 style='width : 100%;'>
+				<span style='position:absolute; left : 17%; display : inline-block;'>Login</span>
+				<span style='position:absolute; right : 24%;display : inline-block;'>Register</span>
+				&nbsp;
+			</h3>
+		</div>
+
+
+		{% if not request.user.is_authenticated%}
+		<div class="modal-body login_register">
+			<div class='span4 form_login_div' style="padding-right: 0%; border-right: 1px solid #ccc; ">
+				{% if form.errors %}
+				<p style="color: red;">
+				Please correct the error{{ form.errors|pluralize }} below.
+				</p>
+				{% endif %}
+				<form action="" method="post" id="login_form">{% csrf_token %}
+					{{ form.as_table }}
+					<tr class='submit_tr'>
+						<td colspan="2">
+							<input id="login_form_submit" type="button" onclick="user_login();" value="        Login        " class="btn btn-primary"/>
+						</td>
+						<img src='{{SITE_URL}}static/img/loading.gif' style="height:25;" id="gif_login" class="loading" title="loading..."/>
+					</tr>
+				</form>
+				<div id="login_error"></div>
+				<div id="forgot_password"><a onclick="$('#forgot_form').toggle();" style="cursor:pointer;">Forgot your password?</a></div>
+				<div id="forgot_form" style="display:none">
+					<input type="text" maxlength="70" value placeholder="Enter your registered email-id" id="forgot_form_email"></text>
+					<button class="btn btn-primary" onclick ="Dajaxice.users.forgot_password(Dajax.process, {'email':$('#forgot_form_email').val()});" > Request for a new password</button>
+				</div>
+			</div>
+
+			<div class='span5 offset form_registration_div' style="padding-left: 35%;">
+				<form id='form_registration' method="post" action="">
+					{% csrf_token %}
+					<table class='span5'>
+						<tr>
+							<th>First Name</th>
+							<td>{{ form_registration.first_name }}</td>
+							<th>Last Name</th>
+							<td>{{ form_registration.last_name }}</td>
+						</tr>
+						<tr>
+							<th>User Name</th>
+							<td>{{ form_registration.username }}</td>
+							<th>E-Mail</th>
+							<td>{{ form_registration.email }}</td>
+						</tr>
+						<tr>
+							<th>Password (atleast 6 chars)</th>
+							<td>{{ form_registration.password }}</td>
+							<th >Repeat password</th>
+							<td>{{ form_registration.password_again }}</td>
+						</tr>
+						<tr>
+							<th>Gender</th>
+							<td>{{ form_registration.gender }}</td>
+							<th>Age</th></th>
+						<td>{{ form_registration.age }}</td>
+					</tr>
+					<tr>
+						<th>Mobile Number</th>
+						<td>{{ form_registration.mobile_number }}</td>
+						<th>College Roll Number</th>
+						<td>{{ form_registration.college_roll }}</td>
+					</tr>
+					<tr>
+						<th>College</th>
+						<!--                                <td>{{ form_registration.college }}</td>-->
+						<td><input id="college" type="text" class="span3" placeholder="Enter Your college" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[{{collstr}}]">
+							<td>{{form_registration.branch}}</td>
+					</tr>
+					<tr>                                
+							<td><div id="add_college_display"><a id='add_coll_message' onclick='addcoll();' style="cursor:pointer;font-size:11pt">Can't find your college in the list?</a></td><td><span id='add_coll_result'></span><span id='add_coll_name'></span></div></td>
+						</tr>
+						<tr>
+							<td>Want accomodation?
+								{{ form_registration.want_accomodation }}
+							</td>
+							<td>
+								<span style="font-size:11pt;color:#a00">{{form_registration.want_accomodation.help_text}}                             </span></td>
+						</tr><br>
+						<tr>
+							<td colspan='4' class='centered'>
+								<input  id="form_registration_submit" type="button" onclick="submit_registration();" value="        Register        " class="btn btn-primary"/>
+								<img src='{{SITE_URL}}static/img/loading.gif' style="height:25" id="gif_registration" class="loading" title="loading..." />
+							</table>
+						</form>
+					</div>
+				</div>
+				{%else%} <!-- User is already logged in ... tell him that -->
+				<div class="modal-body already_loggedin">
+					<div='logged_in'>
+					</div>
+				</div>
+				{%endif%}
+
+<!--			</center>-->
+		</div>
+<!--</div>-->

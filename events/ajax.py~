@@ -39,7 +39,7 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
     tab_details_list = []
     
     if not (event_pk and event_name):
-        dajax.script('$.bootstrapGrowl("Oops : There is some error on the site, please report to WebOps team", {type:"danger"} );' )
+        dajax.script('$.bootstrapGrowl("Oops : There is some error on the site, please report to WebOps team.", {type:"danger"} );' )
         return dajax.json()
         
     try:
@@ -53,7 +53,8 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
     event_json_filepath = get_json_file_path( str(event_pk) + "_" + event_name +".json" )
     print event_json_filepath
     if not os.path.exists(event_json_filepath):
-        dajax.script('$.bootstrapGrowl("Oops : There is some error on the site, please report to WebOps team..", {type:"danger"} );' )
+        dajax.script('$.bootstrapGrowl("Oops : There iDAFgdagdagadgs", {type:"danger"} );' )
+        dajax.script('$.bootstrapGrowl("Oops : There is some error on the site, please report to WebOps team.", {type:"danger"} );' )
         return dajax.json()
     else:
         with open(event_json_filepath) as f:

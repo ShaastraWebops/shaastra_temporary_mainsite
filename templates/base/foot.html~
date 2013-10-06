@@ -1,0 +1,274 @@
+{% load staticfiles %}
+
+        <!-- JAVASCRIPTS  --> 
+        <script src="{% static 'js/jquery/jquery-1.10.2.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/jquery.dajax.core.js' %}"></script>
+        <script src="{% static 'js/modernizr.custom.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/jquery/jquery.scrollto.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/waypoints.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/custom.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/bootstrap/bootstrap.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/bootstrap/bootstrap-tooltip.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/bootstrap/bootstrap-growl.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/home/hexaflip.js' %}" type="text/javascript"></script>
+        <script src="{% static 'js/events/boxlayout.js' %}" type="text/javascript"></script>
+        
+        <!-- END JAVASCRIPTS  --> 
+    <script>
+        $(".tooltip").tooltip(); // For tooltips
+        $(".main_event_item div").hide()
+        // ------------------------------------------------
+        //      For the HexaCube
+        // -------------------------------------------------
+                
+        var hexa, hexa_pid = -1,
+            text = 'SHAASTRA'.split(''),
+            settings = {
+                size: 50,
+                margin: 5,
+                fontSize: 35,
+                perspective: 3250
+            },
+            makeObject = function(a){
+                var o = {};
+                for(var i = 0, l = a.length; i < l; i++){
+                    o['letter' + i] = a[i] + a[i] + a[i];
+                }
+                return o;
+            },
+            getSequence = function(a, reverse, random){
+                var o = {}, p;
+                for(var i = 0, l = a.length; i < l; i++){
+                    if(reverse){
+                        p = l - i - 1;
+                    }else if(random){
+                        p = Math.floor(Math.random() * l);
+                    }else{
+                        p = i;
+                    }
+                    o['letter' + i] = a[p];
+                }
+                return o;
+            },
+            hexa_init = function() {
+                hexa_pid = setInterval(function(){
+                    hexa.setValue(getSequence(text, false, true));
+                    $(".modal").each( function() {
+                        if ( $(this).hasClass("in") ) {
+                            clearInterval(hexa_pid);
+                            hexa_pid = -1;
+                        }
+                    });
+                    if( hexa_pid == -1 )
+                        hexa_stop();
+                }, 900);
+                hexa.setValue(getSequence(text, false, true));
+            },
+            hexa_stop = function() {
+                clearInterval(hexa_pid);
+                hexa_pid = setInterval(function(){
+                    $(".modal").each( function() {
+                        if ( ! $(this).hasClass("in") ) {
+                            clearInterval(hexa_pid);
+                            hexa_pid = -1;
+                        }
+                    });
+                    if( hexa_pid == -1 )
+                        hexa_init();
+                }, 900);
+                
+            };
+
+        /* ---------------------------------------------------
+                        FOR LOGIN AND REGISTRATIONS
+        ---------------------------------------------------------- */
+        addcoll=function(){
+            $("#login").modal('toggle');
+            $("#add_college").modal('toggle');
+        }
+        
+        user_login=function(){
+            
+            Dajaxice.users.login(Dajax.process, {'login_form':$('#login_form').serialize(true)});
+        }
+        
+        submit_registration=function(){
+            var x='1'
+            if ($("#form_registration #id_first_name").val()=='' ||
+            $("#form_registration #id_last_name").val()=='' ||
+            $("#form_registration #id_age").val()=='' ||
+            $("#form_registration #id_mobile_number").val()=='' ||
+            $("#form_registration #id_password").val()=='' ||
+            $("#form_registration #id_password_again").val()=='' ||
+            $("#form_registration #id_first_name").val()=='' ||
+            $("#form_registration #college_roll").val()=='' ||
+            $("#form_registration #id_branch").val()==''||
+            ($("#college").val() == '') && $("#add_coll_name").text()==''){
+                $.bootstrapGrowl("Please fill up the registration form completely. All fields are mandatory.");
+                x='0'
+            }
+            else{
+            if ($("#form_registration #id_mobile_number").val().length !=10){
+                $.bootstrapGrowl("Mobile number must be a 10 digit number!");
+                x='0'
+            }
+            if (!($.isNumeric($("#form_registration #id_mobile_number").val()) && $.isNumeric($("#form_registration #id_age").val()))){
+                $.bootstrapGrowl("Please enter numeric values for age and mobile number");
+                x='0'
+            }
+            }
+            if (x=='1'){
+            if ($("#add_coll_result").text()!=''){
+                $("#gif_registration").show();
+                $("#form_registration_submit").toggle();
+                Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':$("#add_coll_name").html()});
+            }
+            else{
+            if ($("#college").val()!='')
+            {
+                var coll = $("#college").val();
+                var coll_list = coll.split("|");
+                var coll_name = coll_list[0];
+                $("#gif_registration").show();
+                $("#form_registration_submit").toggle();            
+                Dajaxice.users.register(Dajax.process, {'form_registration':$('#form_registration').serialize(true),'college_name':coll_name});
+            }
+            else{
+                $.bootstrapGrowl("Please choose your college from the list, or add it!", {type:"danger",timeout:24000} );
+            }
+            }
+            }
+        }   
+        
+ 
+        var tds = $('#login td');
+        for ( var i = 0; i < tds.length; i++ ) {
+            if ( $(tds[i]).prev().prop("tagName") == "TH" ) {
+                var st = $(tds[i]).prev().html()//.slice(0, -1)
+                if( st.toLowerCase() == "password") {
+                    st = "Password (atleast 6 char)"
+                } else if( st.toLowerCase() == "want accomodation") {
+                    //$(tds[i]).children("br").remove();
+                    $(tds[i]).html($(tds[i]).html() + "  " + st);
+                    continue;
+                } else if( st.toLowerCase() == 'college') {
+                    //$(tds[i]).children("select").children("option").html("Choose College");
+                    //$(tds[i]).prev().html("Choose Your college : ");
+                    //$(tds[i]).prev().show();
+                    //$(tds[i]).parent().addClass("college_tr");
+                    //$(tds[i]).addClass("college");
+                    continue;
+                }
+                $($(tds[i]).children("input")).attr("value", "");
+                $($(tds[i]).children("input")).attr("placeholder", st);
+            }
+        }
+      $("#form_registration #id_branch" ).width($("#form_registration #id_age").width());
+      $(".loading").hide();
+      $("#form_registration #id_gender" ).width($("#form_registration #id_age").width());
+      $("#login_form input").keypress(function(event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    $("#login_form #login_form_submit").click();
+                }
+        });
+        
+        /* --------------------------------------------------------
+                            HOME BANNER
+            ------------------------------------------------------ */
+        
+        function make_banner() {
+            var max_banner_h = $("#banner_img").height(), max_banner_w = $("#banner_img").width();
+            $("#banner_div div").remove()
+            $("#behind_banner_div div").remove()
+            for( var i = 0; i < 33; i++ ) { // 11 items in 1 row
+                var numx = 10.53, numy = 3.05;
+                if( i == 0 || i == 10 || i == 11 || i == 10 || i == 21 ||  i == 22 || i == 32) {
+                    $("#banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w * 3 / 4 / numx) + "px;'></div>" );
+                    $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w * 3 / 4 / numx) + "px;'></div>" );
+                } else {
+                    $("#banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w / numx) + "px;'></div>" );
+                    $("#behind_banner_div").html($("#banner_div").html() + "<div style='height:" + (max_banner_h / numy) + "px; width:" + (max_banner_w / numx) + "px;'></div>" );
+                }
+                $($("#behind_banner_div div").get(-1)).hide()
+                /*setTimeout( function() { // On hover the banner items become black
+                    $("#banner_div > div").hover( function() {
+                        var pk = $(this).index();
+                        $("#behind_banner_div > div").removeClass("black")
+                        $($("#behind_banner_div > div").get(pk+1)).addClass("black") // pk + 1 because it 
+                    } )
+                }, 10 );*/
+            }
+        }
+        var banner_pid = -1;
+        function init_banner() {
+            banner_pid = setInterval(function(){
+                pk = Math.floor(Math.random() * $("#banner_div > div").length);
+                if ( pk == 16 )
+                    return
+                $("#behind_banner_div > div").removeClass("black")
+                $($("#behind_banner_div > div").get(pk)).addClass("black")
+                $(".modal").each( function() {
+                    if ( $(this).hasClass("in") ) {
+                        clearInterval(banner_pid);
+                        banner_pid = -1;
+                    }
+                });
+                if( banner_pid == -1 )
+                    banner_stop();
+            }, 1100);
+        }
+        function banner_stop() {
+            clearInterval(banner_pid);
+            banner_pid = setInterval(function(){
+                $(".modal").each( function() {
+                    if ( ! $(this).hasClass("in") ) {
+                        clearInterval(banner_pid);
+                        banner_pid = -1;
+                    }
+                });
+                if( banner_pid == -1 )
+                    init_banner();
+            }, 1100);
+        }
+        $("#social-icons-header > img").hover(  function() {
+                //$(this).fadeOut(200, function() {
+                    $(this).attr("src", $(this).attr("src").replace("_bw.", "_color."));
+                //} ).fadeIn(200)
+            }, function() {
+                //$(this).fadeOut(200, function() {
+                    $(this).attr("src", $(this).attr("src").replace("_color.", "_bw."));
+                //} ).fadeIn(200)
+            }
+        );
+
+        
+        /*--------------------------------------------------------
+                        ON BODY LOAD HANDLER
+        --------------------------------------------------------- */
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            if( document.getElementsByTagName("html")[0].className.indexOf("csstransitions") ) {
+                $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
+                hexa = new HexaFlip(document.getElementById('hexaflip'), makeObject(text), settings);
+                hexa_init();
+            } else {
+                $("#hexa-dice-container").html('S H A A S T R A');
+                $("#hexa-dice-container").css( {
+                    'color' : '#000',
+                } );
+            }
+            make_banner();
+            init_banner();
+            boxlayout_init();
+            //$(".tooltip").tooltip();
+            $(".tooltip-bottom").tooltip({
+                placement : "bottom",
+            } );
+        }, false);
+        $(window).resize( function () {
+            make_banner();
+            init_banner();
+        } );
+    </script>
+    

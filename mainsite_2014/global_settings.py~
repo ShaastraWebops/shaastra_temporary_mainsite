@@ -98,7 +98,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'misc.dajaxice',
     'misc.dajax',
-    'dashboard',
+    
     'events',
     'frontend'
 )
