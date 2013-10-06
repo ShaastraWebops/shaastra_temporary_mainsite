@@ -17,7 +17,7 @@
                             {% if not request.user.is_authenticated%}
                                 <a href="#login" onclick="$('#login').modal();">Login|Register </a>
                             {% else %}
-                                <a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout</a>
+                            <a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout</a>
                             <li class="dropdown">
                             <a class="dropdown-toggle" href="#" onclick="$('#user_dropdown').toggle();" data-toggle="dropdown">My Profile</a>
                             <ul class="dropdown-menu" id="user_dropdown">

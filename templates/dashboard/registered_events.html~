@@ -4,6 +4,9 @@
 </h3>
 
 <ul >
+{% ifequal teamevent_event_list [] %}
+    <span style="color:red">No events registered, click here to register</span>
+{% endifequal %}
 {% for teamevent in team_event_list %}
 <li>
         <div class = "class12 title">
@@ -13,7 +16,7 @@
             {% if teamevent.get_event.has_tdp %}
         <div id="tdp_{{teamevent.get_event.id}}">
         <form action="" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}
-            {{TDPFileForm.as_table}}        
+            {{TDPFileForm.as_table}}
             <a onclick="Dajaxice.users.submit_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}},'file_tdp':$('#file_tdp_{{teamevent.get_event.id}}').serialize(true)});" class="btn btn-primary">Submit TDP</a>
         </form>
         </div>
