@@ -8,12 +8,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
-                    <a class="brand_color hide" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
-                    <a class="brand_bw hide" href=""><img src="{% static 'img/logo/small_bw.png' %}" /></a>
+                    <a class="brand" href=""><img src="{% static 'img/logo/small_color.png' %}" /></a>
+                    <a class="brand_color hide" href=""><img src="{% static 'img/logo/small_color.png' %}" /></a>
+                    <a class="brand_bw hide" href=""><img src="{% static 'img/logo/small_color.png' %}" /></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right" id='navbar_list'>
-                            <li id="login_logout">
+                            <li style='margin-right : 10px;' id="login_logout">
                             {% if not request.user.is_authenticated%}
                                 <a href="#login" onclick="$('#login').modal();">Login|Register </a>
                             {% else %}
@@ -21,14 +21,12 @@
                             
                             {% endif %}
                             </li>
-                 
-<!--                       <ul class="nav pull-right nav-scrollspy">-->
-<!--                            <li><a> </a></li>-->
                             <li><a href="#home" class="">Home</a></li>
-                            <li><a href="#aboutus" class="">AboutUs</a></li>
+                            <!--<li id='nav-aboutus'><a href="#aboutus" class="">AboutUs</a></li>-->
                             <li><a href="#events" class="">Events</a></li>
                             <li><a href="#shows" class="">Shows</a></li>
                             <li><a href="#spons" class="">Sponsors</a></li>
+                            <li><a href="#lectures" class="">Lectures</a></li>
 <!--                            <li><a href="#hospi" class="">Hospitality</a></li> -->
                             <li><a href="#contact" class="">Contact Us</a></li>
                         </ul>

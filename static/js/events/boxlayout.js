@@ -113,6 +113,12 @@ function show_event(me) {
         $sections = $el.children( 'div' ),
         $section = $(me).parent();
 
+    $(".main_event_item.event_item").removeClass("rows_0") // gen
+    $(".main_event_item.event_item").removeClass("rows_1")
+    $(".main_event_item.event_item").removeClass("rows_2")
+    $(".main_event_item.event_item").removeClass("rows_3")
+    $(".main_event_item.event_item").addClass("rows_2")
+
     
     // expand the clicked section and hide the others
     $section.children(".event_content").addClass("loading")
