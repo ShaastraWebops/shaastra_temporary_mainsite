@@ -22,8 +22,8 @@
                             <a class="dropdown-toggle" href="#" onclick="$('#user_dropdown').toggle();" data-toggle="dropdown">My Profile</a>
                             <ul class="dropdown-menu" id="user_dropdown">
                                 <li><a href="#" onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':4});" style="cursor:pointer;">Register-4</a></li>
-                                <li><a href="#" onclick="Dajaxice.users.edit_profile_form(Dajax.process)" style="cursor:pointer;">Ed_Prof</a></li>
-                                <li><a href="#" onclick="Dajaxice.users.show_registered_events(Dajax.process)" style="cursor:pointer;">Show regd</a></li>
+<li><a onclick="Dajaxice.users.edit_profile_form(Dajax.process)" style="cursor:pointer;">Ed_Prof</a></li>
+<li><a onclick="Dajaxice.users.show_registered_events(Dajax.process)" style="cursor:pointer;">Show regd</a></li>
                             </ul>
                             </li>
                             

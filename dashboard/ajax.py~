@@ -129,7 +129,7 @@ def register_event_form(request,event_id = None):
                 else:
                     #TODO : register him for the event
                     print '000000000000055555555555'
-                    tev = TeamEvent(event_id=event.id)
+                    tev = TeamEvent(event=event)
                     tev.save()
                     tev.users.add(request.user)
                     tev.save()
