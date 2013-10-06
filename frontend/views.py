@@ -37,9 +37,9 @@ def home(request):
     stlist=[st[0] for st in STATE_CHOICES]
     return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
 
-@login_required
+#@login_required
 def dashboard(request):
-    profile = UserProfile.objects.get(user=request.user)
+#    profile = UserProfile.objects.get(user=request.user)
     return render_to_response('dashboard/dashboard.html',locals(),context_instance=RequestContext(request))
 
 def serenity(request):
