@@ -115,8 +115,9 @@ def show_registered_events(request):
     else:
         profile = UserProfile.objects.get(user=request.user)
         team_event_list = profile.get_regd_events()
+        no_regd = len(team_event_list)
         now = timezone.now()
-        context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'TDPFileForm':TDPFileForm()}
+        context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'no_regd':no_regd}
         html_stuff = render_to_string('dashboard/registered_events.html',context_dict,RequestContext(request))
         if html_stuff:
             dajax.assign('#FormRegd','innerHTML',html_stuff)

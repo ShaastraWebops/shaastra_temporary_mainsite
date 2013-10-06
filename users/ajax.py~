@@ -96,7 +96,7 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
     if len(request.FILES) == 0:
         dajax.script('$.bootstrapGrowl("Please upload a file first!", {type:"danger",timeout:50000} );')
     fileform = TDPFileForm(deserialize_form(file_tdp),request.FILES)
-    print request.FILES
+    print request.raw_post_data
     try:
         event = teamevent.get_event()
         tdp = TDP(tdp=fileform,teamevent = teamevent)
@@ -115,6 +115,7 @@ def show_registered_events(request):
     else:
         profile = UserProfile.objects.get(user=request.user)
         team_event_list = profile.get_regd_events()
+        no_regd = len(team_event_list)
         now = timezone.now()
         context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'TDPFileForm':TDPFileForm()}
         html_stuff = render_to_string('dashboard/registered_events.html',context_dict,RequestContext(request))
