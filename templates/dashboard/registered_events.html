@@ -4,6 +4,9 @@
 </h3>
 
 <ul >
+{% ifequal no_regd 0 %}
+    <span style="color:red">No events registered, click here to register</span>
+{% endifequal %}
 {% for teamevent in team_event_list %}
 <li>
         <div class = "class12 title">
