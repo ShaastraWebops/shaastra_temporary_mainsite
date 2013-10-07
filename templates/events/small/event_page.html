@@ -39,6 +39,6 @@
     {% else %}
         <div class="span9 pull-right page_content" style="display:none;">
     {% endif %}
-        {{tab.text|safe}}
+        {{tab.text|removetags:"span font"|safe}}
     </div>
 {% endfor %}

@@ -167,7 +167,18 @@ function show_event_page(me) {
 function got_event(json_event) {
     Dajax.process(json_event)
     $( '.main_event_item.event_item > div.expand *' ).css();
-    
+    $( '.main_event_item.event_item > div.expand *' ).attr("style", "");
+    /*b = $( '.main_event_item.event_item > div.expand span' );
+    $( '.main_event_item.event_item > div.expand b' ).contents().unwrap();
+    $( '.main_event_item.event_item > div.expand font' ).contents().unwrap();
+    while(b.length) {
+        var parent = b[ 0 ].parentNode;
+        while( b[ 0 ].firstChild ) {
+            parent.insertBefore(  b[ 0 ].firstChild, b[ 0 ] );
+        }
+        parent.removeChild( b[ 0 ] );
+    }*/
+
 }
 
 // A function to bring a person from the event-page to the event main page
