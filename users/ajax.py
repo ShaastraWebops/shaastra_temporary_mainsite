@@ -35,7 +35,62 @@ from django.utils import simplejson
 from misc.dajaxice.decorators import dajaxice_register
 from django.dispatch import receiver
 import datetime
-from forms import EditProfileForm
+from forms import EditProfileForm,ChangePasswordForm
+
+
+@dajaxice_register
+def change_password_form(request):
+    dajax = Dajax()
+    #: if user has chosen a college in dropdown, depopulate it OR growl
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    profile = UserProfile.objects.get(user=request.user)
+    change_password_form = ChangePasswordForm()
+    context_dict = {'form_change_password':change_password_form,'profile':profile}
+    html_stuff = render_to_string('dashboard/change_password.html',context_dict,RequestContext(request))
+    if html_stuff:
+        dajax.assign('#FormRegd','innerHTML',html_stuff)
+        dajax.script('$("#event_register").modal("show");')
+    return dajax.json()
+
+
+
+@dajaxice_register
+def change_password(request,form = None):
+    dajax = Dajax()
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    
+#    print deserialize_form(form)
+    if form is None:
+        dajax.script('$.bootstrapGrowl("Invalid password change request", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    form = ChangePasswordForm(deserialize_form(form))
+    if not form.is_valid():
+        errdict = dict(form.errors)
+        for error in form.errors:
+#            if str(errdict[error][0])!='This field is required.':
+            dajax.script('$.bootstrapGrowl("%s:: %s" , {type:"error",timeout:50000} );'% (str(error),str(errdict[error][0])))
+        dajax.script("$(\'#form_change_password #id_new_password').val('');$('#form_change_password #id_new_password_again').val('');")
+        return dajax.json()
+    user = request.user
+    if not user.check_password(form.cleaned_data['old_password']):
+        dajax.script('$.bootstrapGrowl("Please check your old password" , {type:"error",timeout:100000} );')
+        return dajax.json()
+    user.set_password(form.cleaned_data['new_password'])
+    profile = UserProfile.objects.get(user=request.user)
+    dajax.script('$("#form_change_password #old_password").val('') ;\
+    $("#form_change_password #new_password").val('');\
+    $("#form_change_password #new_password_again").val('');\
+    $("#event_register").modal("hide");')
+    user.save()
+    profile.save()
+    dajax.script('$.bootstrapGrowl("Your password was changed successfully!" , {type:"success",timeout:100000} );')
+    return dajax.json()
+
+
 
 
 @dajaxice_register
