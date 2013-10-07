@@ -53,7 +53,6 @@ def register_event(request,event_id,**kwargs):
             sha = kwargs['teammate#%d' % i]
             if sha!='':
                 shalist.append(sha)
-            print i
         except:
             break
         i=i+1
@@ -69,7 +68,6 @@ def register_event(request,event_id,**kwargs):
     userlist=[]
     userlist.append(request.user)
     up=None
-    print shalist
     for sha in shalist:
         try:
             up = UserProfile.objects.get(shaastra_id = sha)
@@ -89,7 +87,6 @@ def register_event(request,event_id,**kwargs):
 @dajaxice_register
 def register_event_form(request,event_id = None):
     dajax = Dajax()
-    print '********'
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if event_id is None:
         dajax.script('$.bootstrapGrowl("Invalid Event specified.", {type:"danger",timeout:50000} );')
@@ -128,7 +125,6 @@ def register_event_form(request,event_id = None):
                     context_dict = {'event': event,'teammates':teammates,'inputhtml':inputhtml,'team_max':maxteam-2}
                 else:
                     #TODO : register him for the event
-                    print '000000000000055555555555'
                     tev = TeamEvent(event_id=event.id)
                     tev.save()
                     tev.users.add(request.user)
@@ -143,6 +139,5 @@ def register_event_form(request,event_id = None):
                     dajax.script('$("#event_register").modal();')
         else:
             dajax.script('$.bootstrapGrowl("Registrations not put up yet, please wait!", {timeout:50000} );')
-    print '\\\\\\\\\\\\\\\\\\\\'
     return dajax.json()
 
