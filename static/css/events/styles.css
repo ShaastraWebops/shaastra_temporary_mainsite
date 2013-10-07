@@ -69,6 +69,8 @@
 /* Main items */
 #events .main_event_item {
     height : 0;
+    font-family: 'Anaheim', sans-serif;
+    font-weight: bold;
 }
 #events .main_event_item.event_item {
     height : 50%;
