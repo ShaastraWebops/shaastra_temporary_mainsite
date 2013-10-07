@@ -250,8 +250,8 @@
     color : #fff;
     padding : 10px;*/
     position : relative;
-    height : 87%;
-    left : -1%;
+    height : 75%;
+    left : 1%;
     overflow-y : auto;
     text-align : left;
 }
