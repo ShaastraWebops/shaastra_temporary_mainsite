@@ -96,7 +96,7 @@ def change_password(request,form = None):
 @dajaxice_register
 def edit_profile(request,form = None,first_name = None,last_name = None):
     dajax = Dajax()
-    print deserialize_form(form)
+
     if form is None or first_name is None or last_name is None:
         dajax.script('$.bootstrapGrowl("Invalid edit profile request", {type:"danger",timeout:50000} );')
         return dajax.json()
@@ -115,16 +115,12 @@ def edit_profile(request,form = None,first_name = None,last_name = None):
     profile.user.first_name = first_name
     profile.user.last_name = last_name
     profile.save()
-    print profile.user.first_name
-    print profile.mobile_number
     dajax.script('$.bootstrapGrowl("Your profile has been edited" , {type:"success",timeout:100000,align:"center",width:"auto"} );')
     return dajax.json()
 
 @dajaxice_register
 def edit_profile_form(request):
     dajax = Dajax()
-    print '********'
-    print request.user.is_authenticated()
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",timeout:50000} );')
@@ -137,13 +133,13 @@ def edit_profile_form(request):
         if html_stuff:
             dajax.assign('#FormRegd','innerHTML',html_stuff)
             dajax.script('$("#event_register").modal("show");')
-    print '\\\\\\\\\\\\\\\\\\\\'
+
     return dajax.json()
 
 @dajaxice_register
 def submit_tdp(request,teamevent_id = None,file_tdp=None):
     dajax = Dajax()
-    print 'file!!!!!!!!!!'
+
     if teamevent_id is None or file_tdp is None:
         dajax.script('$.bootstrapGrowl("Invalid TDP Upload request", {type:"danger",timeout:50000} );')
         return dajax.json()
@@ -151,7 +147,7 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
     if len(request.FILES) == 0:
         dajax.script('$.bootstrapGrowl("Please upload a file first!", {type:"danger",timeout:50000} );')
     fileform = TDPFileForm(deserialize_form(file_tdp),request.FILES)
-    print request.raw_post_data
+
     try:
         event = teamevent.get_event()
         tdp = TDP(tdp=fileform,teamevent = teamevent)
@@ -163,7 +159,7 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
 @dajaxice_register
 def show_registered_events(request):
     dajax = Dajax()
-    print '********'
+
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",timeout:50000} );')
         return dajax.json()
@@ -177,7 +173,7 @@ def show_registered_events(request):
         if html_stuff:
             dajax.assign('#FormRegd','innerHTML',html_stuff)
             dajax.script('$("#event_register").modal("show");')
-    print '\\\\\\\\\\\\\\\\\\\\'
+
     return dajax.json()
 
 
@@ -295,8 +291,6 @@ def register(request,form_registration=None,college_name=None):
         
     if request.method=="POST" and (form_registration !=None or not college_name is None):
         form = AddUserForm(deserialize_form(form_registration))
-        for error in form.errors:
-            print error,form.errors[error]
         if form.is_valid():
             #TODO: if we change college to be a compulsory, then this must be changed
             dajax.remove_css_class('#form_registration input', 'error')
