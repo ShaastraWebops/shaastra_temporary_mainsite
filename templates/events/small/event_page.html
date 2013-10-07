@@ -5,6 +5,7 @@
         {{event.title}}
     </h4>
 </center>
+<!--<a href='' class='btn' style='z-index : 100; position : absolute; top : 90%; left : 50%'>hi</a>-->
 <div id="sidr" class="sidr span3">
     <ul>
         {% for tab in tab_list %}
@@ -35,9 +36,9 @@
 {% endcomment %}
 {% for tab in tab_list %}
     {% if forloop.first %}
-        <div class="span9 pull-right page_content">
+        <div class="span8 page_content">
     {% else %}
-        <div class="span9 pull-right page_content" style="display:none;">
+        <div class="span8 page_content" style="display:none;">
     {% endif %}
         {{tab.text|removetags:"span font div"|safe}}
     </div>
