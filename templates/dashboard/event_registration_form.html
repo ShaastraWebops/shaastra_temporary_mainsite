@@ -8,23 +8,22 @@
 	<center>
 		<table>
 			<form action="" method="POST" id="form_team"> {% csrf_token %}
+			
 				<div class="compulsory_team_regd">
 					{% for j in teammates_min %}
 					
-						<input type="text" style="width:500;" placeholder = "Enter Shaastra ID of your teammate {{forloop.counter}}"/>
-					
+						<input type="text" id="shid_{{forloop.counter|add:1}}" style="width:500;" placeholder = "Enter Shaastra ID of your teammate {{forloop.counter}}"/>
 					{% endfor %}
+                <tr><a onclick="$('#shid_{{minteam|add:1}}').show();$(this).css({'display':'none'});$('#btn_{{minteam|add:1}}').css({'display':''});" class="btn btn-primary" >Add next member!</a></tr>
+				
+				
 				</div>
 				{% for i in teammates %}
-				<tr><input type="text" id="shid_{{forloop.counter}}" style="width:500;{% ifequal forloop.counter 1%}{% else %}display:none;{% endifequal%}" placeholder = "Enter Shaastra ID of your teammate {{i}}"/></tr>
+				<tr><input type="text" id="shid_{{forloop.counter|add:minteam}}" style="width:500;display:none;" placeholder = "Enter Shaastra ID of your teammate {{i}}"/></tr>
 				{% ifequal i team_max %}
-				<br/><span id="btn_{{forloop.counter}}" style="color:#f00;display:none;"> You have reached maximum team size!!</span>
+				<br/><span id="btn_{{forloop.counter|add:minteam}}" style="color:#f00;display:none;"> You have reached maximum team size!!</span>
 				{% else %}
-				{% ifequal forloop.counter 1 %}
-				<tr><a id="btn_{{forloop.counter}}" onclick="$('#shid_{{forloop.counter|add:1}}').show();$(this).css({'display':'none'});$('#btn_{{forloop.counter|add:1}}').css({'display':''});" class="btn btn-primary">Add next member!</a></tr>
-				{% else %}
-				<tr><a id="btn_{{forloop.counter}}" onclick="$('#shid_{{forloop.counter|add:1}}').show();$(this).css({'display':'none'});$('#btn_{{forloop.counter|add:1}}').css({'display':''});" class="btn btn-primary" style="display:none;">Add next member!</a></tr>
-				{% endifequal %}
+				<tr><a id="btn_{{forloop.counter|add:minteam}}" onclick="$('#shid_{{forloop.counter|add:minteam|add:1}}').show();$(this).css({'display':'none'});$('#btn_{{forloop.counter|add:minteam|add:1}}').css({'display':''});" class="btn btn-primary" style="display:none;">Add next member!</a></tr>
 				{% endifequal %}
 
 				{% endfor %}
