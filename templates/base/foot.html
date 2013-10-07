@@ -301,7 +301,7 @@
     --------------------------------------------------------- */
     
     document.addEventListener('DOMContentLoaded', function() {
-        if( document.getElementsByTagName("html")[0].className.indexOf("csstransitions") ) {
+        if( Modernizr.csstransforms3d ) {
             $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
             hexa = new HexaFlip(document.getElementById('hexaflip'), makeObject(text), settings);
             hexa_init();
