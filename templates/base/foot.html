@@ -302,15 +302,11 @@
     
     document.addEventListener('DOMContentLoaded', function() {
         if( Modernizr.csstransforms3d ) {
+            $.bootstrapGrowl("To website may not be cmpatible with your browser. To get the best experience, use the latest Chrome or Firefox browser")
+        }
             $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
             hexa = new HexaFlip(document.getElementById('hexaflip'), makeObject(text), settings);
             hexa_init();
-        } else {
-            $("#hexa-dice-container").html('S H A A S T R A');
-            $("#hexa-dice-container").css( {
-                'color' : '#000',
-            } );
-        }
         make_banner();
         init_banner();
         boxlayout_init();
