@@ -11,7 +11,7 @@
 <script src="{% static 'js/bootstrap/bootstrap-tooltip.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/bootstrap/bootstrap-growl.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/home/hexaflip.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/events/boxlayout.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/events/scripts.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/lectures/layout.js' %}" type="text/javascript"></script>
 
 <!-- END JAVASCRIPTS  --> 
@@ -301,29 +301,27 @@
     --------------------------------------------------------- */
     
     document.addEventListener('DOMContentLoaded', function() {
-        if( ! Modernizr.csstransforms3d ) {
+        if( ! Modernizr.webgl ) {
             $.bootstrapGrowl("The website may not be compatible with your browser. To get the best experience, use the latest Chrome or Firefox browser")
+            $.bootstrapGrowl("Or maybe you do not have some features like css3D and WebGL enabled in your browser")
         }
-            $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
-            hexa = new HexaFlip(document.getElementById('hexaflip'), makeObject(text), settings);
-            hexa_init();
+        $("#hexa-dice-container").html('<div id="hexaflip" class="logo_bottom_home"></div>');
+        hexa = new HexaFlip(document.getElementById('hexaflip'), makeObject(text), settings);
+        hexa_init();
         make_banner();
         init_banner();
         boxlayout_init();
-        size_main_lecture();
+        //size_main_lecture();
         //$(".tooltip").tooltip();
         $(".tooltip-bottom").tooltip({
             placement : "bottom",
         } );
-        $("*").each(function() {
-            this.href = this.href.split("#")[0] + "#" + window.location.hash;
-        });
         
     }, false);
     $(window).resize( function () {
         make_banner();
         init_banner();
-        size_main_lecture()
+        //size_main_lecture()
     } );
 </script>
 

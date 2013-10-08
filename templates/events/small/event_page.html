@@ -1,11 +1,11 @@
 {% load staticfiles %}
-<div class='pull-left' style='cursor : pointer;' onclick="javascript:hide_event(this);" ><img src="{% static 'img/back-arrow.png' %}"/></div>
+<div class='pull-left' style='cursor : pointer;' onclick="javascript:hide_event();" ><img src="{% static 'img/back-arrow.png' %}"/></div>
 <center>
     <h4>
         {{event.title}}
     </h4>
 </center>
-<!--<a href='' class='btn' style='z-index : 100; position : absolute; top : 90%; left : 50%'>hi</a>-->
+<a href='' class='btn btn-inverse' style='z-index : 100; position : absolute; top : 90%; left : 50%'>Register !</a>
 <div id="sidr" class="sidr span3">
     <ul>
         {% for tab in tab_list %}

@@ -29,13 +29,13 @@ function populate_event_group(category_name, dest){
     /*populate the category with events*/
     event_list = json_content[category_name];
     dest.html(""); // make the dest empty to fill the events belonging to the given category
-    
+  
     $(".main_event_item.event_item").removeClass("rows_0") // gen
     $(".main_event_item.event_item").removeClass("rows_1")
     $(".main_event_item.event_item").removeClass("rows_2")
     $(".main_event_item.event_item").removeClass("rows_3")
     $(".main_event_item.event_item").addClass("rows_" + ( 1 + Math.floor(event_list.length/4) ))
-    
+  
     for (var i in event_list){
         if ( i == Math.floor(event_list.length/4)*4 ){ //provide proper span to center the 5th, 10th, ... element groups
             
@@ -117,7 +117,7 @@ function show_event(me) {
     $(".main_event_item.event_item").removeClass("rows_1")
     $(".main_event_item.event_item").removeClass("rows_2")
     $(".main_event_item.event_item").removeClass("rows_3")
-    $(".main_event_item.event_item").addClass("rows_2")
+    //$(".main_event_item.event_item").addClass("rows_2")
 
     
     // expand the clicked section and hide the others
@@ -134,12 +134,21 @@ function show_event(me) {
 //    bg_new = $section.css("background").replace(/\d\D[\d]+\)/, "0.1)");
 //    $section.css({"background":"rgba(57, 76, 73, 0.10)"});
 };
+var $sections
 
 // A function to bring a person from the event main page to the event group page
 function hide_event () {
+    $(".main_event_item.event_item").removeClass("rows_0") // gen
+    $(".main_event_item.event_item").removeClass("rows_1")
+    $(".main_event_item.event_item").removeClass("rows_2")
+    $(".main_event_item.event_item").removeClass("rows_3")
+    console.log($sections.length)
+    $(".main_event_item.event_item").addClass("rows_" + ( 1 + Math.floor($sections.length/4) ))
+  
     var $el = $( '.main_event_item.event_item' ),
         $sections = $el.children( 'div' );
-        
+    
+    
     $sections.show();
     $sections.removeClass( 'expand' );
     $sections.children("div").hide();
@@ -164,10 +173,19 @@ function show_event_page(me) {
     }
 }
 
-function got_event(json_event) {
+function got_event(json_event) { // post processing after josn is got
     Dajax.process(json_event)
-    $( '.main_event_item.event_item > div.expand *' ).css();
-    $( '.main_event_item.event_item > div.expand *' ).attr("style", "");
+    setTimeout( function() {
+        var lst = $( '.main_event_item.event_item > div.expand p' );
+        for ( var i = 0; i < lst.length; i++ ) {
+            lst[i].removeAttribute("style");
+        }
+        lst = $( '.main_event_item.event_item > div.expand div' )
+        for ( var i = 0; i < lst.length; i++ ) {
+            lst[i].removeAttribute("style");
+        }
+    }, 1000);
+    
     /*b = $( '.main_event_item.event_item > div.expand span' );
     $( '.main_event_item.event_item > div.expand b' ).contents().unwrap();
     $( '.main_event_item.event_item > div.expand font' ).contents().unwrap();

@@ -73,20 +73,20 @@
     font-weight: bold;
 }
 #events .main_event_item.event_item {
-    height : 50%;
+    height : 65%;
     border-radius:0;
     -moz-border-radius:0;
     -webkit-border-radius:0;
     -o-border-radius:0;
 }
 #events .main_event_item.event_item.rows_1 {
-    height : 25%;
+    height : 35%;
 }
 #events .main_event_item.event_item.rows_2 {
-    height : 50%;
+    height : 60%;
 }
 #events .main_event_item.event_item.rows_3 {
-    height : 75%;
+    height : 85%;
 }
 
 /* Carousel Elements */
@@ -187,9 +187,6 @@
 }
 .main_event_item.event_item > div {
     opacity : 1;
-}
-.main_event_item.event_item > div:nth-child(1):hover {
-    opacity : 0.8;
 }
 /*FOR THE BLUR REST ANIMATION
  * .main_event_item.event_item:hover > div:not(:hover) {
