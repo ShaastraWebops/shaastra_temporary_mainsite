@@ -321,7 +321,11 @@ def register(request,form_registration=None,college_name=None):
                          $('#form_registration #id_password').val('');\
                          $('#form_registration #id_password_again').val('');\
                          $('#form_registration #id_mobile_number').val('');")
-#            send_mail('Your new Shaastra2014 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
+            try:
+                send_mail('Your new Shaastra2014 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
+            except:
+                dajax.script('$.bootstrapGrowl("Mail portal error, please try in some time" , {type:"error",timeout:50000} );')
+                return dajax.json()
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
 #            dajax.script('$(".modal-header").find(".close").click();')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:50000} );'% msg )
@@ -366,7 +370,11 @@ def forgot_password(request,email=None):
                     'SITE_URL':settings.SITE_URL,
                     'passwordkey':profile.activation_key,
                 }))
-#            send_mail('Shaastra2014 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
+            try:
+                send_mail('Shaastra2014 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
+            except:
+                dajax.script('$.bootstrapGrowl("Mail portal error, please try in some time" , {type:"error",timeout:50000} );')
+                return dajax.json()
             dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id: %s", {type:"success",timeout:50000} );' % email)
             dajax.script('$.bootstrapGrowl("Please also check your spam", {type:"danger",timeout:50000} );')
         except ValidationError:
