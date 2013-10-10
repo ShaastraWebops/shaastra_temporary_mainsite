@@ -13,7 +13,7 @@
         {% for tab in tab_list %}
             <li {% if forloop.first %} class="active" {% endif %} onclick='show_event_page(this)'> {{tab.title|title}} </li>
         {% endfor %}
-        <li><a onclick ="Dajaxice.dashboard.register_event_form(Dajax.process, {'event_id':{{event.id}}});">Register!!</a></li>
+        <li><a onclick ="Dajaxice.dashboard.register_event_form(Dajax.process, {'event_id':4});">Register!!</a></li>
     </ul>
 </div>
 {% comment %}
