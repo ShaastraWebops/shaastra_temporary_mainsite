@@ -53,7 +53,8 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     try:
         event=ParticipantEvent.objects.using(erp_db).get(id=event_id)
         if not event.registrable_online:
-            dajax.script('$.bootstrapGrowl("Invalid event: can\'t register online!",{type:"danger"})')    
+            dajax.script('$.bootstrapGrowl("Invalid event: can\'t register online!",{type:"danger"})')
+            #TODO: close the modal!!
             return dajax.json()
     except:
         dajax.script('$.bootstrapGrowl("Invalid event",{type:"danger"})')    
@@ -148,9 +149,10 @@ def register_event_form(request,event_id = None):
                 if maxteam >1:
                     msg,team_name = has_team(request.user,event.id)
                     if msg =='has_team':
-                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {timeout:100000}'%team_name);
+                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {timeout:100000})'% str(team_name))
+                        #TODO: close the 
                         return dajax.json()
-                    
+                    print 'ssssss'
                     dajax.script('$.bootstrapGrowl("Note that you need to have a team of atleast %d members to register", {timeout:100000} );'% event.team_size_min)
                     teammates = range(minteam,maxteam)
                     teammates = teammates[:-1]
