@@ -1,29 +1,27 @@
 {% load staticfiles %}
 <h3 style='width : 100%;'>
 	<span id='#event_regd_title' style='position:absolute; left : 25%; display : inline-block;'>Registration for {{event.title}}</span><br/>
-	<span  style='position:absolute; left : 25%; '>Maximum member to add to your team::{{team_max|add:1}}</span>
-	&nbsp;
+	
 </h3>
 <div id="event_registration">
 	<center>
-		<table>
-    		
-			<form action="" method="POST" id="form_team"> {% csrf_token %}
+		<table>		
+			<form action="" class="form-horizontal" method="POST" id="form_team"> {% csrf_token %}
+			<fieldset>
+			<legend><span>Maximum member you can add to your team::{{team_max|add:1}}
+	&nbsp;</legend>
 			<br/>
+			
 			<tr>
-			    <td><th>Enter team name:</th></td>
-                <td><input type="text" id="team_name_addteam" style="200;" placeholder = "Team Name"/></td>
-            </tr>
-            
-			<tr>
-				<div class="compulsory_team_regd">
+			    <label class="control-label" for="team_name_addteam">Enter team name:</label> 
+                <input type="text" id="team_name_addteam" style="width:200;"/>
+				<div class="control-group">
 					{% for j in teammates_min %}
-
+                    <div class="controls">
 					<input type="text" id="shid_{{forloop.counter}}" style="width:500;" placeholder = "Enter Shaastra ID of your teammate {{forloop.counter}}"/><br/>
 					{% endfor %}
 					<tr><a onclick="$('#shid_{{minteam|add:1}}').show();$(this).css({'display':'none'});$('#btn_{{minteam|add:1}}').css({'display':''});" class="btn btn-primary" >Add next member!</a></tr>
 
-				</div>
 				{% for i in teammates %}
 				<input type="text" id="shid_{{forloop.counter|add:minteam}}" style="width:500;{%ifequal forloop.counter 5000%}{% else %}display:none;{% endifequal %}" placeholder = "Enter Shaastra ID of your teammate {{i|add:1}}"/><br/></tr>
 				{% ifequal i team_max %}
@@ -38,12 +36,16 @@
 				Are you sure you want to register for {{event.title}}?
 				<input type="radio" name="yes" value="yes" id="sure"/>Yes<br/>
 				<br/>
+				</fieldset>
+			    <div class="form-actions">
+
 				<input id="event_registration_submit" type="button" onclick="if ($('#sure')[0].checked){
 				Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},'team_name':$('#team_name_addteam').val(),{{inputhtml}}});
 				}
 				else{
 				$.bootstrapGrowl('Are you sure?');
 				}" value="Register for {{event.title}}!!" class="btn btn-primary" style="display:none"/>
+				</div>
 			</tr>
 			<tr>
 				<a class="btn btn-primary" onclick="$(this).css({'display':'none'});$('#event_registration_submit').show();">Completed adding your teammates?</a>
