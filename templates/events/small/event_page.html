@@ -7,7 +7,7 @@
 </center>
 {% if event_db.registrable_online %}
 <!--{% if time_now > event_db.registration_starts and time_now < event_db.registration_ends %}-->
-<a onclick='Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_db.id}}});' class='btn btn-inverse' style='z-index : 100; position : absolute; top : 90%; left : 50%'>Register !</a>
+<a onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_db.id}}});" class='btn btn-inverse' style='z-index : 100; position : absolute; top : 90%; left : 50%'>Register !</a>
 <!--{% else %}-->
 {%comment%}
 <!--part to say wait etc...-->
