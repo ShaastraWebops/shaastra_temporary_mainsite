@@ -5,7 +5,7 @@
         {{event.title}}
     </h4>
 </center>
-<!--<a href='' class='btn btn-inverse' style='z-index : 100; position : absolute; top : 90%; left : 50%'>Register !</a>-->
+<a onclick='Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event.id}}});' class='btn btn-inverse' style='z-index : 100; position : absolute; top : 90%; left : 50%'>Register !</a>
 <div id="sidr" class="sidr span3">
     <ul>
         {% for tab in tab_list %}
