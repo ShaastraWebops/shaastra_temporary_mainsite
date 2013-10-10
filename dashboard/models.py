@@ -49,13 +49,27 @@ class TeamEvent(models.Model):
         except:
             return "team id:%s" % self.team_id
 
+#function returns True is user is not in any team given the event id
+def has_team(user,event_id = None):
+    if event_id is None:
+        return 'Need parameter: event id in erpDB','Need parameter: event id in erpDB'
+    try:
+        event = ParticipantEvent.objects.using(erp_db).get(id = event_id)
+        teamEventList = TeamEvent.objects.filter(event_id = event.id)
+        for teamevent in teamEventList:
+            if user in teamevent.users.all():
+                return 'has_team',teamevent.team_name
+        return 'no_team','no_team'
+    except:
+        return 'give proper event id','give proper event id'
+
 #Updates for each user:: The user will get this on login:: He has to approve
 
 UPDATE_CHOICES = (
     ('Team Add', 'Team Add'),
     ('Deadline for Registration', 'Deadline for Registration'),
-    )
-    
+)
+
 class Update(models.Model):
     tag     = models.CharField(max_length = 20)
     content = models.CharField(max_length = 40)
