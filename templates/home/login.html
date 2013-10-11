@@ -12,7 +12,7 @@
 		</div>
 
 
-		{% if not request.user.is_authenticated%}
+
 		<div class="modal-body login_register">
 			<div class='span4 form_login_div' style="padding-right: 0%; border-right: 1px solid #ccc; ">
 				{% if form.errors %}
@@ -95,12 +95,6 @@
 						</form>
 					</div>
 				</div>
-				{%else%} <!-- User is already logged in ... tell him that -->
-				<div class="modal-body already_loggedin">
-					<div='logged_in'>
-					</div>
-				</div>
-				{%endif%}
 
 <!--			</center>-->
 		</div>

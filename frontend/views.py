@@ -17,6 +17,7 @@ from django.contrib.auth import authenticate, login as auth_login, \
     logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 #from events.models import Event
 from users.models import UserProfile, College
 from django.utils.translation import ugettext as _
@@ -35,6 +36,11 @@ def home(request):
     collstr=collstr[:len(collstr)-1]
     stlist=[st[0] for st in STATE_CHOICES]
     return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
+
+#@login_required
+def dashboard(request):
+#    profile = UserProfile.objects.get(user=request.user)
+    return render_to_response('dashboard/dashboard.html',locals(),context_instance=RequestContext(request))
 
 def serenity(request):
     return render_to_response ('index.html', locals(), context_instance=RequestContext(request))

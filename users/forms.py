@@ -13,8 +13,27 @@ class LoginForm(forms.Form):
     username = forms.CharField(help_text='Your Shaastra 2013 username')
     password = forms.CharField(widget=forms.PasswordInput,
                                help_text='Your password')
-    
 
+class ChangePasswordForm(forms.Form):
+    
+    old_password = forms.CharField(widget=forms.PasswordInput)
+    new_password = forms.CharField(widget=forms.PasswordInput)
+    new_password_again = forms.CharField(widget=forms.PasswordInput)
+    def clean_new_password(self):
+        if self.prefix:
+            field_name1 = '%s-new password' % self.prefix
+            field_name2 = '%s-new password again' % self.prefix
+        else:
+            field_name1 = 'new_password'
+            field_name2 = 'new_password_again'
+
+        if self.data[field_name1] != '' and self.data[field_name1] != self.data[field_name2]:
+            raise forms.ValidationError('The entered passwords do not match.')
+        elif len(self.data[field_name1])<6:
+            raise forms.ValidationError('Password minumum length is 6')
+        else:
+            return self.data[field_name1]
+            
 class ResetPasswordForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
     password_again = forms.CharField(widget=forms.PasswordInput)
@@ -168,4 +187,24 @@ class AddUserForm(BaseUserForm):
         col=self.college
         super(self).save()
 
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('branch', 'mobile_number', 'college_roll','gender','age')
+
+    def clean_mobile_number(self):
+        number1 = self.cleaned_data['mobile_number']
+        try:
+            int(number1)
+        except ValueError, e:
+            raise forms.ValidationError ("Enter a valid number")
+        if number1 == '':
+            return number1
+        elif ((len(number1)<9) or (len(number1)>15)):
+            raise forms.ValidationError ("Enter a valid number")
+        else :
+            return self.data['mobile_number']
+    
+    class Admin:
+        pass
 

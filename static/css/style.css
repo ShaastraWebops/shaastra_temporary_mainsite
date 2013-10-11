@@ -155,7 +155,7 @@ h2 {
     display:inline-block;
     list-style: none;
     float:left;
-    padding:8px 0px;
+    padding:3px 0px;
 }
 
 
@@ -249,13 +249,8 @@ section:nth-child(2n) {
     margin-bottom : 1%;
     color:#FFF;
     padding : 0px;
-    /*background:url('../img/home/banner.png') no-repeat center 0 fixed;*/
+    /*background : url(../img/events/bg.png) repeat;*/
     
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
-    background-attachment : fixed;  /* FIXED FOR IE */
 }
 #aboutus  {
     background : #000;
@@ -274,6 +269,11 @@ section:nth-child(2n) {
 #spons  {
     background : #fff;
     background : url(../img/events/bg.png) repeat;
+}
+#lectures  {
+    background : #000;
+    background : url(../img/shows/bg.jpg) repeat;
+    color : #fff;
 }
 #hospi  {
     background : #000;
@@ -294,6 +294,9 @@ section:nth-child(2n) {
     color : #fff;
 }
 #hospi h2 {
+    color : #fff;
+}
+#lectures h2 {
     color : #fff;
 }
 #twitter_module {
@@ -1232,7 +1235,7 @@ footer a:hover{color: #ccc; text-decoration: none;}
     vertical-align : middle;
     margin : auto;
     height : 10%;
-    top : 40%;
+/*    top : 40%;*/
     font-size : 4em;
     font-weight : bold;
 }
@@ -1249,4 +1252,16 @@ footer a:hover{color: #ccc; text-decoration: none;}
   background-position: 14px 14px;
   background-repeat: no-repeat;
   background-position: -72px 0;
+}
+
+.icon_shaastra {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  *margin-right: .3em;
+  line-height: 16px;
+  vertical-align: text-top;
+  background-image: url("../img/icons/shaastra.png");
+  background-repeat: no-repeat;
 }

@@ -36,9 +36,9 @@
   margin-bottom: 4rem;
 }
 #hexaflip .hexaflip-cube {
-  opacity: 0.9;
+  /*opacity: 0.9;
   filter: alpha(opacity=90);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";*/
 }
 #hexaflip .hexaflip-cube .hexaflip-left,
 #hexaflip .hexaflip-cube .hexaflip-right {
@@ -49,17 +49,19 @@
   text-shadow: none;
 }
 #hexaflip .hexaflip-cube > div:nth-child(1n+1) {
-  background-color: #444;
+  /*background-color: #444;*/
+  background-color: #000;
 }
 #hexaflip .hexaflip-cube > div:nth-child(2n+2) {
-  background-color: #666;
-  background-color: #666;
+  /*background-color: #666;*/
+  background-color: #000;
 }
 #hexaflip .hexaflip-cube > div:nth-child(3n+3) {
-  background-color: #555;
+  /*background-color: #555;*/
+  background-color: #000;
 }
 #hexaflip .hexaflip-cube > div:nth-child(4n+4) {
-  background-color: #eee;
+  background-color: #fff;
   color: #222;
 }
 .hexaflip-cube {
@@ -229,4 +231,47 @@
 }
 #social-icons-header > img{
     margin : 0.5%;
+}
+
+/* Demo Buttons */
+.links-rect {
+    z-index : 10;
+    position: absolute; 
+    bottom: 5%; 
+    left: 0;
+    width : 100%;
+}
+.links-rect a{
+    z-index : 10;
+    display: inline-block;
+    font-size: 12px;
+    width: 200px;
+    height: 24px;
+    color: #000;
+    line-height: 24px;
+    text-align: center;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.9);
+    text-transform: uppercase;
+}
+.links-rect a:hover {
+    background: #ddd;
+    cursor : pointer;
+    color: #000;
+}
+.links-rect a.black {
+    background: #000;
+    color: #fff;
+}
+.links-rect a.black:hover{
+    background: #444;
+}
+
+#dice {
+    
+    z-index : 5;
+    position: absolute; 
+    bottom: 12.5%; 
+    left: 0;
+    width : 100%; 
 }

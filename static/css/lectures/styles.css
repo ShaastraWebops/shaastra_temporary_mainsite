@@ -1,0 +1,51 @@
+
+#lectures .lectures_container {
+    margin-left : 40px;
+}
+#lectures .lecture_item {
+    padding : 0;
+    margin : 2px;
+    z-index : 20;
+}
+#lectures .lecture_item.dummy {
+    padding : 0;
+    margin : 2px;
+    z-index : -5;
+    visibility : hidden;
+    opacity : 0;
+}
+#lectures .lecture_item > img:hover {
+    cursor : pointer;
+    opacity : 0.8;
+}
+#lectures .main_lecture {
+    background : #555;
+    background : rgba( 0, 0, 0, 0.8);
+}
+
+
+/* span 1.5, 4.5 for events display */
+.span0_5 {
+  width: 33.333px;
+}
+.span1_5 {
+  width: 100px;
+}
+.span4_5 {
+  width: 340px;
+}
+.span5_5 {
+  width: 373.333px;
+}
+.offset0_5 {
+  margin-left: 33.333px;
+}
+.offset1_5 {
+  margin-left: 100px;
+}
+.offset4_5 {
+  margin-left: 340px;
+}
+.offset5_5 {
+  margin-left: 373.333px;
+}

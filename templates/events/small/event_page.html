@@ -1,15 +1,27 @@
 {% load staticfiles %}
-<div class='pull-left' style='cursor : pointer;' onclick="javascript:hide_event(this);" ><img src="{% static 'img/back-arrow.png' %}"/></div>
+<div class='pull-left' style='cursor : pointer;' onclick="javascript:hide_event();" ><img src="{% static 'img/back-arrow.png' %}"/></div>
 <center>
     <h4>
         {{event.title}}
     </h4>
 </center>
+{% if event_db.registrable_online %}
+<!--{% if time_now > event_db.registration_starts and time_now < event_db.registration_ends %}-->
+<a onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_db.id}}});" class='btn btn-inverse' style='z-index : 100; position : absolute; top : 90%; left : 50%'>Register !</a>
+<!--{% else %}-->
+{%comment%}
+<!--part to say wait etc...-->
+{%endcomment%}
+<!--{% endif %}-->
+{% endif %}
 <div id="sidr" class="sidr span3">
     <ul>
         {% for tab in tab_list %}
             <li {% if forloop.first %} class="active" {% endif %} onclick='show_event_page(this)'> {{tab.title|title}} </li>
         {% endfor %}
+        {% comment %}
+<!--        <li><a onclick ="Dajaxice.dashboard.register_event_form(Dajax.process, {'event_id':4});">Register!!</a></li>-->
+        {% endcomment %}
     </ul>
 </div>
 {% comment %}
@@ -32,10 +44,10 @@
 {% endcomment %}
 {% for tab in tab_list %}
     {% if forloop.first %}
-        <div class="span9 pull-right page_content">
+        <div class="span8 page_content">
     {% else %}
-        <div class="span9 pull-right page_content" style="display:none;">
+        <div class="span8 page_content" style="display:none;">
     {% endif %}
-        {{tab.text|safe}}
+        {{tab.text|removetags:"span font div"|safe}}
     </div>
 {% endfor %}

@@ -30,21 +30,159 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
-
+from dashboard.models import TDPFileForm
 from django.utils import simplejson
 from misc.dajaxice.decorators import dajaxice_register
 from django.dispatch import receiver
 import datetime
+from forms import EditProfileForm,ChangePasswordForm
+
+
+@dajaxice_register
+def change_password_form(request):
+    dajax = Dajax()
+    #: if user has chosen a college in dropdown, depopulate it OR growl
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    profile = UserProfile.objects.get(user=request.user)
+    change_password_form = ChangePasswordForm()
+    context_dict = {'form_change_password':change_password_form,'profile':profile}
+    html_stuff = render_to_string('dashboard/change_password.html',context_dict,RequestContext(request))
+    if html_stuff:
+        dajax.assign('#FormRegd','innerHTML',html_stuff)
+        dajax.script('$("#event_register").modal("show");')
+    return dajax.json()
+
+
+
+@dajaxice_register
+def change_password(request,form = None):
+    dajax = Dajax()
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    
+#    print deserialize_form(form)
+    if form is None:
+        dajax.script('$.bootstrapGrowl("Invalid password change request", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    form = ChangePasswordForm(deserialize_form(form))
+    if not form.is_valid():
+        errdict = dict(form.errors)
+        for error in form.errors:
+#            if str(errdict[error][0])!='This field is required.':
+            dajax.script('$.bootstrapGrowl("%s:: %s" , {type:"error",timeout:50000} );'% (str(error),str(errdict[error][0])))
+        dajax.script("$(\'#form_change_password #id_new_password').val('');$('#form_change_password #id_new_password_again').val('');")
+        return dajax.json()
+    user = request.user
+    if not user.check_password(form.cleaned_data['old_password']):
+        dajax.script('$.bootstrapGrowl("Please check your old password" , {type:"error",timeout:100000} );')
+        return dajax.json()
+    user.set_password(form.cleaned_data['new_password'])
+    profile = UserProfile.objects.get(user=request.user)
+    dajax.script('$("#form_change_password #old_password").val('') ;\
+    $("#form_change_password #new_password").val('');\
+    $("#form_change_password #new_password_again").val('');\
+    $("#event_register").modal("hide");')
+    user.save()
+    profile.save()
+    dajax.script('$.bootstrapGrowl("Your password was changed successfully!" , {type:"success",timeout:100000} );')
+    return dajax.json()
+
+
+
+
+@dajaxice_register
+def edit_profile(request,form = None,first_name = None,last_name = None):
+    dajax = Dajax()
+
+    if form is None or first_name is None or last_name is None:
+        dajax.script('$.bootstrapGrowl("Invalid edit profile request", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    if first_name == '' or last_name == '':
+        dajax.script('$.bootstrapGrowl("Empty first name/last name fields not allowed", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    form = EditProfileForm(deserialize_form(form))
+    if not form.is_valid():
+        errdict = dict(form.errors)
+        for error in form.errors:
+#            if str(errdict[error][0])!='This field is required.':
+            dajax.script('$.bootstrapGrowl("%s:: %s" , {type:"error",timeout:50000} );'% (str(error),str(errdict[error][0])))
+        return dajax.json()
+    profile = UserProfile.objects.get(user=request.user)
+    (profile.branch,profile.mobile_number,profile.college_roll,profile.gender,profile.age)  = (form.cleaned_data['branch'],form.cleaned_data['mobile_number'],form.cleaned_data['college_roll'],form.cleaned_data['gender'],form.cleaned_data['age'])
+    profile.user.first_name = first_name
+    profile.user.last_name = last_name
+    profile.save()
+    dajax.script('$.bootstrapGrowl("Your profile has been edited" , {type:"success",timeout:100000,align:"center",width:"auto"} );')
+    return dajax.json()
+
+@dajaxice_register
+def edit_profile_form(request):
+    dajax = Dajax()
+    #: if user has chosen a college in dropdown, depopulate it OR growl
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        edit_profile_form = EditProfileForm(instance = profile)
+        context_dict = {'edit_profile_form':edit_profile_form,'profile':profile}
+        html_stuff = render_to_string('dashboard/profile.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#FormRegd','innerHTML',html_stuff)
+            dajax.script('$("#event_register").modal("show");')
+
+    return dajax.json()
+
+@dajaxice_register
+def submit_tdp(request,teamevent_id = None,file_tdp=None):
+    dajax = Dajax()
+
+    if teamevent_id is None or file_tdp is None:
+        dajax.script('$.bootstrapGrowl("Invalid TDP Upload request", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    team_event =TeamEvent.objects.get(id = teamevent_id)
+    if len(request.FILES) == 0:
+        dajax.script('$.bootstrapGrowl("Please upload a file first!", {type:"danger",timeout:50000} );')
+    fileform = TDPFileForm(deserialize_form(file_tdp),request.FILES)
+
+    try:
+        event = teamevent.get_event()
+        tdp = TDP(tdp=fileform,teamevent = teamevent)
+        tdp.save()
+    except:
+        print 'sss'
+    return dajax.json()
+    
+@dajaxice_register
+def show_registered_events(request):
+    dajax = Dajax()
+
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",timeout:50000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        team_event_list = profile.get_regd_events()
+        no_regd = len(team_event_list)
+        now = timezone.now()
+        context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'no_regd':no_regd}
+        html_stuff = render_to_string('dashboard/registered_events.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#FormRegd','innerHTML',html_stuff)
+            dajax.script('$("#event_register").modal("show");')
+
+    return dajax.json()
 
 
 @dajaxice_register
 def add_college(request,college=None,city=None,state=None):
     dajax = Dajax()
-    #TODO: get the Login modal back up
-    
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if city is None or college is None or state is None or city =='' or college =='' or state =='':
-        dajax.script('$.bootstrapGrowl("Please enter relevant details for adding your college", {type:"danger",timeout:50000} );' )
+        dajax.script('$.bootstrapGrowl("Please enter relevant details for adding your college", {type:"danger",timeout:50000} );')
         return dajax.json()
     else:
         try:
@@ -75,7 +213,7 @@ def logout(request,**kwargs):
     dajax.script('$.bootstrapGrowl("Successfully logged out!", {type:"success",timeout:50000} );' )
     dajax.assign("#login_logout", "innerHTML", '<a href="#login" onclick="$(\'#login\').modal(\'show\');">Login | Register </a>')
     return dajax.json()
-
+    
 @dajaxice_register
 def login(request,login_form = None):
     dajax = Dajax()
@@ -153,8 +291,6 @@ def register(request,form_registration=None,college_name=None):
         
     if request.method=="POST" and (form_registration !=None or not college_name is None):
         form = AddUserForm(deserialize_form(form_registration))
-        for error in form.errors:
-            print error,form.errors[error]
         if form.is_valid():
             #TODO: if we change college to be a compulsory, then this must be changed
             dajax.remove_css_class('#form_registration input', 'error')
@@ -185,7 +321,8 @@ def register(request,form_registration=None,college_name=None):
                          $('#form_registration #id_password').val('');\
                          $('#form_registration #id_password_again').val('');\
                          $('#form_registration #id_mobile_number').val('');")
-#            send_mail('Your new Shaastra2014 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
+            
+            send_mail('Your new Shaastra2014 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
             msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
 #            dajax.script('$(".modal-header").find(".close").click();')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",timeout:50000} );'% msg )

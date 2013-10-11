@@ -1,13 +1,21 @@
 {% load dajaxice_templatetags %}
 {% load staticfiles %}
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:fb="http://www.facebook.com/2008/fbml">
 <head class=" js csstransitions">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="iitm, team, robocon, robotics, auto, autonomous, bot, manual, iit, madras, mit, pune, abu, dd, doordarshan, india, chennai, shaastra, iitmadras ">
-    <meta name="description" content="Shaastra 2014 the techfest of IIT Madras. Breaking boundaries this time to showcase the radical tech and skills.">
+    <meta name="description" content="Shaastra 2014 the techfest of IIT Madras. Breaking boundaries this time to showcase radical tech and skills.">
     <meta name="author" content="Abdeali JK">
-    
+
+    <meta property="og:title" content="Shaastra | 2014"/>
+    <meta property="og:type" content="Techfest"/>
+    <meta property="og:url" content="http://shaastra.org/2014/main/"/>
+    <meta property="og:image" content="{% static 'img/logo/logo_blue.png' %}"/>
+    <meta property="og:site_name" content="Shaastra | 2014"/>
+    <meta property="og:description" content="Shaastra 2014 the techfest of IIT Madras. Breaking boundaries this time to showcase radical tech and skills."/>
+               
     <title>{% block page_title %}Shaastra | 2014{% endblock %}</title>
     
     {% include 'base/head.html' %}
@@ -23,12 +31,13 @@
     {% include 'events/main.html' %}
     {% include 'shows/main.html' %}
     {% include 'spons/main.html' %}
+    {% include 'lectures/main.html' %}
     {% include 'hospi/main.html' %}
     {% include 'contact/main.html' %}
-
+<!--    {% include 'dashboard/modal_regd.html' %}-->
     {% include 'home/login.html' %}
     {% include 'home/add_college.html' %}
-
+    {% include 'dashboard/modal_regd.html'%}
     
     {% include 'base/footer.html' %}
     {% include 'base/foot.html' %}
