@@ -13,13 +13,9 @@
         {% for tab in tab_list %}
             <li {% if forloop.first %} class="active" {% endif %} onclick='show_event_page(this)'> {{tab.title|title}} </li>
         {% endfor %}
-<<<<<<< HEAD
-        {% comment %}<li><a onclick ="Dajaxice.dashboard.register_event_form(Dajax.process, {'event_id':4});">Register!!</a></li>{% endcomment %}
-=======
         {% comment %}
 <!--        <li><a onclick ="Dajaxice.dashboard.register_event_form(Dajax.process, {'event_id':4});">Register!!</a></li>-->
         {% endcomment %}
->>>>>>> 15c7bb1b195bf956062d1859f7a437cf65d4e6b5
     </ul>
 </div>
 {% comment %}

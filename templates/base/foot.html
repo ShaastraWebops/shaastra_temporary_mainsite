@@ -313,6 +313,10 @@
         boxlayout_init();
         size_main_lecture();
         //$(".tooltip").tooltip();
+        $('#spons_tabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        })
         $(".tooltip-bottom").tooltip({
             placement : "bottom",
         } );
