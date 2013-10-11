@@ -68,7 +68,7 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
     for key in json_dict_keys:
         if key.startswith('event_'):
             event_details[ key[6:] ] = json_dict.pop(key)
-        else:
+        elif key.startswith('tab'):
             underscore_posn = key.find('_')
             tab_pk = key[3:underscore_posn]
             if count==1:
