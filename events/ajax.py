@@ -86,14 +86,13 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
             tab_pk_list.append(tab_pk)
             count += 1
     
-    if tab_details:        
+    if tab_details:
         tab_details_list.append(tab_details) #appending the last tab_details dict that was not appended in the loop
     
     #sorting tab details based on preference:
     tab_details_list = sorted(tab_details_list, key=lambda x: x["pref"])
-    event_db = ParticipantEvent.objects.using(erp_db).get(id = event_pk)
     time_now = timezone.now()
-    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'event_type': event_type ,'event_db':event_db,'time_now':time_now}
+    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'event_type': event_type, 'time_now':time_now, 'event_pk':event_pk}
     html_content = render_to_string('events/small/event_page.html', context_dict, RequestContext(request))
     
     if html_content:
