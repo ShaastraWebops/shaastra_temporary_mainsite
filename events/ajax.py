@@ -96,6 +96,7 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
     html_content = render_to_string('events/small/event_page.html', context_dict, RequestContext(request))
     
     if html_content:
+        dajax.script("window.location.hash='"+ event_name.replace(" ","_").lower() +"'")
         dajax.assign("#event_no_"+str(event_pk)+" > .event_content", "innerHTML", html_content)
         #dajax.script("show_event(document.getElementById('event_no_"+str(event_pk)+"_click'));")
         dajax.script("$('#event_no_"+str(event_pk)+"_click').parent().children('.event_content').removeClass('loading');")
