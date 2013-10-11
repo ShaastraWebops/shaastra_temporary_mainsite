@@ -7,9 +7,12 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 # From shaasta_mainsite_2014
 from mainsite_2014.settings import ERP_PROJECT_PATH, DATABASES
+from models import ParticipantEvent
+erp_db = DATABASES.keys()[1]
+from django.utils import timezone
 # Python imports
 import json
-import os
+import os,datetime
 
 def get_json_file_path(filename):
     file_path = os.path.abspath( os.path.join( ERP_PROJECT_PATH, 'media', 'json', 'events') )
@@ -88,8 +91,9 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
     
     #sorting tab details based on preference:
     tab_details_list = sorted(tab_details_list, key=lambda x: x["pref"])
-        
-    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'event_type': event_type }
+    event_db = ParticipantEvent.objects.using(erp_db).get(id = event_pk)
+    time_now = timezone.now()
+    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'event_type': event_type ,'event_db':event_db,'time_now':time_now}
     html_content = render_to_string('events/small/event_page.html', context_dict, RequestContext(request))
     
     if html_content:
