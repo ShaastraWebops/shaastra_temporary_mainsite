@@ -72,7 +72,7 @@ UPDATE_CHOICES = (
 
 class Update(models.Model):
     tag     = models.CharField(max_length = 20)
-    content = models.CharField(max_length = 40)
+    content = models.CharField(max_length = 200)
     user    = models.ForeignKey(User, related_name = 'userupdates')
     #link    = models.?? on click user goes to where the update relates to
     

@@ -57,8 +57,7 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     except:
         dajax.script('$.bootstrapGrowl("Invalid event",{type:"danger"})')    
         return dajax.json()
-    teamevent = TeamEvent.objects.create(event_id=event.id)
-    teamevent.save()
+    teamevent = TeamEvent(event_id=event.id)
     profile = UserProfile.objects.get(user=request.user)
     sha=''
     while 1>0:
@@ -95,6 +94,7 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
         except:
             dajax.script('$.bootstrapGrowl("One/more of shaastra id\'s entered are invalid!",{type:"danger"})')
             return dajax.json()
+    teamevent.save()
     teamevent.users=userlist
     teamevent.is_active = True
     teamevent.team_name = team_name
@@ -160,21 +160,26 @@ def register_event_form(request,event_id = None):
                         inputhtml +="\'teammate#%d\':$(\'#shid_%d\').val()," %(i+1,i+1)
                     
                     inputhtml=inputhtml[:len(inputhtml)-1]
-                    context_dict = {'event': event,'teammates':teammates,'teammates_min':teammates_min,'inputhtml':inputhtml,'team_max':len(teammates_min+teammates)-1,'minteam':minteam}
+                    
                 else:
                     msg,team_name = has_team(request.user,event.id)
                     if msg =='has_team':
-                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {timeout:100000}'%team_name);
+                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {timeout:100000});'%team_name);
                         return dajax.json()
-                    tev = TeamEvent(event_id = event.id)
-                    tev.save()
-                    tev.users.add(request.user)
-                    tev.save()
-                    update = Update(tag='Event registration',content='Added to team: %s in event %s'%(tev.team_name,tev.get_event().title),user=request.user)
-                    update.save()
-                    dajax.script('$.bootstrapGrowl("You have been registered for %s", {timeout:100000}' %event.title );
+                    #tev = TeamEvent(event_id = event.id)
+                    #tev.save()
+                    #tev.users.add(request.user)
+                    #tev.save()
+                    #update = Update(tag='Event registration',content='Added to team: %s in event %s'%(tev.team_name,tev.get_event().title),user=request.user)
+                    #update.save()
+                    #dajax.script('$.bootstrapGrowl("You have been registered for %s", {timeout:100000});' %event.title );
                     #TODO: update
-                    dajax.script('$("#event_register").modal("toggle");')
+                    inputhtml=''
+                    teammates=[]
+                    teammates_min=[]
+                    #dajax.script('$("#event_register").modal("toggle");')
+                    #return dajax.json()
+                context_dict = {'event': event,'teammates':teammates,'teammates_min':teammates_min,'inputhtml':inputhtml,'team_max':len(teammates_min+teammates)-1,'minteam':minteam}
                 html_stuff = render_to_string('dashboard/event_registration_form.html',context_dict,RequestContext(request))
                 if html_stuff:
                     dajax.assign('#FormRegd','innerHTML',html_stuff)
