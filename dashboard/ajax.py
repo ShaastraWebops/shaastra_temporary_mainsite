@@ -38,7 +38,7 @@ from django.dispatch import receiver
 import datetime
 from models import TeamEvent,Update,has_team
 from users.models import *
-
+
 @dajaxice_register
 def register_event(request,event_id=None,team_name=None,**kwargs):
     dajax=Dajax()
@@ -166,13 +166,13 @@ def register_event_form(request,event_id = None):
                     if msg =='has_team':
                         dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {timeout:100000});'%team_name);
                         return dajax.json()
-                    tev = TeamEvent(event_id = event.id)
-                    tev.save()
-                    tev.users.add(request.user)
-                    tev.save()
-                    update = Update(tag='Event registration',content='Added to team: %s in event %s'%(tev.team_name,tev.get_event().title),user=request.user)
-                    update.save()
-                    dajax.script('$.bootstrapGrowl("You have been registered for %s", {timeout:100000});' %event.title );
+                    #tev = TeamEvent(event_id = event.id)
+                    #tev.save()
+                    #tev.users.add(request.user)
+                    #tev.save()
+                    #update = Update(tag='Event registration',content='Added to team: %s in event %s'%(tev.team_name,tev.get_event().title),user=request.user)
+                    #update.save()
+                    #dajax.script('$.bootstrapGrowl("You have been registered for %s", {timeout:100000});' %event.title );
                     #TODO: update
                     inputhtml=''
                     teammates=[]
