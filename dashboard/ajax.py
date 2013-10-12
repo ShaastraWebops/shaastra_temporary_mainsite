@@ -38,7 +38,7 @@ from django.dispatch import receiver
 import datetime
 from models import TeamEvent,Update,has_team
 from users.models import *
-
+
 @dajaxice_register
 def register_event(request,event_id=None,team_name=None,**kwargs):
     dajax=Dajax()
