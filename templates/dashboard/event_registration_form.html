@@ -40,7 +40,7 @@
 			    <div class="form-actions">
 
 				<input id="event_registration_submit" type="button" onclick="if ($('#sure')[0].checked){
-				Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},'team_name':$('#team_name_addteam').val(),{{inputhtml}}});
+				Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},'team_name':$('#team_name_addteam').val(),{% if inputhtml %}{{inputhtml}}{% else %}});
 				}
 				else{
 				$.bootstrapGrowl('Are you sure?');
