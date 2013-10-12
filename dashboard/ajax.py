@@ -172,7 +172,7 @@ def register_event_form(request,event_id = None):
                     tev.save()
                     update = Update(tag='Event registration',content='Added to team: %s in event %s'%(tev.team_name,tev.get_event().title),user=request.user)
                     update.save()
-                    dajax.script('$.bootstrapGrowl("You have been registered for %s", {timeout:100000}' %event.title );
+                    dajax.script('$.bootstrapGrowl("You have been registered for %s", {timeout:100000});' %event.title );
                     #TODO: update
                     dajax.script('$("#event_register").modal("toggle");')
                     return dajax.json()
