@@ -164,7 +164,7 @@ def register_event_form(request,event_id = None):
                 else:
                     msg,team_name = has_team(request.user,event.id)
                     if msg =='has_team':
-                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {timeout:100000}'%team_name);
+                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {timeout:100000});'%team_name);
                         return dajax.json()
                     tev = TeamEvent(event_id = event.id)
                     tev.save()
