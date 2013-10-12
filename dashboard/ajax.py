@@ -160,7 +160,7 @@ def register_event_form(request,event_id = None):
                         inputhtml +="\'teammate#%d\':$(\'#shid_%d\').val()," %(i+1,i+1)
                     
                     inputhtml=inputhtml[:len(inputhtml)-1]
-                    context_dict = {'event': event,'teammates':teammates,'teammates_min':teammates_min,'inputhtml':inputhtml,'team_max':len(teammates_min+teammates)-1,'minteam':minteam}
+                    
                 else:
                     msg,team_name = has_team(request.user,event.id)
                     if msg =='has_team':
@@ -174,8 +174,12 @@ def register_event_form(request,event_id = None):
                     update.save()
                     dajax.script('$.bootstrapGrowl("You have been registered for %s", {timeout:100000});' %event.title );
                     #TODO: update
-                    dajax.script('$("#event_register").modal("toggle");')
-                    return dajax.json()
+                    inputhtml=''
+                    teammates=[]
+                    teammates_min=[]
+                    #dajax.script('$("#event_register").modal("toggle");')
+                    #return dajax.json()
+                context_dict = {'event': event,'teammates':teammates,'teammates_min':teammates_min,'inputhtml':inputhtml,'team_max':len(teammates_min+teammates)-1,'minteam':minteam}
                 html_stuff = render_to_string('dashboard/event_registration_form.html',context_dict,RequestContext(request))
                 if html_stuff:
                     dajax.assign('#FormRegd','innerHTML',html_stuff)
