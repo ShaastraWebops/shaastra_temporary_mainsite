@@ -57,8 +57,7 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     except:
         dajax.script('$.bootstrapGrowl("Invalid event",{type:"danger"})')    
         return dajax.json()
-    teamevent = TeamEvent.objects.create(event_id=event.id)
-    teamevent.save()
+    teamevent = TeamEvent(event_id=event.id)
     profile = UserProfile.objects.get(user=request.user)
     sha=''
     while 1>0:
@@ -95,6 +94,7 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
         except:
             dajax.script('$.bootstrapGrowl("One/more of shaastra id\'s entered are invalid!",{type:"danger"})')
             return dajax.json()
+    teamevent.save()
     teamevent.users=userlist
     teamevent.is_active = True
     teamevent.team_name = team_name
@@ -175,6 +175,7 @@ def register_event_form(request,event_id = None):
                     dajax.script('$.bootstrapGrowl("You have been registered for %s", {timeout:100000}' %event.title );
                     #TODO: update
                     dajax.script('$("#event_register").modal("toggle");')
+                    return dajax.json()
                 html_stuff = render_to_string('dashboard/event_registration_form.html',context_dict,RequestContext(request))
                 if html_stuff:
                     dajax.assign('#FormRegd','innerHTML',html_stuff)
