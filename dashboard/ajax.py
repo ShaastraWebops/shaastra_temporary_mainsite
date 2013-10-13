@@ -65,7 +65,7 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
             sha = kwargs['teammate#%d' % i]
             if sha!='':
                 if sha==profile.shaastra_id:
-                    dajax.script('$.bootstrapGrowl("Enter your teammates' ID's only. You will be registered automatically. You do no need to enter your ID",{type:"danger",delay:10000})')
+                    dajax.script('$.bootstrapGrowl("Enter your teammates\' ID\'s only. You will be registered automatically. You do no need to enter your ID",{type:"danger",delay:10000})')
                     return dajax.json()
                 shalist.append(sha)
         except:
