@@ -221,7 +221,7 @@
 #social-icons-header {
     z-index : 10;
     position: absolute; 
-    bottom: 12.5%; 
+    bottom: 5%; 
     left: 0;
     width : 100%; 
 }
@@ -237,7 +237,7 @@
 .links-rect {
     z-index : 10;
     position: absolute; 
-    bottom: 5%; 
+    bottom: 0.1%; 
     left: 0;
     width : 100%;
 }
@@ -271,7 +271,7 @@
     
     z-index : 5;
     position: absolute; 
-    bottom: 12.5%; 
+    bottom: 5.5%; 
     left: 0;
     width : 100%; 
 }
