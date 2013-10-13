@@ -123,7 +123,7 @@ def register_event_form(request,event_id = None):
             event = ParticipantEvent.objects.using(erp_db).get(id=event_id)
             if not request.user.is_authenticated():
                 dajax.script('$.bootstrapGrowl("Please Login to register!", {delay:10000} );')
-                dajax.script('$("#login").show();')
+                dajax.script('$("#login").modal();')
                 return dajax.json()
             user = request.user
         except:
