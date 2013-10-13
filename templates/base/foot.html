@@ -362,8 +362,15 @@
                     }
                 }
             }
+            
         }
-        
+
+        // Check if it was login modal
+        if( place == 'login' ) {
+            $("#login").modal()
+        } else {
+            $("#login").modal('hide')
+        }
         //console.log(event_groups)
     }
     $(window).bind( 'hashchange',  pagechange );

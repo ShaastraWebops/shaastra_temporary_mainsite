@@ -110,6 +110,8 @@ function hide_event_group () {
     $(".event_items_div .event_item").addClass("span3");
     $(".event_items_div .buffer").show();
     $(".event_items_div .event_back").hide();
+
+    // As back button was pressed 
 }
 
 
