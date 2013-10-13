@@ -181,7 +181,10 @@ $(window).scroll(function() {
         $('.nav a[href="#home"]').addClass("active")
         $('.nav a').removeClass("selected")
         $('.nav a').removeClass("selected")
+        hexa_init()
     } else {
         $('.nav a[href="#home"]').removeClass("active")
+        clearInterval(hexa_pid)
+        hexa_pid = -1;
     }
 });

@@ -51,6 +51,7 @@
             return o;
         },
         hexa_init = function() {
+            clearInterval(hexa_pid);
             hexa_pid = setInterval(function(){
                 hexa.setValue(getSequence(text, false, true));
                 $(".modal").each( function() {
@@ -59,8 +60,8 @@
                         hexa_pid = -1;
                     }
                 });
-                if( hexa_pid == -1 )
-                    hexa_stop();
+                //if( hexa_pid == -1 )
+                //    hexa_stop();
             }, 900);
             hexa.setValue(getSequence(text, false, true));
         },
@@ -355,7 +356,7 @@
                         $('html, body').scrollTo($('.navbar ul.nav a[href=#events]')[0].hash, $('.navbar ul.nav a[href=#events]')[0].hash);
                         //if( ! $('.main_event_item.event_item') ) {
                             show_event_group(event_groups[i], false) // open the evnt_group is not already opened
-                       // }
+                        //}
                         document.getElementById('event_no_'+event_list[j].pk+'_click').click()
                         
                     }
