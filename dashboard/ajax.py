@@ -43,7 +43,7 @@ from users.models import *
 def register_event(request,event_id=None,team_name=None,**kwargs):
     dajax=Dajax()
     if event_id is None or team_name is None:
-        dajax.script('$.bootstrapGrowl("Invalid entry",{type:"danger"})')
+        dajax.script('$.bootstrapGrowl("Invalid entry",{type:"danger",delay:10000})')
         return dajax.json()
     i=1
     shalist=[]
@@ -51,11 +51,11 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     try:
         event=ParticipantEvent.objects.using(erp_db).get(id=event_id)
         if not event.registrable_online:
-            dajax.script('$.bootstrapGrowl("Invalid event: can\'t register online!",{type:"danger"})')
+            dajax.script('$.bootstrapGrowl("Invalid event: can\'t register online!",{type:"danger",delay:10000})')
             #TODO: close the modal!!
             return dajax.json()
     except:
-        dajax.script('$.bootstrapGrowl("Invalid event",{type:"danger"})')    
+        dajax.script('$.bootstrapGrowl("Invalid event",{type:"danger",delay:10000})')    
         return dajax.json()
     teamevent = TeamEvent(event_id=event.id)
     profile = UserProfile.objects.get(user=request.user)
@@ -65,7 +65,7 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
             sha = kwargs['teammate#%d' % i]
             if sha!='':
                 if sha==profile.shaastra_id:
-                    dajax.script('$.bootstrapGrowl("Enter your teammate\' id\'s not your own ID!!",{type:"danger"})')
+                    dajax.script('$.bootstrapGrowl("Enter your teammates\' ID\'s only. You will be registered automatically. You do no need to enter your ID",{type:"danger",delay:10000})')
                     return dajax.json()
                 shalist.append(sha)
         except:
@@ -74,10 +74,10 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     #check for duplicates
     #TODO: find actual entries first(without '')
     if len(shalist)!=len(set(shalist)):
-        dajax.script('$.bootstrapGrowl("No duplicate entries allowed in teammates!",{type:"danger"})')
+        dajax.script('$.bootstrapGrowl("No duplicate entries allowed.",{type:"danger",delay:10000})')
         return dajax.json()
     if len(shalist) < event.team_size_min-1:
-        dajax.script('$.bootstrapGrowl("Minimum team size:%d!",{type:"danger"})'% event.team_size_min)
+        dajax.script('$.bootstrapGrowl("Minimum team size:%d!",{type:"danger",delay:10000})'% event.team_size_min)
         return dajax.json()
     
     userlist=[]
@@ -88,11 +88,11 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
             up = UserProfile.objects.get(shaastra_id = sha)
             msg,teamname = has_team(up.user,event.id)
             if msg =='has_team':
-                dajax.script('$.bootstrapGrowl("One of your teammates: with id %s is already in another team named %s for this event. Multiple teams for same user is not allowed!!",{type:"danger"})'% (up.shaastra_id,teamname))
+                dajax.script('$.bootstrapGrowl("One of your teammates: with id %s is already in another team named %s for this event.");$.bootstrapGrowl("A user can be part of only 1 team for an event",{type:"danger",delay:20000});'% (up.shaastra_id,teamname))
                 return dajax.json()
             userlist.append(up.user)
         except:
-            dajax.script('$.bootstrapGrowl("One/more of shaastra id\'s entered are invalid!",{type:"danger"})')
+            dajax.script('$.bootstrapGrowl("One/more of shaastra id\'s entered are invalid!",{type:"danger",delay:20000})')
             return dajax.json()
     teamevent.save()
     teamevent.users=userlist
@@ -102,11 +102,11 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     for user in userlist:
         update = Update(tag='Event registration',content='Added to team: %s in event %s'%(teamevent.team_name,teamevent.get_event().title),user=user)
         update.save()
-    dajax.script('$.bootstrapGrowl("Your team was registered successfully to event %s",{type:"success",timeout:100000})'% event.title)
-    dajax.script('$.bootstrapGrowl("Your team ID: %s",{type:"success",timeout:100000})'% teamevent.team_id)
+    dajax.script('$.bootstrapGrowl("Your team was registered successfully to event %s",{type:"success",delay:30000})'% event.title)
+    dajax.script('$.bootstrapGrowl("Your team ID: %s",{type:"success",delay:100000})'% teamevent.team_id)
     dajax.script('$("#event_register").modal("toggle")')
     enddate = teamevent.get_event().registration_ends
-    dajax.script('$.bootstrapGrowl("Deadline for the event is %s/%s/%s", {timeout:100000} );'% (enddate.day,enddate.month,enddate.year))
+    dajax.script('$.bootstrapGrowl("Note:Deadline for the event is %s/%s/%s", {delay:100000} );'% (enddate.day,enddate.month,enddate.year))
     #TODO: create updates for other users and him
     return dajax.json()
 
@@ -115,30 +115,30 @@ def register_event_form(request,event_id = None):
     dajax = Dajax()
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if event_id is None:
-        dajax.script('$.bootstrapGrowl("Invalid Event specified.", {type:"danger",timeout:50000} );')
+        dajax.script('$.bootstrapGrowl("Invalid Event specified.", {type:"danger",delay:10000} );')
         return dajax.json()
     else:
         try:
             erp_db = DATABASES.keys()[1]
             event = ParticipantEvent.objects.using(erp_db).get(id=event_id)
             if not request.user.is_authenticated():
-                dajax.script('$.bootstrapGrowl("Please Login to register!", {timeout:50000} );')
-                dajax.script('$("#login").show();')
+                dajax.script('$.bootstrapGrowl("Please Login to register!", {delay:10000} );')
+                dajax.script('$("#login").modal();')
                 return dajax.json()
             user = request.user
         except:
-            dajax.script('$.bootstrapGrowl("Invalid Event specified", {type:"danger",timeout:50000} );')
+            dajax.script('$.bootstrapGrowl("Invalid Event specified", {type:"danger",delay:20000} );')
             return dajax.json()
         if not event.registrable_online:
-            dajax.script('$.bootstrapGrowl("You cannot register online for the event:%s", {type:"danger",timeout:50000} );'% event.title)
+            dajax.script('$.bootstrapGrowl("You cannot register online for the event:%s", {type:"danger",delay:50000} );'% event.title)
             return dajax.json()
         elif event.registration_starts and event.registration_ends:
             if event.registration_starts > timezone.now():
                 days = (event.registration_starts - timezone.now()).days
-                dajax.script('$.bootstrapGrowl("Please wait until %d days for registrations to open for %s", {type:"danger",timeout:100000} );' % (days,event.title))
+                dajax.script('$.bootstrapGrowl("Please wait until %d days for registrations to open for %s", {type:"danger",delay:10000} );' % (days,event.title))
                 return dajax.json()
             elif event.registration_ends < timezone.now():
-                dajax.script('$.bootstrapGrowl("Registrations closed for %s! Sorry", {type:"danger",timeout:100000} );'% event.title)
+                dajax.script('$.bootstrapGrowl("Registrations closed for %s! Sorry", {type:"danger",delay:20000} );'% event.title)
                 return dajax.json()
             else:
                 maxteam = event.team_size_max
@@ -148,10 +148,10 @@ def register_event_form(request,event_id = None):
                 if maxteam >1:
                     msg,team_name = has_team(request.user,event.id)
                     if msg =='has_team':
-                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {timeout:100000})'% str(team_name))
+                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {delay:10000})'% str(team_name))
                         #TODO: close the 
                         return dajax.json()
-                    dajax.script('$.bootstrapGrowl("Note that you need to have a team of atleast %d members to register", {timeout:100000} );'% event.team_size_min)
+                    dajax.script('$.bootstrapGrowl("Note that you need to have a team with atleast %d more member to register", {delay:100000} );'% (event.team_size_min))
                     teammates = range(minteam,maxteam)
                     teammates = teammates[:-1]
                     teammates_min = range(minteam)
@@ -164,7 +164,7 @@ def register_event_form(request,event_id = None):
                 else:
                     msg,team_name = has_team(request.user,event.id)
                     if msg =='has_team':
-                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {timeout:100000});'%team_name);
+                        dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {delay:20000});'%team_name);
                         return dajax.json()
                     #tev = TeamEvent(event_id = event.id)
                     #tev.save()
@@ -185,6 +185,6 @@ def register_event_form(request,event_id = None):
                     dajax.assign('#FormRegd','innerHTML',html_stuff)
                     dajax.script('$("#event_register").modal();')
         else:
-            dajax.script('$.bootstrapGrowl("Registrations not put up yet, please wait!", {timeout:50000} );')
+            dajax.script('$.bootstrapGrowl("Registrations not put up yet, please wait!", {delay:10000} );')
     return dajax.json()
 
