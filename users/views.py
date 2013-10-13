@@ -23,7 +23,21 @@ from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 from django.utils import timezone
+from dashboard.models import TDPFileForm,TeamEvent
 
+def submit_tdp(request):
+    if not request.user.is_authenticated():
+        #TODO: redirect him to mainsite , and pop the login modal
+        return HttpResponse('Please login to submit TDP\'s')
+    fileform = TDPFileForm(request.POST,request.FILES)
+    if not fileform.files:
+        #TODO: submit tdp button comes only if upload succesful event of input type file
+        return HttpResponse('Please upload a valid file')
+    tdp = fileform.save(commit = False)
+    tdp.teamevent = TeamEvent.objects.get(id = request.POST['teameventid'])
+    tdp.save()
+    
+    return HttpResponse(str(request.FILES))
 
 def forgot_password(request,password_key = None):
     SITE_URL = settings.SITE_URL

@@ -5,7 +5,8 @@ from users.models import *
 from mainsite_2014.settings import DATABASES
 erp_db = DATABASES.keys()[1]
 from time import gmtime,strftime
-
+from django.utils import timezone
+import datetime
 #Also set is_active to True each time created
 class TeamEvent(models.Model):
     team_id     = models.CharField(default='0',null=True,max_length = 50)
@@ -70,6 +71,12 @@ UPDATE_CHOICES = (
     ('Deadline for Registration', 'Deadline for Registration'),
 )
 
+def tdp_upload_handler(self,filename):
+#    time =  strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime()).replace(" ",'_')
+    time = str(timezone.now().date())
+    url = 'tdpsubmissions/%s/%s_%s'%(self.teamevent.get_event().title,self.teamevent.team_id,time)
+    return url
+
 class Update(models.Model):
     tag     = models.CharField(max_length = 20)
     content = models.CharField(max_length = 200)
@@ -77,17 +84,12 @@ class Update(models.Model):
     #link    = models.?? on click user goes to where the update relates to
     
 class TDP(models.Model):
-    file_tdp         = models.FileField(max_length = 100,upload_to = 'tdpsubmissions')
     teamevent   = models.ForeignKey(TeamEvent,null = True,blank = True)
-    
-    def save(self):
-        time =  strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime()).replace(" ",'_')
-        self.file_tdp.upload_to = 'tdpsubmissions/%s/%s_%s'%(self.teamevent.get_event().title,self.teamevent.team_id,time)
-        super(TDP,self).save()
+    file_tdp    = models.FileField(max_length = 100,upload_to =tdp_upload_handler,blank=True,null=True)
     def get_event(self):
         if event_id==-1:
             return None
-        event = ParticipantEvent.objects.using(erp_db).get(id = teamevent.event_id)
+        event = teamevent.get_event()
         return event
         
 def get_tdp_event(event = None):
@@ -102,9 +104,13 @@ def get_tdp_event(event = None):
     if len(tdplist) == 0:
         return None
     return tdplist
-    
+
 
 class TDPFileForm(forms.ModelForm):
     class Meta:
         model = TDP
-        fields = ['file_tdp',]
+        exclude = ('teamevent',)
+#    def __init__(self, *args, **kwargs):
+#        from django.forms.widgets import HiddenInput
+#        super(TDPFileForm, self).__init__(*args, **kwargs)
+#        self.fields['teamevent'].widget = HiddenInput()
