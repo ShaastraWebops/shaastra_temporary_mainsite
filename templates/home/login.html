@@ -32,7 +32,7 @@
 				<div id="login_error"></div>
 				<div id="forgot_password"><a onclick="$('#forgot_form').toggle();" style="cursor:pointer;">Forgot your password?</a></div>
 				<div id="forgot_form" style="display:none">
-					<input type="text" maxlength="70" value placeholder="Enter your registered email-id" id="forgot_form_email"></text>
+					<input type="text" maxlength="70" value placeholder="Enter your registered email-id" id="forgot_form_email">
 					<button class="btn btn-primary" onclick ="Dajaxice.users.forgot_password(Dajax.process, {'email':$('#forgot_form_email').val()});" > Request for a new password</button>
 				</div>
 			</div>
