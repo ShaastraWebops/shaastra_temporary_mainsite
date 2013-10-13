@@ -197,7 +197,8 @@ def add_college(request,college=None,city=None,state=None):
         coll=College(name=college,city=city,state=state)
         coll.save()
         dajax.assign("#add_coll_name",'innerHTML','%s'% college)
-        dajax.assign("#add_coll_result",'innerHTML','Added your college:')
+        dajax.assign("#add_coll_result",'innerHTML','College:')
+        #dajax.script("$('#college')[0]value = '%s'" % college)
         dajax.script('$.bootstrapGrowl("Your college:<strong>%s</strong> was added. Welcome", {type:"success",delay:10000} );'% str(coll.name) )
         # : populate the id_college with the given college details?
         dajax.script("$('#add_coll_message').toggle();")

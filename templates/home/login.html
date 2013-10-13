@@ -77,13 +77,22 @@
                             <td>{{form_registration.branch}}</td>
                         </tr>
                         <tr>                                
-                            <td><div id="add_college_display"><a id='add_coll_message' onclick='addcoll();' style="cursor:pointer;font-size:11pt">Can't find your college in the list?</a></td><td><span id='add_coll_result'></span><span id='add_coll_name'></span></div></td>
+                            <td>
+                                <div id="add_college_display">
+                                    <a id='add_coll_message' onclick='addcoll();' style="cursor:pointer; font-size : 0.8em;">Can't find your college in the list?</a>
+                                    <span id='add_coll_result'></span><span id='add_coll_name'></span>
+                                </div>
+                            </td>
+                            <td>
+                                School Student : {{ form_registration.school_student }}
+                            </td>
+                        </tr>
                         <tr>
                             <td>Want accomodation?
                                 {{ form_registration.want_accomodation }}
                             </td>
                             <td>
-                                <span style="font-size:11pt;color:#a00">{{form_registration.want_accomodation.help_text}}</span>
+                                <small><span class="text-error" style='font-size : 0.9em;'>{{ form_registration.want_accomodation.help_text }}</span></small>
                             </td>
                         </tr>
                         <tr>

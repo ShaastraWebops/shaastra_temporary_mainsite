@@ -168,7 +168,8 @@ class UserProfile(models.Model):
 
     activation_key     = models.CharField(max_length=40, null=True)
     key_expires        = models.DateTimeField(default = timezone.now()+datetime.timedelta(2))
-    want_accomodation  = models.BooleanField(default=False, help_text = "This doesn't guarantee accommodation during Shaastra.")
+    want_accomodation  = models.BooleanField(default=False, help_text = "Doesn't assure accommodation during Shaastra.")
+    school_student    = models.BooleanField(default=False)
     is_core = models.BooleanField(default=False)
     is_hospi = models.BooleanField(default=False)
 
