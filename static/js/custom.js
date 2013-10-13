@@ -55,8 +55,8 @@ jQuery(function($) {
 
 
 $('ul.nav a, #down_button a').click(function(e) {
-    $('html,body').scrollTo(this.hash, this.hash);
-    e.preventDefault();
+    $('html, body').scrollTo(this.hash, this.hash);
+    //e.preventDefault();
 });
 
 /* -- 04. NAVBAR STICKY + SELECTED  -- */
@@ -155,11 +155,11 @@ var black_h = $("#behind_banner_div > div").height();
 $(window).scroll(function() {
     var ypos = window.pageYOffset;
     var h = $("body").height();
-    console.log(ypos + "   " + h);
+    //console.log(ypos + "   " + h);
     if(ypos < h) {
         var left_rad = 50 * (h-ypos) / h;
         var right_rad = 20 * (h-ypos) / h;
-        console.log(h + " . " + ypos + " -- ", left_rad);
+    //    console.log(h + " . " + ypos + " -- ", left_rad);
 /*        $("#home > div#banner_div").css( {
             'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
             'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',

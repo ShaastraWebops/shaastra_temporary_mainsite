@@ -172,11 +172,11 @@ function show_event_page(me) {
 function got_event(json_event) { // post processing after josn is got
     Dajax.process(json_event)
     setTimeout( function() {
-        var lst = $( '.main_event_item.event_item > div.expand p' );
+        var lst = $( '.main_event_item.event_item > div.expand div.page_content p' );
         for ( var i = 0; i < lst.length; i++ ) {
             lst[i].removeAttribute("style");
         }
-        lst = $( '.main_event_item.event_item > div.expand div' )
+        lst = $( '.main_event_item.event_item > div.expand div.page_content div' )
         for ( var i = 0; i < lst.length; i++ ) {
             lst[i].removeAttribute("style");
         }

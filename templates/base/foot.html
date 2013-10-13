@@ -298,6 +298,35 @@
     /*--------------------------------------------------------
                     ON BODY LOAD HANDLER
     --------------------------------------------------------- */
+    function pagechange( e ) {
+        /*if ( ! place ) {
+            place = window.location.hash
+        } else {
+            window.location.hash = place
+        }*/
+        if (e.target) { // if : EVENT
+            var place = window.location.hash.substr(1)
+        } else if ( $.type(e) == 'string' ) { // else if : STRING
+            var place = e;
+            window.location.hash = place;
+        } else { // Get place from hashfrag
+            var place = window.location.hash.substr(1)
+        }
+        
+        // Check if the hashfrag is for the sections -- REDUNDANT - as browser will take care of it
+        /*list_navs = $(".navbar ul.nav a")
+        for ( var i = 0; i < list_navs.length; i++ ) {
+            if( list_navs[i].href.split("#")[list_navs[i].href.split("#").length-1] == place ) {
+                // Got the link in one of the navbar links -- go to that location
+                list_navs[i].click()
+            }
+        }*/
+
+        
+        //console.log(place)
+    }
+    $(window).bind( 'hashchange',  pagechange );
+
     
     document.addEventListener('DOMContentLoaded', function() {
         if( ! Modernizr.webgl ) {
