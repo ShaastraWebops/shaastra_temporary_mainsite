@@ -72,7 +72,7 @@ def change_password(request,form = None):
         errdict = dict(form.errors)
         for error in form.errors:
 #            if str(errdict[error][0])!='This field is required.':
-            dajax.script('$.bootstrapGrowl("%s:: %s" , {type:"error",,delay:10000} );'% (str(error),str(errdict[error][0])))
+            dajax.script('$.bootstrapGrowl("%s:: %s" , {type:"error",delay:10000} );'% (str(error),str(errdict[error][0])))
         dajax.script("$(\'#form_change_password #id_new_password').val('');$('#form_change_password #id_new_password_again').val('');")
         return dajax.json()
     user = request.user
