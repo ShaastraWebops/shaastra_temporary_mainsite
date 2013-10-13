@@ -8,6 +8,7 @@ var json_content;
 
 function process_json(json_data){
     json_content = json_data;//JSON.stringify(json_data);
+    pagechange();
 }
 
 function populate_event_group(category_name, dest){
@@ -28,6 +29,8 @@ function populate_event_group(category_name, dest){
     
     /*populate the category with events*/
     event_list = json_content[category_name];
+    if( !event_list )
+        return
     dest.html(""); // make the dest empty to fill the events belonging to the given category
     
     $(".main_event_item.event_item").removeClass("rows_0") // gen
@@ -62,7 +65,8 @@ function populate_event_group(category_name, dest){
 }
 
 /* ---------- EVENT GROUPS -------- */
-function show_event_group(el) {
+function show_event_group(el, hashit) {
+    if( hashit === undefined ) hashit = true;
     el = $(el);
     item = el.parent();
     
@@ -86,6 +90,9 @@ function show_event_group(el) {
         $(".event_items_div .buffer").hide();
         $(".event_items_div .event_back").show();
         
+        if(hashit) {
+            window.location.hash = category_name.split(" ").join("").split("-").join("").toLowerCase();
+        }
     }
 };
 

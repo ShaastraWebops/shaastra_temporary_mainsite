@@ -304,26 +304,66 @@
         } else {
             window.location.hash = place
         }*/
-        if (e.target) { // if : EVENT
-            var place = window.location.hash.substr(1)
-        } else if ( $.type(e) == 'string' ) { // else if : STRING
+        if ( $.type(e) == 'string' ) { // else if : STRING
             var place = e;
             window.location.hash = place;
-        } else { // Get place from hashfrag
-            var place = window.location.hash.substr(1)
+        } else { // Get place from hashfrag - changed by someone else
+            var place = window.location.hash.substr(1).split(" ").join("").split("-").join("").toLowerCase()
         }
         
         // Check if the hashfrag is for the sections -- REDUNDANT - as browser will take care of it
-        /*list_navs = $(".navbar ul.nav a")
+        list_navs = $(".navbar ul.nav a")
         for ( var i = 0; i < list_navs.length; i++ ) {
             if( list_navs[i].href.split("#")[list_navs[i].href.split("#").length-1] == place ) {
                 // Got the link in one of the navbar links -- go to that location
                 list_navs[i].click()
             }
-        }*/
+        }
 
+        // Check if the hashfrag corresponds to event-groups
+        event_groups = $(".event_items_div .event_item a")
+        for( var i = 0; i < event_groups.length; i++ ) {
+            var category_name = event_groups[i].id.substring(11)
+            
+            if( place == category_name.split(" ").join("").split("-").join("").toLowerCase() ) {
+                // Got the event-group to show
+                $('html, body').scrollTo($('.navbar ul.nav a[href=#events]')[0].hash, $('.navbar ul.nav a[href=#events]')[0].hash);
+                event_groups[i].click()
+                break;
+            }
+            
+            // Also check if it corresponds to any event in the event group
+            category_name = category_name.replace(/_/g, " ");
+            str_array = category_name.split(/([_\W])/); // split based on spaces
+            category_name = "";
+            for(var j=0; j<str_array.length; j++){
+                if(str_array[j] == "design"){
+                    category_name = "Design and build";
+                    break;
+                }
+                else {
+                    category_name += str_array[j].charAt(0).toUpperCase() + str_array[j].slice(1);
+                }
+            }
+            event_list = json_content[category_name];
+            
+            if( event_list ) {
+                //console.log("CHECKED HASH")
+                for( var j = 0; j < event_list.length; j++ ) {
+                    if(event_list[j].title.replace(" ", "_").toLowerCase() == place) {
+                        // Finally found an event !
+                        $('html, body').scrollTo($('.navbar ul.nav a[href=#events]')[0].hash, $('.navbar ul.nav a[href=#events]')[0].hash);
+                        //if( ! $('.main_event_item.event_item') ) {
+                            show_event_group(event_groups[i], false) // open the evnt_group is not already opened
+                       // }
+                        document.getElementById('event_no_'+event_list[j].pk+'_click').click()
+                        
+                    }
+                }
+            }
+        }
         
-        //console.log(place)
+        //console.log(event_groups)
     }
     $(window).bind( 'hashchange',  pagechange );
 
