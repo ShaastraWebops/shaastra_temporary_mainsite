@@ -24,6 +24,7 @@ from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 from django.utils import timezone
 from dashboard.models import TDPFileForm,TeamEvent
+from django.core.exceptions import ValidationError
 
 def submit_tdp(request):
     if not request.user.is_authenticated():
@@ -35,9 +36,15 @@ def submit_tdp(request):
         return HttpResponse('Please upload a valid file')
     tdp = fileform.save(commit = False)
     tdp.teamevent = TeamEvent.objects.get(id = request.POST['teameventid'])
-    tdp.save()
-    
-    return HttpResponse(str(request.FILES))
+    try:
+        tdp.file_tdp.name
+        tdp.save()
+        request.session['file_upload'] = 'TDP Upload Successful! '
+    except ValidationError:
+        request.session['file_upload'] = 'TDP Upload Failed, Please Use only Allowed File Types. Maximum File Size: 2.5 MB'
+    except:
+        return HttpResponse('Unknown Error. Please contact WebOps Team.')
+    return HttpResponseRedirect(settings.SITE_URL + 'dashboard/')
 
 def forgot_password(request,password_key = None):
     SITE_URL = settings.SITE_URL

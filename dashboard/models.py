@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 from events.models import *
-from users.models import *
+#from users.models import UserProfile
 from mainsite_2014.settings import DATABASES
 erp_db = DATABASES.keys()[1]
 from time import gmtime,strftime
@@ -33,6 +33,14 @@ class TeamEvent(models.Model):
             return event
         except:
             return None
+    def get_team(self):
+        uplist = []
+#        print self.users
+        for user in list(self.users.all()):
+            print 'blip'
+            up = user.get_profile()
+            uplist.append(up)
+        return uplist
     def clean(self):
         super(TeamEvent,self).clean()
         try:
@@ -49,7 +57,8 @@ class TeamEvent(models.Model):
             return "team id:%s - event:%s" % (self.team_id,event.title)
         except:
             return "team id:%s" % self.team_id
-
+    def get_tdp(self):
+        return list(TDP.objects.filter(teamevent = self))
 #function returns True is user is not in any team given the event id
 def has_team(user,event_id = None):
     if event_id is None:
@@ -70,10 +79,13 @@ UPDATE_CHOICES = (
     ('Team Add', 'Team Add'),
     ('Deadline for Registration', 'Deadline for Registration'),
 )
-
+ALLOWED_FILETYPE = ['doc','pdf','odt','txt']
 def tdp_upload_handler(self,filename):
 #    time =  strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime()).replace(" ",'_')
     time = str(timezone.now().date())
+    fname = str(filename).split('.')[-1]
+    if (fname.split('.')[-1] not in ALLOWED_FILETYPE):
+        raise forms.ValidationError("File type is not supported.")
     url = 'tdpsubmissions/%s/%s_%s'%(self.teamevent.get_event().title,self.teamevent.team_id,time)
     return url
 
@@ -91,7 +103,10 @@ class TDP(models.Model):
             return None
         event = teamevent.get_event()
         return event
-        
+    def get_tdp_file(self):
+        if self.file_tdp:
+            return self.file_tdp
+        return Nonw
 def get_tdp_event(event = None):
     if event is None:
         return None
@@ -104,7 +119,6 @@ def get_tdp_event(event = None):
     if len(tdplist) == 0:
         return None
     return tdplist
-
 
 class TDPFileForm(forms.ModelForm):
     class Meta:

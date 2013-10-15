@@ -40,6 +40,12 @@ def home(request):
 #@login_required
 def dashboard(request):
 #    profile = UserProfile.objects.get(user=request.user)
+    try:
+        if request.session['file_upload']:
+            msg_file_upload = request.session['file_upload']
+            del request.session['file_upload']
+    except:
+        pass
     return render_to_response('dashboard/dashboard.html',locals(),context_instance=RequestContext(request))
 
 def serenity(request):

@@ -151,7 +151,7 @@ def register_event_form(request,event_id = None):
                         dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {delay:10000})'% str(team_name))
                         #TODO: close the 
                         return dajax.json()
-                    dajax.script('$.bootstrapGrowl("Note that you need to have a team with atleast %d more member to register", {delay:100000} );'% (event.team_size_min))
+                    dajax.script('$.bootstrapGrowl("Note that you need to have a team with atleast %d more members to register", {delay:100000} );'% (event.team_size_min))
                     teammates = range(minteam,maxteam)
                     teammates = teammates[:-1]
                     teammates_min = range(minteam)

@@ -11,10 +11,35 @@
 <li>
         <div class = "class12 title">
         <span><h4>{{teamevent.get_event.title}}</h4></span>
-        
+        {% comment %}
+<!--        show teammates shaastra id's-->
+        {% endcomment %}
+        <a class="btn btn-primary" onclick = "$('#team_{{teamevent.pk}}').toggle();">View your team!</a>
+        <ul id="team_{{teamevent.pk}}">
+        Your team:
+        {% for profile_team in teamevent.get_team %}
+            {% ifequal profile.user request.user%}
+            <li style = "color:'red'">ID:{{profile_team.shaastra_id}}</li>
+            <li style = "color:'red'" >Username:{{profile_team.user.username}}</li>
+            
+            {% else %}
+            <li>ID:{{profile_team.shaastra_id}}</li>
+            <li>Username:{{profile_team.user.username}}</li>
+            {% endifequal %}
+            <br/>
+        {% endfor %}
+        </ul>
     {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
         {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}
             {% if teamevent.get_event.has_tdp %}
+            {% comment %}
+            TODO: if already uploaded a file, show to view
+            {% endcomment %}
+            <ul>
+            {% for tdp in teamevent.get_tdp %}
+                <li>Your submission: <a href = "{{settings.MEDIA_URL}}/{{tdp.get_tdp_file.name}}" target="_blank" >{{tdp.get_tdp_file.name}}</a></li>
+            {% endfor %}
+            </ul>
         <div id="tdp_{{teamevent.get_event.id}}">
         <form action="/tdpsubmission" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}
 <!--        <form action="" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}-->
