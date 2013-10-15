@@ -113,6 +113,7 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
 @dajaxice_register
 def register_event_form(request,event_id = None):
     dajax = Dajax()
+    dajax.script("$('#gif_eventregister').hide()")
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if event_id is None:
         dajax.script('$.bootstrapGrowl("Invalid Event specified.", {type:"danger",delay:10000} );')
