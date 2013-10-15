@@ -10,7 +10,7 @@
     <a onclick="$('#gif_eventregister').show();Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_pk}}});"
         class='btn btn-danger' style='z-index : 100; position : absolute; top : 90%; left : 40%'>
         <b>&nbsp;&nbsp;&nbsp;&nbsp;Register for this event!&nbsp;&nbsp;&nbsp;&nbsp;</b>
-        <b><img src='{{SITE_URL}}static/img/loading.gif' style="height:25;display:hidden;" id="gif_eventregister" title="loading..." /></b>
+        <b><img src='{{SITE_URL}}static/img/loading.gif' style="height:25px;width:25px;display:hidden;" id="gif_eventregister" title="loading..." /></b>
     </a>
     {% comment %}
 <!--{% if time_now > event.registration_starts and time_now < event.registration_ends %}-->
