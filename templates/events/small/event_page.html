@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<div class='pull-left' style='cursor : pointer;' onclick="javascript:hide_event();" ><img src="{% static 'img/back-arrow.png' %}"/></div>
+<div class='pull-left' style='cursor : pointer;' onclick="javascript:hide_event();window.location.hash='{{event.category}}';" ><img src="{% static 'img/back-arrow.png' %}"/></div>
 <center>
     <h4>
         {{event.title}}

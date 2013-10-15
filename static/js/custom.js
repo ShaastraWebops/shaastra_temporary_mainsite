@@ -3,8 +3,10 @@
 
 
 $('ul.nav a, #down_button a').click(function(e) {
-    $('html, body').scrollTo(this.hash, this.hash);
-    //e.preventDefault();
+//    $('html, body').scrollTo(this.hash, this.hash);
+    window.location.hash = this.hash + "_page";
+    e.preventDefault();
+    
 });
 
 /* -- 04. NAVBAR STICKY + SELECTED  -- */
