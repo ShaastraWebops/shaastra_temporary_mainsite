@@ -351,11 +351,12 @@
             if( event_list ) {
                 //console.log("CHECKED HASH")
                 for( var j = 0; j < event_list.length; j++ ) {
-                    if(event_list[j].title.replace(" ", "_").toLowerCase() == place) {
+                    console.log(event_list[j].title.split(" ").join("_").split("-").join("_").toLowerCase())
+                    if(event_list[j].title.split(" ").join("_").split("-").join("_").toLowerCase() == place) {
                         // Finally found an event !
                         $('html, body').scrollTo($('.navbar ul.nav a[href=#events]')[0].hash, $('.navbar ul.nav a[href=#events]')[0].hash);
                         //if( ! $('.main_event_item.event_item') ) {
-                            show_event_group(event_groups[i], false) // open the evnt_group is not already opened
+                            show_event_group(event_groups[i], false) // open the evnt_group if not already opened
                         //}
                         document.getElementById('event_no_'+event_list[j].pk+'_click').click()
                         
