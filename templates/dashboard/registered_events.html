@@ -15,7 +15,7 @@
 <!--        show teammates shaastra id's-->
         {% endcomment %}
         <a class="btn btn-primary" onclick = "$('#team_{{teamevent.pk}}').toggle();">View your team!</a>
-        <ul id="team_{{teamevent.pk}}">
+        <ul id="team_{{teamevent.pk}}" style = "display:none">
         Your team:
         {% for profile_team in teamevent.get_team %}
             {% ifequal profile.user request.user%}
@@ -41,7 +41,7 @@
             {% endfor %}
             </ul>
         <div id="tdp_{{teamevent.get_event.id}}">
-        <form action="/tdpsubmission" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}
+        <form action="/tdpsubmission" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">             {% csrf_token %}
 <!--        <form action="" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}-->
             {{TDPFileForm.as_table}}
             <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
