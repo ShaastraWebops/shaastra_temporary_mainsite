@@ -110,7 +110,8 @@ function hide_event_group () {
     $(".event_items_div .event_item").addClass("span3");
     $(".event_items_div .buffer").show();
     $(".event_items_div .event_back").hide();
-
+    
+    window.location.hash = 'events_page';
     // As back button was pressed 
 }
 
@@ -195,7 +196,6 @@ function got_event(json_event) { // post processing after josn is got
 // A function to bring a person from the event-page to the event main page
 function hide_event_page() {
     var $section = $( '.main_event_item.event_item > div.expand' );
-    
     $section.children("div").hide();
     $($section.children("div").get(1)).show(); // +1 as title will also be there
     
