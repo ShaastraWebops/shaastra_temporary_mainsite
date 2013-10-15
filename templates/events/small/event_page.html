@@ -7,7 +7,10 @@
 </center>
 
 {% if event.registrable_online %}
-    <a onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_pk}}});" class='btn btn-inverse' style='z-index : 100; position : absolute; top : 90%; left : 50%'>Register !</a>
+    <a onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_pk}}});"
+        class='btn btn-danger' style='z-index : 100; position : absolute; top : 90%; left : 40%'>
+        <b>&nbsp;&nbsp;&nbsp;&nbsp;Register for this event!&nbsp;&nbsp;&nbsp;&nbsp;</b>
+    </a>
     {% comment %}
 <!--{% if time_now > event.registration_starts and time_now < event.registration_ends %}-->
     <!-- <a onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_pk}}});" class='btn btn-inverse' style='z-index : 100; position : absolute; top : 90%; left : 50%'>Register !</a> -->
