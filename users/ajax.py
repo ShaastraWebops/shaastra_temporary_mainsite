@@ -173,7 +173,36 @@ def show_registered_events(request):
         if html_stuff:
             dajax.assign('#FormRegd','innerHTML',html_stuff)
             dajax.script('$("#event_register").modal("show");')
+    return dajax.json()
 
+@dajaxice_register
+def show_event_details(request,teamevent_id=None):
+    dajax = Dajax()
+    print 'ssip'
+    if teamevent_id is None:
+        dajax.script('$.bootstrapGrowl("Invalid request to view teamevent details", {type:"danger",delay:20000} );')
+        return dajax.json()
+    try:
+        temp = int(teamevent_id)
+    except:
+        dajax.script('$.bootstrapGrowl("Invalid request to view teamevent details", {type:"danger",delay:20000} );')
+        return dajax.json()
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your event submission details", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        try:
+            team_event = TeamEvent.objects.get(id=int(teamevent_id))
+        except:
+            dajax.script('$.bootstrapGrowl("Invalid request", {type:"danger",delay:20000} );')
+            return dajax.json()
+        now = timezone.now()
+        context_dict = {'teamevent':team_event,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'settings':settings}
+        html_stuff = render_to_string('dashboard/event_tdp_submit.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#FormRegd','innerHTML',html_stuff)
+            dajax.script('$("#event_register").modal("show");')
     return dajax.json()
 
 

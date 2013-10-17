@@ -30,6 +30,8 @@ def submit_tdp(request):
     if not request.user.is_authenticated():
         #TODO: redirect him to mainsite , and pop the login modal
         return HttpResponse('Please login to submit TDP\'s')
+    if not request.POST or not request.FILES:
+        return HttpResponse('Incorrect URL.Click <a href="">here</a> to go back to mainsite.')
     fileform = TDPFileForm(request.POST,request.FILES)
     if not fileform.files:
         #TODO: submit tdp button comes only if upload succesful event of input type file
