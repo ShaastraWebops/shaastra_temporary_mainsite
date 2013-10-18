@@ -15,21 +15,23 @@
     <div class="accordion-heading">
 
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{forloop.counter}}">
-            {{teamevent.get_event.title}}
+            {{teamevent.get_event.title}}(click for Team Details)
            
     {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
         {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}
+        {% if teamevent.get_event.has_tdp %}
         <a class="btn btn-info" onclick = "Dajaxice.users.show_event_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}}});">Submit TDP</a>
-           {% ifequal teamevent.get_tdp.count 0 %}
+        {% endif %}
+           {% if teamevent.has_submitted_tdp %}
         
                 {% if teamevent.get_event.days_left > 0 %}
-                    <span class="label label-warning pull-right">{{teamevent.get_event.days_left}} days more!</span>
+                    <span class="label label-warning pull-right">{{teamevent.get_event.days_left}} days left!</span>
                 {% else %}
-                    <span class="label label-warning pull-right">{{teamevent.get_event.hours_left}} hours more!Hurry!</span>
+                    <span class="label label-warning pull-right">{{teamevent.get_event.hours_left}} hours left!Hurry!</span>
                 {% endif %}
             {% else %}
                 <span class="label label-success pull-right">TDP submitted</span>
-            {% endifequal %}
+            {% endif %}
         {% else%}
             {%if now < teamevent.get_event.registration_ends%}
                 <span class="label label-warning pull-right">Registration yet to start! starts:{{teamevent.get_event.registration_starts}}</span>
@@ -51,8 +53,11 @@
       <div class="accordion-inner">
         <span class="pull-left">Team ID::{{teamevent.team_id}}
         {% if teamevent.team_name %}<br/>Team Name::{{teamevent.team_name}}{% endif %}
+        <br/>Members:
         </span>
+        
         <br/><br/>
+        
 <!--        <a class="btn btn-info pull-left" onclick = "$('#team_{{teamevent.pk}}').toggle();" style="width:25%">View your team!</a>-->
         <ol id="team_{{teamevent.pk}}" class="span2 pull-left" style='line-height : 0px;'>
         {% for profile_team in teamevent.get_team %}
@@ -67,11 +72,6 @@
             <br/>
         {% endfor %}
         </ol>
-        
-        
-        
-        
-        
         
       </div>
       

@@ -58,6 +58,12 @@ class TeamEvent(models.Model):
     #returns list of tdp's under team
     def get_tdp(self):
         return list(TDP.objects.filter(teamevent = self))
+        
+    # returns if tdp was submitted
+    def has_submitted_tdp(self):
+        if len(self.get_tdp()) > 0:
+            return True
+        return False
 
 #function returns True is user is not in any team given the event id
 def has_team(user,event_id = None):
