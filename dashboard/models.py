@@ -35,9 +35,7 @@ class TeamEvent(models.Model):
             return None
     def get_team(self):
         uplist = []
-#        print self.users
         for user in list(self.users.all()):
-            print 'blip'
             up = user.get_profile()
             uplist.append(up)
         return uplist
@@ -57,8 +55,10 @@ class TeamEvent(models.Model):
             return "team id:%s - event:%s" % (self.team_id,event.title)
         except:
             return "team id:%s" % self.team_id
+    #returns list of tdp's under team
     def get_tdp(self):
         return list(TDP.objects.filter(teamevent = self))
+
 #function returns True is user is not in any team given the event id
 def has_team(user,event_id = None):
     if event_id is None:
@@ -79,6 +79,14 @@ UPDATE_CHOICES = (
     ('Team Add', 'Team Add'),
     ('Deadline for Registration', 'Deadline for Registration'),
 )
+
+class Update(models.Model):
+    tag     = models.CharField(max_length = 20)
+    content = models.CharField(max_length = 200)
+    user    = models.ForeignKey(User, related_name = 'userupdates')
+    #link    = models.?? on click user goes to where the update relates to
+
+
 ALLOWED_FILETYPE = ['doc','pdf','odt','txt']
 def tdp_upload_handler(self,filename):
 #    time =  strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime()).replace(" ",'_')
@@ -87,33 +95,58 @@ def tdp_upload_handler(self,filename):
     if (fname.split('.')[-1] not in ALLOWED_FILETYPE):
         raise forms.ValidationError("File type is not supported.")
     url = 'tdpsubmissions/%s/%s_%s'%(self.teamevent.get_event().title,self.teamevent.team_id,time)
+    #TODO: replace # by something else for url
+    url = url.replace('#','_')
     return url
 
-class Update(models.Model):
-    tag     = models.CharField(max_length = 20)
-    content = models.CharField(max_length = 200)
-    user    = models.ForeignKey(User, related_name = 'userupdates')
-    #link    = models.?? on click user goes to where the update relates to
-    
+
 class TDP(models.Model):
     teamevent   = models.ForeignKey(TeamEvent,null = True,blank = True)
     file_tdp    = models.FileField(max_length = 100,upload_to =tdp_upload_handler,blank=True,null=True)
+    def save(self,*args,**kwargs):
+        if self.teamevent:
+            #Check: if registration is not closed:
+            if timezone.now()> self.teamevent.get_event().registration_ends:
+                return 0
+            if self.teamevent.tdp_set.all().count == 0:
+                super(TDP,self).save(*args,**kwargs)
+            else:
+                tdplist = self.teamevent.tdp_set.all()
+                #TODO: if invalid type, do NOT delete others, take lite
+                super(TDP,self).save(*args,**kwargs)
+                #Now, tdplist also contains self, so delete all tdp except existing one
+                for tdp in tdplist:
+                    if not self == tdp:
+                        tdp.delete()
+        else:
+            super(TDP,self).save(*args,**kwargs)
+
+    def delete(self, *args, **kwargs):
+        # You have to prepare what you need before delete the model
+        storage, path = self.file_tdp.storage, self.file_tdp.path
+        # Delete the model before the file
+        super(TDP, self).delete(*args, **kwargs)
+        # Delete the file after the model
+        storage.delete(path)
+        
     def get_event(self):
         if event_id==-1:
             return None
         event = teamevent.get_event()
         return event
+
     def get_tdp_file(self):
         if self.file_tdp:
             return self.file_tdp
-        return Nonw
+        return None
+    
 def get_tdp_event(event = None):
     if event is None:
         return None
     if not isinstance(event,ParticipantEvent):
         return None
     tdplist=[]
-    for tdp in TDP.objects.all():
+    for tdp in TDP.objects.using(settings.DATABASES.keys()[0]).all():
         if tdp.get_event() == event:
             tdplist.append((tdp,tdp.teamevent.team_id))
     if len(tdplist) == 0:

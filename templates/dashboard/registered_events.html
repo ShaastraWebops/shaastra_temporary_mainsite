@@ -45,7 +45,15 @@
 <!--        <form action="" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}-->
             {{TDPFileForm.as_table}}
             <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
-            <input type="submit" value="Submit TDP"/>
+            <a class='btn btn-info' onclick = "if($('#tdp_{{teamevent.get_event.id}}').val()=='')
+            {
+                $.bootstrapGrowl('Please submit a file for submission')
+            }
+            else
+            {
+                $('#file_tdp_{{teamevent.get_event.id}}').submit()
+            }"
+            >Submit TDP</a>
 <!--            <a onclick="Dajaxice.users.submit_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}},'file_tdp':$('#file_tdp_{{teamevent.get_event.id}}').serialize(true)});" class="btn btn-primary">Submit TDP</a>-->
         </form>
         </div>

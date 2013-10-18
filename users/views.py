@@ -23,7 +23,7 @@ from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 from django.utils import timezone
-from dashboard.models import TDPFileForm,TeamEvent
+from dashboard.models import TDPFileForm,TeamEvent,Update
 from django.core.exceptions import ValidationError
 
 def submit_tdp(request):
@@ -40,8 +40,12 @@ def submit_tdp(request):
     tdp.teamevent = TeamEvent.objects.get(id = request.POST['teameventid'])
     try:
         tdp.file_tdp.name
+        print 'sssssss'
         tdp.save()
+        print 'xxxxx'
         request.session['file_upload'] = 'TDP Upload Successful! '
+        update = Update(tag = 'TDP Submission',content = 'Your TDP was successfully submitted!',user = request.user)
+        update.save()
     except ValidationError:
         request.session['file_upload'] = 'TDP Upload Failed, Please Use only Allowed File Types. Maximum File Size: 2.5 MB'
     except:

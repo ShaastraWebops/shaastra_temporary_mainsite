@@ -198,7 +198,11 @@ def show_event_details(request,teamevent_id=None):
             dajax.script('$.bootstrapGrowl("Invalid request", {type:"danger",delay:20000} );')
             return dajax.json()
         now = timezone.now()
-        context_dict = {'teamevent':team_event,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'settings':settings}
+        has_tdp = True
+        if team_event.tdp_set.all().count() == 0:
+            has_tdp = False
+        context_dict = {'teamevent':team_event,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'settings':settings,'has_tdp':has_tdp}
+        
         html_stuff = render_to_string('dashboard/event_tdp_submit.html',context_dict,RequestContext(request))
         if html_stuff:
             dajax.assign('#FormRegd','innerHTML',html_stuff)
