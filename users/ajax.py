@@ -176,7 +176,7 @@ def show_registered_events(request):
     return dajax.json()
 
 @dajaxice_register
-def show_event_details(request,teamevent_id=None):
+def show_event_tdp(request,teamevent_id=None):
     dajax = Dajax()
     print 'ssip'
     if teamevent_id is None:
