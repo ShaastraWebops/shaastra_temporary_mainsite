@@ -178,7 +178,6 @@ def show_registered_events(request):
 @dajaxice_register
 def show_event_tdp(request,teamevent_id=None):
     dajax = Dajax()
-    print 'ssip'
     if teamevent_id is None:
         dajax.script('$.bootstrapGrowl("Invalid request to view teamevent details", {type:"danger",delay:20000} );')
         return dajax.json()

@@ -40,9 +40,7 @@ def submit_tdp(request):
     tdp.teamevent = TeamEvent.objects.get(id = request.POST['teameventid'])
     try:
         tdp.file_tdp.name
-        print 'sssssss'
         tdp.save()
-        print 'xxxxx'
         request.session['file_upload'] = 'TDP Upload Successful! '
         update = Update(tag = 'TDP Submission',content = 'Your TDP was successfully submitted!',user = request.user)
         update.save()

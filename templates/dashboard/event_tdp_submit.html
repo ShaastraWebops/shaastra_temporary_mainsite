@@ -11,9 +11,11 @@
             {% comment %}
             TODO: if already uploaded a file, show to view
             {% endcomment %}
+            {% if teamevent.get_tdp.count %}
             <ul>
             <li>Your submissions:</li>
             </ul>
+            {% endif %}
             <ol>
                 {% for tdp in teamevent.get_tdp %}
                 <li> <a href = "/{{settings.MEDIA_URL}}/{{tdp.get_tdp_file.name}}" target="_blank" >{{tdp.get_tdp_file.name}}</a></li>
@@ -23,8 +25,8 @@
         <form action="/tdpsubmission" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">             {% csrf_token %}
 <!--        <form action="" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}-->
                 {% if has_tdp %}
-            
-            {{TDPFileForm.as_table}}
+            <label for="#file_tdp_{{teamevent.get_event.id}} #id_file_tdp"><span>Please submit only in pdf format</span></label>
+            {{TDPFileForm.file_tdp}}
             <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
             <br/>
                 <span style="color:red">Are you sure you want to overwrite your previous submission? <br/>It will be deleted!<br/></span>
@@ -76,9 +78,14 @@
             {% endif %}
         {% endif %}
     {% else %}
-        	<span id='#show_regd_events_title' style='position:absolute; left : 25%; display : inline-block;'>Registration details not available</span>
-
+        	<span>Registration details not available</span>
     {% endif %}
 	</div>
+{% endfor %}
+<center>
+{% if msg_file_upload %}
+<span style="color:'red'">{{msg_file_upload}}</span>
+{% endif %}
+</center>
 
 
