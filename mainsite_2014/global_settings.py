@@ -169,3 +169,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 LOGIN_URL = "/login/" # URL for login_required decorator to redirect to
+SEND_EMAILS = False

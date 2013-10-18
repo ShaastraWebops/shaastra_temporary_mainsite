@@ -239,9 +239,6 @@ h2 {
 section:not(:first-child) {
     padding:35px 0px 50px;
 }
-section:nth-child(2n) {
-    height : 100%;
-}
 
 #home {
     width:100%;
@@ -253,29 +250,40 @@ section:nth-child(2n) {
     
 }
 #aboutus  {
+    height : 100%;
     background : #000;
     background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
 }
+#dashboard {
+    height : 100%;
+    background : #fff;
+    background : url(../img/events/bg.png) repeat;
+}
 #events {
+    height : 100%;
     background : #fff;
     background : url(../img/events/bg.png) repeat;
 }
 #shows {
+    height : 100%;
     background : #000;
     background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
 }
 #spons  {
+    height : 100%;
     background : #fff;
     background : url(../img/events/bg.png) repeat;
 }
 #lectures  {
+    height : 100%;
     background : #000;
     background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
 }
 #hospi  {
+    height : 100%;
     background : #000;
     background : url(../img/shows/bg.jpg) repeat;
     color : #fff;

@@ -1,0 +1,78 @@
+{% load staticfiles %}
+
+<!-- DASHBOARD SECTION  -->
+<section id="dashboard" class='sec'>
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <center><h2>Dashboard</h2></center>
+                <center><div class="breaker"><span class="left"></span><div class="dice"></div><span class="right"></span></div></center>
+            </div>
+        </div>
+        
+        <div class="container page_content" style='background : #aaa; padding : 10px; height : 65%;'>
+            <div class='left_content span3 pull-left' style=''>
+                <ul class="nav nav-tabs nav-stacked sidenav affix-top">
+                    <!-- START User list head -->
+                    <li id="list_user_head" class="list_user_head sidenav_head ">
+                        <a href='_blank' onclick="javascript:do_accordion('list_user')" style='cursor : pointer;'>
+                            <i class="icon-chevron-down icon-white"></i> User Information
+                        </a>
+                    </li>
+                    <li id="list_user_profile" class="list_user_body collapse">
+                        <a href="#" onclick="javascript:do_dajax(Dajaxice.tasks.task_table, show_page, {'page' : this.parentNode.id.substring('list_'.length)}, 'id_content_right')">
+                            <i class="icon-chevron-right"></i> Your Profile
+                        </a>
+                    </li>
+                    <li id="list_user_edit" class="list_user_body collapse">
+                        <a href="#" onclick="javascript:do_dajax(Dajaxice.tasks.task_table, show_page, {'page' : this.parentNode.id.substring('list_'.length)}, 'id_content_right')">
+                            <i class="icon-chevron-right"></i> Edit Profile
+                        </a>
+                    </li>
+                    <!-- END User list -->
+                    <!-- START Events list head -->
+                    <li id="list_events_head" class="list_events_head sidenav_head ">
+                        <a onclick="javascript:do_accordion('list_events')" style='cursor : pointer;'> 
+                            <i class="icon-chevron-down icon-white"></i> Events
+                        </a>
+                    </li>
+                    <li id="list_events_registered" class="list_events_body collapse">
+                        <a href="#registered_events"> 
+                            <i class="icon-chevron-right"></i> Registered Events
+                        </a>
+                    </li>
+                    <li id="list_events_team" class="list_events_body collapse">
+                        <a href="#your_team"> 
+                            <i class="icon-chevron-right"></i> Your Team 
+                        </a>
+                    </li>
+                    <li id="list_events_team_delete" class="list_events_body collapse">
+                        <a href="#" onclick="javascript:do_dajax(Dajaxice.tasks.new_cross_task_get, show_page, {}, 'id_content_right')"> 
+                            <i class="icon-chevron-right"></i> Create CrossDept Task
+                        </a>
+                    </li>
+                    <!-- END Events list -->
+                    <!-- START Submit TDP -- NO LIST -->
+                    <li id="list_tdp_submit" class="sidenav_lone">
+                        <a href="#tdp_submit"> 
+                            <i class="icon-chevron-right"></i> Submit TDP
+                        </a>
+                    </li>
+                    <!-- END Submit TDP -->
+                </ul>
+            </div>
+            <div class='right_content span8 pull-right'>
+                rlifjrofi
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END DASHBOARD SECTION  -->
+
+
+
+
+
+
+        
+        
