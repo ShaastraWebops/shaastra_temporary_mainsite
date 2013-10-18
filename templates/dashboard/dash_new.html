@@ -1,0 +1,122 @@
+{% load dajaxice_templatetags %}
+{% load staticfiles %}
+
+<html>
+	<head>
+		<link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}" media="all" type="text/css" >
+		<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" media="all" type="text/css" >
+		<link rel="stylesheet" href="{% static 'css/style.css' %}" media="all" type="text/css" >
+		<link rel="stylesheet" href="{% static 'css/style-responsive.css' %}" media="all" type="text/css" >
+		<link rel="stylesheet" href="{% static 'css/base.css' %}" rel="stylesheet">
+		<link rel="stylesheet" href="{% static 'css/home/styles.css' %}" type="text/css">
+		<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+		<link href="{% static 'css/bootstrap/bootstrap-responsive.min.css' %}" rel="stylesheet">
+
+		<script src="{% static 'js/jquery-1.10.min.2.js' %}"></script>
+		<script src="./js/bootstrap.min.js"></script>
+
+		<script src="{% static 'js/jquery/jquery-1.10.2.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'js/jquery.dajax.core.js' %}"></script>
+		<script src="{% static 'js/modernizr.custom.js' %}" type="text/javascript"></script>
+		<script src="{% static 'js/jquery/jquery.scrollto.js' %}" type="text/javascript"></script>
+		<script src="{% static 'js/waypoints.min.js' %}" type="text/javascript"></script>
+		<script src="{% static 'js/custom.js' %}" type="text/javascript"></script>
+		<script src="{% static 'js/bootstrap/bootstrap.js' %}" type="text/javascript"></script>
+		<script src="{% static 'js/bootstrap/bootstrap-tooltip.js' %}" type="text/javascript"></script>
+		<script src="{% static 'js/bootstrap/bootstrap-growl.js' %}" type="text/javascript"></script>
+		<!--        <script src="{% static 'js/home/hexaflip.js' %}" type="text/javascript"></script>-->
+		<script src="{% static 'js/events/boxlayout.js' %}" type="text/javascript"></script>
+
+
+		{% dajaxice_js_import 'nocsrf' %}
+		<title>{% block page_title %}Shaastra | 2014 Participant Dashboard{% endblock %}</title>
+
+	</head>
+	<body>
+	    {%include 'dashboard/modal_regd.html' %}
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="./index.html">{{request.user.username}}'s Profile</a>
+					<div class="nav-collapse collapse pull-right">
+						<ul class="nav ">
+
+							<li class="dropdown">
+							<a href="#" >REGISTER FOR EVENT <b class="caret"></b></a>
+							<!--                        <ul class="dropdown-menu">-->
+								<!--                          <li class="nav-header">Robotics</li>-->
+								<!--                          <li><a href="#">Robo Event1</a></li>-->
+								<!--                          <li><a href="#">Robo Event2</a></li>-->
+								<!--                          <li class="divider"></li>-->
+								<!--                          <li class="nav-header">Aerobotics</li>-->
+								<!--                          <li><a href="#">Aero Event1</a></li>-->
+								<!--                          <li><a href="#">Aero Event2</a></li>-->
+								<!--                        </ul>-->
+							</li>
+							<li class="active">
+							<a href="./components.html">SHOW MY REGISTERED EVENTS</a>
+							</li>
+							<li class="">
+							<a href="./javascript.html">CHANGE MY PASSWORD</a>
+							</li>
+							<li class="">
+							<a href="./customize.html">GO TO MAINSITE</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <h1>Components</h1>
+    <br/><br/><br/>
+  </div>
+</header>
+	<div class="container">
+		<div class="row">
+			<div class="span3 bs-docs-sidebar" id="leftbar_dash">
+			    
+				<ul class="nav nav-list bs-docs-sidenav affix-top" >
+					<li class="active"><a href="#dropdowns"><i class="icon-chevron-right"></i> Dropdowns</a></li>
+					<li>
+					    <a onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':4});" style="cursor:pointer;">Register-For Event ID 4
+					    </a>
+				    </li>
+					<li>
+						<a onclick="Dajaxice.users.edit_profile_form(Dajax.process);" style="cursor:pointer;">
+							<i class="icon-user icon-white"></i>Edit Profile
+						</a>
+					</li>
+					<li>
+						<a onclick="Dajaxice.dashboard.show_registered_events(Dajax.process);" style="cursor:pointer;">Show my registered events
+						</a>
+					</li>
+					<li>
+						<a onclick="Dajaxice.users.change_password_form(Dajax.process);" style="cursor:pointer;">Change my password!
+					    </a>
+					</li>
+					<li>
+					    <a onclick="Dajaxice.users.show_event_tdp(Dajax.process,{'teamevent_id':25});" style="cursor:pointer;">Submit TDP for event 25
+				        </a>
+			        </li>
+				</ul>
+			</div>
+			<div class="span9" id="content_dash">
+			<ol>
+            {%  for up in up_list%}
+                <li>{{up.user.first_name}}</li>
+            {% endfor %}
+            </ol>
+    		</div>      
+    	</div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<h4 style='width : 100%;'>
+	<span id='#show_regd_events_title' >{{teamevent.get_event.title}} TDP Submission</span>
+	&nbsp;
+</h4>
+
+	<hr>
+	<div class='row-fluid'>
+    {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
+        {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}
+            {% if teamevent.get_event.has_tdp %}
+            {% comment %}
+            TODO: if already uploaded a file, show to view
+            {% endcomment %}
+            <ul>
+            <li>Your submissions:</li>
+            </ul>
+            <ol>
+                {% for tdp in teamevent.get_tdp %}
+                <li> <a href = "/{{settings.MEDIA_URL}}/{{tdp.get_tdp_file.name}}" target="_blank" >{{tdp.get_tdp_file.name}}</a></li>
+                {% endfor %}
+            </ol>
+        <div id="tdp_{{teamevent.get_event.id}}">
+        <form action="/tdpsubmission" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">             {% csrf_token %}
+<!--        <form action="" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}-->
+                {% if has_tdp %}
+            
+            {{TDPFileForm.as_table}}
+            <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
+            <br/>
+                <span style="color:red">Are you sure you want to overwrite your previous submission? <br/>It will be deleted!<br/></span>
+				<input type="radio" name="yes" value="yes" id="{{teamevent.id}}_sure"/>Yes<br/>
+				<br/>
+				<a class='btn btn-info' onclick = "
+            if($('#file_tdp_{{teamevent.get_event.id}} #id_file_tdp').val()=='')
+            {
+                $.bootstrapGrowl('Please submit a file for submission',{'delay':10000});
+            }
+            else
+            {
+                if($('#{{teamevent.id}}_sure')[0].checked)
+                {
+                $.bootstrapGrowl('Check the radio button to confirm overwriting your previous submission');
+                    $('#file_tdp_{{teamevent.get_event.id}}').submit()
+                }
+            }
+            "
+            >Submit TDP</a>
+                {% else %}
+                {{TDPFileForm.as_table}}
+                <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
+            
+                <a class='btn btn-info' onclick = "
+                if($('#file_tdp_{{teamevent.get_event.id}} #id_file_tdp').val()=='')
+                {
+                    $.bootstrapGrowl('Please submit a file for submission')
+                }
+                else
+                {
+                    $('#file_tdp_{{teamevent.get_event.id}}').submit()
+                }
+                "
+                >Submit TDP</a>
+                {% endif %}
+            
+<!--            <a onclick="Dajaxice.users.submit_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}},'file_tdp':$('#file_tdp_{{teamevent.get_event.id}}').serialize(true)});" class="btn btn-primary">Submit TDP</a>-->
+        </form>
+            {% else %}
+                <span>We await you at Shaastra!</span>
+            {% endif %}
+        {% else %}
+            {% if now > teamevent.get_event.registration_ends %}
+                <span>Sorry registrations closed</span>
+            {% endif %}
+            {% if now > teamevent.get_event.registration_ends %}
+                <span>Please wait, registrations open on {{teamevent.get_event.registration_starts}}</span>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        	<span id='#show_regd_events_title' style='position:absolute; left : 25%; display : inline-block;'>Registration details not available</span>
+
+    {% endif %}
+	</div>
+
+
