@@ -95,6 +95,8 @@ def tdp_upload_handler(self,filename):
     if (fname.split('.')[-1] not in ALLOWED_FILETYPE):
         raise forms.ValidationError("File type is not supported.")
     url = 'tdpsubmissions/%s/%s_%s'%(self.teamevent.get_event().title,self.teamevent.team_id,time)
+    #TODO: replace # by something else for url
+    url = url.replace('#','_')
     return url
 
 

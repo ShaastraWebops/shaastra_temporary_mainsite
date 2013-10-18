@@ -17,15 +17,45 @@
                 Please correct the error{{ form.errors|pluralize }} below.
                 </p>
                 {% endif %}
-                <form action="" method="post" id="login_form">{% csrf_token %}
-                    {{ form.as_table }}
-                    <tr class='submit_tr'>
-                        <td colspan="2">
-                            <input id="login_form_submit" type="button" onclick="user_login();" value="        Login        " class="btn btn-primary"/>
-                        </td>
-                        <img src='{{SITE_URL}}static/img/loading.gif' style="height:25;" id="gif_login" class="loading" title="loading..."/>
-                    </tr>
-                </form>
+                <section class="main">
+                <form class="form-2"action="" method="post" id="login_form">{% csrf_token %}
+<!--					<h1><span class="log-in">Log in</span> or <span class="sign-up">sign up</span></h1>-->
+					<p class="float">
+						<label for="login">Username</label>
+<!--						<input type="text" name="login" placeholder="Username or email">-->
+                            <div class='input-prepend'>
+                                <a class='btn' id="icon_user"><i class="icon-user"></i></a>
+                                {{form.username}}
+                            </div>
+					</p>
+					<p class="float">
+						<label for="password">Password</label>
+    						<div class='input-prepend'>
+	        					<a class='btn' id="icon_lock"><i class="icon-lock"></i></a>
+<!--						<input type="password" name="password" placeholder="Password" class="showpassword">-->
+                            {{form.password}}
+					</p>
+<!--					<p class="opt"><input type="checkbox" class="showpasswordcheckbox" id="showPassword"><label for="showPassword">Show password</label></p>-->
+					<p class="clearfix"> 
+<!--						<a href="#" class="log-twitter">Log in with Twitter</a>    -->
+
+                        <input id="login_form_submit" type="btn btn-primary" onclick="user_login();" value="        Login        " class="btn btn-primary"/>
+
+<!--						<input type="submit" name="submit" value="Log in">-->
+					</p>
+				</form>
+                </section>
+                
+<!--                -->
+<!--                <form action="" method="post" id="login_form">{% csrf_token %}-->
+<!--                    {{ form.as_table }}-->
+<!--                    <tr class='submit_tr'>-->
+<!--                        <td colspan="2">-->
+<!--                            <input id="login_form_submit" type="button" onclick="user_login();" value="        Login        " class="btn btn-primary"/>-->
+<!--                        </td>-->
+<!--                        <img src='{{SITE_URL}}static/img/loading.gif' style="height:25;" id="gif_login" class="loading" title="loading..."/>-->
+<!--                    </tr>-->
+<!--                </form>-->
                 <div id="login_error"></div>
                 <div id="forgot_password"><a onclick="$('#forgot_form').toggle();" style="cursor:pointer;">Forgot your password?</a></div>
                 <div id="forgot_form" style="display:none">
@@ -79,7 +109,7 @@
                         <tr>                                
                             <td>
                                 <div id="add_college_display">
-                                    <a id='add_coll_message' onclick='addcoll();' style="cursor:pointer; font-size : 0.8em;">Can't find your college in the list?</a>
+                                    <a id='add_coll_message' onclick='addcoll();' style="cursor:pointer; font-size : 0.8em;">Can't find your institute in the list?<br> Add it here!</a>
                                     <span id='add_coll_result'></span><span id='add_coll_name'></span>
                                 </div>
                             </td>
