@@ -46,7 +46,9 @@ def dashboard(request):
             del request.session['file_upload']
     except:
         pass
-    return render_to_response('dashboard/dashboard.html',locals(),context_instance=RequestContext(request))
+    SITE_URL = settings.SITE_URL
+    up_list = [up for up in UserProfile.objects.all()]
+    return render_to_response('dashboard/dash_new.html',locals(),context_instance=RequestContext(request))
 
 def serenity(request):
     return render_to_response ('index.html', locals(), context_instance=RequestContext(request))

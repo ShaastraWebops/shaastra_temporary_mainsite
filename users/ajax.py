@@ -50,8 +50,8 @@ def change_password_form(request):
     context_dict = {'form_change_password':change_password_form,'profile':profile,'settings':settings}
     html_stuff = render_to_string('dashboard/change_password.html',context_dict,RequestContext(request))
     if html_stuff:
-        dajax.assign('#FormRegd','innerHTML',html_stuff)
-        dajax.script('$("#event_register").modal("show");')
+        dajax.assign('#content_dash','innerHTML',html_stuff)
+        #dajax.script('$("#event_register").modal("show");')
     return dajax.json()
 
 
@@ -131,8 +131,8 @@ def edit_profile_form(request):
         context_dict = {'edit_profile_form':edit_profile_form,'profile':profile,'settings':settings}
         html_stuff = render_to_string('dashboard/profile.html',context_dict,RequestContext(request))
         if html_stuff:
-            dajax.assign('#FormRegd','innerHTML',html_stuff)
-            dajax.script('$("#event_register").modal("show");')
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
 
     return dajax.json()
 
@@ -168,11 +168,11 @@ def show_registered_events(request):
         team_event_list = profile.get_regd_events()
         no_regd = len(team_event_list)
         now = timezone.now()
-        context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'no_regd':no_regd,'settings':settings}
-        html_stuff = render_to_string('dashboard/registered_events.html',context_dict,RequestContext(request))
+        context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings}
+        html_stuff = render_to_string('dashboard/list_registered.html',context_dict,RequestContext(request))
         if html_stuff:
-            dajax.assign('#FormRegd','innerHTML',html_stuff)
-            dajax.script('$("#event_register").modal("show");')
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
     return dajax.json()
 
 @dajaxice_register
@@ -205,8 +205,8 @@ def show_event_details(request,teamevent_id=None):
         
         html_stuff = render_to_string('dashboard/event_tdp_submit.html',context_dict,RequestContext(request))
         if html_stuff:
-            dajax.assign('#FormRegd','innerHTML',html_stuff)
-            dajax.script('$("#event_register").modal("show");')
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
     return dajax.json()
 
 
