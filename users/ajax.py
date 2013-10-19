@@ -388,7 +388,8 @@ def login(request,login_form = None):
                 dajax.script("$('#login_form #id_password').val('');")
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
-                
+                dajax.assign("#dashboard #dashboard_shaastra_id","innerHTML",str(request.user.get_profile().shaastra_id))
+                dajax.assign("#dashboard #dashboard_full_name","innerHTML",str(request.user.get_full_name()))
                 dajax.assign("#login_logout", "innerHTML", "<div class=\"btn-group\">\
   <a href=\"javascript:void(0)\" class='btn' onclick =\"window.location.replace('#events');$('#dropdown_account_options').toggle();\"><i class=\"icon-user icon-white\"></i> %s\'s Account&nbsp;&nbsp;<span class=\"caret\"></span></a>\
   <ul class='dropdown-menu' id='dropdown_account_options' style='display:none'>\
