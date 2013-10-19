@@ -6,7 +6,7 @@ from mainsite_2014.settings import DATABASES
 erp_db = DATABASES.keys()[1]
 from time import gmtime,strftime
 from django.utils import timezone
-import datetime
+import datetime,sha,random
 #Also set is_active to True each time created
 class TeamEvent(models.Model):
     team_id     = models.CharField(default='0',null=True,max_length = 50)
@@ -100,7 +100,9 @@ def tdp_upload_handler(self,filename):
     fname = str(filename).split('.')[-1]
     if (fname.split('.')[-1] not in ALLOWED_FILETYPE):
         raise forms.ValidationError("File type is not supported.")
-    url = 'tdpsubmissions/%s/%s_%s'%(self.teamevent.get_event().title,self.teamevent.team_id,time)
+    #randstr: 5 letter random string to prevent hacking of other team submissions
+    randstr = sha.new(str(random.random())).hexdigest()[:5]
+    url = 'tdpsubmissions/%s/%s_%s_%s'%(self.teamevent.get_event().title,self.teamevent.team_id,time,randstr)
     #TODO: replace # by something else for url
     url = url.replace('#','_')
     return url

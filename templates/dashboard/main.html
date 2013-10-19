@@ -1,18 +1,20 @@
 {% load staticfiles %}
 
 <!-- DASHBOARD SECTION  -->
-<section id="dashboard" class='sec'>
+<section id="dashboard" class='sec {% if not request.user.is_authenticated %}hide{% endif %}'>
     <div class="container">
         <div class="row">
             <div class="span12">
-                <center><h2>Dashboard</h2>
+                <center><h2>Dashboard </h2>
 <!--                        <h3>{{request.user.get_profile.shaastra_id}}</h3>-->
                 </center>
                 
 <!--                <center><div class="breaker"><span class="left"></span><div class="dice"></div><span class="right"></span></div></center>-->
             </div>
         </div>
-
+        {% if msg_file_upload %}
+        <span id='error_earlier' class='hide'> {{msg_file_upload}}</span>
+        {% endif %}
         <div class="container page_content" style='background : #aaa; padding : 10px; height : 65%;'>
             <div class='left_content span3 pull-left' style=''>
                 <ul class="nav nav-tabs nav-stacked sidenav affix-top">
@@ -23,13 +25,13 @@
                         </a>
                     </li>
                     <li id="list_user_profile" class="list_user_body collapse">
-                        <a href="#" onclick="Dajaxice.users.edit_profile_form(Dajax.process);">
-                            <i class="icon-chevron-right"></i> Your Profile
+                        <a href="#" onclick="Dajaxice.users.view_profile(Dajax.process);">
+                            <i class="icon-chevron-right"></i> Profile Details
                         </a>
                     </li>
                     <li id="list_user_edit" class="list_user_body collapse">
                         <a href="#" onclick="Dajaxice.users.edit_profile_form(Dajax.process);">
-                            <i class="icon-chevron-right"></i> Edit Profile
+                            <i class="icon-chevron-right"></i> Edit Profile<i class="icon-user icon-white"></i>
                         </a>
                     </li>
                     <li id="list_user_edit" class="list_user_body collapse">
@@ -47,30 +49,30 @@
                     </li>
                     <li id="list_events_registered" class="list_events_body collapse">
                         <a href="#registered_events" onclick = "Dajaxice.users.show_registered_events(Dajax.process);"> 
-                            <i class="icon-chevron-right"></i> Registered Events
+                            <i class="icon-chevron-right"></i> My Registered Events
                         </a>
                     </li>
                     <li id="list_events_team" class="list_events_body collapse">
                         <a href="#your_team"> 
-                            <i class="icon-chevron-right"></i> Your Team Details
+                            <i class="icon-chevron-right"></i> My Teams
                         </a>
                     </li>
                     <li id="list_events_team_delete" class="list_events_body collapse">
                         <a href="#" onclick="javascript:do_dajax(Dajaxice.tasks.new_cross_task_get, show_page, {}, 'id_content_right')"> 
-                            <i class="icon-chevron-right"></i> Add/Delete Member
+                            <i class="icon-chevron-right"></i> Updates
                         </a>
                     </li>
                     <!-- END Events list -->
                     <!-- START Submit TDP -- NO LIST -->
                     <li id="list_tdp_submit" class="sidenav_lone">
-                        <a href="#tdp_submit"> 
+                        <a href="#tdp_submit" onclick = "Dajaxice.users.show_registered_tdp_events(Dajax.process);"> 
                             <i class="icon-chevron-right"></i> Submit TDP
                         </a>
                     </li>
                     <!-- END Submit TDP -->
                 </ul>
             </div>
-            <div class='right_content span8 pull-right' id="content_dash">
+            <div class='right_content span8 pull-right' id="content_dash" style='overflow-y : auto;'>
                 <span><b>{{request.user.get_profile.shaastra_id}}</b></span>
             </div>
         </div>

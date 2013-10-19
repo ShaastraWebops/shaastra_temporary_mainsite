@@ -1,8 +1,8 @@
 <h3 style='width : 100%;'>
-	<span id='#show_events_regd_title'>Your registered events</span>
+	<span id='show_events_regd_title'>{% if title_tdp %}{{title_tdp}}{% else %}Your registered events{% endif %}</span>
 	&nbsp;
 </h3>
-
+<h5>If you have not registered for the event yet, Please register for the event <a href="#events">here</a></h5>
 
 {% ifequal no_regd 0 %}
     <span style="color:red">No events registered, click <a href="#events">here</a> to register for events</span>
@@ -14,16 +14,17 @@
   <div class="accordion-group">
     <div class="accordion-heading">
 
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{forloop.counter}}">
-            {{teamevent.get_event.title}}(click for Team Details)
-           
+  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{forloop.counter}}">
+      {{teamevent.get_event.title}}(click for Team Details)
+
+   {% if teamevent.get_event.has_tdp %}
     {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
         {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}
         {% if teamevent.get_event.has_tdp %}
         <a class="btn btn-info" onclick = "Dajaxice.users.show_event_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}}});">Submit TDP</a>
         {% endif %}
-           {% if teamevent.has_submitted_tdp %}
         
+           {% if not teamevent.has_submitted_tdp %}
                 {% if teamevent.get_event.days_left > 0 %}
                     <span class="label label-warning pull-right">{{teamevent.get_event.days_left}} days left!</span>
                 {% else %}
@@ -33,19 +34,23 @@
                 <span class="label label-success pull-right">TDP submitted</span>
             {% endif %}
         {% else%}
-            {%if now < teamevent.get_event.registration_ends%}
+            {%if now < teamevent.get_event.registration_starts%}
                 <span class="label label-warning pull-right">Registration yet to start! starts:{{teamevent.get_event.registration_starts}}</span>
             {% else %}
-            {% ifequal teamevent.get_tdp.count 0 %}
+            {% if now > teamevent.get_event.registration_ends %}
+            {% if teamevent.has_submitted_tdp %}
                 <span class="label label-important pull-right">Registration deadline crossed!</span>
             {% else %}
                 <span class="label label-success pull-right">TDP submitted</span>
-            {% endifequal %}
             {% endif %}
-            
+            {% endif %}
+            {% endif %}
         {% endif %}
     {% else %}
             <span class="label label-warning pull-right">Registration details not released!</span>
+    {% endif %}
+    {% else %}
+            <span class="label label-success pull-right">No TDP Submission required </span>
     {% endif %}
       </a>
     </div>
@@ -64,10 +69,10 @@
             
             {% ifequal profile_team.user request.user%}
 <!--            <td><span style="font-size:10pt;color:'red'">ID:{{profile_team.shaastra_id}}</td>-->
-            <li><span><b>{{profile_team.user.username}}</b></span></li>
+            <li><span><b>{{profile_team.user.get_full_name}}</b></span></li>
             {% else %}
 <!--            <td><span style="font-size:10pt">ID:{{profile_team.shaastra_id}}</span></td>-->
-            <li><span>{{profile_team.user.username}}</span></li>
+            <li><span>{{profile_team.user.get_full_name}}</span></li>
             {% endifequal %}
             <br/>
         {% endfor %}

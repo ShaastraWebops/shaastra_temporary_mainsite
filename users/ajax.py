@@ -81,13 +81,15 @@ def change_password(request,form = None):
         return dajax.json()
     user.set_password(form.cleaned_data['new_password'])
     profile = UserProfile.objects.get(user=request.user)
-    dajax.script('$("#form_change_password #old_password").val('') ;\
-    $("#form_change_password #new_password").val('');\
-    $("#form_change_password #new_password_again").val('');\
-    $("#event_register").modal("hide");')
+    
     user.save()
     profile.save()
     dajax.script('$.bootstrapGrowl("Your password was changed successfully!" , {type:"success",delay:30000} );')
+    #TODO: why is the field not getting empty?????
+    dajax.script('$("#dashboard #form_change_password #id_old_password").val("");')
+    dajax.script('$("#dashboard #form_change_password #id_new_password").val("");')
+    dajax.script('$("#dashboard #form_change_password #id_new_password_again").val("");')
+    
     return dajax.json()
 
 
@@ -136,6 +138,26 @@ def edit_profile_form(request):
 
     return dajax.json()
 
+
+@dajaxice_register
+def view_profile(request):
+    dajax = Dajax()
+    #: if user has chosen a college in dropdown, depopulate it OR growl
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        context_dict = {'profile':profile,'settings':settings}
+        html_stuff = render_to_string('dashboard/profile_view.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
+
+    return dajax.json()
+
+
+
 @dajaxice_register
 def submit_tdp(request,teamevent_id = None,file_tdp=None):
     dajax = Dajax()
@@ -155,7 +177,7 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
     except:
         print 'sss'
     return dajax.json()
-    
+
 @dajaxice_register
 def show_registered_events(request):
     dajax = Dajax()
@@ -173,7 +195,45 @@ def show_registered_events(request):
         if html_stuff:
             dajax.assign('#content_dash','innerHTML',html_stuff)
             #dajax.script('$("#event_register").modal("show");')
+    msg_file_upload = request.session.get('file_upload','')
+    if msg_file_upload != '':
+        dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
     return dajax.json()
+
+@dajaxice_register
+def show_registered_tdp_events(request):
+
+    dajax = Dajax()
+
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        team_event_list = profile.get_regd_events()
+        tdp_team_event_list = []
+        for teamevent in team_event_list:
+            if teamevent.get_event().has_tdp:
+                tdp_team_event_list.append(teamevent)
+        no_regd = len(team_event_list)
+        now = timezone.now()
+        
+        context_dict = {'team_event_list':tdp_team_event_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings,'title_tdp':'TDP Submission'}
+        html_stuff = render_to_string('dashboard/list_registered.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
+#    try:
+#        msg_file_upload = request.session['file_upload']
+#        print '%s'% msg_file_upload
+#        print '-----------------'
+#    except:
+#        print 'NO ERROR!!!!!!!!'
+    msg_file_upload = request.session.get('file_upload','')
+    if msg_file_upload != '':
+        dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
+    return dajax.json()
+
 
 @dajaxice_register
 def show_event_tdp(request,teamevent_id=None):
@@ -197,10 +257,7 @@ def show_event_tdp(request,teamevent_id=None):
             dajax.script('$.bootstrapGrowl("Invalid request", {type:"danger",delay:20000} );')
             return dajax.json()
         now = timezone.now()
-        has_tdp = True
-        if team_event.tdp_set.all().count() == 0:
-            has_tdp = False
-        context_dict = {'teamevent':team_event,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'settings':settings,'has_tdp':has_tdp}
+        context_dict = {'teamevent':team_event,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'settings':settings}
         
         html_stuff = render_to_string('dashboard/event_tdp_submit.html',context_dict,RequestContext(request))
         if html_stuff:
@@ -245,6 +302,7 @@ def logout(request,**kwargs):
     auth_logout(request)
     dajax.script('$.bootstrapGrowl("Successfully logged out!", {type:"success",delay:10000});' )
     dajax.assign("#login_logout", "innerHTML", '<a href="#login" onclick="$(\'#login\').modal(\'show\');">Login | Register </a>')
+    dajax.add_css_class("#dashboard","hide hidden")
     return dajax.json()
     
 @dajaxice_register
@@ -273,7 +331,8 @@ def login(request,login_form = None):
                 dajax.script("$('#login_form #id_password').val('');")
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
-                dajax.assign("#login_logout", "innerHTML", '<a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout </a>')
+                dajax.assign("#login_logout", "innerHTML", '<a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout  </a>')
+                dajax.remove_css_class("#dashboard","hide hidden")
                 #display logout| edit profile on navbar
 
                 return dajax.json()

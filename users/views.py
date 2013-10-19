@@ -38,17 +38,22 @@ def submit_tdp(request):
         return HttpResponse('Please upload a valid file')
     tdp = fileform.save(commit = False)
     tdp.teamevent = TeamEvent.objects.get(id = request.POST['teameventid'])
+    
+#        tdp.file_tdp.name
     try:
-        tdp.file_tdp.name
+        print 'saving!!!!!!!!!!!!!!!!!!'
         tdp.save()
+        print 'saved!!!!!!!!!!!!'
         request.session['file_upload'] = 'TDP Upload Successful! '
+        print 'request.session thing done!!!!!!!!!'
         update = Update(tag = 'TDP Submission',content = 'Your TDP was successfully submitted!',user = request.user)
         update.save()
     except ValidationError:
+        print 'fail@!!!!!!!!!!'
         request.session['file_upload'] = 'TDP Upload Failed, Please Use only Allowed File Types. Maximum File Size: 2.5 MB'
     except:
-        return HttpResponse('Unknown Error. Please contact WebOps Team.')
-    return HttpResponseRedirect(settings.SITE_URL + 'dashboard/')
+        return HttpResponse('Unknown Error. Please contact WebOps Team.Go <a href = "">back</a> to mainsite')
+    return HttpResponseRedirect(settings.SITE_URL+'#dashboard')
 
 def forgot_password(request,password_key = None):
     SITE_URL = settings.SITE_URL
@@ -58,7 +63,7 @@ def forgot_password(request,password_key = None):
         reset_password_form = ResetPasswordForm(request.POST)
         success=True
         if reset_password_form.is_valid() and request.POST.has_key('user'):
-            profile = UserProfile.objects.get(user__username=request.POST['user'])
+            profile = UserProfile.objects.get(username__user=request.POST['user'])
             password = reset_password_form.cleaned_data['password']
             profile.user.set_password(password)
             profile.save()
