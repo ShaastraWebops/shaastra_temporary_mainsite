@@ -205,6 +205,38 @@ def show_registered_events(request):
     return dajax.json()
 
 @dajaxice_register
+def show_tdp_submissions(request):
+    dajax = Dajax()
+
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        team_event_list = profile.get_regd_events()
+        tdp_submission_list = []
+        for teamevent in team_event_list:
+            if teamevent.get_event().has_tdp and teamevent.has_submitted_tdp:
+                tdp_submission_list.append(teamevent)
+        no_regd = len(tdp_submission_list)
+        now = timezone.now()
+        context_dict = {'tdp_submission_list':tdp_submission_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings}
+        html_stuff = render_to_string('dashboard/list_tdp_submission.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
+    msg_file_upload = request.session.get('file_upload','')
+    if msg_file_upload != '':
+        del request.session['file_upload']
+        if msg_file_upload == 'TDP Upload Successful! ':
+            dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
+        else:
+            dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
+    return dajax.json()
+
+
+
+@dajaxice_register
 def show_registered_tdp_events(request):
 
     dajax = Dajax()

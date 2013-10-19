@@ -193,7 +193,7 @@ class UserProfile(models.Model):
     class Admin:
         pass
 
-    
+
     
 class shows_updates(models.Model):
     shows_name = models.CharField(max_length=255,

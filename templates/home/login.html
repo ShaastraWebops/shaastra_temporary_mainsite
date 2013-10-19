@@ -27,29 +27,31 @@
                     </tr>
                 </form>
                 <div id="login_error"></div>
-                <div id="forgot_password"><a onclick="$('#forgot_form').toggle();" style="cursor:pointer;">Forgot your password?</a></div>
+                
+            <div id="forgot_password" class="pull-left"> <a onclick="$('#forgot_form').toggle();" style="cursor:pointer;display:none">Forgot your password?</a></div>
                 <div id="forgot_form" style="display:none">
                     <input type="text" maxlength="70" value placeholder="Enter your registered email-id" id="forgot_form_email">
                     <button class="btn btn-primary" onclick ="Dajaxice.users.forgot_password(Dajax.process, {'email':$('#forgot_form_email').val()});" > Request for a new password</button>
                 </div>
             </div>
 
-            <div class='span5 offset form_registration_div' style="padding-left: 35%;">
+            <div class='span 5 form_registration_div pull-left'>
                 <form id='form_registration' method="post" action="">
                     {% csrf_token %}
-                    <table class='span5'>
+                    <table class='span9'>
                         <tr>
                             <th>First Name</th>
                             <td>{{ form_registration.first_name }}</td>
                             <th>Last Name</th>
                             <td>{{ form_registration.last_name }}</td>
-                        </tr>
                         <tr>
+                        </tr>
                             <th>User Name</th>
                             <td>{{ form_registration.username }}</td>
                             <th>E-Mail</th>
                             <td>{{ form_registration.email }}</td>
                         </tr>
+                        
                         <tr>
                             <th>Password (atleast 6 chars)</th>
                             <td>{{ form_registration.password }}</td>

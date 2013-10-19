@@ -41,15 +41,11 @@ def submit_tdp(request):
     
 #        tdp.file_tdp.name
     try:
-        print 'saving!!!!!!!!!!!!!!!!!!'
         tdp.save()
-        print 'saved!!!!!!!!!!!!'
         request.session['file_upload'] = 'TDP Upload Successful! '
-        print 'request.session thing done!!!!!!!!!'
         update = Update(tag = 'TDP Submission',content = 'Your TDP was successfully submitted!',user = request.user)
         update.save()
     except ValidationError:
-        print 'fail@!!!!!!!!!!'
         request.session['file_upload'] = 'TDP Upload Failed, Please Use only Allowed File Types. Maximum File Size: 2.5 MB'
     except:
         return HttpResponse('Unknown Error. Please contact WebOps Team.Go <a href = "%s">back</a> to mainsite'%settings.SITE_URL)

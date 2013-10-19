@@ -5,23 +5,23 @@
 <h5>If you have not registered for the event yet, Please register for the event <a href="#events">here</a></h5>
 
 {% ifequal no_regd 0 %}
-    <span style="color:red">No events registered, click <a href="#events">here</a> to register for events</span>
+    <span style="color:red">No submissions made click <a href="#events" onclick = "Dajaxice.users.show_registered_tdp_events(Dajax.process);">here</a> to submit your TDP</span>
 {% endifequal %}
 
 <div class="accordion" id="accordion2">
-{% for teamevent in team_event_list %}
+{% for teamevent in tdp_submission_list %}
 
   <div class="accordion-group">
     <div class="accordion-heading">
 
   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{forloop.counter}}">
       {{teamevent.get_event.title}}(click for Team Details)
-
+      
    {% if teamevent.get_event.has_tdp %}
     {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
         {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}
         {% if teamevent.get_event.has_tdp %}
-        <a class="btn btn-primary btn-small" onclick = "Dajaxice.users.show_event_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}}});">Submit TDP</a>
+        <a class="btn btn-primary btn-small" onclick = "Dajaxice.users.show_event_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}}});">OverWrite Submission</a>
         {% endif %}
         
            {% if not teamevent.has_submitted_tdp %}
@@ -58,29 +58,12 @@
       <div class="accordion-inner">
         <span class="pull-left">Team ID::{{teamevent.team_id}}
         {% if teamevent.team_name %}<br/>Team Name::{{teamevent.team_name}}{% endif %}
-        <br/>Members:
-        </span>
-        
-        <br/><br/>
-        
+       
+        </span>        
 <!--        <a class="btn btn-info pull-left" onclick = "$('#team_{{teamevent.pk}}').toggle();" style="width:25%">View your team!</a>-->
-        <ol id="team_{{teamevent.pk}}" class="span2 pull-left" style='line-height : 0px;'>
-        {% for profile_team in teamevent.get_team %}
-            
-            {% ifequal profile_team.user request.user%}
-<!--            <td><span style="font-size:10pt;color:'red'">ID:{{profile_team.shaastra_id}}</td>-->
-            <li><span><b>{{profile_team.user.get_full_name}}</b></span></li>
-            {% else %}
-<!--            <td><span style="font-size:10pt">ID:{{profile_team.shaastra_id}}</span></td>-->
-            <li><span>{{profile_team.user.get_full_name}}</span></li>
-            {% endifequal %}
-            <br/>
-        {% endfor %}
-        </ol>
         
       </div>
-      
-      
+           
     </div>
   </div>
   
