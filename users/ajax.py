@@ -220,7 +220,8 @@ def show_tdp_submissions(request):
                 tdp_submission_list.append(teamevent)
         no_regd = len(tdp_submission_list)
         now = timezone.now()
-        context_dict = {'tdp_submission_list':tdp_submission_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings}
+        title_tdp = 'Your successful TDP Submissions'
+        context_dict = {'tdp_submission_list':tdp_submission_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings,'title_tdp':title_tdp}
         html_stuff = render_to_string('dashboard/list_tdp_submission.html',context_dict,RequestContext(request))
         if html_stuff:
             dajax.assign('#content_dash','innerHTML',html_stuff)
