@@ -197,6 +197,7 @@ def show_registered_events(request):
             #dajax.script('$("#event_register").modal("show");')
     msg_file_upload = request.session.get('file_upload','')
     if msg_file_upload != '':
+        del request.session['file_upload']
         if msg_file_upload == 'TDP Upload Successful! ':
             dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
         else:
@@ -234,7 +235,12 @@ def show_registered_tdp_events(request):
 #        print 'NO ERROR!!!!!!!!'
     msg_file_upload = request.session.get('file_upload','')
     if msg_file_upload != '':
-        dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
+        del request.session['file_upload']
+        if msg_file_upload == 'TDP Upload Successful! ':
+            dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
+        else:
+            dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
+    
     return dajax.json()
 
 
