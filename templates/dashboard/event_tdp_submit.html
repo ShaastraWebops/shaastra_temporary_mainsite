@@ -20,7 +20,7 @@
                 {% endfor %}
                 
             
-            <form action="{{settings.SITE_URL}}/tdpsubmission" method="post" enctype="multipart/form-data" id="form_tdp_{{teamevent.get_event.id}}">           {% csrf_token %}
+            <form action="{{settings.SITE_URL}}tdpsubmission" method="post" enctype="multipart/form-data" id="form_tdp_{{teamevent.get_event.id}}">           {% csrf_token %}
     
                 {% if teamevent.has_submitted_tdp %}
                     <span>Please submit only in pdf format</span><br/>
@@ -52,7 +52,7 @@
                     }
                 }
                 "
-                >Submit TDP for {{teamevent.get_event.title}}</a>
+                >Submit {% if teamevent.has_submitted_tdp %} updated{% endif %}TDP for {{teamevent.get_event.title}}</a>
                 {% else %}
 <!--                    <span class="btn btn-inverse btn-mini ">-->
                     {{TDPFileForm.as_table}}
@@ -69,7 +69,7 @@
                     $('#form_tdp_{{teamevent.get_event.id}}').submit()
                 }
                     "
-                    >Submit TDP for {{teamevent.get_event.title}}</a>
+                    >Submit {% if teamevent.has_submitted_tdp %} updated{% endif %}TDP for {{teamevent.get_event.title}}</a>
                 {% endif %}
             </form>
                 

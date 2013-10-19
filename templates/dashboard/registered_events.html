@@ -53,7 +53,7 @@
             {
                 $('#file_tdp_{{teamevent.get_event.id}}').submit()
             }"
-            >Submit TDP</a>
+            >Submit {% if teamevent.has_submitted_tdp %} updated{% endif %}TDP</a>
 <!--            <a onclick="Dajaxice.users.submit_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}},'file_tdp':$('#file_tdp_{{teamevent.get_event.id}}').serialize(true)});" class="btn btn-primary">Submit TDP</a>-->
         </form>
         </div>
