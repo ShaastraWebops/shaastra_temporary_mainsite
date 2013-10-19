@@ -16,4 +16,3 @@ def registrable_events(time=timezone.now(),user = None):
             eventlist.append(event.title)
     return eventlist
 
-
