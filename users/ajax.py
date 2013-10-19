@@ -228,7 +228,7 @@ def show_tdp_submissions(request):
     msg_file_upload = request.session.get('file_upload','')
     if msg_file_upload != '':
         del request.session['file_upload']
-        if msg_file_upload == 'TDP Upload Successful! ':
+        if str(msg_file_upload).startswith('TDP Upload Successful! '):
             dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
         else:
             dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
