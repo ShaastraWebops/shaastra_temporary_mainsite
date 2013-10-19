@@ -517,6 +517,9 @@ def forgot_password(request,email=None):
             profile = UserProfile.objects.get(user__email = str(email))
             email = profile.user.email
             user = profile.user
+            if not profile.user.is_active:
+                dajax.script('$.bootstrapGrowl("Activate your account first! Check your mail for the activation link." , {type:"error",delay:20000} );')
+                return dajax.json()
             mail_template = get_template('email/forgot_password.html')
             body = mail_template.render( Context( {
                     'username':user.username,
