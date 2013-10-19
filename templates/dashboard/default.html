@@ -10,7 +10,7 @@ You have registered for {% if no_regd > 1 %}
 We have some events recommended for you!!
 <ul>
 {% for event in reco_events %}
-<li>event.title</li>
+<li>{{event.title}}</li>
 {% endfor %}
 {% comment %}
 TODO: if he clicks any event, the page will open
