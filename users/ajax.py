@@ -38,6 +38,8 @@ import datetime
 from forms import EditProfileForm,ChangePasswordForm
 from events.models import ParticipantEvent
 
+erp_db = settings.DATABASES.keys()[1]
+
 @dajaxice_register
 def change_password_form(request):
     dajax = Dajax()
