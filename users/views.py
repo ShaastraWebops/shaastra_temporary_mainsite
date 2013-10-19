@@ -36,18 +36,27 @@ def submit_tdp(request):
     if not fileform.files:
         #TODO: submit tdp button comes only if upload succesful event of input type file
         return HttpResponse('Please upload a valid file')
-    tdp = fileform.save(commit = False)
+    try:
+        tdp = fileform.save(commit = False)
+    except:
+        request.session['file_upload'] = 'TDP Upload Failed: Illegal Characters in Filename'
+        return HttpResponseRedirect(settings.SITE_URL+'#dashboard')
     tdp.teamevent = TeamEvent.objects.get(id = request.POST['teameventid'])
     
 #        tdp.file_tdp.name
     try:
+#    if 1:
         tdp.save()
         request.session['file_upload'] = 'TDP Upload Successful for %s!'% tdp.teamevent.get_event().title
         msg_success = 'Your TDP for %s was successfully submitted!' % tdp.teamevent.get_event().title
         update = Update(tag = 'TDP Submission',content = '',user = request.user)
         update.save()
-    except ValidationError:
-        request.session['file_upload'] = 'TDP Upload Failed, Please Use only Allowed File Types. Maximum File Size: 2.5 MB'
+    except ValidationError as e:
+        errors=str(e)
+        errors=errors[2:]
+        errors=errors[:-2]
+        request.session['file_upload'] = errors
+        
     except:
         return HttpResponse('Unknown Error. Please contact WebOps Team.Go <a href = "%s">back</a> to mainsite'%settings.SITE_URL)
     return HttpResponseRedirect(settings.SITE_URL+'#dashboard')
