@@ -100,9 +100,9 @@ def tdp_upload_handler(self,filename):
     fname = str(filename).split('.')[-1]
     if (fname.split('.')[-1] not in ALLOWED_FILETYPE):
         raise forms.ValidationError("File type is not supported.")
-    if self._size > settings.TASK_UPLOAD_FILE_MAX_SIZE:
-        print 'SIZE EXCEEDED !!!!!!!!!!!!!!!!!!!!!'
-        raise forms.ValidationError("Maximum File Upload Size Exceeded")
+#    if self._size > settings.TASK_UPLOAD_FILE_MAX_SIZE:
+#        print 'SIZE EXCEEDED !!!!!!!!!!!!!!!!!!!!!'
+#        raise forms.ValidationError("Maximum File Upload Size Exceeded")
     #randstr: 5 letter random string to prevent hacking of other team submissions
     randstr = sha.new(str(random.random())).hexdigest()[:5]
     url = 'tdpsubmissions/%s/%s_%s_%s'%(self.teamevent.get_event().title,self.teamevent.team_id,time,randstr)

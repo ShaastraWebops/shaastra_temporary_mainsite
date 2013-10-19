@@ -52,7 +52,7 @@ def submit_tdp(request):
         print 'fail@!!!!!!!!!!'
         request.session['file_upload'] = 'TDP Upload Failed, Please Use only Allowed File Types. Maximum File Size: 2.5 MB'
     except:
-        return HttpResponse('Unknown Error. Please contact WebOps Team.Go <a href = "">back</a> to mainsite')
+        return HttpResponse('Unknown Error. Please contact WebOps Team.Go <a href = "%s">back</a> to mainsite'%settings.SITE_URL)
     return HttpResponseRedirect(settings.SITE_URL+'#dashboard')
 
 def forgot_password(request,password_key = None):
