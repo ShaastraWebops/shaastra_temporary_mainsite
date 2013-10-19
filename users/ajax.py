@@ -36,7 +36,7 @@ from misc.dajaxice.decorators import dajaxice_register
 from django.dispatch import receiver
 import datetime
 from forms import EditProfileForm,ChangePasswordForm
-
+from events.models import ParticipantEvent
 
 @dajaxice_register
 def change_password_form(request):
