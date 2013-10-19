@@ -236,13 +236,21 @@ def show_tdp_submissions(request):
         else:
             dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
     return dajax.json()
+    
 
-#@dajaxice_register
-#def back(request):
-#    html_stuff = render_to_string('dashboard/list_tdp_submission.html',context_dict,RequestContext(request))
-#        if html_stuff:
-#            dajax.assign('#content_dash','innerHTML',html_stuff)
-
+from users.utils import registrable_events
+@dajaxice_register
+def back(request):
+    dajax = Dajax()
+    no_regd = len(request.user.get_profile().get_regd_events())
+    reco_events = ParticipantEvent.objects.using(erp_db).filter(registrable_online=True)
+#    reco_events = registrable_events(time = timezone.now(),user = request.user)
+    context_dict = {'profile':request.user.get_profile(),'no_regd':no_regd,'reco_events':reco_events}
+    html_stuff = render_to_string('dashboard/default.html',context_dict,RequestContext(request))
+    if html_stuff:
+        dajax.assign('#content_dash','innerHTML',html_stuff)
+    return dajax.json()
+    
 @dajaxice_register
 def show_registered_tdp_events(request):
 
