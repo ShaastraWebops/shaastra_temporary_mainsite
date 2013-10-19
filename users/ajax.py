@@ -197,6 +197,7 @@ def show_registered_events(request):
             #dajax.script('$("#event_register").modal("show");')
     msg_file_upload = request.session.get('file_upload','')
     if msg_file_upload != '':
+        del request.session['file_upload']
         if msg_file_upload == 'TDP Upload Successful! ':
             dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
         else:
