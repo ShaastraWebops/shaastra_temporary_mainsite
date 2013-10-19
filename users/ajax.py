@@ -175,7 +175,7 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
         tdp = TDP(tdp=fileform,teamevent = teamevent)
         tdp.save()
     except:
-        print 'sss'
+        print
     return dajax.json()
 
 @dajaxice_register
@@ -198,7 +198,7 @@ def show_registered_events(request):
     msg_file_upload = request.session.get('file_upload','')
     if msg_file_upload != '':
         del request.session['file_upload']
-        if msg_file_upload == 'TDP Upload Successful! ':
+        if str(msg_file_upload).startswith('TDP Upload Successful'):
             dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
         else:
             dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
@@ -228,14 +228,19 @@ def show_tdp_submissions(request):
     msg_file_upload = request.session.get('file_upload','')
     if msg_file_upload != '':
         del request.session['file_upload']
-        
+        print msg_file_upload
+        print str(msg_file_upload).startswith('TDP Upload Successful') 
         if str(msg_file_upload).startswith('TDP Upload Successful'):
             dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
         else:
             dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
     return dajax.json()
 
-
+#@dajaxice_register
+#def back(request):
+#    html_stuff = render_to_string('dashboard/list_tdp_submission.html',context_dict,RequestContext(request))
+#        if html_stuff:
+#            dajax.assign('#content_dash','innerHTML',html_stuff)
 
 @dajaxice_register
 def show_registered_tdp_events(request):
@@ -269,7 +274,7 @@ def show_registered_tdp_events(request):
     msg_file_upload = request.session.get('file_upload','')
     if msg_file_upload != '':
         del request.session['file_upload']
-        if msg_file_upload == 'TDP Upload Successful! ':
+        if str(msg_file_upload).startswith('TDP Upload Successful'):
             dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
         else:
             dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)

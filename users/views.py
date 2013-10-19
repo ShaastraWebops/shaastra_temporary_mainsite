@@ -43,7 +43,8 @@ def submit_tdp(request):
     try:
         tdp.save()
         request.session['file_upload'] = 'TDP Upload Successful for %s!'% tdp.teamevent.get_event().title
-        update = Update(tag = 'TDP Submission',content = 'Your TDP for %s was successfully submitted!' % tdp.teamevent.get_event().title,user = request.user)
+        msg_success = 'Your TDP for %s was successfully submitted!' % tdp.teamevent.get_event().title
+        update = Update(tag = 'TDP Submission',content = '',user = request.user)
         update.save()
     except ValidationError:
         request.session['file_upload'] = 'TDP Upload Failed, Please Use only Allowed File Types. Maximum File Size: 2.5 MB'
