@@ -21,7 +21,7 @@
                     <!-- START User list head -->
                     <li id="list_user_head" class="list_user_head sidenav_head ">
                         <a class="btn btn-link">
-                             Hi {{request.user.get_full_name}}
+                             Hi <span id="dashboard_full_name">{{request.user.get_full_name}}</span>
                         </a>
                     </li>
                     <li id="list_user_head" class="list_user_head sidenav_head ">
@@ -78,7 +78,7 @@
                 </ul>
             </div>
             <div class='right_content span8 pull-right' id="content_dash" style='overflow-y : auto;'>
-                <h4><span>Shaastra ID:<b>{{request.user.get_profile.shaastra_id}}</b></span></h4>
+                <h4><span>Shaastra ID:<b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</span></b></span></h4>
             </div>
         </div>
     </div>
