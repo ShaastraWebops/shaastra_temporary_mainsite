@@ -388,7 +388,13 @@ def login(request,login_form = None):
                 dajax.script("$('#login_form #id_password').val('');")
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
-                dajax.assign("#login_logout", "innerHTML", '<a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout  </a>')
+                
+                dajax.assign("#login_logout", "innerHTML", "<div class=\"btn-group\">\
+  <a href=\"javascript:void(0)\" class='btn' onclick =\"window.location.replace('#events');$('#dropdown_account_options').toggle();\"><i class=\"icon-user icon-white\"></i> %s\'s Account&nbsp;&nbsp;<span class=\"caret\"></span></a>\
+  <ul class='dropdown-menu' id='dropdown_account_options' style='display:none'>\
+    <li><a href='#dashboard' onclick = \"$('#dropdown_account_options').toggle()\" id=\"dropdown_goto_dash\"><i class='icon-pencil'></i> Go To My Dashboard</a></li><br/>\
+    <li><a href='javascript:void(0)' onclick = \"window.location.replace('#dashboard');$('#dropdown_account_options').toggle();Dajaxice.users.show_registered_tdp_events(Dajax.process);\"><i class='icon-pencil'></i> Submit TDP!</a></li><br/>\
+    <li><a href='#events' onclick = \"Dajaxice.users.logout(Dajax.process)\"><i class='icon-trash'></i> Logout</a></li>"% request.user.username)
                 dajax.remove_css_class("#dashboard","hide hidden")
                 #display logout| edit profile on navbar
 
