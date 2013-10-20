@@ -389,6 +389,11 @@ def login(request,login_form = None):
                 dajax.script("$('#login_form #id_password').val('');")
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
+                dajax.script('$(\"#list_user_head a\").click();')
+                dajax.script('$(\"#list_events_head a\").click();')                
+                
+#                dajax.script("javascript:do_accordion('list_user')")
+                
                 dajax.script("$('#aboutus').hide();")
                 dajax.assign("#dashboard #dashboard_shaastra_id","innerHTML",str(request.user.get_profile().shaastra_id))
                 dajax.assign("#dashboard #dashboard_full_name","innerHTML",str(request.user.get_full_name()))
