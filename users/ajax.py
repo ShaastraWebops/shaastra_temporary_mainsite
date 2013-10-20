@@ -144,8 +144,9 @@ def edit_profile_form(request):
 
 @dajaxice_register
 def view_profile(request):
-    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
+
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",delay:20000} );')
