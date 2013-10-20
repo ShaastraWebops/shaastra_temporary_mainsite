@@ -153,7 +153,6 @@ def register_event_form(request,event_id = None):
                         #TODO: close the 
                         return dajax.json()
                     dajax.script('$.bootstrapGrowl("Note that you need to have a team with atleast %d more members to register", {delay:100000} );'% (event.team_size_min))
-                    dajax.script('$.bootstrapGrowl("Enter ONLY your teammates\' Shaastra ID\'s. Your details will be added to the team", {delay:100000} );')
                     teammates = range(minteam,maxteam)
                     teammates = teammates[:-1]
                     teammates_min = range(minteam)
