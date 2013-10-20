@@ -95,8 +95,6 @@ def change_password(request,form = None):
     return dajax.json()
 
 
-
-
 @dajaxice_register
 def edit_profile(request,form = None,first_name = None,last_name = None):
     dajax = Dajax()
@@ -344,6 +342,23 @@ def show_event_tdp(request,teamevent_id=None):
             dajax.assign('#content_dash','innerHTML',html_stuff)
             #dajax.script('$("#event_register").modal("show");')
     return dajax.json()
+
+#@dajaxice_register
+#def add_member(request,shaastra_id=None,teamevent_id = None):
+#    dajax = Dajax()
+#    if shaastra_id is None or teamevent_id is None:
+#        dajax.script('$.bootstrapGrowl("Invalid request", {type:"danger",delay:20000} );')
+#        return dajax.json()
+#    try:
+#        add_profile = UserProfile.objects.get(shaastra_id = shaastra_id)
+#        teamevent  = TeamEvent.objects.get(id = teamevent_id)
+#        return dajax.json()        
+#    except:
+#        dajax.script('$.bootstrapGrowl("Invalid Shaastra ID provided.Please check.", {type:"danger",delay:20000} );')
+#        return dajax.json()
+#        
+        
+#        align:"center",width:"auto"
 
 
 @dajaxice_register

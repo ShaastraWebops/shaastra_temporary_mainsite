@@ -191,6 +191,10 @@ class UserProfile(models.Model):
         tevlist=TeamEvent.objects.filter(users__username=self.user.username)
         #TODO: return events with TDP first!! sort by has_tdp
         return tevlist
+        
+    def no_regd_events(self):
+        return len(self.get_regd_events)
+    
     class Admin:
         pass
 
