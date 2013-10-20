@@ -30,7 +30,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
-from dashboard.models import TDPFileForm
+from dashboard.models import TDPFileForm,Update
 from django.utils import simplejson
 from misc.dajaxice.decorators import dajaxice_register
 from django.dispatch import receiver
@@ -178,6 +178,27 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
         tdp.save()
     except:
         print
+    return dajax.json()
+
+
+@dajaxice_register
+def show_updates(request):
+    dajax = Dajax()
+
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = request.user.get_profile()
+        updates_list = list(Update.objects.filter(user = request.user).order_by('tag'))
+        #TODO: order by time??: 
+        no_updates = len(updates_list)
+        now = timezone.now()
+        context_dict = {'updates_list':updates_list,'profile':profile,'now':now,'no_updates':no_updates,'settings':settings}
+        html_stuff = render_to_string('dashboard/list_updates.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
     return dajax.json()
 
 
