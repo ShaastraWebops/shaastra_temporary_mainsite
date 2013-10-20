@@ -18,7 +18,7 @@
                                     <a href="#login" onclick="$('#login').modal();">Login | Register </a>
                                 {% else %}
                                 <div class='btn-group'>
-  <a href="javascript:void(0)" class='btn' onclick ="window.location.replace('#events');$('#dropdown_account_options').toggle();"><i class='icon-user icon-white'></i> {{request.user.username}}'s Account&nbsp;&nbsp;<span class="caret"></span></a>
+  <button href="" class='btn' onclick ="window.location.replace('#events');$('#dropdown_account_options').toggle();"><i class='icon-user icon-white'></i> {{request.user.username}}'s Account&nbsp;&nbsp;<span class="caret"></span></button>
   <ul class='dropdown-menu' id='dropdown_account_options' style='display:none'>
     <li><a href='#dashboard' onclick = "$('#dropdown_account_options').toggle()" id="dropdown_goto_dash"><i class='icon-pencil'></i> Go To My Dashboard</a></li><br/>
     <li><a href='javascript:void(0)' onclick = "window.location.replace('#dashboard');$('#dropdown_account_options').toggle();Dajaxice.users.show_registered_tdp_events(Dajax.process);"><i class='icon-pencil'></i> Submit TDP!</a></li><br/>
