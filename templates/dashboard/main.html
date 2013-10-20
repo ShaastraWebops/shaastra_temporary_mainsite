@@ -31,17 +31,17 @@
                         </a>
                     </li>
                     <li id="list_user_profile" class="list_user_body collapse active">
-                        <a href="#" onclick="Dajaxice.users.view_profile(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');" >
+                        <a href="#" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.users.view_profile(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');" >
                             <i class="icon-chevron-right"></i> Profile Details
                         </a>
                     </li>
                     <li id="list_user_edit" class="list_user_body collapse">
-                        <a href="#" onclick="Dajaxice.users.edit_profile_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
+                        <a href="#" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.users.edit_profile_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
                             <i class="icon-chevron-right"></i> Edit Profile&nbsp;&nbsp;<i class="icon-user icon-white"></i>
                         </a>
                     </li>
                     <li id="list_user_edit" class="list_user_body collapse">
-                        <a href="#" onclick = "Dajaxice.users.change_password_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
+                        <a href="#" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.change_password_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
                             <i class="icon-chevron-right"></i> Change my Password&nbsp;&nbsp;<i class="icon-user icon-white"></i>
                         </a>
                     </li>
@@ -54,12 +54,12 @@
                         </a>
                     </li>
                     <li id="list_events_registered" class="list_events_body collapse">
-                        <a href="#registered_events" onclick = "Dajaxice.users.show_registered_events(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
+                        <a href="#registered_events" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.show_registered_events(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
                             <i class="icon-chevron-right"></i> My Registered Events
                         </a>
                     </li>
                     <li id="list_events_team" class="list_events_body collapse">
-                        <a href="#your_tdp_submissions" onclick = "Dajaxice.users.show_tdp_submissions(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
+                        <a href="#your_tdp_submissions" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.show_tdp_submissions(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
                             <i class="icon-chevron-right"></i> My TDP Submissions
                         </a>
                     </li>
@@ -71,21 +71,23 @@
                     <!-- END Events list -->
                     <!-- START Submit TDP -- NO LIST -->
                     <li id="list_tdp_submit" class="sidenav_lone">
-                        <a href="#tdp_submit" onclick = "Dajaxice.users.show_registered_tdp_events(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
+                        <a href="#tdp_submit" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.show_registered_tdp_events(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
                             <i class="icon-chevron-right"></i>&nbsp;&nbsp;Submit TDP
                         </a>
                     </li>
                     <br/>
                     <!-- END Submit TDP -->
                     <li>
-                    <div class="progress progress-striped active">
-                      <div class="bar" id="progress_dashboard" style="width: 5%;"></div>
-                    </div>
+                    <center>
+<!--                    <img src='{{SITE_URL}}static/img/rect_good.gif' style="height: 5%;" class="loading" title="loading..."/><img src='{{SITE_URL}}static/img/rect_rev.gif' style="height: 5%;" loading="class" loading="title..."/>-->
+                    <img src='{{SITE_URL}}static/img/gif-load.gif' style="height: 5%;" class="loading" title="loading..."/id="loading_dash_dajax"></center>
+                    
                     </li>
+                    
                 </ul>
             </div>
             <div class='right_content span8 pull-right' id="content_dash" style='overflow-y : auto;'>
-            <img src='{{SITE_URL}}static/img/loading.gif' style="height:45%;display:none" class="loading pull-right" title="loading..."/>
+            
                 <h4><span>Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h4></span>
                 {% if request.user.is_authenticated %}
                             

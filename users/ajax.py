@@ -43,6 +43,7 @@ erp_db = settings.DATABASES.keys()[1]
 @dajaxice_register
 def change_password_form(request):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",delay:10000} );')
@@ -61,6 +62,7 @@ def change_password_form(request):
 @dajaxice_register
 def change_password(request,form = None):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",delay:10000} );')
         return dajax.json()
@@ -98,7 +100,7 @@ def change_password(request,form = None):
 @dajaxice_register
 def edit_profile(request,form = None,first_name = None,last_name = None):
     dajax = Dajax()
-
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     if form is None or first_name is None or last_name is None:
         dajax.script('$.bootstrapGrowl("Invalid edit profile request", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -123,6 +125,7 @@ def edit_profile(request,form = None,first_name = None,last_name = None):
 @dajaxice_register
 def edit_profile_form(request):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",delay:20000} );')
@@ -141,6 +144,7 @@ def edit_profile_form(request):
 
 @dajaxice_register
 def view_profile(request):
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     dajax = Dajax()
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if not request.user.is_authenticated():
@@ -161,7 +165,7 @@ def view_profile(request):
 @dajaxice_register
 def submit_tdp(request,teamevent_id = None,file_tdp=None):
     dajax = Dajax()
-
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")        
     if teamevent_id is None or file_tdp is None:
         dajax.script('$.bootstrapGrowl("Invalid TDP Upload request", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -182,7 +186,7 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
 @dajaxice_register
 def show_updates(request):
     dajax = Dajax()
-
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -203,7 +207,7 @@ def show_updates(request):
 @dajaxice_register
 def show_registered_events(request):
     dajax = Dajax()
-
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -229,7 +233,7 @@ def show_registered_events(request):
 @dajaxice_register
 def show_tdp_submissions(request):
     dajax = Dajax()
-
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -264,6 +268,7 @@ from users.utils import registrable_events
 @dajaxice_register
 def back(request):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")    
     no_regd = len(request.user.get_profile().get_regd_events())
     reco_events = ParticipantEvent.objects.using(erp_db).filter(registrable_online=True)
 #    reco_events = registrable_events(time = timezone.now(),user = request.user)
@@ -277,7 +282,7 @@ def back(request):
 def show_registered_tdp_events(request):
 
     dajax = Dajax()
-
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -316,6 +321,7 @@ def show_registered_tdp_events(request):
 @dajaxice_register
 def show_event_tdp(request,teamevent_id=None):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")    
     if teamevent_id is None:
         dajax.script('$.bootstrapGrowl("Invalid request to view teamevent details", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -346,6 +352,7 @@ def show_event_tdp(request,teamevent_id=None):
 @dajaxice_register
 def add_member(request,shaastra_id=None,teamevent_id = None):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")    
     if shaastra_id is None or teamevent_id is None:
         dajax.script('$.bootstrapGrowl("Invalid request", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -365,6 +372,7 @@ def add_member(request,shaastra_id=None,teamevent_id = None):
 @dajaxice_register
 def add_college(request,college=None,city=None,state=None):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")    
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if city is None or college is None or state is None or city =='' or college =='' or state =='':
         dajax.script('$.bootstrapGrowl("Please enter relevant details for adding your college", {type:"danger",delay:10000});')
