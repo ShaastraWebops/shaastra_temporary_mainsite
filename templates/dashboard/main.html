@@ -7,9 +7,10 @@
             <div class="span12">
                 <center><h2>Dashboard </h2>
 <!--                        <h3>{{request.user.get_profile.shaastra_id}}</h3>-->
-                </center>
                 
-                <center><div class="breaker"><span class="left"></span><div class="dice"></div><span class="right"></span></div></center>
+                <div class="white breaker"><span class="left"></span><div class="dice white"></div><span class="right"></span></div>
+                </center>
+
             </div>
         </div>
         {% if msg_file_upload %}
@@ -74,13 +75,19 @@
                             <i class="icon-chevron-right"></i>&nbsp;&nbsp;Submit TDP
                         </a>
                     </li>
+                    <br/>
                     <!-- END Submit TDP -->
+                    <li>
+                    <div class="progress progress-striped active">
+                      <div class="bar" id="progress_dashboard" style="width: 5%;"></div>
+                    </div>
+                    </li>
                 </ul>
             </div>
             <div class='right_content span8 pull-right' id="content_dash" style='overflow-y : auto;'>
+            <img src='{{SITE_URL}}static/img/loading.gif' style="height:45%;display:none" class="loading pull-right" title="loading..."/>
                 <h4><span>Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h4></span>
                 {% if request.user.is_authenticated %}
-                
                             
                 You have registered for {% if request.user.get_profile.no_regd_events > 1 %}
                 <span class="badge badge-success">{{request.user.get_profile.no_regd_events}}</span> events. Click <a href="#events"><u>here</u></a> for more!
@@ -100,16 +107,12 @@
                 <!--TODO: userprofile.get_reco_events-->
                 <!--{% endcomment %}-->
                 {% endif %}                
+                
             </div>
         </div>
     </div>
 </section>
 <!-- END DASHBOARD SECTION  -->
-
-
-
-
-
 
         
         
