@@ -255,10 +255,32 @@ section:not(:first-child) {
     background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
 }
+#dashboard ul,  #dashboard table, 
+#dashboard li,  #dashboard td,
+#dashboard p,   #dashboard th,
+#dashboard span,#dashboard tr,
+#dashboard h2,  
+#dashboard h3,  
+#dashboard th,  
+#dashboard div {
+    color : #fff;
+}
+#dashboard a {
+    color : #fff;
+}
+#dashboard a:hover {
+    color : #fff;
+    text-shadow : 0px 0px 2px #eee;
+}
+
 #dashboard {
     height : 100%;
-    background : #fff;
-    background : url(../img/events/bg.png) repeat;
+/*    background : #fff;
+    background : url(../img/events/bg.png) repeat;*/
+    
+    background : #000;
+    background : url(../img/shows/bg.jpg) repeat;
+    color : #fff;
 }
 #events {
     height : 100%;
@@ -295,13 +317,10 @@ section:not(:first-child) {
     height : 80%;
 }
 
-#aboutus h2 {
-    color : #fff;
-}
-#shows h2 {
-    color : #fff;
-}
-#hospi h2 {
+#aboutus h2,
+#shows h2, 
+#hospi h2,
+#dashboard h2 {
     color : #fff;
 }
 #lectures h2 {

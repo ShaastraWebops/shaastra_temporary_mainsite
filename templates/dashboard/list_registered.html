@@ -21,7 +21,7 @@
     {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
         {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}
         {% if teamevent.get_event.has_tdp %}
-        <a class="btn btn-primary btn-small" onclick = "Dajaxice.users.show_event_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}}});">Submit{% if teamevent.has_submitted_tdp %} updated{% endif %} TDP</a>
+        <a class="btn btn-primary btn-small" onclick = "Dajaxice.users.show_event_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}}});">Submit{% if teamevent.has_submitted_tdp %} Updated {% endif %} TDP</a>
         {% endif %}
         
            {% if not teamevent.has_submitted_tdp %}

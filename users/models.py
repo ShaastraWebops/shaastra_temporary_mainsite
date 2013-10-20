@@ -189,6 +189,7 @@ class UserProfile(models.Model):
     def get_regd_events(self):
         tevlist = []
         tevlist=TeamEvent.objects.filter(users__username=self.user.username)
+        #TODO: return events with TDP first!! sort by has_tdp
         return tevlist
     class Admin:
         pass

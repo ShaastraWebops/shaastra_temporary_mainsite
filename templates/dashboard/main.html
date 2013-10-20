@@ -15,13 +15,13 @@
         {% if msg_file_upload %}
         <span id='error_earlier' class='hide'> {{msg_file_upload}}</span>
         {% endif %}
-        <div class="container page_content" style='background : #aaa; padding : 10px; height : 65%;'>
+        <div class="container page_content" style=' padding : 10px; height : 65%;'>
             <div class='left_content span3 pull-left' style=''>
-                <ul class="nav nav-tabs nav-stacked sidenav affix-top">
+                <ul id='dash_sidenav' class="nav nav-tabs nav-stacked sidenav affix-top">
                     <!-- START User list head -->
                     <li id="list_user_head" class="list_user_head sidenav_head ">
-                        <a class="btn btn-link">
-                             Hi {{request.user.get_full_name}}
+                        <a class="" style='text-align : center;'>
+                             Hi <span id="dashboard_full_name">{{request.user.get_full_name}}</span>
                         </a>
                     </li>
                     <li id="list_user_head" class="list_user_head sidenav_head ">
@@ -29,18 +29,18 @@
                             <i class="icon-chevron-down icon-white"></i> Account information
                         </a>
                     </li>
-                    <li id="list_user_profile" class="list_user_body collapse">
-                        <a href="#" onclick="Dajaxice.users.view_profile(Dajax.process);">
+                    <li id="list_user_profile" class="list_user_body collapse active">
+                        <a href="#" onclick="Dajaxice.users.view_profile(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');" >
                             <i class="icon-chevron-right"></i> Profile Details
                         </a>
                     </li>
                     <li id="list_user_edit" class="list_user_body collapse">
-                        <a href="#" onclick="Dajaxice.users.edit_profile_form(Dajax.process);">
+                        <a href="#" onclick="Dajaxice.users.edit_profile_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
                             <i class="icon-chevron-right"></i> Edit Profile<i class="icon-user icon-white"></i>
                         </a>
                     </li>
                     <li id="list_user_edit" class="list_user_body collapse">
-                        <a href="#" onclick = "Dajaxice.users.change_password_form(Dajax.process);">
+                        <a href="#" onclick = "Dajaxice.users.change_password_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
                             <i class="icon-chevron-right"></i> Change my Password<i class="icon-user icon-white"></i>
                         </a>
                     </li>
@@ -53,24 +53,24 @@
                         </a>
                     </li>
                     <li id="list_events_registered" class="list_events_body collapse">
-                        <a href="#registered_events" onclick = "Dajaxice.users.show_registered_events(Dajax.process);"> 
+                        <a href="#registered_events" onclick = "Dajaxice.users.show_registered_events(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
                             <i class="icon-chevron-right"></i> My Registered Events
                         </a>
                     </li>
                     <li id="list_events_team" class="list_events_body collapse">
-                        <a href="#your_tdp_submissions" onclick = "Dajaxice.users.show_tdp_submissions(Dajax.process);"> 
+                        <a href="#your_tdp_submissions" onclick = "Dajaxice.users.show_tdp_submissions(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
                             <i class="icon-chevron-right"></i> My TDP Submissions
                         </a>
                     </li>
-                    <li id="list_events_team_delete" class="list_events_body collapse">
-                        <a href="#"> 
+                    <li id="list_events_team_class" delete="list_events_body collapse">
+                        <a href="#updates_view" onclick="Dajaxice.users.show_updates(Dajax.process);"> 
                             <i class="icon-chevron-right"></i> Updates(TODO)
                         </a>
                     </li>
                     <!-- END Events list -->
                     <!-- START Submit TDP -- NO LIST -->
                     <li id="list_tdp_submit" class="sidenav_lone">
-                        <a href="#tdp_submit" onclick = "Dajaxice.users.show_registered_tdp_events(Dajax.process);"> 
+                        <a href="#tdp_submit" onclick = "Dajaxice.users.show_registered_tdp_events(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
                             <i class="icon-chevron-right"></i>&nbsp;&nbsp;Submit TDP
                         </a>
                     </li>
@@ -78,7 +78,7 @@
                 </ul>
             </div>
             <div class='right_content span8 pull-right' id="content_dash" style='overflow-y : auto;'>
-                <h4><span>Shaastra ID:<b>{{request.user.get_profile.shaastra_id}}</b></span></h4>
+                <h4><span>Shaastra ID:<b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></span></h4>
             </div>
         </div>
     </div>

@@ -181,6 +181,25 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
     return dajax.json()
 
 @dajaxice_register
+def show_updates(request)
+    dajax = Dajax()
+    return dajax.json()
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        update_list = Update.objects.get(user = profile.user).order_by('')
+        no_regd = len(update_list)
+        now = timezone.now()
+        context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings}
+        html_stuff = render_to_string('dashboard/list_registered.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
+    return dajax.json()
+
+@dajaxice_register
 def show_registered_events(request):
     dajax = Dajax()
 
@@ -388,6 +407,7 @@ def login(request,login_form = None):
                 dajax.script("$('#login_form #id_password').val('');")
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
+                dajax.script("$('#aboutus').hide();")
                 dajax.assign("#dashboard #dashboard_shaastra_id","innerHTML",str(request.user.get_profile().shaastra_id))
                 dajax.assign("#dashboard #dashboard_full_name","innerHTML",str(request.user.get_full_name()))
                 dajax.assign("#login_logout", "innerHTML", "<div class=\"btn-group\">\

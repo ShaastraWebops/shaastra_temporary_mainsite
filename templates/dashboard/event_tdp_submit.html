@@ -21,20 +21,22 @@
                 
             
             <form action="{{settings.SITE_URL}}tdpsubmission" method="post" enctype="multipart/form-data" id="form_tdp_{{teamevent.get_event.id}}">           {% csrf_token %}
-    
+            
                 {% if teamevent.has_submitted_tdp %}
                     <span>Please submit only in pdf format</span><br/>
 <!--                    <span class="btn btn-inverse btn-mini ">-->
                     {{TDPFileForm.as_table}}
 <!--                    </span>-->
                     <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
-                    <span style="color:red" class="pull-right">Are you sure you want to overwrite your previous submission? <br/>It will be deleted!<br/></span>
-				    <input type="radio" name="yes" value="yes" id="{{teamevent.id}}_sure" class="pull-right"/>
-				    <br/><br/><br/>
+                    <br/>
+                    <label class="control-label">Are you sure you want to overwrite your previous submission? </label>
+				    <input type="radio" name="yes" value="yes" id="{{teamevent.id}}_sure" class="pull-left"/>
+				    <label class="control-label"><br/>&nbsp;&nbsp;&nbsp;&nbsp;It will be deleted!<br/></label><br/>
+				    <br/>
 				    {% comment %}
 <!--				    TODO: check with js the filetype pdf etc-->
 				    {% endcomment %}
-				    <a class='btn btn-primary' onclick = "
+				    <a class='btn btn-primary' href = "#submit_file" onclick = "
                 if($('#form_tdp_{{teamevent.get_event.id}} #id_file_tdp').val()=='')
                 {
                     $.bootstrapGrowl('Please submit a file for submission',{'delay':10000});
@@ -45,6 +47,7 @@
                     if($('#form_tdp_{{teamevent.get_event.id}} #{{teamevent.id}}_sure')[0].checked)
                     {
                         
+                        setTimeout(x=function(){$('#file_progress').css({'width':'80%'});}, 1000);
                         $('#form_tdp_{{teamevent.get_event.id}}').submit();
                     }
                     else{
@@ -52,24 +55,25 @@
                     }
                 }
                 "
-                >Submit {% if teamevent.has_submitted_tdp %} updated{% endif %}TDP for {{teamevent.get_event.title}}</a>
+                >Submit {% if teamevent.has_submitted_tdp %} Updated {% endif %}TDP for {{teamevent.get_event.title}}</a>
                 {% else %}
 <!--                    <span class="btn btn-inverse btn-mini ">-->
                     {{TDPFileForm.as_table}}
 <!--                    </span>-->
                     <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
                 
-                    <a class='btn btn-primary' onclick = "
+                    <a class='btn btn-primary' href = "#submit_file" onclick = "
                 if($('#form_tdp_{{teamevent.get_event.id}} #id_file_tdp').val()=='')
                 {
                     $.bootstrapGrowl('Please submit a file for submission');
                 }
                 else
                 {
-                    $('#form_tdp_{{teamevent.get_event.id}}').submit()
+                    
+                    $('#form_tdp_{{teamevent.get_event.id}}').submit();
                 }
                     "
-                    >Submit {% if teamevent.has_submitted_tdp %} updated{% endif %}TDP for {{teamevent.get_event.title}}</a>
+                    >Submit {% if teamevent.has_submitted_tdp %} Updated {% endif %}TDP for {{teamevent.get_event.title}}</a>
                 {% endif %}
             </form>
                 

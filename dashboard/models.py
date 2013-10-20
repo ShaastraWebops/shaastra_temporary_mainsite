@@ -90,6 +90,7 @@ class Update(models.Model):
     tag     = models.CharField(max_length = 20)
     content = models.CharField(max_length = 200)
     user    = models.ForeignKey(User, related_name = 'userupdates')
+#    time_added = models.DateTimeField(auto_now = True)
     #link    = models.?? on click user goes to where the update relates to
 
 

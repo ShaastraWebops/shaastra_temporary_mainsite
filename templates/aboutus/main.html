@@ -1,6 +1,6 @@
 {% load staticfiles %}
-    <!-- SHOWS SECTION  -->
-        <section id="aboutus" class='sec'>
+    <!-- ABOUT US SECTION  -->
+        <section id="aboutus" class='sec {%if request.user.is_authenticated %} hide {% endif %}'>
             <div class="container">
                 <div class="row">
                     <div class="span12 centered white">
@@ -41,4 +41,4 @@
                 </div>
             </div>
         </section>
-        <!-- END SHOWS SECTION  -->
+        <!-- END ABOUT US SECTION  -->

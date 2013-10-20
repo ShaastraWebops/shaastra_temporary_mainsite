@@ -31,8 +31,8 @@
 }
 
 #dashboard .nav-tabs.nav-stacked.sidenav > li.active > a {
-    background-color: #ccc;
-    color : #000;
+    color : #ffffff;
+    background-color: #6688cc;
 }
 
 #dashboard .nav-tabs.nav-stacked.sidenav > li.active > a:hover {
