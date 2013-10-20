@@ -26,6 +26,10 @@
                     <span>Please submit only in pdf format. Maximum allowed File Size: 2.5 MB</span><br/>
 <!--                    <span class="btn btn-inverse btn-mini ">-->
                     {{TDPFileForm.as_table}}
+                    <center>
+                    <br/>
+                 
+                 </center>
 <!--                    </span>-->
                     <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
                     <br/>
@@ -59,6 +63,7 @@
                 {% else %}
 <!--                    <span class="btn btn-inverse btn-mini ">-->
                     {{TDPFileForm.as_table}}
+                <img src='{{SITE_URL}}static/img/file_loading.gif' style="height: 15%;" class="loading" title="loading..."/id="loading_dash_dajax">
 <!--                    </span>-->
                     <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
                 
