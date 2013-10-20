@@ -100,8 +100,9 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     teamevent.team_name = team_name
     teamevent.save()
     for user in userlist:
-        update.save()
+        
         update = Update(tag='Event registration',content='Added to team: %s in event %s'%(teamevent.team_name,teamevent.get_event().title),user=user)
+        update.save()
     dajax.script('$.bootstrapGrowl("Your team was registered successfully to event %s",{type:"success",delay:30000})'% event.title)
     dajax.script('$.bootstrapGrowl("Your team ID: %s",{type:"success",delay:100000})'% teamevent.team_id)
     dajax.script('$("#event_register").modal("toggle")')
@@ -152,7 +153,10 @@ def register_event_form(request,event_id = None):
                         dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {delay:10000})'% str(team_name))
                         #TODO: close the 
                         return dajax.json()
-                    dajax.script('$.bootstrapGrowl("Note that you need to have a team with atleast %d more members to register", {delay:100000} );'% (event.team_size_min))
+                    if event.team_size_min>1:
+                        dajax.script('$.bootstrapGrowl("Note that you need to have a team with atleast %d more members to register", {delay:100000} );'% (event.team_size_min-1))
+                    else:
+                        dajax.script('$.bootstrapGrowl("You can register alone, or with a maximum of %d teammates", {delay:100000} );'% (event.team_size_max-1))
                     teammates = range(minteam,maxteam)
                     teammates = teammates[:-1]
                     teammates_min = range(minteam)

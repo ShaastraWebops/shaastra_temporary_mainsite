@@ -14,6 +14,7 @@ class TeamEvent(models.Model):
     users       = models.ManyToManyField(User, blank = True, null = True)
     is_active   = models.BooleanField(default = False)
     #permissions = models.ManyToManyField(Permission, blank = True, null = True)
+    #TODO: add time of adding??
     event_id       = models.IntegerField(default=-1)#This will store id of participant event
     def size(self):
         return len(self.users.all())
