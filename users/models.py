@@ -193,7 +193,7 @@ class UserProfile(models.Model):
         return tevlist
         
     def no_regd_events(self):
-        return len(self.get_regd_events)
+        return len(self.get_regd_events())
     
     class Admin:
         pass

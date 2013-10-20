@@ -172,3 +172,4 @@ class TDPFileForm(forms.ModelForm):
 #        from django.forms.widgets import HiddenInput
 #        super(TDPFileForm, self).__init__(*args, **kwargs)
 #        self.fields['teamevent'].widget = HiddenInput()
+

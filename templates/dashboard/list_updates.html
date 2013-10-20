@@ -7,10 +7,9 @@
 {% ifequal no_updates 0 %}
     <span style="color:red">No Updates! Register <a href="#events">here</a> to begin!</span>
 {% endifequal %}
-
 <div class="accordion" id="accordion2" style="height:70%">
 {% for update in updates_list %}
-
+<tr>
   <div class="accordion-group">
     <div class="accordion-heading">
 
@@ -18,14 +17,12 @@
       {{update.tag}}  (click for more details)
     <div id="collapse{{forloop.counter}}" class="accordion-body collapse">
       <div class="accordion-inner">
-        <span>{{update.content}}</span>
+        <span><b>{{update.content}}</b></span>
       </div>
-      
       
     </div>
   </div>
-  
-
+  </tr>
 {% endfor %}
-
+</div>
 </div>

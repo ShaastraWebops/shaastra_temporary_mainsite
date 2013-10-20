@@ -343,21 +343,21 @@ def show_event_tdp(request,teamevent_id=None):
             #dajax.script('$("#event_register").modal("show");')
     return dajax.json()
 
-#@dajaxice_register
-#def add_member(request,shaastra_id=None,teamevent_id = None):
-#    dajax = Dajax()
-#    if shaastra_id is None or teamevent_id is None:
-#        dajax.script('$.bootstrapGrowl("Invalid request", {type:"danger",delay:20000} );')
-#        return dajax.json()
-#    try:
-#        add_profile = UserProfile.objects.get(shaastra_id = shaastra_id)
-#        teamevent  = TeamEvent.objects.get(id = teamevent_id)
-        
-#        return dajax.json()        
-#    except:
-#        dajax.script('$.bootstrapGrowl("Invalid Shaastra ID provided.Please check.", {type:"danger",delay:20000} );')
-#        return dajax.json()
-#        
+@dajaxice_register
+def add_member(request,shaastra_id=None,teamevent_id = None):
+    dajax = Dajax()
+    if shaastra_id is None or teamevent_id is None:
+        dajax.script('$.bootstrapGrowl("Invalid request", {type:"danger",delay:20000} );')
+        return dajax.json()
+    try:
+        add_profile = UserProfile.objects.get(shaastra_id = shaastra_id)
+        teamevent  = TeamEvent.objects.get(id = teamevent_id)
+    except:
+        dajax.script('$.bootstrapGrowl("Invalid Shaastra ID provided.Please check.", {type:"danger",delay:20000} );')
+        return dajax.json()
+    if add_profile in teamevent.get_team():
+        dajax.script('$.bootstrapGrowl("Given Member is already in your team!", {type:"danger",delay:20000} );')
+        return dajax.json()
         
 #        align:"center",width:"auto"
 
