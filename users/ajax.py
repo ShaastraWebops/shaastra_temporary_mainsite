@@ -180,24 +180,6 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
         print
     return dajax.json()
 
-@dajaxice_register
-def show_updates(request)
-    dajax = Dajax()
-    return dajax.json()
-    if not request.user.is_authenticated():
-        dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
-        return dajax.json()
-    else:
-        profile = UserProfile.objects.get(user=request.user)
-        update_list = Update.objects.get(user = profile.user).order_by('')
-        no_regd = len(update_list)
-        now = timezone.now()
-        context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings}
-        html_stuff = render_to_string('dashboard/list_registered.html',context_dict,RequestContext(request))
-        if html_stuff:
-            dajax.assign('#content_dash','innerHTML',html_stuff)
-            #dajax.script('$("#event_register").modal("show");')
-    return dajax.json()
 
 @dajaxice_register
 def show_registered_events(request):
@@ -537,6 +519,9 @@ def forgot_password(request,email=None):
             profile = UserProfile.objects.get(user__email = str(email))
             email = profile.user.email
             user = profile.user
+            if not profile.user.is_active:
+                dajax.script('$.bootstrapGrowl("Activate your account first! Check your mail for the activation link." , {type:"error",delay:20000} );')
+                return dajax.json()
             mail_template = get_template('email/forgot_password.html')
             body = mail_template.render( Context( {
                     'username':user.username,
