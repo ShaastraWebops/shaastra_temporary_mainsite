@@ -6,33 +6,33 @@
 
 <center overflow-y : auto;'>
 <table id="display_profile_table"  class="table " >
-<tr><th>Shaastra ID::  </th>
+<tr><th>Shaastra ID:  </th>
 <td><span>{{profile.shaastra_id}}</span></td></tr>
 
-<tr><th>First Name::  </th>
+<tr><th>First Name:  </th>
 <td><span>{{profile.user.first_name}}</span></td></tr>
 
 <tr>
-<th>Last Name::  </th>
+<th>Last Name:  </th>
 <td><span>{{profile.user.last_name}}</span></td>
 </tr>
 
-<tr><th>Age::  </th>
+<tr><th>Age:  </th>
 <td><span>{{profile.age}}</span></td>
 </tr>
 
 <tr>
-<th>Mobile Number::  </th>
+<th>Mobile Number:  </th>
 <td><span>{{profile.mobile_number}}</span></td>
 </tr>
 
-<tr><th>Branch::  </th>
+<tr><th>Branch:  </th>
 <td><span>{{profile.branch}}</span></td></tr>
 
-<tr><th>College::  </th>
+<tr><th>College:  </th>
 <td><span>{{profile.college}}</span></td></tr>
 
-<tr><th> College Roll::  </th>
+<tr><th> College Roll:  </th>
 <td><span>{{profile.college_roll}}</span></td></tr>
 
 </table>
@@ -42,11 +42,11 @@
     <table class="table" id="profile_edit_table">
     {{edit_profile_form.as_table}}
     <tr>
-    <th>First Name::  </th>
+    <th>First Name:  </th>
     <td><input type="text" value={{request.user.first_name}} id="profile_edit_first"/></td>
     </tr>
     <tr>
-    <th>Last Name::  </th>
+    <th>Last Name:  </th>
     <td><input type="text" value={{request.user.last_name}} id="profile_edit_last"/><br/></td>
     </tr>
     </table>
