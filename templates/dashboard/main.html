@@ -87,17 +87,17 @@
                 </ul>
             </div>
             <div class='right_content span8 pull-right' id="content_dash" style='overflow-y : auto;'>
-                {% with no_registered = request.user.get_profile.no_regd_events%}
+                
                 <h3>Welcome {{request.user.username}},</h3>
                 <h4><span>Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h4></span>
                 {% if request.user.is_authenticated %}
                             
-                You have registered for {% if no_registered > 0 %}
-                <span class="badge badge-success">{{no_registered}}</span> event{{no_registered|pluralize}}. Click <a href="#events"><u>here</u></a> for more!
+                You have registered for {% if request.user.get_profile.no_regd_events > 0 %}
+                <span class="badge badge-success">{{request.user.get_profile.no_regd_events}}</span> event{{request.user.get_profile.no_regd_events|pluralize}}. Click <a href="#events"><u>here</u></a> for more!
                 {% else %}
                 <span class="badge">0</span> events! Click <a href="#events">here</a> to begin!{% endif %}
                 <br/><br/>
-                {% endwith %}
+                
                 <span>Submit your TDP from the option on your sidebar</span>
                 <!--<br/>-->
                 <!--<span>We have some events recommended for you!!</span>-->
