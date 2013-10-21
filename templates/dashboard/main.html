@@ -88,6 +88,7 @@
             </div>
             <div class='right_content span8 pull-right' id="content_dash" style='overflow-y : auto;'>
                 {% with no_registered = request.user.get_profile.no_regd_events%}
+                <h3>Welcome {{request.user.username}},</h3>
                 <h4><span>Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h4></span>
                 {% if request.user.is_authenticated %}
                             
