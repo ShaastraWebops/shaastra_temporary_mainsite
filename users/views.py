@@ -69,7 +69,7 @@ def forgot_password(request,password_key = None):
         reset_password_form = ResetPasswordForm(request.POST)
         success=True
         if reset_password_form.is_valid() and request.POST.has_key('user'):
-            profile = UserProfile.objects.get(username__user=request.POST['user'])
+            profile = UserProfile.objects.get(user__username=request.POST['user'])
             password = reset_password_form.cleaned_data['password']
             profile.user.set_password(password)
             profile.save()
