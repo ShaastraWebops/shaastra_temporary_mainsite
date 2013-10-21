@@ -7,6 +7,9 @@
 </center>
 
 {% if event.registrable_online %}
+{% ifequal event.category 'Workshops' %}
+{% else %}
+
     <a onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_pk}}});"
         class='btn btn-danger' style='z-index : 100; position : absolute; top : 90%; left : 40%'>
         <b>&nbsp;&nbsp;&nbsp;&nbsp;Register for this event!&nbsp;&nbsp;&nbsp;&nbsp;</b>
@@ -19,6 +22,7 @@
     <!--part to say wait etc...-->
 <!--{% endif %}-->
     {% endcomment %}
+{% endifequal %}
 {% endif %}
 
 <div id="sidr" class="sidr span3">
