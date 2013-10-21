@@ -441,7 +441,7 @@ def login(request,login_form = None):
                 if html_stuff:
                     dajax.assign('#content_dash','innerHTML',html_stuff)
 #                dajax.script('$(\"#list_user_head a\").click();')
-#                dajax.script('$(\"#list_events_head a\").click();')                
+                dajax.script('$(\"#list_events_head a\").click();')
                 
 #                dajax.script("javascript:do_accordion('list_user')")
                 
