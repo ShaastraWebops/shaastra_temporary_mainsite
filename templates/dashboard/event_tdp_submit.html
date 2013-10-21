@@ -23,7 +23,7 @@
             <form action="{{settings.SITE_URL}}tdpsubmission" method="post" enctype="multipart/form-data" id="form_tdp_{{teamevent.get_event.id}}">           {% csrf_token %}
             
                 {% if teamevent.has_submitted_tdp %}
-                    <span>Please submit only in pdf format. Maximum allowed File Size: 2.5 MB</span><br/>
+                    <span>Please submit only in pdf format. Maximum allowed File Size: 5 MB</span><br/>
 <!--                    <span class="btn btn-inverse btn-mini ">-->
                     {{TDPFileForm.as_table}}
                     <center>
