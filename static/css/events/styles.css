@@ -151,7 +151,8 @@
     vertical-align : center;
     padding : 0;
     margin : 0;
-    
+}
+.NOTREQURIEDmain_event_item.event_item > div > div:nth-child(1) {    
     text-align: center;
     vertical-align: middle;
     /* fallback for non-Flexbox browsers */
