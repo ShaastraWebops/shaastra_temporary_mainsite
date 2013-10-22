@@ -43,7 +43,6 @@ def home(request):
 #        pass
     msg_file_upload = request.session.get('file_upload','')
     MEDIA_URL = settings.MEDIA_URL
-    print MEDIA_URL, " <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
 
 #@login_required

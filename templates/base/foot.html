@@ -165,6 +165,9 @@
     }
   $("#form_registration #id_branch" ).width($("#form_registration #id_age").width());
   $(".loading").hide();
+  {% if  msg_file_upload %}
+  $("#dashboard #list_tdp_submit a").click();
+  {% endif %}
   
   $("#form_registration #id_gender" ).width($("#form_registration #id_age").width());
   $("#icon_user").height($("#login_form #id_username").height())
