@@ -33,8 +33,9 @@
 <!--                    </span>-->
                     <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
                     <br/>
+                    <input type="radio" name="yes" value="yes" id="{{teamevent.id}}_sure" class="pull-left"/>
+				    
                     <label class="control-label">Are you sure you want to overwrite your previous submission? </label>
-				    <input type="radio" name="yes" value="yes" id="{{teamevent.id}}_sure" class="pull-left"/>
 				    <label class="control-label"><br/>&nbsp;&nbsp;&nbsp;&nbsp;It will be deleted!<br/></label><br/>
 				    <br/>
 				    {% comment %}
