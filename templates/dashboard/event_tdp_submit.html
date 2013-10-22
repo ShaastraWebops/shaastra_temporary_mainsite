@@ -16,7 +16,7 @@
 <!--                    <h4><span>Your submissions:</span></h4>-->
                     
                 {% for tdp in teamevent.get_tdp %}
-                <h4><a href = "/{{settings.MEDIA_URL}}/{{tdp.get_tdp_file.name}}" target="_blank" >Download</a> Latest Submission :Team {{teamevent.team_name}}</h4>
+                <h4><a href = "{{settings.MEDIA_URL}}/{{tdp.get_tdp_file.name}}" target="_blank" >Download</a> Latest Submission :Team {{teamevent.team_name}}</h4>
                 {% endfor %}
                 
             
