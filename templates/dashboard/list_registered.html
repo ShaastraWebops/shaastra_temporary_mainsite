@@ -2,10 +2,10 @@
 	<span id='show_events_regd_title'>{% if title_tdp %}{{title_tdp}}{% else %}Your registered events{% endif %}</span>
 	&nbsp;
 </h3>
-<h5>If you have not registered for the event yet, Please register for the event <a href="#events">here</a></h5>
+<h5>If you have not registered for the event yet, Please register for the event <a href="#events"><u>here</u></a></h5>
 
 {% ifequal no_regd 0 %}
-    <span style="color:red">No events registered, click <a href="#events">here</a> to register for events</span>
+    <p class="text-muted"><span>No events registered, click <a href="#events"><u>here</u></a> to register for events</span></p>
 {% endifequal %}
 
 <div class="accordion" id="accordion2">

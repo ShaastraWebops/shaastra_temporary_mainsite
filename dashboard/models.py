@@ -95,15 +95,16 @@ class Update(models.Model):
     #link    = models.?? on click user goes to where the update relates to
 
 
-ALLOWED_FILETYPE = ['doc','pdf','odt','txt','docx']
+#ALLOWED_FILETYPE = ['doc','pdf','odt','txt','docx']
+ALLOWED_FILETYPE = ['pdf']
 def tdp_upload_handler(self,filename):
 #    time =  strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime()).replace(" ",'_')
     time = str(timezone.now().date())
     fname = str(filename).split('.')[-1]
     if (fname.split('.')[-1] not in ALLOWED_FILETYPE):
         raise forms.ValidationError("TDP Upload Failed, Use Please only Allowed File Types.")
-    if self.file_tdp.size > 5242880:
-        raise forms.ValidationError("Maximum File Upload Size is 2.5MB Exceeded. Given Size: %s"% str(self.file_tdp.size/100000))
+    if self.file_tdp.size > 5300000:
+        raise forms.ValidationError("Maximum File Upload Size is 5MB Exceeded. Given Size: %s MB"% str(self.file_tdp.size*1.0/(1024*1024))[:4])
     #randstr: 5 letter random string to prevent hacking of other team submissions
     randstr = sha.new(str(random.random())).hexdigest()[:5]
     url = 'tdpsubmissions/%s/%s_%s_%s_.%s'%(self.teamevent.get_event().title,self.teamevent.team_id,time,randstr,fname.split('.')[-1])
