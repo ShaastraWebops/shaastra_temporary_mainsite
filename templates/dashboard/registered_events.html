@@ -5,7 +5,7 @@
 
 
 {% ifequal no_regd 0 %}
-    <span style="color:red">No events registered, click <a href="/#events">here</a> to register for events</span>
+    <p class="text-muted"><span>No events registered, click <a href="/#events"><u>here</u></a> to register for events</span></p>
 {% endifequal %}
 {% for teamevent in team_event_list %}
 <li>
@@ -19,8 +19,8 @@
         Your team:
         {% for profile_team in teamevent.get_team %}
             {% ifequal profile.user request.user%}
-            <li style = "color:'red'">ID:{{profile_team.shaastra_id}}</li>
-            <li style = "color:'red'" >Username:{{profile_team.user.username}}</li>
+            <li><b>ID:{{profile_team.shaastra_id}}</b></li>
+            <li><b>Username:{{profile_team.user.username}}</b></li>
             
             {% else %}
             <li>ID:{{profile_team.shaastra_id}}</li>

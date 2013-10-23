@@ -228,7 +228,7 @@ def show_registered_events(request):
         if str(msg_file_upload).startswith('TDP Upload Successful'):
             dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
         else:
-            dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
+            dajax.script('$.bootstrapGrowl("FileUpload Error: %s\'", {type:"danger",delay:20000} );'% msg_file_upload)
     return dajax.json()
 
 @dajaxice_register
