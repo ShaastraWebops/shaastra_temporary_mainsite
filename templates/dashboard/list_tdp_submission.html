@@ -25,6 +25,7 @@
         {% endif %}
         
            {% if not teamevent.has_submitted_tdp %}
+           <span class="pull-left"><b>TDP not submitted!</b></span>
                 {% if teamevent.get_event.days_left > 0 %}
                     <span class="label label-warning pull-right">{{teamevent.get_event.days_left}} days left!</span>
                 {% else %}
