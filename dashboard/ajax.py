@@ -39,6 +39,9 @@ import datetime
 from models import TeamEvent,Update,has_team
 from users.models import *
 
+
+
+
 @dajaxice_register
 def register_event(request,event_id=None,team_name=None,**kwargs):
     dajax=Dajax()
@@ -127,8 +130,13 @@ def register_event_form(request,event_id = None):
             erp_db = DATABASES.keys()[1]
             event = ParticipantEvent.objects.using(erp_db).get(id=event_id)
             if not request.user.is_authenticated():
-                dajax.script('$.bootstrapGrowl("Please Login to register!", {delay:10000} );')
-                dajax.script('$("#login").modal();')
+                dajax.script('$.bootstrapGrowl("Please Login to register!", {delay:10000,ele:"#events",width:"auto"} );')
+                dajax.script('$.bootstrapGrowl("Please Login to register for the event!", {delay:10000,type:"danger",ele:"body",width:"auto",offset:{from:"top",amount:10},aligh:"center"} );')
+                html_stuff = render_to_string('dashboard/event_regd_message.html',{},RequestContext(request))
+                dajax.assign('#FormRegd','innerHTML',html_stuff)
+                dajax.script('$("#event_register").modal();')
+
+                #dajax.script('$("#login").modal();')
                 return dajax.json()
             user = request.user
         except:

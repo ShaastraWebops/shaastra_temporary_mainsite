@@ -23,7 +23,7 @@ urlpatterns = patterns(
     url(r'^logout/$', 'users.views.logout', name='logout'),
 	#url(r'^$', redirect_to, {'url': '/user/login/'}),
     #url(r'^user/(?P<username>\w+)/$', 'users.views.myprofileview', name="detail_profile"),
-    url(r'^profile/(?P<username>\w+)/$', 'users.views.myprofileview',name='myprofileview'),
+    #url(r'^profile/(?P<username>\w+)/$', 'users.views.myprofileview',name='myprofileview'),
     #url(r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('misc.dajaxice.urls')),
     #url(r'^jayanth/$', 'users.views.myprofileview'),
     

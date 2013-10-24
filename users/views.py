@@ -48,9 +48,12 @@ def submit_tdp(request):
 #    if 1:
         tdp.save()
         request.session['file_upload'] = 'TDP Upload Successful for %s!'% tdp.teamevent.get_event().title
-        msg_success = 'Your TDP for %s was successfully submitted!' % tdp.teamevent.get_event().title
-        update = Update(tag = 'TDP Submission',content = '',user = request.user)
-        update.save()
+        msg_success = 'Team %s,Your TDP for %s was successfully submitted!' % (tdp.teamevent.team_name,tdp.teamevent.get_event().title)
+        try:
+            update = Update(tag = 'TDP Submission',content = msg_success,user = request.user)
+            update.save()
+        except:
+            pass
     except ValidationError as e:
         errors=str(e)
         errors=errors[2:]
