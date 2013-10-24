@@ -5,7 +5,7 @@
 <h5>If you have not registered for the event yet, Please register for the event <a href="#events">here</a></h5>
 
 {% ifequal no_regd 0 %}
-    <span style="color:red">No submissions made click <a href="#events" onclick = "Dajaxice.users.show_registered_tdp_events(Dajax.process);">here</a> to submit your TDP</span>
+    <p class="text-muted"><span>No submissions made click <a href="#events" onclick = "Dajaxice.users.show_registered_tdp_events(Dajax.process);"><u>here</u></a> to submit your TDP</span></p>
 {% endifequal %}
 
 <div class="accordion" id="accordion2">
@@ -15,7 +15,7 @@
     <div class="accordion-heading">
 
   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{forloop.counter}}">
-      {{teamevent.get_event.title}}(click for Team Details)
+      {{teamevent.get_event.title}}(click for Team Details){% if not teamevent.has_submitted_tdp %}&nbsp;&nbsp;&nbsp;<span><b>TDP not submitted!</b></span>{% endif %}
       
    {% if teamevent.get_event.has_tdp %}
     {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
@@ -25,6 +25,7 @@
         {% endif %}
         
            {% if not teamevent.has_submitted_tdp %}
+           
                 {% if teamevent.get_event.days_left > 0 %}
                     <span class="label label-warning pull-right">{{teamevent.get_event.days_left}} days left!</span>
                 {% else %}

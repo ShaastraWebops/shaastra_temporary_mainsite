@@ -5,7 +5,7 @@
 <h5>If you have not registered for the event yet, Please register for the event <a href="#events">here</a></h5>
 
 {% ifequal no_updates 0 %}
-    <span style="color:red">No Updates! Register <a href="#events">here</a> to begin!</span>
+    <p class="text-muted"><span>No Updates! Register <a href="#events"><u>here</u></a> to begin!</span></p>
 {% endifequal %}
 <div class="accordion" id="accordion2" style="height:70%">
 {% for update in updates_list %}
