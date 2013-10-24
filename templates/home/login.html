@@ -11,7 +11,7 @@
             </h3>
         </div>
         <div class="modal-body login_register">
-            <div class='span4 form_login_div' style="padding-right: 0%; border-right: 3px solid #ccc; ">
+            <div class='span4 form_login_div' style="padding-right: 0%; border-right: 1px solid #ccc; ">
                 {% if form.errors %}
                 <p style="color: red;">
                 Please correct the error{{ form.errors|pluralize }} below.
@@ -34,11 +34,27 @@
                 </div>
 <!--                    {{ form.as_table }}-->
                 </form>
+                
+                
                 <div id="login_error"></div>
-                <div id="forgot_password"><a onclick="$('#forgot_form').toggle();" style="cursor:pointer;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Forgot your password?</a></div>
-                <div style="overflow-y : auto; height:160px">
-                <div class="well">
+                <div id="forgot_password"><a onclick="$('#forgot_form').toggle();
+                if ($('#regd_instruction').height() > 130 ){
+                $('#regd_instruction').height($('#regd_instruction').height()-60);
+                }
+                else{
+                $('#regd_instruction').height($('#regd_instruction').height()+60);
+                }
+                " style="cursor:pointer;">
+                Forgot your password?</a></div>
+                
+                <div id="forgot_form" style="display:none">
+                    <input type="text" maxlength="70" value placeholder="Enter your registered email-id" id="forgot_form_email">
+                    <button class="btn btn-primary" onclick ="Dajaxice.users.forgot_password(Dajax.process, {'email':$('#forgot_form_email').val()});" > Request for a new password</button>
 
+                </div>
+
+                <div style="overflow-y : auto; height:160px" id="regd_instruction">
+                <div class="well">
                 <p class="text-left">
                 If you do not have a Shaastra ID Please sign up using the form to the right.<br/>
                 Please take note, obtaining a Shaastra ID does <b>not</b> register you for any event.
@@ -46,22 +62,16 @@
                 </p>
                 </div>
                 </div>
-
-                <div id="forgot_form" style="display:none">
-                    <input type="text" maxlength="70" value placeholder="Enter your registered email-id" id="forgot_form_email">
-                    <button class="btn btn-primary" onclick ="Dajaxice.users.forgot_password(Dajax.process, {'email':$('#forgot_form_email').val()});" > Request for a new password</button>
-                </div>
-                            </div>
-
+            </div>
             <div class='span5 offset form_registration_div' style="padding-left: 35%;">
                 <form id='form_registration' method="post" action="" >
                     {% csrf_token %}
                     <table class='span5'>
                         <tr>
                             <th>First Name</th>
-                            <td>{{ form_registration.first_name }}</td>
+                            <td >{{ form_registration.first_name }}</td>
                             <th>Last Name</th>
-                            <td>{{ form_registration.last_name }}</td>
+                            <td >{{ form_registration.last_name }}</td>
                         </tr>
                         <tr>
                             <th>User Name</th>
