@@ -422,6 +422,7 @@ def login(request,login_form = None):
                 profile = UserProfile.objects.get(user=request.user)
                 context_dash_dict = {'profile':profile,'settings':settings}
                 html_stuff = render_to_string('dashboard/profile_view.html',context_dash_dict,RequestContext(request))
+                dajax.script("window.location.href=\"\";")
                 if html_stuff:
                     dajax.assign('#content_dash','innerHTML',html_stuff)
 #                dajax.script('$(\"#list_user_head a\").click();')
