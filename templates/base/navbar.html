@@ -18,12 +18,7 @@
                                     <a href="#login" onclick="$('#login').modal();">Login | Sign Up </a>
                                 {% else %}
                                 <div class='btn-group'>
-                                    <button href="" class='btn' onclick ="window.location.replace('#dashboard');$('#dropdown_account_options').toggle();"><i class='icon-user icon-white'></i> {{request.user.username}}'s Account&nbsp;&nbsp;<span class="caret"></span></button>
-                                    <ul class='dropdown-menu' id='dropdown_account_options' style='display:none'>
-                                        <li><a href='#dashboard' onclick = "$('#dropdown_account_options').toggle()" id="dropdown_goto_dash"><i class='icon-pencil'></i> Go To My Dashboard</a></li><br/>
-                                        <li><a href='javascript:void(0)' onclick = "window.location.replace('#dashboard');$('#dropdown_account_options').toggle();Dajaxice.users.show_registered_tdp_events(Dajax.process);"><i class='icon-pencil'></i> Submit TDP!</a></li><br/>
-                                        <li><a href='#events' onclick = 'Dajaxice.users.logout(Dajax.process)'><i class='icon-trash'></i> Logout</a></li>
-                                    </ul>
+                                    <button class='btn' onclick ="window.location.replace('#dashboard');$('#dropdown_account_options').toggle();"><i class='icon-user icon-white'></i>&nbsp;My Dashboard&nbsp;&nbsp;</button>
                                 </div>
        
                                 {% endif %}
@@ -42,7 +37,7 @@
                     <marquee width='100%' style='font-weight : 900;' onmouseover="this.stop();" onmouseout="this.start();">
                         <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
                         Details of Finance and Consulting under Online Events is up! You can participate now! <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
-                        Guidelines for registration can be found <a href='{{ MEDIA_URL }}shaastra_guidelines.pdf'>here</a> <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
+                        Guidelines for event registration can be found <a href='{{ MEDIA_URL }}shaastra_guidelines.pdf'>here</a> <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
                         Guidelines for accommodation will be up soon <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
                         Problem statements for all the pre-registered events are up <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
                         The deadline for the first round of TDP submission is 26th October <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
