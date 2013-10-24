@@ -77,7 +77,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-MEDIA_URL = 'media'
+MEDIA_URL = 'media/'
 
 ROOT_URLCONF = 'mainsite_2014.urls'
 
