@@ -1,0 +1,25 @@
+    <h4>Welcome {{request.user.username}},</h4>
+                <h4><span>Your Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h4></span>
+                {% if request.user.is_authenticated %}
+                            
+                You have registered for {% if request.user.get_profile.no_regd_events > 0 %}
+                <span class="badge badge-success">{{request.user.get_profile.no_regd_events}}</span> event{{request.user.get_profile.no_regd_events|pluralize}}. Click <a href="#events"><u>here</u></a> for more!
+                {% else %}
+                <span class="badge">0</span> events! Click <a href="#events">here</a> to begin!{% endif %}
+                <br/><br/>
+                <p>Please take note, obtaining a Shaastra ID does not register you for any event.<br/>
+                 You are required to fill in the registration form in the individual event's page for the same</p>
+                <span>Submit your TDP from the option on your sidebar</span>
+                <!--<br/>-->
+                <!--<span>We have some events recommended for you!!</span>-->
+                <!--<ul>-->
+                <!--{% for event in reco_events %}-->
+                <!--<li>{{event.title}}</li>-->
+                <!--{% endfor %}-->
+                <!--</ul>-->
+                <!--{% comment %}-->
+                <!--TODO: if he clicks any event, the page will open-->
+                <!--TODO: userprofile.get_reco_events-->
+                <!--{% endcomment %}-->
+                {% endif %}                
+             

@@ -6,33 +6,45 @@
             <button type="button" class="close" data-dismiss='modal'>&times;</button>
             <h3 style='width : 100%;'>
                 <span style='position:absolute; left : 17%; display : inline-block;'>Login</span>
-                <span style='position:absolute; right : 24%;display : inline-block;'>Sign Up</span>
+                <span style='position:absolute; right : 30%;display : inline-block;'>Sign Up</span>
                 &nbsp;
             </h3>
         </div>
         <div class="modal-body login_register">
-            <div class='span4 form_login_div' style="padding-right: 0%; border-right: 1px solid #ccc; ">
+            <div class='span4 form_login_div' style="padding-right: 0%; border-right: 3px solid #ccc; ">
                 {% if form.errors %}
                 <p style="color: red;">
                 Please correct the error{{ form.errors|pluralize }} below.
                 </p>
                 {% endif %}
                 <form action="" method="post" id="login_form">{% csrf_token %}
-                    {{ form.as_table }}
-                    <tr class='submit_tr'>
-                        <td colspan="2">
-                            <input id="login_form_submit" type="button" onclick="user_login();" value="        Login        " class="btn btn-primary"/>
-                        </td>
-                        <img src='{{SITE_URL}}static/img/loading.gif' style="height:25;" id="gif_login" class="loading" title="loading..."/>
-                    </tr>
+                
+                <div class="container-fluid pull-left">
+                      <div class="row-fluid">
+                        <div class="span9" style="display:inline-block">
+                          <!--Sidebar content-->
+                          {{form.as_table}}
+                        </div>
+                        <div class="span2 pull-right">
+                          <!--Body content-->
+                          <br/><br/><br/>
+                          <input id="login_form_submit" type="button" onclick="user_login();" value="Login" class="btn "/>
+                        </div>
+                      </div>
+                </div>
+<!--                    {{ form.as_table }}-->
                 </form>
                 <div id="login_error"></div>
-                <div id="forgot_password"><a onclick="$('#forgot_form').toggle();" style="cursor:pointer;">Forgot your password?</a></div>
-                <div class="well pull-left">
-                <span>
+                <div id="forgot_password"><a onclick="$('#forgot_form').toggle();" style="cursor:pointer;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Forgot your password?</a></div>
+                <div style="overflow-y : auto; height:160px">
+                <div class="well">
+
+                <p class="text-left">
                 If you do not have a Shaastra ID Please sign up using the form to the right.<br/>
-                Please take note, obtaining a Shaastra ID does <b>not</b> register you for any event.<br/>
-                You are required to fill in the registration form in the individual event's page for this</span>
+                Please take note, obtaining a Shaastra ID does <b>not</b> register you for any event.
+                You are required to fill in the registration form in the individual event's page for the same
+                </p>
+                </div>
                 </div>
 
                 <div id="forgot_form" style="display:none">
@@ -42,7 +54,7 @@
                             </div>
 
             <div class='span5 offset form_registration_div' style="padding-left: 35%;">
-                <form id='form_registration' method="post" action="">
+                <form id='form_registration' method="post" action="" >
                     {% csrf_token %}
                     <table class='span5'>
                         <tr>
@@ -104,7 +116,7 @@
                         </tr>
                         <tr>
                             <td colspan='4' class='centered'>
-                                <input  id="form_registration_submit" type="button" onclick="submit_registration();" value="        Register        " class="btn btn-primary"/>
+                                <input  id="form_registration_submit" type="button" onclick="submit_registration();" value="        Sign Up        " class="btn btn-primary"/>
                                 <img src='{{SITE_URL}}static/img/loading.gif' style="height:25" id="gif_registration" class="loading" title="loading..." />
                             </td>
                         </tr>

@@ -21,7 +21,7 @@
                 <ul id='dash_sidenav' class="nav nav-tabs nav-stacked sidenav affix-top">
                     <!-- START User list head -->
                     <li id="list_user_welcome_head" class="list_user_head sidenav_head ">
-                        <a class="" style='text-align : center;'>
+                        <a class="btn-btn-link" style='text-align : center;cursor:pointer' onclick="Dajaxice.users.welcome(Dajax.process);">
                              Hi <span id="dashboard_full_name">{{request.user.get_full_name}}</span>
                         </a>
                     </li>
@@ -55,7 +55,7 @@
                     </li>
                     <li id="list_events_registered" class="list_events_body collapse">
                         <a href="#registered_events" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.show_registered_events(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
-                            <i class="icon-chevron-right"></i> My Registered Events
+                            <i class="icon-chevron-right"></i> My Event Registrations
                         </a>
                     </li>
                     <li id="list_events_team" class="list_events_body collapse">
@@ -77,7 +77,7 @@
                     </li>
                     <li class="sidenav_lone">
                         <button class="btn btn-inverse" style="width:100%" onclick = "Dajaxice.users.logout(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
-                            </i>&nbsp;&nbsp;Logout
+                            </i><span><b>&nbsp;&nbsp;Logout</b></span>
                         </button>
                     </li>
                     
@@ -95,7 +95,7 @@
             <div class='right_content span8 pull-right' id="content_dash" style='overflow-y : auto;'>
                 
                 <h4>Welcome {{request.user.username}},</h4>
-                <h4><span>Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h4></span>
+                <h5><span>Your Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h5></span>
                 {% if request.user.is_authenticated %}
                             
                 You have registered for {% if request.user.get_profile.no_regd_events > 0 %}
@@ -103,7 +103,8 @@
                 {% else %}
                 <span class="badge">0</span> events! Click <a href="#events">here</a> to begin!{% endif %}
                 <br/><br/>
-                
+                <p>Please take note, obtaining a Shaastra ID does not register you for any event.<br/>
+                 You are required to fill in the registration form in the individual event's page for the same</p>
                 <span>Submit your TDP from the option on your sidebar</span>
                 <!--<br/>-->
                 <!--<span>We have some events recommended for you!!</span>-->

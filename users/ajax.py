@@ -164,8 +164,15 @@ def view_profile(request):
 
     return dajax.json()
 
-
-
+@dajaxice_register
+def welcome(request):
+    dajax = Dajax()
+    html_stuff = render_to_string('dashboard/welcome.html',{},RequestContext(request))
+    if html_stuff:
+        dajax.assign('#content_dash','innerHTML',html_stuff)
+    return dajax.json()
+    
+    
 @dajaxice_register
 def submit_tdp(request,teamevent_id = None,file_tdp=None):
     dajax = Dajax()
