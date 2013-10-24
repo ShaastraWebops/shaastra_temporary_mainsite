@@ -26,21 +26,21 @@
                         </a>
                     </li>
                     <li id="list_user_head" class="list_user_head sidenav_head ">
-                        <a href = "#_account_actions" onclick="$('#list_events_head').collapse();javascript:do_accordion('list_user')" style='cursor : pointer;'>
+                        <a href = "#_account_actions" onclick="javascript:do_accordion('list_user');javascript:do_accordion('list_events')" style='cursor : pointer;'>
                             <i class="icon-chevron-down icon-white"></i> Account information
                         </a>
                     </li>
-                    <li id="list_user_profile" class="list_user_body collapse active">
+                    <li id="list_user_profile" class="list_user_body active">
                         <a href="#" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.users.view_profile(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');" >
                             <i class="icon-chevron-right"></i> Profile Details
                         </a>
                     </li>
-                    <li id="list_user_edit" class="list_user_body collapse">
+                    <li id="list_user_edit" class="list_user_body">
                         <a href="#" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.users.edit_profile_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
                             <i class="icon-chevron-right"></i> Edit Profile&nbsp;&nbsp;<i class="icon-user icon-white"></i>
                         </a>
                     </li>
-                    <li id="list_user_edit" class="list_user_body collapse">
+                    <li id="list_user_edit" class="list_user_body">
                         <a href="#" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.change_password_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
                             <i class="icon-chevron-right"></i> Change my Password&nbsp;&nbsp;<i class="icon-user icon-white"></i>
                         </a>
@@ -49,7 +49,7 @@
                     <!-- END User list -->
                     <!-- START Events list head -->
                     <li id="list_events_head" class="list_events_head sidenav_head ">
-                        <a href="#_options_events" onclick="javascript:do_accordion('list_events')" style='cursor : pointer;'> 
+                        <a href="#_options_events" onclick="javascript:do_accordion('list_user');javascript:do_accordion('list_events')" style='cursor : pointer;'> 
                             <i class="icon-chevron-down icon-white"></i> My Events
                         </a>
                     </li>
@@ -75,6 +75,12 @@
                             <i class="icon-chevron-right"></i>&nbsp;&nbsp;Submit TDP
                         </a>
                     </li>
+                    <li class="sidenav_lone">
+                        <button class="btn btn-inverse" style="width:100%" onclick = "Dajaxice.users.logout(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
+                            </i>&nbsp;&nbsp;Logout
+                        </button>
+                    </li>
+                    
                     <br/>
                     <!-- END Submit TDP -->
                     <li>

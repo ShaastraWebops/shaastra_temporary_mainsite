@@ -178,9 +178,6 @@
   {% endwith %}
   
   $("#form_registration #id_gender" ).width($("#form_registration #id_age").width());
-  $("#icon_user").height($("#login_form #id_username").height())
-  $("#icon_lock").height($("#login_form #id_password").height())
-
   $("#login_form input").keypress(function(event) {
             if (event.which == 13) {
                 event.preventDefault();
