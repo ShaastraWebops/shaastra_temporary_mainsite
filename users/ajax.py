@@ -434,7 +434,7 @@ def login(request,login_form = None):
                 dajax.assign("#dashboard #dashboard_full_name","innerHTML",str(request.user.get_full_name()))
                 dajax.assign("#login_logout", "innerHTML",'<div class="btn-group">\
                 <button class="btn" onclick ="window.location.replace(\'#dashboard\');\
-                $("#dropdown_account_options").toggle();"><i class="icon-user icon-white"></i>My Dashboard&nbsp;&nbsp;\
+                "><i class="icon-user icon-white"></i>My Dashboard&nbsp;&nbsp;\
                 </button></div>')
                 dajax.remove_css_class("#dashboard","hide hidden")
                 #display logout| edit profile on navbar
