@@ -28,3 +28,15 @@
     color : #fff;
     padding-left : 30px;
 }
+
+#spons_2013_content {
+    height : 70%;
+    overflow-y : auto;
+    overflow-x : hidden;
+}
+#spons_2013_content > div {
+    text-align : center;
+}
+#spons_2013_content > div > a {
+    padding : 5%;
+}
