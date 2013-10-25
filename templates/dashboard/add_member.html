@@ -1,0 +1,11 @@
+{% load staticfiles %}
+<h3 style='width : 100%;'>
+	<span style='left : 25%; display : inline-block;'>Team Member Add to Team {{teamevent.team_name}} for Event {{teamevent.get_event.title}}</span><br/>
+	
+</h3>
+
+<form action="" class="form-horizontal" method="POST"> {% csrf_token %}
+    <label for="add_member_shaastra_id">Enter Shaastra ID:</label>
+    <input type="text" value="" placeholder="Shaastra ID of required new member"/ id="new_member_shaastra_id">
+    <a class="btn btn-info" onclick="Dajaxice.dashboard.add_member(Dajax.process,{'shaastra_id':$('#new_member_shaastra_id').val(),'teamevent_id':{{teamevent.id}}})">Add member to team!</a>
+</form>
