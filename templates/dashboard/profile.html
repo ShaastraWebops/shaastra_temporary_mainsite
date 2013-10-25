@@ -37,6 +37,7 @@
 
 </table>
 <a onclick = "$('#display_profile_table').css({'display':'none'});$('#profile_revert_back').show();$(this).toggle();$('#edit_profile_form').css({'display':''});" class="btn btn-primary" id="edit_profile_toggle"> Edit your Profile</a>
+<div style="overflow-y : auto; height:80%">
 <form action="" method="post" id="edit_profile_form" style="display:none">
     {% csrf_token %}
     <table class="table" id="profile_edit_table">
@@ -54,4 +55,5 @@
 <a onclick = "$('#display_profile_table').css({'display':''});$('#edit_profile_toggle').toggle();$(this).toggle();$('#edit_profile_form').css({'display':'none'});" class="btn btn-primary" id="profile_revert_back"> Revert Back</a>
     
 </form>
+</div>
 </center>
