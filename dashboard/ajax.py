@@ -145,7 +145,8 @@ def add_member(request,shaastra_id = None,teamevent_id = None):
             dajax.script('$.bootstrapGrowl("Invalid request: User is already on the team, you cannot add again.",{type:"danger",delay:10000})')
             return dajax.json()
         #User cannot be added if on another team
-        if teamevent.get_event() in user.get_profile().get_regd_events():
+        msg,team_name = has_team(user,teamevent.event_id)
+        if msg == 'has_team':
             dajax.script('$.bootstrapGrowl("Invalid request: User is already on another team for this event. Multiple entries are prohibited.   ",{type:"danger",delay:10000})')
             return dajax.json()
         #The below statement will not be used, but, for malicious attempts to modify input params, we need it
