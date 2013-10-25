@@ -165,7 +165,7 @@
     }
   $("#form_registration #id_branch" ).width($("#form_registration #id_age").width());
   $(".loading").hide();
-  {% with msg_file_upload|slice:":23" as short_msg %}
+  {% with msg_file_upload|slice:":21" as short_msg %}
   {% ifnotequal short_msg "TDP Upload Successful" %}
     {% if msg_file_upload %}
     $.bootstrapGrowl('FileUpload Error: {{msg_file_upload}}',{type:"danger",delay:20000});
