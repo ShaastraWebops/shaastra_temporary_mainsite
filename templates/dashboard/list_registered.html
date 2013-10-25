@@ -58,25 +58,33 @@
       <div class="accordion-inner">
         <span class="pull-left">Team ID::{{teamevent.team_id}}
         {% if teamevent.team_name %}<br/>Team Name::{{teamevent.team_name}}{% endif %}
-        <br/>Members:
+        <br/>
         </span>
-        
-        <br/><br/>
+        <br/>
+        <span class="pull-left" style="display:inline"><h4>Members&nbsp;&nbsp;&nbsp;&nbsp;</h4></span>{% ifequal teameevent.size teamevent.get_event.team_size_max %}{% else %}<a class="btn btn-info" style="cursor:pointer" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.dashboard.add_member_form(Dajax.process,{'teamevent_id':{{teamevent.id}}})">Add Members!</a>{% endifequal %}
         
 <!--        <a class="btn btn-info pull-left" onclick = "$('#team_{{teamevent.pk}}').toggle();" style="width:25%">View your team!</a>-->
-        <ol id="team_{{teamevent.pk}}" class="span2 pull-left" style='line-height : 0px;'>
+        <table id="team_{{teamevent.id}}" class="pull-left" style='line-height : 0px;'>
+        
         {% for profile_team in teamevent.get_team %}
-            
+            <tr>
             {% ifequal profile_team.user request.user%}
 <!--            <td><span style="font-size:10pt;color:'red'">ID:{{profile_team.shaastra_id}}</td>-->
-            <li><span><b>{{profile_team.user.get_full_name}}</b></span></li>
-            {% else %}
+            <td style="space-white: nowrap"><b>{{profile_team.user.get_full_name}}</b></td>
+            <td>&nbsp;
+            <a class="btn btn-link arbit" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.dashboard.remove_self(Dajax.process,{'teamevent_id':{{teamevent.id}}})">Remove yourself(You cannot undo this action!)</a>
+            </td>
 <!--            <td><span style="font-size:10pt">ID:{{profile_team.shaastra_id}}</span></td>-->
-            <li><span>{{profile_team.user.get_full_name}}</span></li>
+            {% else %}
+            <td style="white-space: nowrap">{{profile_team.user.get_full_name}}</td>
+            <td>&nbsp;
+            <a class="btn btn-link arbit" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.dashboard.remove_member(Dajax.process,{'user_id':{{profile_team.user.id}},'teamevent_id':{{teamevent.id}}})">Remove this member from team</a>
+            </td>
             {% endifequal %}
             <br/>
+            </tr>
         {% endfor %}
-        </ol>
+        </table>
         
       </div>
       
