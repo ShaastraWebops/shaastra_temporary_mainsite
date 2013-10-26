@@ -1,4 +1,4 @@
-
+f
 html, body {
     font-family:'Helvetica', sans-serif;
     font-family:'Titillium Web', sans-serif;
@@ -298,18 +298,15 @@ section:not(:first-child) {
     background : #fff;
     background : url(../img/events/bg.png) repeat;
 }
-#lectures  {
+#evolve  {
     height : 100%;
-    background : #000;
-    background : url(../img/shows/bg.jpg) repeat;
-    color : #fff;
+    background : url(../img/events/bg.png) repeat;
+    color : #000;
 }
 #hospi  {
     height : 100%;
-    background : #000;
     background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
-    display : none;
 }
 #contact  {
     background : #fff;
@@ -319,11 +316,8 @@ section:not(:first-child) {
 
 #aboutus h2,
 #shows h2, 
-#hospi h2,
+#hospi h2, 
 #dashboard h2 {
-    color : #fff;
-}
-#lectures h2 {
     color : #fff;
 }
 #twitter_module {
