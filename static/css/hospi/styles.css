@@ -1,0 +1,36 @@
+/*#hospi #hospi_tabs {
+    
+    margin-right : 20px;
+}
+#hospi #hospi_tabs li{
+    width : 100%
+}
+#hospi #hospi_tabs li a{
+    color : #000;
+}
+#hospi #hospi_tabs li a:hover{
+    color : #444;
+}
+#hospi #hospi_tabs.nav-pills > .active > a,
+#hospi #hospi_tabs.nav-pills > .active > a:hover,
+#hospi #hospi_tabs.nav-pills > .active > a:focus {
+    color : #fff;
+    background-color : #000;
+}
+#hospi #hospi_tabs.nav-pills > li > a {
+    background-color : transparent;
+    border : 1px solid #000;
+}
+
+#hospi #hospi_tabs.nav-pills > li > a:hover,
+#hospi #hospi_tabs.nav-pills > li > a:focus {
+    background-color : #000;
+    color : #fff;
+    padding-left : 30px;
+}
+*/
+.hospi_content {
+    height : 70%;
+    overflow-y : auto;
+    overflow-x : hidden;
+}
