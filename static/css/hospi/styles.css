@@ -33,4 +33,14 @@
     height : 70%;
     overflow-y : auto;
     overflow-x : hidden;
+    padding-top : 2%;
+}
+#hospi .nav.nav-tabs li a {
+    color : #fff;
+}
+#hospi .nav.nav-tabs li.active a {
+    color : #000;
+}
+#hospi .nav.nav-tabs li a:hover {
+    color : #666;
 }
