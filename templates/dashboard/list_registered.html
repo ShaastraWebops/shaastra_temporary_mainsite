@@ -1,0 +1,149 @@
+<div style="overflow-y : auto; height:80%">
+<h3 style='width : 100%;'>
+	<span id='show_events_regd_title'>{% if title_tdp %}{{title_tdp}}{% else %}Your registered events{% endif %}</span>
+	&nbsp;
+</h3>
+<h5>If you have not registered for the event yet, Please register for the event <a href="#events"><u>here</u></a></h5>
+
+{% ifequal no_regd 0 %}
+    <p class="text-muted"><span>No events registered, click <a href="#events"><u>here</u></a> to register for events</span></p>
+{% endifequal %}
+
+<div class="accordion" id="accordion2">
+{% for teamevent in team_event_list %}
+
+  <div class="accordion-group">
+    <div class="accordion-heading">
+
+  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{forloop.counter}}">
+      {{teamevent.get_event.title}}(click to Manage Your Team)
+
+   {% if teamevent.get_event.has_tdp %}
+    {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
+        {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}
+        {% if teamevent.get_event.has_tdp %}
+        <a class="btn btn-primary btn-small" onclick = "Dajaxice.users.show_event_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}}});">Submit{% if teamevent.has_submitted_tdp %} Updated {% endif %} TDP</a>
+        {% endif %}
+        
+           {% if not teamevent.has_submitted_tdp %}
+                {% if teamevent.get_event.days_left > 0 %}
+                    <span class="label label-warning pull-right">{{teamevent.get_event.days_left}} days left!</span>
+                {% else %}
+                    <span class="label label-warning pull-right">{{teamevent.get_event.hours_left}} hours left!Hurry!</span>
+                {% endif %}
+            {% else %}
+                <span class="label label-success pull-right">TDP submitted</span>
+            {% endif %}
+        {% else%}
+            {%if now < teamevent.get_event.registration_starts%}
+                <span class="label label-warning pull-right">Registration yet to start! starts:{{teamevent.get_event.registration_starts}}</span>
+            {% else %}
+            {% if now > teamevent.get_event.registration_ends %}
+            {% if teamevent.has_submitted_tdp %}
+                <span class="label label-important pull-right">Registration deadline crossed!</span>
+            {% else %}
+                <span class="label label-success pull-right">TDP submitted</span>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+            <span class="label label-warning pull-right">Registration details not released!</span>
+    {% endif %}
+    {% else %}
+            <span class="label label-success pull-right">No TDP Submission required </span>
+    {% endif %}
+      </a>
+    </div>
+    <div id="collapse{{forloop.counter}}" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <span class="pull-left">Team ID::{{teamevent.team_id}}
+        {% if teamevent.team_name %}<br/>Team Name::{{teamevent.team_name}}{% endif %}
+        <br/>
+        </span>
+        <br/>
+        <span class="pull-left" style="display:inline"><h4>Members&nbsp;&nbsp;&nbsp;&nbsp;</h4></span>{% ifequal teameevent.size teamevent.get_event.team_size_max %}{% else %}<a class="btn btn-info" style="cursor:pointer" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.dashboard.add_member_form(Dajax.process,{'teamevent_id':{{teamevent.id}}})">Add Members!</a>{% endifequal %}
+        
+<!--        <a class="btn btn-info pull-left" onclick = "$('#team_{{teamevent.pk}}').toggle();" style="width:25%">View your team!</a>-->
+        <table id="team_{{teamevent.id}}" class="pull-left" style='line-height : 0px;'>
+        
+        {% for profile_team in teamevent.get_team %}
+            <tr>
+            {% ifequal profile_team.user request.user%}
+<!--            <td><span style="font-size:10pt;color:'red'">ID:{{profile_team.shaastra_id}}</td>-->
+            <td style="space-white: nowrap"><b>{{profile_team.user.get_full_name}}</b></td>
+            <td>&nbsp;
+            <a class="btn btn-link arbit" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.dashboard.remove_self(Dajax.process,{'teamevent_id':{{teamevent.id}}})">Remove yourself(You cannot undo this action!)</a>
+            </td>
+<!--            <td><span style="font-size:10pt">ID:{{profile_team.shaastra_id}}</span></td>-->
+            {% else %}
+            <td style="white-space: nowrap">{{profile_team.user.get_full_name}}</td>
+            <td>&nbsp;
+            <a class="btn btn-link arbit" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.dashboard.remove_member(Dajax.process,{'user_id':{{profile_team.user.id}},'teamevent_id':{{teamevent.id}}})">Remove this member from team</a>
+            </td>
+            {% endifequal %}
+            <br/>
+            </tr>
+        {% endfor %}
+        </table>
+        
+      </div>
+      
+      
+    </div>
+  </div>
+  
+
+{% endfor %}
+
+</div>
+</div>
+<!--{% for teamevent in team_event_list %}-->
+
+
+<!--        <div class = "class12 title">-->
+<!--        <span><b>{{teamevent.get_event.title}}::</b></span>-->
+<!--        -->
+<!--        -->
+<!--     -->
+<!--    {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} -->
+<!--        {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}-->
+<!--                <a onclick = "Dajaxice.users.show_event_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}}});">Submit TDP for {{teamevent.get_event.title}}</a>-->
+<!--                -->
+<!--        {% else%}-->
+<!--            {%if now < teamevent.get_event.registration_ends%}-->
+<!--                <span style="color:red">Registration yet to start! starts:{{teamevent.get_event.registration_starts}}</span>-->
+<!--            {% else %}-->
+<!--            <span style="color:red">Registration deadline crossed!!</span>-->
+<!--            {% endif %}-->
+<!--        {% endif %}-->
+<!--    {% else %}-->
+<!--            <span style="color:red">Registration details not released!</span>-->
+<!--    {% endif %}-->
+<!--        {% comment %}-->
+<!--<!--        show teammates shaastra id's-->-->
+<!--        {% endcomment %}-->
+<!--        -->
+<!--        <a class="btn btn-info" onclick = "$('#team_{{teamevent.pk}}').toggle();">View your team!</a>-->
+
+<!--        <table id="team_{{teamevent.pk}}" style = "display:none">-->
+<!--        {% for profile_team in teamevent.get_team %}-->
+<!--            <tr>-->
+<!--            {% ifequal profile.user request.user%}-->
+<!--            <td style = "color:'red'">ID:{{profile_team.shaastra_id}}</td>-->
+<!--            <td style = "color:'red'" >Username:{{profile_team.user.username}}</td>-->
+<!--            -->
+<!--            {% else %}-->
+<!--            <td>ID:{{profile_team.shaastra_id}}</td>-->
+<!--            <td>Username:{{profile_team.user.username}}</td>-->
+<!--            </tr>-->
+<!--            {% endifequal %}-->
+<!--            <br/>-->
+<!--        {% endfor %}-->
+<!--        </table>-->
+<!--    <br/>-->
+<!--    -->
+<!--            </div>-->
+<!--    </div>-->
+
+<!--{% endfor %}-->

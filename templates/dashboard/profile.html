@@ -1,57 +1,59 @@
 {% load staticfiles %}
-<h3 style='width : 100%;'>
-	<span id='#user_profile_title' style='position:absolute; left : 25%; display : inline-block;'>Edit your profile: {{request.user.username}}</span>
+<h4 style='width : 100%;'>
+	<span id='#user_profile_title'><a><u>Edit</u></a> Your Profile: {{request.user.get_full_name}}</span>
 	&nbsp;
-</h3>
+</h5>
 
 <center>
-<table id="display_profile_table"  class="table table-striped table-hover" >
-<tr><th>Shaastra ID::  </th>
+<table id="display_profile_table"  class="table " style="overflow : auto;">
+<tr><th>Shaastra ID:  </th>
 <td><span>{{profile.shaastra_id}}</span></td></tr>
 
-<tr><th>First Name::  </th>
+<tr><th>First Name:  </th>
 <td><span>{{profile.user.first_name}}</span></td></tr>
 
 <tr>
-<th>Last Name::  </th>
+<th>Last Name:  </th>
 <td><span>{{profile.user.last_name}}</span></td>
 </tr>
 
-<tr><th>Age::  </th>
+<tr><th>Age:  </th>
 <td><span>{{profile.age}}</span></td>
 </tr>
 
 <tr>
-<th>Mobile Number::  </th>
+<th>Mobile Number:  </th>
 <td><span>{{profile.mobile_number}}</span></td>
 </tr>
 
-<tr><th>Branch::  </th>
+<tr><th>Branch:  </th>
 <td><span>{{profile.branch}}</span></td></tr>
 
-<tr><th>College::  </th>
+<tr><th>College:  </th>
 <td><span>{{profile.college}}</span></td></tr>
 
-<tr><th> College Roll::  </th>
+<tr><th> College Roll:  </th>
 <td><span>{{profile.college_roll}}</span></td></tr>
 
 </table>
-<a onclick = "$('#display_profile_table').css({'display':'none'});$('#profile_revert_back').show();$(this).toggle();$('#edit_profile_form').css({'display':''});" class="btn btn-primary" id="edit_profile_toggle"> Edit your Profile!!></a>
+<a onclick = "$('#display_profile_table').css({'display':'none'});$('#profile_revert_back').show();$(this).toggle();$('#edit_profile_form').css({'display':''});" class="btn btn-primary" id="edit_profile_toggle"> Edit your Profile</a>
+<div style="overflow-y : auto; height:80%">
 <form action="" method="post" id="edit_profile_form" style="display:none">
     {% csrf_token %}
-    <table class="table table-striped table-hover" id="profile_edit_table">
+    <table class="table" id="profile_edit_table">
     {{edit_profile_form.as_table}}
     <tr>
-    <th>First Name::  </th>
+    <th>First Name:  </th>
     <td><input type="text" value={{request.user.first_name}} id="profile_edit_first"/></td>
     </tr>
     <tr>
-    <th>Last Name::  </th>
-    <td><input type="text" value={{request.user.first_name}} id="profile_edit_last"/><br/></td>
+    <th>Last Name:  </th>
+    <td><input type="text" value={{request.user.last_name}} id="profile_edit_last"/><br/></td>
     </tr>
     </table>
     <a onclick="Dajaxice.users.edit_profile(Dajax.process,{'form':$('#edit_profile_form').serialize(true),'first_name':$('#profile_edit_first').val(),'last_name':$('#profile_edit_last').val()});" id="submit_edit_profile" class ="btn btn-info" >Submit Changes</a>
 <a onclick = "$('#display_profile_table').css({'display':''});$('#edit_profile_toggle').toggle();$(this).toggle();$('#edit_profile_form').css({'display':'none'});" class="btn btn-primary" id="profile_revert_back"> Revert Back</a>
     
 </form>
+</div>
 </center>

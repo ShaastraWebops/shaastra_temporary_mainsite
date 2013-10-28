@@ -1,0 +1,62 @@
+
+#dashboard .sidenav {
+    
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li > a {
+    transition: background-color 0.25s linear;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li > a:hover {
+    transition: background-color 0.25s linear;
+    background-color: #888888;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.sidenav_lone > a {
+    color : #ffffff;
+    background-color: #778899;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.sidenav_lone > a:hover {
+    background-color: #667788;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.sidenav_lone.active > a {
+    color : #ffffff;
+    background-color: #5577aa;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.sidenav_lone.active > a:hover {
+    background-color: #446699;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.active > a {
+    color : #ffffff;
+    background-color: #6688cc;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.active > a:hover {
+    background-color: #aaa;
+    color : #000;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.sidenav_head > a {
+    text-shadow: 0  3px 3px rgba(0, 0, 0, 0.3);
+    background-color: #666666;
+    transition: background-color 0.25s linear;
+    color : #ffffff;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.sidenav_head > a:hover {
+    background-color: #444444;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.active_head > a {
+    color : #ffffff;
+    background-color: #8888cc;
+}
+
+#dashboard .nav-tabs.nav-stacked.sidenav > li.active_head > a:hover {
+    background-color: #7777bb;
+}
+

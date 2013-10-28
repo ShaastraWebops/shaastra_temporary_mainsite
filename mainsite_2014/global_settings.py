@@ -15,6 +15,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+
 MANAGERS = ADMINS
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -76,6 +77,8 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+MEDIA_URL = 'media/'
+
 ROOT_URLCONF = 'mainsite_2014.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -103,7 +106,7 @@ INSTALLED_APPS = (
     'frontend'
 )
 
-AUTH_PROFILE_MODULE = ''
+AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 ##*********************************************************************************S
 
@@ -166,3 +169,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 LOGIN_URL = "/login/" # URL for login_required decorator to redirect to
+SEND_EMAILS = False

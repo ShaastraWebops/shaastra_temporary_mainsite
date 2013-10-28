@@ -35,12 +35,29 @@ def home(request):
         collstr+="\""+l+"\""+","
     collstr=collstr[:len(collstr)-1]
     stlist=[st[0] for st in STATE_CHOICES]
+#    try:
+#        if request.session['file_upload']:
+#            msg_file_upload = request.session['file_upload']
+#            del request.session['file_upload']
+#    except:
+#        pass
+    msg_file_upload = request.session.get('file_upload','')
+    MEDIA_URL = settings.MEDIA_URL
+
     return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
 
 #@login_required
 def dashboard(request):
 #    profile = UserProfile.objects.get(user=request.user)
-    return render_to_response('dashboard/dashboard.html',locals(),context_instance=RequestContext(request))
+    try:
+        if request.session['file_upload']:
+            msg_file_upload = request.session['file_upload']
+            del request.session['file_upload']
+    except:
+        pass
+    SITE_URL = settings.SITE_URL
+    up_list = [up for up in UserProfile.objects.all()]
+    return render_to_response('dashboard/dash_new.html',locals(),context_instance=RequestContext(request))
 
 def serenity(request):
     return render_to_response ('index.html', locals(), context_instance=RequestContext(request))

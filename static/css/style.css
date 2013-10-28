@@ -1,4 +1,3 @@
-
 html, body {
     font-family:'Helvetica', sans-serif;
     font-family:'Titillium Web', sans-serif;
@@ -8,7 +7,7 @@ html, body {
     background-color:#FFF;
 }
 
-input[type="text"] {
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
     height : auto;
 }
 .tooltip {
@@ -155,7 +154,7 @@ h2 {
     display: inline-block;
     list-style: none;
     float: left;
-    padding: 2px 0px;
+    padding: 0px;
 }
 
 .navbar ul li a {
@@ -185,6 +184,8 @@ h2 {
     -ms-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    padding : 10px 10px 10px;
+    font-size : 0.9em;
 }
 .navbar .nav > li a.selected,
 .navbar .nav > li a.active { 
@@ -205,7 +206,6 @@ h2 {
 }
 
 .navbar .nav > li a::before {
-    margin-right: 3px;
     content: '[';
     -webkit-transform: translateX(20px);
     -moz-transform: translateX(20px);
@@ -239,9 +239,6 @@ h2 {
 section:not(:first-child) {
     padding:35px 0px 50px;
 }
-section:nth-child(2n) {
-    height : 100%;
-}
 
 #home {
     width:100%;
@@ -253,33 +250,63 @@ section:nth-child(2n) {
     
 }
 #aboutus  {
+    height : 100%;
+    background : #000;
+    background : url(../img/shows/bg.jpg) repeat;
+    color : #fff;
+}
+#dashboard ul,  #dashboard table, 
+#dashboard li,  #dashboard td,
+#dashboard p,   #dashboard th,
+#dashboard span,#dashboard tr,
+#dashboard h2,  
+#dashboard h3,  
+#dashboard th,  
+#dashboard div {
+    color : #fff;
+}
+#dashboard a {
+    color : #fff;
+}
+#dashboard a:hover {
+    color : #fff;
+    text-shadow : 0px 0px 2px #eee;
+}
+
+#dashboard {
+    height : 100%;
+/*    background : #fff;
+    background : url(../img/events/bg.png) repeat;*/
+    
     background : #000;
     background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
 }
 #events {
+    height : 100%;
     background : #fff;
     background : url(../img/events/bg.png) repeat;
 }
 #shows {
+    height : 100%;
     background : #000;
     background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
 }
 #spons  {
+    height : 100%;
     background : #fff;
     background : url(../img/events/bg.png) repeat;
 }
-#lectures  {
-    background : #000;
-    background : url(../img/shows/bg.jpg) repeat;
-    color : #fff;
+#evolve  {
+    height : 100%;
+    background : url(../img/events/bg.png) repeat;
+    color : #000;
 }
 #hospi  {
-    background : #000;
+    height : 100%;
     background : url(../img/shows/bg.jpg) repeat;
     color : #fff;
-    display : none;
 }
 #contact  {
     background : #fff;
@@ -287,16 +314,10 @@ section:nth-child(2n) {
     height : 80%;
 }
 
-#aboutus h2 {
-    color : #fff;
-}
-#shows h2 {
-    color : #fff;
-}
-#hospi h2 {
-    color : #fff;
-}
-#lectures h2 {
+#aboutus h2,
+#shows h2, 
+#hospi h2, 
+#dashboard h2 {
     color : #fff;
 }
 #twitter_module {

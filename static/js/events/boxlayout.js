@@ -52,7 +52,7 @@ function populate_event_group(category_name, dest){
         
         onclick_handler = "show_event(document.getElementById('event_no_" +event_list[i].pk+"_click'));" + "Dajaxice.events.show_event(Dajax.process,{'event_pk':'"+event_list[i].pk+"','event_name':'"+event_list[i].title.replace(/ /g, "~")+"','event_type':'"+event_list[i].event_type+"'});";
         dest.append("<div class='span3' id='event_no_"+event_list[i].pk+"'>"+
-                        "<div class='span12 title' onclick="+onclick_handler+"  id='event_no_"+event_list[i].pk+"_click'><span><h3>"+event_list[i].title+"</h3></span><!--<br /><span class='white dice' style='opacity : 0.4'></span>--></div>"+
+                        "<div class='span12 title' onclick="+onclick_handler+"  id='event_no_"+event_list[i].pk+"_click'><span><h3>"+event_list[i].title+"</h3></span><br /><span class='white dice' style='opacity : 0.4'></span></div>"+
                         "<div class='span12 event_content'></div>"+
                     "</div>");
     }
@@ -110,7 +110,8 @@ function hide_event_group () {
     $(".event_items_div .event_item").addClass("span3");
     $(".event_items_div .buffer").show();
     $(".event_items_div .event_back").hide();
-
+    
+    window.location.hash = 'events_page';
     // As back button was pressed 
 }
 
@@ -195,7 +196,6 @@ function got_event(json_event) { // post processing after josn is got
 // A function to bring a person from the event-page to the event main page
 function hide_event_page() {
     var $section = $( '.main_event_item.event_item > div.expand' );
-    
     $section.children("div").hide();
     $($section.children("div").get(1)).show(); // +1 as title will also be there
     

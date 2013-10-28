@@ -13,6 +13,9 @@
 			<br/>
 			
 			<tr>
+			    <label class="control-label" for="profile_sh_id_regd">Your ID</label> 
+			    <input type="text" value="{{request.user.get_profile.shaastra_id}}" id="profile_sh_id_regd" style="width:280;font-weight:bold;text-align:center" readonly/><br/>
+			    <span>Enter only your teammates' shaastra ID's.</span>
 			    <label class="control-label" for="team_name_addteam">Enter team name:</label> 
                 <input type="text" id="team_name_addteam" placeholder=" Enter team name" style="width:280;"/>
 				<div class="control-group">
@@ -33,13 +36,13 @@
 				{% endfor %}
 
 				<br/>
-				Are you sure you want to register for {{event.title}}?
-				<input type="radio" name="yes" value="yes" id="sure"/>Yes<br/>
-				<br/>
+				Are you sure you want to register for {{event.title}}?<br/>
+				<input type="checkbox" id="sure_event_regd">Yes
+				
 				</fieldset>
 			    <div class="form-actions">
 
-				<input id="event_registration_submit" type="button" onclick="if ($('#sure')[0].checked){
+				<input id="event_registration_submit" type="button" onclick="if ($('#sure_event_regd')[0].checked){
 				Dajaxice.dashboard.register_event(Dajax.process, {'event_id':{{event.id}},'team_name':$('#team_name_addteam').val(),{% if inputhtml %}{{inputhtml}}{% endif %}});
 				}
 				else{

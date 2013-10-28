@@ -1,0 +1,18 @@
+Hi {{profile.user.get_full_name}}!<hr>
+
+You have registered for {% if no_regd > 1 %}
+<span class="badge badge-success">{{no_regd}}</span> events. Click <a href="#events">here</a> for more!
+{% else %}
+{% ifequal no_regd 0%}<span class="badge">0</span> events! Click <a href="#events">here</a> to begin!{% endifequal %}{% endif %}
+<br/>
+<span>Submit your TDP from the option on your sidebar</span>
+<br/>
+<span>We have some events recommended for you!!</span>
+<ul>
+{% for event in reco_events %}
+<li>{{event.title}}</li>
+{% endfor %}
+</ul>
+{% comment %}
+TODO: if he clicks any event, the page will open
+{% endcomment %}

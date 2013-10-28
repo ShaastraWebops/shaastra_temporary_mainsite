@@ -105,3 +105,26 @@ $(window).scroll(function() {
         hexa_pid = -1;
     }
 });
+
+
+// For the dashboard !
+function do_accordion(elem_str, type) {
+    elem_id = "#" + elem_str + "_head"
+    elem_class_body = "." + elem_str + "_body"
+    elem_head = $(elem_str)
+    if ( type == "hide" || type == "show" )
+        $(elem_class_body).collapse(type)
+    else
+        $(elem_class_body).collapse('toggle')
+    elem_head.addClass("active_head")
+    
+    elem_head_i = $(elem_id + " a i")
+    if( elem_head_i.hasClass("icon-chevron-down") ) {
+        elem_head_i.removeClass("icon-chevron-down")
+        elem_head_i.addClass("icon-chevron-up")
+    } else {
+        elem_head_i.removeClass("icon-chevron-up")
+        elem_head_i.addClass("icon-chevron-down")
+        
+    }
+} 

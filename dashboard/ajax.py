@@ -12,7 +12,7 @@ from django.template.loader import render_to_string
 from django.template.context import Context, RequestContext
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-
+from django.template.context import Context, RequestContext
 from mainsite_2014.settings import DATABASES
 
 from misc.dajaxice.utils import deserialize_form
@@ -32,12 +32,168 @@ from django.utils.translation import ugettext as _
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 
-from django.utils import simplejson
+from django.utils import simplejson,timezone
 from misc.dajaxice.decorators import dajaxice_register
 from django.dispatch import receiver
 import datetime
 from models import TeamEvent,Update,has_team
 from users.models import *
+
+@dajaxice_register
+def remove_self(request,teamevent_id = None):
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First",{type:"danger",delay:10000})')
+        return dajax.json()
+    if teamevent_id is None:
+        dajax.script('$.bootstrapGrowl("Invalid request",{type:"danger",delay:10000})')
+        return dajax.json()
+    try:
+        teamevent = TeamEvent.objects.get(id = teamevent_id)
+        if request.user not in teamevent.users.all():
+            #Malicious attempt!?
+            dajax.script('$.bootstrapGrowl("Invalid request: user not part of team",{type:"danger",delay:10000})')
+            return dajax.json()
+        if teamevent.size() == teamevent.get_event().team_size_min:
+            dajax.script('$.bootstrapGrowl("Sorry. Remove failed.You cannot have less than %s team members",{type:"danger",delay:10000})'% teamevent.get_event().team_size_min)
+            return dajax.json()
+        teamevent.users.remove(request.user)
+        teamevent.save()
+        msg_update = 'Your teammate %s was removed from team %s for event %s on %s'%(request.user.get_full_name(),teamevent.team_name,teamevent.get_event().title,str(timezone.now()))
+        for user in teamevent.users.all():
+            update = Update(tag = 'Team Edit',content = msg_update,user = user)
+            update.save()
+        msg_update_user = 'You removed yourself from team %s for event %s on %s'%(teamevent.team_name,teamevent.get_event().title,str(timezone.now()))
+        update = Update(tag = 'Team Remove',content = msg_update_user,user = request.user)
+        update.save()
+                
+        dajax.script('$.bootstrapGrowl("Removal success! You are no longer a part of team %s",{type:"info",delay:10000,width:"auto"});'% teamevent.team_name)
+        html_stuff = render_to_string('dashboard/welcome.html',{},RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+        return dajax.json()
+    
+    except:
+        dajax.script('$.bootstrapGrowl("Invalid request",{type:"danger",delay:10000})')
+        return dajax.json()
+    return dajax.json()
+
+
+@dajaxice_register
+def remove_member(request,user_id = None,teamevent_id = None):
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First",{type:"danger",delay:10000})')
+        return dajax.json()
+    if teamevent_id is None or user_id is None:
+        dajax.script('$.bootstrapGrowl("Invalid request",{type:"danger",delay:10000})')
+        return dajax.json()
+    try:
+        teamevent = TeamEvent.objects.get(id = teamevent_id)
+        user = User.objects.get(id = user_id)
+        if user not in teamevent.users.all() or request.user not in teamevent.users.all():
+            dajax.script('$.bootstrapGrowl("Invalid request: user not part of team",{type:"danger",delay:10000})')
+            #Malicious attempt!?
+            return dajax.json()
+        if teamevent.size() == teamevent.get_event().team_size_min:
+            dajax.script('$.bootstrapGrowl("Sorry. Remove failed.You cannot have less than %s team members",{type:"danger",delay:10000})'% teamevent.get_event().team_size_min)
+            return dajax.json()
+        teamevent.users.remove(user)
+        teamevent.save()
+        msg_update = 'Your teammate %s was removed from team %s for event %s on %s by %s'%(user.get_full_name(),teamevent.team_name,str(timezone.now()),request.user.get_full_name())
+        for user_team in teamevent.users.all():
+            update = Update(tag = 'Team Edit',content = msg_update,user = user_team)
+            update.save()
+        msg_update_user = 'You were removed from team %s for event %s on %s by %s'%(teamevent.team_name,teamevent.get_event().title,str(timezone.now()),request.user.get_full_name())
+        update = Update(tag = 'Team Remove',content = msg_update_user,user = user)
+        update.save()
+        dajax.script('$.bootstrapGrowl("Removal success! %s is no longer a member of team %s",{type:"info",delay:10000,width:"auto"})'% (user.get_full_name(),teamevent.team_name))
+        #TODO: Update create
+        msg_dash = "Removal success! %s is no longer a member of team %s"% (user.get_full_name(),teamevent.team_name)
+        html_stuff = render_to_string('dashboard/welcome.html',{'msg_dash':msg_dash},RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+    
+        return dajax.json()
+    except:
+        dajax.script('$.bootstrapGrowl("Invalid request. ",{type:"danger",delay:10000})')    
+        return dajax.json()
+    return dajax.json()
+
+
+@dajaxice_register
+def add_member(request,shaastra_id = None,teamevent_id = None):
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First",{type:"danger",delay:10000})')
+        return dajax.json()
+    if teamevent_id is None or shaastra_id is None:
+        dajax.script('$.bootstrapGrowl("Invalid request",{type:"danger",delay:10000})')
+        return dajax.json()
+    try:
+        teamevent = TeamEvent.objects.get(id = teamevent_id)
+        print shaastra_id   
+        user = UserProfile.objects.get(shaastra_id = shaastra_id).user
+        if request.user not in teamevent.users.all():
+            dajax.script('$.bootstrapGrowl("Invalid request: user not part of team",{type:"danger",delay:10000})')
+            #Malicious attempt!?
+            return dajax.json()
+        if user in teamevent.users.all():
+            dajax.script('$.bootstrapGrowl("Invalid request: User is already on the team, you cannot add again.",{type:"danger",delay:10000})')
+            return dajax.json()
+        #User cannot be added if on another team
+        msg,team_name = has_team(user,teamevent.event_id)
+        if msg == 'has_team':
+            dajax.script('$.bootstrapGrowl("Invalid request: User is already on another team for this event. Multiple entries are prohibited.   ",{type:"danger",delay:10000})')
+            return dajax.json()
+        #The below statement will not be used, but, for malicious attempts to modify input params, we need it
+        if user.username == request.user.username:
+            dajax.script('$.bootstrapGrowl("Invalid request: You are already on the team.",{type:"danger",delay:10000})')
+            return dajax.json()
+        if teamevent.size() == teamevent.get_event().team_size_max:
+            dajax.script('$.bootstrapGrowl("Sorry. Add member failed.You cannot have more than %s team members in your team.",{type:"danger",delay:10000})'% teamevent.get_event().team_size_min)
+            return dajax.json()
+        teamevent.users.add(user)
+        teamevent.save()
+        msg_update = 'Teammate %s was add to team %s for event %s on %s by %s'%(user.get_full_name(),teamevent.team_name,teamevent.get_event().title,str(timezone.now()),request.user.get_full_name())
+        for user_team in teamevent.users.all():
+            if not user_team.username == user.username:
+                update = Update(tag = 'Team Edit',content = msg_update,user = user_team)
+                update.save()
+        msg_update_user = 'You were added to team %s for event %s on %s by %s'%(teamevent.team_name,teamevent.get_event().title,str(timezone.now()),user.get_full_name())
+        update = Update(tag = 'Team Add',content = msg_update_user,user = user)
+        update.save()
+        dajax.script('$.bootstrapGrowl("Addition success! %s has been added as a member of team %s",{type:"info",delay:10000,width:"auto"})'% (user.get_full_name(),teamevent.team_name))
+        #TODO: Update create
+        html_stuff = render_to_string('dashboard/welcome.html',{},RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+        return dajax.json()
+
+    except:
+        dajax.script('$.bootstrapGrowl("Invalid request. Check Shaastra ID entered",{type:"danger",delay:10000})')
+        return dajax.json()
+    return dajax.json()
+
+@dajaxice_register
+def add_member_form(request,teamevent_id = None):
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
+    if teamevent_id is None:
+        return dajax.json()
+    try:
+        teamevent = TeamEvent.objects.get(id = teamevent_id)
+    except:
+        return dajax.json()
+    html_stuff = render_to_string('dashboard/add_member.html',{'teamevent':teamevent},RequestContext(request))
+    if html_stuff:
+        dajax.assign('#content_dash','innerHTML',html_stuff)
+    return dajax.json()
+
+
 
 @dajaxice_register
 def register_event(request,event_id=None,team_name=None,**kwargs):
@@ -99,9 +255,13 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     teamevent.is_active = True
     teamevent.team_name = team_name
     teamevent.save()
-    for user in userlist:
-        update = Update(tag='Event registration',content='Added to team: %s in event %s'%(teamevent.team_name,teamevent.get_event().title),user=user)
-        update.save()
+    try:
+        for user in userlist:
+            update = Update(tag='Event registration',content='Added to team: %s in event %s'%(teamevent.team_name,teamevent.get_event().title),user=user)
+            update.save()
+    #TODO: updates should not cause error
+    except:
+        pass
     dajax.script('$.bootstrapGrowl("Your team was registered successfully to event %s",{type:"success",delay:30000})'% event.title)
     dajax.script('$.bootstrapGrowl("Your team ID: %s",{type:"success",delay:100000})'% teamevent.team_id)
     dajax.script('$("#event_register").modal("toggle")')
@@ -113,6 +273,7 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
 @dajaxice_register
 def register_event_form(request,event_id = None):
     dajax = Dajax()
+    #dajax.script("$('#gif_eventregister').hide()")
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if event_id is None:
         dajax.script('$.bootstrapGrowl("Invalid Event specified.", {type:"danger",delay:10000} );')
@@ -122,8 +283,13 @@ def register_event_form(request,event_id = None):
             erp_db = DATABASES.keys()[1]
             event = ParticipantEvent.objects.using(erp_db).get(id=event_id)
             if not request.user.is_authenticated():
-                dajax.script('$.bootstrapGrowl("Please Login to register!", {delay:10000} );')
-                dajax.script('$("#login").modal();')
+                #dajax.script('$.bootstrapGrowl("Please Login to register!", {delay:10000,ele:"#events",width:"auto"} );')
+                dajax.script('$.bootstrapGrowl("Please Login to register for the event!", {delay:10000,type:"danger"} );')
+                html_stuff = render_to_string('dashboard/event_regd_message.html',{},RequestContext(request))
+                dajax.assign('#FormRegd','innerHTML',html_stuff)
+                dajax.script('$("#event_register").modal();')
+
+                #dajax.script('$("#login").modal();')
                 return dajax.json()
             user = request.user
         except:
@@ -151,7 +317,10 @@ def register_event_form(request,event_id = None):
                         dajax.script('$.bootstrapGrowl("You are already a part of team:%s for this event. Multiple entries for same user is not allowed sorry", {delay:10000})'% str(team_name))
                         #TODO: close the 
                         return dajax.json()
-                    dajax.script('$.bootstrapGrowl("Note that you need to have a team with atleast %d more member to register", {delay:100000} );'% (event.team_size_min))
+                    if event.team_size_min>1:
+                        dajax.script('$.bootstrapGrowl("Note that you need to have a team with atleast %d more members to register", {delay:100000} );'% (event.team_size_min-1))
+                    else:
+                        dajax.script('$.bootstrapGrowl("You can register alone, or with a maximum of %d teammates", {delay:100000} );'% (event.team_size_max-1))
                     teammates = range(minteam,maxteam)
                     teammates = teammates[:-1]
                     teammates_min = range(minteam)

@@ -3,24 +3,57 @@
 	&nbsp;
 </h3>
 
-<ul >
+
 {% ifequal no_regd 0 %}
-    <span style="color:red">No events registered, click <a href="/#events">here</a> to register for events</span>
+    <p class="text-muted"><span>No events registered, click <a href="/#events"><u>here</u></a> to register for events</span></p>
 {% endifequal %}
 {% for teamevent in team_event_list %}
 <li>
         <div class = "class12 title">
         <span><h4>{{teamevent.get_event.title}}</h4></span>
-        
+        {% comment %}
+<!--        show teammates shaastra id's-->
+        {% endcomment %}
+        <a class="btn btn-primary" onclick = "$('#team_{{teamevent.pk}}').toggle();">View your team!</a>
+        <ul id="team_{{teamevent.pk}}" style = "display:none">
+        Your team:
+        {% for profile_team in teamevent.get_team %}
+            {% ifequal profile.user request.user%}
+            <li><b>ID:{{profile_team.shaastra_id}}</b></li>
+            <li><b>Username:{{profile_team.user.username}}</b></li>
+            
+            {% else %}
+            <li>ID:{{profile_team.shaastra_id}}</li>
+            <li>Username:{{profile_team.user.username}}</li>
+            {% endifequal %}
+            <br/>
+        {% endfor %}
+        </ul>
     {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
         {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}
             {% if teamevent.get_event.has_tdp %}
+            {% comment %}
+            TODO: if already uploaded a file, show to view
+            {% endcomment %}
+            <ul>
+            {% for tdp in teamevent.get_tdp %}
+                <li>Your submission: <a href = "{{settings.MEDIA_URL}}/{{tdp.get_tdp_file.name}}" target="_blank" >{{tdp.get_tdp_file.name}}</a></li>
+            {% endfor %}
+            </ul>
         <div id="tdp_{{teamevent.get_event.id}}">
-        <form action="/tdpsubmission" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}
+        <form action="/tdpsubmission" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">             {% csrf_token %}
 <!--        <form action="" method="post" enctype="multipart/form-data" id="file_tdp_{{teamevent.get_event.id}}">{% csrf_token %}-->
             {{TDPFileForm.as_table}}
             <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
-            <input type="submit" value="Submit TDP"/>
+            <a class='btn btn-info' onclick = "if($('#tdp_{{teamevent.get_event.id}}').val()=='')
+            {
+                $.bootstrapGrowl('Please submit a file for submission')
+            }
+            else
+            {
+                $('#file_tdp_{{teamevent.get_event.id}}').submit()
+            }"
+            >Submit {% if teamevent.has_submitted_tdp %} updated{% endif %}TDP</a>
 <!--            <a onclick="Dajaxice.users.submit_tdp(Dajax.process,{'teamevent_id':{{teamevent.id}},'file_tdp':$('#file_tdp_{{teamevent.get_event.id}}').serialize(true)});" class="btn btn-primary">Submit TDP</a>-->
         </form>
         </div>
@@ -39,6 +72,10 @@
     </div>
     </li>
 {% endfor %}
+<center>
+{% if msg_file_upload %}
+<span style="color:'red'">{{msg_file_upload}}</span>
+{% endif %}
+</center>
 
-</ul>
 

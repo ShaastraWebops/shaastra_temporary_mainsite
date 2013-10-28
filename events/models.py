@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 from django.conf import settings
+from django.utils import timezone
 # from erp
 from mainsite_2014.settings import MEDIA_ROOT
 #from shaastra_mainsite_2014_temp.variables import events_being_edited
@@ -106,6 +107,11 @@ class ParticipantEvent(GenericEvent):
     has_tdp = models.BooleanField(default=False, 
             help_text='Does this event require participants to submit TDP ?')
     
+    def days_left(self):
+        return (self.registration_ends - timezone.now()).days
+    
+    def hours_left(self):
+        return (int)((self.registration_ends - timezone.now()).seconds/3600)
     #no need of __unicode__ as it is inherited from GenericEvent
 
 class AudienceEvent(GenericEvent):

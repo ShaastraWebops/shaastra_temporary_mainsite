@@ -6,7 +6,7 @@
             <button type="button" class="close" data-dismiss='modal'>&times;</button>
             <h3 style='width : 100%;'>
                 <span style='position:absolute; left : 17%; display : inline-block;'>Login</span>
-                <span style='position:absolute; right : 24%;display : inline-block;'>Register</span>
+                <span style='position:absolute; right : 30%;display : inline-block;'>Sign Up</span>
                 &nbsp;
             </h3>
         </div>
@@ -18,31 +18,60 @@
                 </p>
                 {% endif %}
                 <form action="" method="post" id="login_form">{% csrf_token %}
-                    {{ form.as_table }}
-                    <tr class='submit_tr'>
-                        <td colspan="2">
-                            <input id="login_form_submit" type="button" onclick="user_login();" value="        Login        " class="btn btn-primary"/>
-                        </td>
-                        <img src='{{SITE_URL}}static/img/loading.gif' style="height:25;" id="gif_login" class="loading" title="loading..."/>
-                    </tr>
+                
+                <div class="container-fluid pull-left">
+                      <div class="row-fluid">
+                        <div class="span9" style="display:inline-block">
+                          <!--Sidebar content-->
+                          {{form.as_table}}
+                        </div>
+                        <div class="span2 pull-right">
+                          <!--Body content-->
+                          <br/><br/><br/>
+                          <input id="login_form_submit" type="button" onclick="user_login();" value="Login" class="btn "/>
+                        </div>
+                      </div>
+                </div>
+<!--                    {{ form.as_table }}-->
                 </form>
+                
+                
                 <div id="login_error"></div>
-                <div id="forgot_password"><a onclick="$('#forgot_form').toggle();" style="cursor:pointer;">Forgot your password?</a></div>
+                <div id="forgot_password"><a onclick="$('#forgot_form').toggle();
+                if ($('#regd_instruction').height() > 130 ){
+                $('#regd_instruction').height($('#regd_instruction').height()-60);
+                }
+                else{
+                $('#regd_instruction').height($('#regd_instruction').height()+60);
+                }
+                " style="cursor:pointer;">
+                Forgot your password?</a></div>
+                
                 <div id="forgot_form" style="display:none">
                     <input type="text" maxlength="70" value placeholder="Enter your registered email-id" id="forgot_form_email">
                     <button class="btn btn-primary" onclick ="Dajaxice.users.forgot_password(Dajax.process, {'email':$('#forgot_form_email').val()});" > Request for a new password</button>
+
+                </div>
+
+                <div style="overflow-y : auto; height:160px" id="regd_instruction">
+                <div class="well">
+                <p class="text-left">
+                If you do not have a Shaastra ID Please sign up using the form to the right.<br/>
+                Please take note, obtaining a Shaastra ID does <b>not</b> register you for any event.
+                You are required to fill in the registration form in the individual event's page for the same
+                </p>
+                </div>
                 </div>
             </div>
-
             <div class='span5 offset form_registration_div' style="padding-left: 35%;">
-                <form id='form_registration' method="post" action="">
+                <form id='form_registration' method="post" action="" >
                     {% csrf_token %}
                     <table class='span5'>
                         <tr>
                             <th>First Name</th>
-                            <td>{{ form_registration.first_name }}</td>
+                            <td >{{ form_registration.first_name }}</td>
                             <th>Last Name</th>
-                            <td>{{ form_registration.last_name }}</td>
+                            <td >{{ form_registration.last_name }}</td>
                         </tr>
                         <tr>
                             <th>User Name</th>
@@ -72,7 +101,7 @@
                             <th>College</th>
                             <!--                                <td>{{ form_registration.college }}</td>-->
                             <td>
-                                <input id="college" type="text" class="span3" placeholder="Enter Your college" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[{{collstr}}]">
+                                <input id="college" type="text" class="span3" placeholder="Enter Your School/College" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[{{collstr}}]">
                             </td>
                             <td>{{form_registration.branch}}</td>
                         </tr>
@@ -97,7 +126,7 @@
                         </tr>
                         <tr>
                             <td colspan='4' class='centered'>
-                                <input  id="form_registration_submit" type="button" onclick="submit_registration();" value="        Register        " class="btn btn-primary"/>
+                                <input  id="form_registration_submit" type="button" onclick="submit_registration();" value="        Sign Up        " class="btn btn-primary"/>
                                 <img src='{{SITE_URL}}static/img/loading.gif' style="height:25" id="gif_registration" class="loading" title="loading..." />
                             </td>
                         </tr>

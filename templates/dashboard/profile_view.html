@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<h4 style='width : 100%;'>
+	<span id='#user_profile_title'>Profile Data: {{request.user.get_full_name}}</span>
+	&nbsp;
+</h5>
+
+<center>
+<table id="display_profile_table"  class="table" >
+
+<tr><th>Shaastra ID::  </th>
+<td><span>{{profile.shaastra_id}}</span></td></tr>
+
+<tr><th>First Name::  </th>
+<td><span>{{profile.user.first_name}}</span></td></tr>
+
+<tr>
+<th>Last Name::  </th>
+<td><span>{{profile.user.last_name}}</span></td>
+</tr>
+
+<tr><th>Age::  </th>
+<td><span>{{profile.age}}</span></td>
+</tr>
+
+<tr>
+<th>Mobile Number::  </th>
+<td><span>{{profile.mobile_number}}</span></td>
+</tr>
+
+<tr><th>Branch::  </th>
+
+<td><span>{{profile.branch}}</span></td></tr>
+<tr><th>College::  </th>
+<td><span>{{profile.college}}</span></td></tr>
+
+<tr><th> College Roll::  </th>
+<td><span>{{profile.college_roll}}</span></td></tr>
+
+</table>
+

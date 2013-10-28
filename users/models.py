@@ -189,20 +189,16 @@ class UserProfile(models.Model):
     def get_regd_events(self):
         tevlist = []
         tevlist=TeamEvent.objects.filter(users__username=self.user.username)
+        #TODO: return events with TDP first!! sort by has_tdp
         return tevlist
+        
+    def no_regd_events(self):
+        return len(self.get_regd_events())
+    
     class Admin:
         pass
 
-#This is a utility function, can be called from anywhere
-#returns all events that at a time can be registered
-from django.utils import timezone
-def registrable_events(time=timezone.now()):
-    #TODO:change erp
-    eventlist = []
-    for event in ParticipantEvent.objects.using('erp').filter(registrable_online=True).filter(registration_ends > time).filter(registration_starts<time):
-        eventlist.append(event.title)
-    return eventlist
-    
+
     
 class shows_updates(models.Model):
     shows_name = models.CharField(max_length=255,

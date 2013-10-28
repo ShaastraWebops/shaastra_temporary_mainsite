@@ -30,28 +30,31 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
-from dashboard.models import TDPFileForm
+from dashboard.models import TDPFileForm,Update
 from django.utils import simplejson
 from misc.dajaxice.decorators import dajaxice_register
 from django.dispatch import receiver
 import datetime
 from forms import EditProfileForm,ChangePasswordForm
+from events.models import ParticipantEvent
 
+erp_db = settings.DATABASES.keys()[1]
 
 @dajaxice_register
 def change_password_form(request):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",delay:10000} );')
         return dajax.json()
     profile = UserProfile.objects.get(user=request.user)
     change_password_form = ChangePasswordForm()
-    context_dict = {'form_change_password':change_password_form,'profile':profile}
+    context_dict = {'form_change_password':change_password_form,'profile':profile,'settings':settings}
     html_stuff = render_to_string('dashboard/change_password.html',context_dict,RequestContext(request))
     if html_stuff:
-        dajax.assign('#FormRegd','innerHTML',html_stuff)
-        dajax.script('$("#event_register").modal("show");')
+        dajax.assign('#content_dash','innerHTML',html_stuff)
+        #dajax.script('$("#event_register").modal("show");')
     return dajax.json()
 
 
@@ -59,6 +62,7 @@ def change_password_form(request):
 @dajaxice_register
 def change_password(request,form = None):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",delay:10000} );')
         return dajax.json()
@@ -81,22 +85,22 @@ def change_password(request,form = None):
         return dajax.json()
     user.set_password(form.cleaned_data['new_password'])
     profile = UserProfile.objects.get(user=request.user)
-    dajax.script('$("#form_change_password #old_password").val('') ;\
-    $("#form_change_password #new_password").val('');\
-    $("#form_change_password #new_password_again").val('');\
-    $("#event_register").modal("hide");')
+    
     user.save()
     profile.save()
     dajax.script('$.bootstrapGrowl("Your password was changed successfully!" , {type:"success",delay:30000} );')
+    #TODO: why is the field not getting empty?????
+    dajax.script('$("#dashboard #form_change_password #id_old_password").val("");')
+    dajax.script('$("#dashboard #form_change_password #id_new_password").val("");')
+    dajax.script('$("#dashboard #form_change_password #id_new_password_again").val("");')
+    
     return dajax.json()
-
-
 
 
 @dajaxice_register
 def edit_profile(request,form = None,first_name = None,last_name = None):
     dajax = Dajax()
-
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     if form is None or first_name is None or last_name is None:
         dajax.script('$.bootstrapGrowl("Invalid edit profile request", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -118,9 +122,13 @@ def edit_profile(request,form = None,first_name = None,last_name = None):
     dajax.script('$.bootstrapGrowl("Your profile has been edited" , {type:"success",delay:10000,align:"center",width:"auto"} );')
     return dajax.json()
 
+
+
+    
 @dajaxice_register
 def edit_profile_form(request):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",delay:20000} );')
@@ -128,18 +136,46 @@ def edit_profile_form(request):
     else:
         profile = UserProfile.objects.get(user=request.user)
         edit_profile_form = EditProfileForm(instance = profile)
-        context_dict = {'edit_profile_form':edit_profile_form,'profile':profile}
+        context_dict = {'edit_profile_form':edit_profile_form,'profile':profile,'settings':settings}
         html_stuff = render_to_string('dashboard/profile.html',context_dict,RequestContext(request))
         if html_stuff:
-            dajax.assign('#FormRegd','innerHTML',html_stuff)
-            dajax.script('$("#event_register").modal("show");')
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
+
+    return dajax.json()
+
+
+@dajaxice_register
+def view_profile(request):
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
+
+    #: if user has chosen a college in dropdown, depopulate it OR growl
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login First!", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        context_dict = {'profile':profile,'settings':settings}
+        html_stuff = render_to_string('dashboard/profile_view.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
 
     return dajax.json()
 
 @dajaxice_register
+def welcome(request):
+    dajax = Dajax()
+    html_stuff = render_to_string('dashboard/welcome.html',{},RequestContext(request))
+    if html_stuff:
+        dajax.assign('#content_dash','innerHTML',html_stuff)
+    return dajax.json()
+    
+@dajaxice_register
 def submit_tdp(request,teamevent_id = None,file_tdp=None):
     dajax = Dajax()
-
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")        
     if teamevent_id is None or file_tdp is None:
         dajax.script('$.bootstrapGrowl("Invalid TDP Upload request", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -153,13 +189,35 @@ def submit_tdp(request,teamevent_id = None,file_tdp=None):
         tdp = TDP(tdp=fileform,teamevent = teamevent)
         tdp.save()
     except:
-        print 'sss'
+        print
     return dajax.json()
-    
+
+
+@dajaxice_register
+def show_updates(request):
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = request.user.get_profile()
+        updates_list = list(Update.objects.filter(user = request.user).order_by('tag'))
+        #TODO: order by time??: 
+        no_updates = len(updates_list)
+        now = timezone.now()
+        context_dict = {'updates_list':updates_list,'profile':profile,'now':now,'no_updates':no_updates,'settings':settings}
+        html_stuff = render_to_string('dashboard/list_updates.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
+    return dajax.json()
+
+
 @dajaxice_register
 def show_registered_events(request):
     dajax = Dajax()
-
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
     if not request.user.is_authenticated():
         dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
         return dajax.json()
@@ -168,28 +226,153 @@ def show_registered_events(request):
         team_event_list = profile.get_regd_events()
         no_regd = len(team_event_list)
         now = timezone.now()
-        context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'no_regd':no_regd}
-        html_stuff = render_to_string('dashboard/registered_events.html',context_dict,RequestContext(request))
+        context_dict = {'team_event_list':team_event_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings}
+        html_stuff = render_to_string('dashboard/list_registered.html',context_dict,RequestContext(request))
         if html_stuff:
-            dajax.assign('#FormRegd','innerHTML',html_stuff)
-            dajax.script('$("#event_register").modal("show");')
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
+    msg_file_upload = request.session.get('file_upload','')
+    if msg_file_upload != '':
+        del request.session['file_upload']
+        if str(msg_file_upload).startswith('TDP Upload Successful'):
+            dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
+        else:
+            dajax.script('$.bootstrapGrowl("FileUpload Error: %s\'", {type:"danger",delay:20000} );'% msg_file_upload)
+    return dajax.json()
 
+@dajaxice_register
+def show_tdp_submissions(request):
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        team_event_list = profile.get_regd_events()
+        tdp_submission_list = []
+        for teamevent in team_event_list:
+            if teamevent.get_event().has_tdp and teamevent.has_submitted_tdp:
+                tdp_submission_list.append(teamevent)
+        no_regd = len(tdp_submission_list)
+        now = timezone.now()
+        title_tdp = 'Your successful TDP Submissions'
+        context_dict = {'tdp_submission_list':tdp_submission_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings,'title_tdp':title_tdp}
+        html_stuff = render_to_string('dashboard/list_tdp_submission.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
+    msg_file_upload = request.session.get('file_upload','')
+    if msg_file_upload != '':
+        del request.session['file_upload']
+        print msg_file_upload
+        print str(msg_file_upload).startswith('TDP Upload Successful') 
+        if str(msg_file_upload).startswith('TDP Upload Successful'):
+            dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
+        else:
+            dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
+    return dajax.json()
+    
+
+from users.utils import registrable_events
+@dajaxice_register
+def back(request):
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")    
+    no_regd = len(request.user.get_profile().get_regd_events())
+    reco_events = ParticipantEvent.objects.using(erp_db).filter(registrable_online=True)
+#    reco_events = registrable_events(time = timezone.now(),user = request.user)
+    context_dict = {'profile':request.user.get_profile(),'no_regd':no_regd,'reco_events':reco_events}
+    html_stuff = render_to_string('dashboard/default.html',context_dict,RequestContext(request))
+    if html_stuff:
+        dajax.assign('#content_dash','innerHTML',html_stuff)
+    return dajax.json()
+    
+@dajaxice_register
+def show_registered_tdp_events(request):
+
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your registered events", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        team_event_list = profile.get_regd_events()
+        tdp_team_event_list = []
+        for teamevent in team_event_list:
+            if teamevent.get_event().has_tdp:
+                tdp_team_event_list.append(teamevent)
+        no_regd = len(team_event_list)
+        now = timezone.now()
+        
+        context_dict = {'team_event_list':tdp_team_event_list,'profile':profile,'now':now,'no_regd':no_regd,'settings':settings,'title_tdp':'TDP Submission'}
+        html_stuff = render_to_string('dashboard/list_registered.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
+#    try:
+#        msg_file_upload = request.session['file_upload']
+#        print '%s'% msg_file_upload
+#        print '-----------------'
+#    except:
+#        print 'NO ERROR!!!!!!!!'
+    msg_file_upload = request.session.get('file_upload','')
+    if msg_file_upload != '':
+        del request.session['file_upload']
+        if str(msg_file_upload).startswith('TDP Upload Successful'):
+            dajax.script('$.bootstrapGrowl("%s", {type:"success",delay:20000} );'% msg_file_upload)
+        else:
+            dajax.script('$.bootstrapGrowl("FileUpload Error: %s", {type:"danger",delay:20000} );'% msg_file_upload)
+    
+    return dajax.json()
+
+
+@dajaxice_register
+def show_event_tdp(request,teamevent_id=None):
+    dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")    
+    if teamevent_id is None:
+        dajax.script('$.bootstrapGrowl("Invalid request to view teamevent details", {type:"danger",delay:20000} );')
+        return dajax.json()
+    try:
+        temp = int(teamevent_id)
+    except:
+        dajax.script('$.bootstrapGrowl("Invalid request to view teamevent details", {type:"danger",delay:20000} );')
+        return dajax.json()
+    if not request.user.is_authenticated():
+        dajax.script('$.bootstrapGrowl("Login to view your event submission details", {type:"danger",delay:20000} );')
+        return dajax.json()
+    else:
+        profile = UserProfile.objects.get(user=request.user)
+        try:
+            team_event = TeamEvent.objects.get(id=int(teamevent_id))
+        except:
+            dajax.script('$.bootstrapGrowl("Invalid request", {type:"danger",delay:20000} );')
+            return dajax.json()
+        now = timezone.now()
+        context_dict = {'teamevent':team_event,'profile':profile,'now':now,'TDPFileForm':TDPFileForm(),'settings':settings}
+        
+        html_stuff = render_to_string('dashboard/event_tdp_submit.html',context_dict,RequestContext(request))
+        if html_stuff:
+            dajax.assign('#content_dash','innerHTML',html_stuff)
+            #dajax.script('$("#event_register").modal("show");')
     return dajax.json()
 
 
 @dajaxice_register
 def add_college(request,college=None,city=None,state=None):
     dajax = Dajax()
+    dajax.script("$(\'#dashboard #loading_dash_dajax\').hide();")    
     #: if user has chosen a college in dropdown, depopulate it OR growl
     if city is None or college is None or state is None or city =='' or college =='' or state =='':
         dajax.script('$.bootstrapGrowl("Please enter relevant details for adding your college", {type:"danger",delay:10000});')
         return dajax.json()
     else:
         try:
-            for coll in College.objects.all():
-                if coll.name.lower() == college.lower():
-                    dajax.script('$.bootstrapGrowl("Your college is already on our list, please check again", {type:"danger",delay:10000});')
-                    return dajax.json()    
+            College.objects.get(name__iexact=college)
+            dajax.script('$.bootstrapGrowl("Your college is already on our list, please check again", {type:"danger",delay:10000});')
+            return dajax.json()
         except:
             coll=None
         dajax.script('$("#add_college").modal(\'hide\');')
@@ -212,7 +395,8 @@ def logout(request,**kwargs):
     dajax = Dajax()
     auth_logout(request)
     dajax.script('$.bootstrapGrowl("Successfully logged out!", {type:"success",delay:10000});' )
-    dajax.assign("#login_logout", "innerHTML", '<a href="#login" onclick="$(\'#login\').modal(\'show\');">Login | Register </a>')
+    dajax.assign("#login_logout", "innerHTML", '<a href="#login" onclick="$(\'#login\').modal(\'show\');">Login | Sign Up </a>')
+    dajax.add_css_class("#dashboard","hide hidden")
     return dajax.json()
     
 @dajaxice_register
@@ -241,7 +425,25 @@ def login(request,login_form = None):
                 dajax.script("$('#login_form #id_password').val('');")
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
-                dajax.assign("#login_logout", "innerHTML", '<a onclick="Dajaxice.users.logout(Dajax.process,{});" style="cursor:pointer;">Logout </a>')
+                profile = UserProfile.objects.get(user=request.user)
+                context_dash_dict = {'profile':profile,'settings':settings}
+                html_stuff = render_to_string('dashboard/profile_view.html',context_dash_dict,RequestContext(request))
+                dajax.script("window.location.hash = \"dashboard\"")
+                if html_stuff:
+                    dajax.assign('#content_dash','innerHTML',html_stuff)
+#                dajax.script('$(\"#list_user_head a\").click();')
+                #dajax.script('$(\"#list_events_head a\").click();')
+                #dajax.script('javascript:do_accordion(\"list_user\");')
+#                dajax.script("javascript:do_accordion('list_user')")
+                
+                dajax.script("$('#aboutus').hide();")
+                dajax.assign("#dashboard #dashboard_shaastra_id","innerHTML",str(request.user.get_profile().shaastra_id))
+                dajax.assign("#dashboard #dashboard_full_name","innerHTML",str(request.user.get_full_name()))
+                dajax.assign("#login_logout", "innerHTML",'<div class="btn-group">\
+                <button class="btn" onclick ="window.location.replace(\'#dashboard\');\
+                "><i class="icon-user icon-white"></i>My Dashboard&nbsp;&nbsp;\
+                </button></div>')
+                dajax.remove_css_class("#dashboard","hide hidden")
                 #display logout| edit profile on navbar
 
                 return dajax.json()
@@ -322,9 +524,9 @@ def register(request,form_registration=None,college_name=None):
                          $('#form_registration #id_password').val('');\
                          $('#form_registration #id_password_again').val('');\
                          $('#form_registration #id_mobile_number').val('');")
-            
-            send_mail('Your new Shaastra2014 account confirmation', body,'noreply@shaastra.org', [new_user.email,], fail_silently=False)
-            msg='A mail has been sent to the mail id u provided. Please activate your account within 48 hours. Please also check your spam folder'
+            #if settings.SEND_EMAILS:
+            send_mail('Your new Shaastra2014 account confirmation', body,'webops@shaastra.org', [new_user.email,], fail_silently=False)
+            msg='A mail has been sent to the mail id you provided. Please activate your account within 48 hours. Please also check your spam folder'
 #            dajax.script('$(".modal-header").find(".close").click();')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",delay:20000} );'% msg )
             dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show()')
@@ -362,13 +564,17 @@ def forgot_password(request,email=None):
             profile = UserProfile.objects.get(user__email = str(email))
             email = profile.user.email
             user = profile.user
+            if not profile.user.is_active:
+                dajax.script('$.bootstrapGrowl("Activate your account first! Check your mail for the activation link." , {type:"error",delay:20000} );')
+                return dajax.json()
             mail_template = get_template('email/forgot_password.html')
             body = mail_template.render( Context( {
                     'username':user.username,
                     'SITE_URL':settings.SITE_URL,
                     'passwordkey':profile.activation_key,
                 }))
-            send_mail('Shaastra2014 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
+            #if settings.SEND_EMAILS:
+            send_mail('Shaastra2014 password reset request', body,'webops@shaastra.org', [user.email,], fail_silently=False)
             dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id: %s", {type:"success",delay:20000} );' % email)
             dajax.script('$.bootstrapGrowl("Please also check your spam", {type:"danger",delay:20000});')
         except ValidationError:

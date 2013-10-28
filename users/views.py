@@ -23,21 +23,46 @@ from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 from django.utils import timezone
-from dashboard.models import TDPFileForm,TeamEvent
+from dashboard.models import TDPFileForm,TeamEvent,Update
+from django.core.exceptions import ValidationError
 
 def submit_tdp(request):
     if not request.user.is_authenticated():
         #TODO: redirect him to mainsite , and pop the login modal
         return HttpResponse('Please login to submit TDP\'s')
+    if not request.POST or not request.FILES:
+        return HttpResponse('Incorrect URL.Click <a href="">here</a> to go back to mainsite.')
     fileform = TDPFileForm(request.POST,request.FILES)
     if not fileform.files:
         #TODO: submit tdp button comes only if upload succesful event of input type file
         return HttpResponse('Please upload a valid file')
-    tdp = fileform.save(commit = False)
+    try:
+        tdp = fileform.save(commit = False)
+    except:
+        request.session['file_upload'] = 'TDP Upload Failed: Illegal Characters in Filename'
+        return HttpResponseRedirect(settings.SITE_URL+'#dashboard')
     tdp.teamevent = TeamEvent.objects.get(id = request.POST['teameventid'])
-    tdp.save()
     
-    return HttpResponse(str(request.FILES))
+#        tdp.file_tdp.name
+    try:
+#    if 1:
+        tdp.save()
+        request.session['file_upload'] = 'TDP Upload Successful for %s!'% tdp.teamevent.get_event().title
+        msg_success = 'Team %s,Your TDP for %s was successfully submitted!' % (tdp.teamevent.team_name,tdp.teamevent.get_event().title)
+        try:
+            update = Update(tag = 'TDP Submission',content = msg_success,user = request.user)
+            update.save()
+        except:
+            pass
+    except ValidationError as e:
+        errors=str(e)
+        errors=errors[2:]
+        errors=errors[:-2]
+        request.session['file_upload'] = errors
+        
+    except:
+        return HttpResponse('Unknown Error. Please contact WebOps Team.Go <a href = "%s">back</a> to mainsite'%settings.SITE_URL)
+    return HttpResponseRedirect(settings.SITE_URL+'#dashboard')
 
 def forgot_password(request,password_key = None):
     SITE_URL = settings.SITE_URL

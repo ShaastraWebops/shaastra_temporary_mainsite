@@ -1,0 +1,129 @@
+{% load staticfiles %}
+
+<!-- DASHBOARD SECTION  -->
+<section id="dashboard" class='sec {% if not request.user.is_authenticated %}hide{% endif %}'>
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <center><h2>Dashboard </h2>
+<!--                        <h3>{{request.user.get_profile.shaastra_id}}</h3>-->
+                
+                <div class="white breaker"><span class="left"></span><div class="dice white"></div><span class="right"></span></div>
+                </center>
+
+            </div>
+        </div>
+        {% if msg_file_upload %}
+        <span id='error_earlier' class='hide'> {{msg_file_upload}}</span>
+        {% endif %}
+        <div class="container page_content" style=' padding : 10px; height : 65%;'>
+            <div class='left_content span3 pull-left' style=''>
+                <ul id='dash_sidenav' class="nav nav-tabs nav-stacked sidenav affix-top">
+                    <!-- START User list head -->
+                    <li id="list_user_welcome_head" class="list_user_head sidenav_head ">
+                        <a class="btn-btn-link" style='text-align : center;cursor:pointer' onclick="Dajaxice.users.welcome(Dajax.process);">
+                             Hi <span id="dashboard_full_name">{{request.user.get_full_name}}</span>
+                        </a>
+                    </li>
+                    <li id="list_user_head" class="list_user_head sidenav_head ">
+                        <a href = "#_account_actions" onclick="javascript:do_accordion('list_user');javascript:do_accordion('list_events')" style='cursor : pointer;'>
+                            <i class="icon-chevron-down icon-white"></i> Account information
+                        </a>
+                    </li>
+                    <li id="list_user_profile" class="list_user_body active">
+                        <a href="#" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.users.view_profile(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');" >
+                            <i class="icon-chevron-right"></i> Profile Details
+                        </a>
+                    </li>
+                    <li id="list_user_edit" class="list_user_body">
+                        <a href="#" onclick="$('#dashboard #loading_dash_dajax').show();Dajaxice.users.edit_profile_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
+                            <i class="icon-chevron-right"></i> Edit Profile&nbsp;&nbsp;<i class="icon-user icon-white"></i>
+                        </a>
+                    </li>
+                    <li id="list_user_edit" class="list_user_body">
+                        <a href="#" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.change_password_form(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');">
+                            <i class="icon-chevron-right"></i> Change my Password&nbsp;&nbsp;<i class="icon-user icon-white"></i>
+                        </a>
+                    </li>
+                    
+                    <!-- END User list -->
+                    <!-- START Events list head -->
+                    <li id="list_events_head" class="list_events_head sidenav_head ">
+                        <a href="#_options_events" onclick="javascript:do_accordion('list_user');javascript:do_accordion('list_events')" style='cursor : pointer;'> 
+                            <i class="icon-chevron-down icon-white"></i> My Events
+                        </a>
+                    </li>
+                    <li id="list_events_registered" class="list_events_body collapse">
+                        <a href="#registered_events" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.show_registered_events(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
+                            <i class="icon-chevron-right"></i> My Event Registrations
+                        </a>
+                    </li>
+                    <li id="list_events_team" class="list_events_body collapse">
+                        <a href="#your_tdp_submissions" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.show_tdp_submissions(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
+                            <i class="icon-chevron-right"></i> My TDP Submissions
+                        </a>
+                    </li>
+<!--                    <li id="list_events_team_class" delete="list_events_body collapse">-->
+<!--                        <a href="#updates_view" onclick="Dajaxice.users.show_updates(Dajax.process);"> -->
+<!--                            <i class="icon-chevron-right"></i> My Updates-->
+<!--                        </a>-->
+<!--                    </li>-->
+                    <!-- END Events list -->
+                    <!-- START Submit TDP -- NO LIST -->
+                    <li id="list_tdp_submit" class="sidenav_lone">
+                        <a href="#tdp_submit" onclick = "$('#dashboard #loading_dash_dajax').show();Dajaxice.users.show_registered_tdp_events(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
+                            <i class="icon-chevron-right"></i>&nbsp;&nbsp;Submit TDP
+                        </a>
+                    </li>
+                    <li class="sidenav_lone">
+                        <button class="btn btn-inverse" style="width:100%" onclick = "Dajaxice.users.logout(Dajax.process);$('#dash_sidenav li').removeClass('active');$(this).closest('li').addClass('active');"> 
+                            </i><span><b>&nbsp;&nbsp;Logout</b></span>
+                        </button>
+                    </li>
+                    
+                    <br/>
+                    <!-- END Submit TDP -->
+                    <li>
+                    <center>
+<!--                    <img src='{{SITE_URL}}static/img/rect_good.gif' style="height: 5%;" class="loading" title="loading..."/><img src='{{SITE_URL}}static/img/rect_rev.gif' style="height: 5%;" loading="class" loading="title..."/>-->
+                    <img src='{{SITE_URL}}static/img/gif-load.gif' style="height: 5%;" class="loading" title="loading..."/id="loading_dash_dajax"></center>
+                    
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class='right_content span8 pull-right' id="content_dash" style='overflow-y : auto;'>
+                
+                <h4>Welcome {{request.user.username}},</h4>
+                <h5><span>Your Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h5></span>
+                {% if request.user.is_authenticated %}
+                            
+                You have registered for {% if request.user.get_profile.no_regd_events > 0 %}
+                <span class="badge badge-success">{{request.user.get_profile.no_regd_events}}</span> event{{request.user.get_profile.no_regd_events|pluralize}}. Click <a href="#events"><u>here</u></a> for more!
+                {% else %}
+                <span class="badge">0</span> events! Click <a href="#events">here</a> to begin!{% endif %}
+                <br/><br/>
+                <p>Please take note, obtaining a Shaastra ID does not register you for any event.<br/>
+                 You are required to fill in the registration form in the individual event's page for the same</p>
+                <span>Submit your TDP from the option on your sidebar</span>
+                <!--<br/>-->
+                <!--<span>We have some events recommended for you!!</span>-->
+                <!--<ul>-->
+                <!--{% for event in reco_events %}-->
+                <!--<li>{{event.title}}</li>-->
+                <!--{% endfor %}-->
+                <!--</ul>-->
+                <!--{% comment %}-->
+                <!--TODO: if he clicks any event, the page will open-->
+                <!--TODO: userprofile.get_reco_events-->
+                <!--{% endcomment %}-->
+                {% endif %}                
+                
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END DASHBOARD SECTION  -->
+
+        
+        

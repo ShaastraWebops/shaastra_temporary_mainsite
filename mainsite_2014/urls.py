@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 import os.path
+import settings
 from mainsite_2014.settings import STATIC_URL
 from django.views.generic.simple import redirect_to
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -26,10 +27,13 @@ urlpatterns = patterns('',
     url(r'^user/register/activate/(?P<a_key>.*)/$','users.views.activate'),
     url(r'^/$', 'frontend.views.home'),#redirect_to, {'url': '/login/'}),
     url(r'^$', 'frontend.views.home'),#redirect_to, {'url': '/login/'}),
+    url(r'^tdpsubmission$','users.views.submit_tdp'),
+    #url(r'^test/tdpsubmission$','users.views.submit_tdp'),
     url(r'^serenity$', 'frontend.views.serenity'),#redirect_to, {'url': '/login/'}),
     url(r'^files_upload$', 'files_upload.views.upload_file'),
-    url(r'^dashboard$', 'frontend.views.dashboard'),
-    
+    #url(r'^dashboard$', 'frontend.views.dashboard'),
+    #url(r'^dashboard/$', 'frontend.views.dashboard'),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT} ),
     url(dajaxice_config.dajaxice_url, include('misc.dajaxice.urls')), # For dajaxice to function corrently
 )
 

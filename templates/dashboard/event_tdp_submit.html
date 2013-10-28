@@ -1,0 +1,106 @@
+<h4 style='width : 100%;'>
+	<span id='#show_regd_events_title' >{{teamevent.get_event.title}} TDP Submission</span>
+	&nbsp;
+</h4>
+
+	<hr>
+    {% if teamevent.get_event.has_tdp %}
+
+        {% if teamevent.get_event.registration_ends and teamevent.get_event.registration_starts%} 
+            {%if now < teamevent.get_event.registration_ends and now > teamevent.get_event.registration_starts%}
+                {% comment %}
+                TODO: if already uploaded a file, show to view
+                {% endcomment %}
+                    
+                      <h5><span>Note: You can overwrite your previous submission</span></h5>
+<!--                    <h4><span>Your submissions:</span></h4>-->
+                    
+                {% for tdp in teamevent.get_tdp %}
+                <h4><a href = "{{settings.MEDIA_URL}}{{tdp.get_tdp_file.name}}" target="_blank" ><u>Download</u></a> Latest Submission :Team {{teamevent.team_name}}</h4>
+                {% endfor %}
+                
+            
+            <form action="{{settings.SITE_URL}}tdpsubmission" method="post" enctype="multipart/form-data" id="form_tdp_{{teamevent.get_event.id}}">           {% csrf_token %}
+            
+                {% if teamevent.has_submitted_tdp %}
+                    <span>Please submit only in pdf format. Maximum allowed File Size: 5 MB</span><br/>
+<!--                    <span class="btn btn-inverse btn-mini ">-->
+                    {{TDPFileForm.as_table}}
+                    <center>
+                    <br/>
+                 
+                 </center>
+<!--                    </span>-->
+                    <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
+                    <br/>
+                    <input type="checkbox" id="{{teamevent.id}}_sure" class="pull-left">
+				    
+                    <label class="control-label">Are you sure you want to overwrite your previous submission? </label>
+				    <label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;It will be deleted!<br/></label><br/>
+				    <br/>
+				    {% comment %}
+<!--				    TODO: check with js the filetype pdf etc-->
+				    {% endcomment %}
+				    <a class='btn btn-primary' href = "#submit_file" onclick = "
+                if($('#form_tdp_{{teamevent.get_event.id}} #id_file_tdp').val()=='')
+                {
+                    $.bootstrapGrowl('Please submit a file for submission',{'delay':10000});
+                }
+                
+                else
+                {
+                    if($('#form_tdp_{{teamevent.get_event.id}} #{{teamevent.id}}_sure')[0].checked)
+                    {
+                        
+                        setTimeout(x=function(){$('#file_progress').css({'width':'80%'});}, 1000);
+                        $('#form_tdp_{{teamevent.get_event.id}}').submit();
+                    }
+                    else{
+                        $.bootstrapGrowl('Check the radio button to confirm overwriting your previous submission');
+                    }
+                }
+                "
+                >Submit {% if teamevent.has_submitted_tdp %} Updated {% endif %}TDP for {{teamevent.get_event.title}}</a>
+                {% else %}
+<!--                    <span class="btn btn-inverse btn-mini ">-->
+                    {{TDPFileForm.as_table}}
+                
+<!--                    </span>-->
+                    <input type="hidden" value="{{teamevent.id}}" name="teameventid"/>
+                
+                    <a class='btn btn-primary' href = "#submit_file" onclick = "
+                if($('#form_tdp_{{teamevent.get_event.id}} #id_file_tdp').val()=='')
+                {
+                    $.bootstrapGrowl('Please submit a file for submission');
+                }
+                else
+                {
+                    
+                    $('#form_tdp_{{teamevent.get_event.id}}').submit();
+                }
+                    "
+                    >Submit {% if teamevent.has_submitted_tdp %} Updated {% endif %}TDP for {{teamevent.get_event.title}}</a>
+                {% endif %}
+            </form>
+                
+            {% else %}
+                {% if now > teamevent.get_event.registration_ends %}
+                    {% if teamevent.has_submitted_tdp %}
+                    <span>Your submission was received!</span>
+                    {% else %}
+                    <span>Sorry registrations closed</span>
+                    {% endif %}
+                {% endif %}
+                {% if now < teamevent.get_event.registration_starts %}
+                    <span>Please wait, registrations open on {{teamevent.get_event.registration_starts}}</span>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            	<span>Registration details not available</span>
+        {% endif %}
+    {% else %}
+    <span>This event has no TDP Submissions</span>
+    {% endif %}
+
+
+
