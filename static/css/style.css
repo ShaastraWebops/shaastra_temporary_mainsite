@@ -184,8 +184,8 @@ h2 {
     -ms-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    padding : 10px 5px 10px;
-    font-size : 0.8em;
+    padding : 10px 10px 10px;
+    font-size : 0.9em;
 }
 .navbar .nav > li a.selected,
 .navbar .nav > li a.active { 
