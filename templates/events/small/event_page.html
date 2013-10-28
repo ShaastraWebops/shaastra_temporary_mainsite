@@ -48,9 +48,31 @@
 {% for tab in tab_list %}
     {% if forloop.first %}
         <div class="span8 page_content">
+
+            <!-- displaying updates -->
+            {% if updates_list %}
+                <div style="width:30%; position:absolute; left:80%;" class="sidr">
+                    <ul>
+                    {% for update in updates_list %}
+                        {% ifequal update.category 'Major Update' %}
+                            <li id="li_major_update">
+                                <p class="text-warning"> <strong>{{update.subject}}</strong>: {{update.description}} </p>
+                            </li>
+                        {% else %}
+                            <li>
+                                <p> <strong>{{update.subject}}</strong>: {{update.description}} </p>
+                            </li>
+                        {% endifequal %}
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <!-- updates -->
+
     {% else %}
         <div class="span8 page_content" style="display:none;">
     {% endif %}
         {{tab.text|removetags:"span font div"|safe}}
     </div>
 {% endfor %}
+

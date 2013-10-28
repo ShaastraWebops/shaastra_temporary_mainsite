@@ -40,6 +40,8 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
     event_details = {}
     tab_details = {}
     tab_details_list = []
+    update_details = {}
+    update_details_list = []
     
     if not (event_pk and event_name):
         dajax.script('$.bootstrapGrowl("Oops : There is some error on the site, please report to WebOps team", {type:"danger"} );' )
@@ -63,36 +65,67 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
             json_dict = json.load(f)
             f.close()
     
-    #getting event and tab data separately from json_dict
+    #getting event, tab and update data separately from json_dict
     tab_pk_list = []
+    update_pk_list = []
+    skip_update_pk = []
     json_dict_keys = sorted(json_dict) # sorted keys
-    count=1
+    tab_count = 1
+    update_count = 1
     
     for key in json_dict_keys:
         if key.startswith('event_'):
             event_details[ key[6:] ] = json_dict.pop(key)
+            
         elif key.startswith('tab'):
-            underscore_posn = key.find('_')
-            tab_pk = key[3:underscore_posn]
-            if count==1:
-                tab_details[ key[underscore_posn+1:] ] = json_dict.pop(key)
-            elif ( int(tab_pk) == int(tab_pk_list[-1]) ) and (count>1) :
-                tab_details[ key[underscore_posn+1:] ] = json_dict.pop(key)
-            elif ( int(tab_pk) != int(tab_pk_list[-1]) ) and (count>1) :
+            tab_underscore_posn = key.find('_')
+            tab_pk = key[3:tab_underscore_posn]
+            if tab_count==1:
+                tab_details[ key[tab_underscore_posn+1:] ] = json_dict.pop(key)
+            elif ( int(tab_pk) == int(tab_pk_list[-1]) ) and (tab_count>1) :
+                tab_details[ key[tab_underscore_posn+1:] ] = json_dict.pop(key)
+            elif ( int(tab_pk) != int(tab_pk_list[-1]) ) and (tab_count>1) :
                 tab_details_list.append(tab_details)
                 tab_details = {}
-                tab_details[ key[underscore_posn+1:] ] = json_dict.pop(key)
+                tab_details[ key[tab_underscore_posn+1:] ] = json_dict.pop(key)
 
             tab_pk_list.append(tab_pk)
-            count += 1
-    
+            tab_count += 1
+            
+        elif key.startswith('update'):
+            update_underscore_posn = key.find('_')
+            update_pk = key[6:update_underscore_posn]
+#            if key[update_underscore_posn+1:] == 'expired' and json_dict[key] == True:
+#                skip_update_pk.append(update_pk)
+#                continue
+            if update_count==1:
+                update_details[ key[update_underscore_posn+1:] ] = json_dict.pop(key)
+            elif ( int(update_pk) == int(update_pk_list[-1]) ) and (update_count>1) :
+                update_details[ key[update_underscore_posn+1:] ] = json_dict.pop(key)
+            elif ( int(update_pk) != int(update_pk_list[-1]) ) and (update_count>1) :
+                update_details_list.append(update_details)
+                update_details = {}
+                update_details[ key[update_underscore_posn+1:] ] = json_dict.pop(key)
+
+            update_pk_list.append(update_pk)
+            update_count += 1
+
     if tab_details:
         tab_details_list.append(tab_details) #appending the last tab_details dict that was not appended in the loop
+        
+    if update_details:
+        update_details_list.append(update_details) #appending the last update_details dict that was not appended in the loop
+    
+    # removing expired updates from updates list
+    for update_details in update_details_list:
+        if update_details['expired'] == True:
+            update_details_list.remove(update_details)
     
     #sorting tab details based on preference:
     tab_details_list = sorted(tab_details_list, key=lambda x: x["pref"])
+    update_details_list = sorted(update_details_list, key=lambda x: x["category"])
     time_now = timezone.now()
-    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'event_type': event_type, 'time_now':time_now, 'event_pk':event_pk}
+    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'updates_list': update_details_list, 'event_type': event_type, 'time_now':time_now, 'event_pk':event_pk}
     html_content = render_to_string('events/small/event_page.html', context_dict, RequestContext(request))
     
     if html_content:
@@ -100,5 +133,4 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
         dajax.assign("#event_no_"+str(event_pk)+" > .event_content", "innerHTML", html_content)
         #dajax.script("show_event(document.getElementById('event_no_"+str(event_pk)+"_click'));")
         dajax.script("$('#event_no_"+str(event_pk)+"_click').parent().children('.event_content').removeClass('loading');")
-    
     return dajax.json() 
