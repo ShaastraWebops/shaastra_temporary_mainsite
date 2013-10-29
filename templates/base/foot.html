@@ -352,18 +352,12 @@
                     ON BODY LOAD HANDLER
     --------------------------------------------------------- */
     function pagechange( e ) {
-        /*if ( ! place ) {
-            place = window.location.hash
-        } else {
-            window.location.hash = place
-        }*/
         if ( $.type(e) == 'string' ) { // else if : STRING
             var place = e;
             window.location.hash = place;
         } else { // Get place from hashfrag - changed by someone else
             var place = window.location.hash.substr(1).split(" ").join("").split("-").join("").toLowerCase()
         }
-        _gaq.push(['_trackPageview',location.pathname + location.search + location.hash])
         
         // Check if the hashfrag is for the sections -- REDUNDANT - as browser will take care of it
         list_navs = $(".navbar ul.nav a")
