@@ -235,7 +235,10 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     if len(shalist) < event.team_size_min-1:
         dajax.script('$.bootstrapGrowl("Minimum team size:%d!",{type:"danger",delay:10000})'% event.team_size_min)
         return dajax.json()
-    
+    msg,teamname = has_team(request.user,event.id)
+    if msg =='has_team':
+        dajax.script('$.bootstrapGrowl("You are already a part of another team named %s for this event.");$.bootstrapGrowl("A user can be part of only 1 team for an event",{type:"danger",delay:20000});'% (teamname))
+        return dajax.json()
     userlist=[]
     userlist.append(request.user)
     up=None
