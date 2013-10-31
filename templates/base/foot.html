@@ -163,6 +163,7 @@
             $($(tds[i]).children("input")).attr("placeholder", st);
         }
     }
+  $("#form_registration #id_college_roll").attr("placeholder","Roll Number(if enrolled)");
   $("#form_registration #id_branch" ).width($("#form_registration #id_age").width());
   $(".loading").hide();
   {% with msg_file_upload|slice:":21" as short_msg %}
