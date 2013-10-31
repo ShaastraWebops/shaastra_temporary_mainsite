@@ -236,7 +236,7 @@ h2 {
 
 /* MAIN SECTIONS */
 
-section:not(:first-child) {
+body > section:not(:first-child) {
     padding:35px 0px 50px;
 }
 

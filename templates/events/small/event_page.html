@@ -1,5 +1,6 @@
 {% load staticfiles %}
 <div class='pull-left' style='cursor : pointer;' onclick="javascript:hide_event();window.location.hash='{{event.category}}';" ><img src="{% static 'img/back-arrow.png' %}"/></div>
+
 <center>
     <h4>
         {{event.title}}
@@ -11,7 +12,7 @@
 {% else %}
 
     <a onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_pk}}});"
-        class='btn btn-danger' style='z-index : 100; position : absolute; top : 90%; left : 40%'>
+        class='btn btn-danger' style='position : absolute; top : 90%; left : 65%'>
         <b>&nbsp;&nbsp;&nbsp;&nbsp;Register for this event!&nbsp;&nbsp;&nbsp;&nbsp;</b>
 <!--        <b><img src='{{SITE_URL}}static/img/loading.gif' style="height:25px;width:25px;" class="loading" id="gif_eventregister" title="loading..." /></b>-->
     </a>
@@ -23,6 +24,40 @@
 <!--{% endif %}-->
     {% endcomment %}
 {% endifequal %}
+{% endif %}
+    
+{% if updates_list %}
+    <a href="#modal_{{event.id}}" role="button" data-toggle="modal"
+        class='btn btn-danger' style='position : absolute; left : 30%; top : 90%;'>
+        <b>&nbsp;&nbsp;&nbsp;&nbsp;Updates&nbsp;&nbsp;&nbsp;&nbsp;</b>
+    </a>
+    <section id="modal_{{event.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Updates for {{event.title}}</h3>
+        </div>
+        <div class="modal-body">
+            {% if updates_list %}
+                <ul>
+                {% for update in updates_list %}
+                    {% ifequal update.category 'Major Update' %}
+                        <li id="li_major_update">
+                            <p class="text-warning" style='text-align : left;'> <strong>{{update.subject}}</strong>: {{update.description}} </p>
+                        </li>
+                    {% else %}
+                        <li>
+                            <p  style='text-align : left;'> <strong>{{update.subject}}</strong>: {{update.description}} </p>
+                        </li>
+                    {% endifequal %}
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn">Close</a>
+            <a href="#" class="btn btn-primary">Save changes</a>
+        </div>
+    </section>
 {% endif %}
 
 <div id="sidr" class="sidr span3">
@@ -56,27 +91,6 @@
 {% for tab in tab_list %}
     {% if forloop.first %}
         <div class="span8 page_content">
-
-            <!-- displaying updates --
-            {% if updates_list %}
-                <div style="width:30%; position:absolute; left:80%;" class="sidr">
-                    <ul>
-                    {% for update in updates_list %}
-                        {% ifequal update.category 'Major Update' %}
-                            <li id="li_major_update">
-                                <p class="text-warning"> <strong>{{update.subject}}</strong>: {{update.description}} </p>
-                            </li>
-                        {% else %}
-                            <li>
-                                <p> <strong>{{update.subject}}</strong>: {{update.description}} </p>
-                            </li>
-                        {% endifequal %}
-                    {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-            <!-- updates -->
-
     {% else %}
         <div class="span8 page_content" style="display:none;">
     {% endif %}
