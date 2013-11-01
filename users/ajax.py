@@ -15,6 +15,8 @@ from forms import AddUserForm,LoginForm
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
+from django.utils.html import strip_tags
+
 from misc.dajaxice.utils import deserialize_form
 from django.contrib.auth import authenticate
 
@@ -525,7 +527,16 @@ def register(request,form_registration=None,college_name=None):
                          $('#form_registration #id_password_again').val('');\
                          $('#form_registration #id_mobile_number').val('');")
             #if settings.SEND_EMAILS:
-            send_mail('Your new Shaastra2014 account confirmation', body,'webops@shaastra.org', [new_user.email,], fail_silently=False)
+            subject, from_email, to = 'Your new Shaastra2014 account confirmation', 'noreply@shaastra.org', [new_user.email,]
+            html_content = body
+            text_content = strip_tags(body)
+            
+            msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+            msg.attach_alternative(html_content, "text/html")
+            
+            msg.send()
+            
+            #send_mail('Your new Shaastra2014 account confirmation', body,'webops@shaastra.org', [new_user.email,], fail_silently=False)
             msg='A mail has been sent to the mail id you provided. Please activate your account within 48 hours. Please also check your spam folder'
 #            dajax.script('$(".modal-header").find(".close").click();')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",delay:20000} );'% msg )
