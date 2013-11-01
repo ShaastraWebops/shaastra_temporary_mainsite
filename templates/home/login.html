@@ -108,14 +108,45 @@
                         <tr>                                
                             <td>
                                 <div id="add_college_display">
-                                    <a id='add_coll_message' onclick='addcoll();' style="cursor:pointer; font-size : 0.8em;">Can't find your college in the list?</a>
+                                    <a id='add_coll_message' onclick='addcoll();' style="cursor:pointer; font-size : 0.8em;">Can't find your institute in the list?</a>
                                     <span id='add_coll_result'></span><span id='add_coll_name'></span>
                                 </div>
                             </td>
                             <td>
-                                School Student : {{ form_registration.school_student }}
+                            I am a:
+                                <div class="btn-group">
+                                    <button type="button" id = "type_student" class="btn btn-default">College Student</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle" style="height:30px;" data-toggle="dropdown">
+                                      <span class="caret"></span>
+                                      <span class="sr-only"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li><a style="cursor:pointer;" onclick = "$('#id_school_student')[0].checked=true;$('#type_student').text($(this).text());">School Student</a></li>
+                                      <li><a style="cursor:pointer;" onclick = "$('#type_student').text($(this).text());$('#form_registration #id_college_roll').val('PASSED OUT');$('#form_registration #id_college_roll').attr('readonly', true);">College Passout</a></li>
+                                      <li class="divider"></li>
+                                      <li><a style="cursor:pointer;" onclick = "$('#type_student').text($(this).text());">College Student</a></li>
+                                    </ul>
+                                </div>
                             </td>
-                        </tr>
+<!--                            <span>You are a :  </span><div class="btn-group">-->
+<!--                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id = "type_student">College Student<span class="caret"></span></button>-->
+<!--                                <ul class="dropdown-menu" role="menu">-->
+<!--                                  <li><a onclick = "$('#type_student').text($(this).text()+'<span class='caret'></span>')">School Student</a></li>-->
+<!--                                  <li class="divider"></li>-->
+<!--                                  <li><a onclick = "$('#type_student').text($(this).text()+'<span class='caret'></span>')">Passout from College?</a></li>-->
+<!--                                </ul>-->
+<!--                          </div>-->
+<!--                            <div class="btn-toolbar" role="toolbar">-->
+<!--                                <div class="btn-group btn-group-lg">-->
+<!--                                  <button type="button" class="btn btn-default">Left</button>-->
+<!--                                  <button type="button" class="btn btn-default">Middle</button>-->
+<!--                                  <button type="button" class="btn btn-default">Right</button>-->
+<!--                                </div>-->
+<!--                            </div>    -->
+                        </td></tr>
+                        <span style="display:none" >
+                                School Student : {{ form_registration.school_student }}
+                        </span>                        
                         <tr>
                             <td>Want accomodation?
                                 {{ form_registration.want_accomodation }}

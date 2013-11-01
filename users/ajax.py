@@ -541,7 +541,7 @@ def register(request,form_registration=None,college_name=None):
 #            dajax.script('$(".modal-header").find(".close").click();')
             dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",delay:20000} );'% msg )
             dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show()')
-    
+            dajax.script('$("#form_registration #id_college_roll").attr("readonly", false);$("#form_registration #id_college_roll").val("");')
             return dajax.json()
         else:
             errdict=dict(form.errors)
