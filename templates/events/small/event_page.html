@@ -27,13 +27,15 @@
 {% endif %}
     
 {% if updates_list %}
-    <a href="#modal_{{event.id}}" role="button" data-toggle="modal"
+
+    <a  onclick='$("#modal_").show()'
         class='btn btn-success' style='position : absolute; left : 30%; top : 90%;'>
         <b>&nbsp;&nbsp;&nbsp;&nbsp;Updates&nbsp;&nbsp;&nbsp;&nbsp;</b>
     </a>
-    <section id="modal_{{event.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+    <section id="modal_{{event.id}}" class="modal hide" tabindex="-1" aria-hidden='false'>
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close" onclick='$("#modal_").hide()'>&times;</button>
             <h3>Updates for {{event.title}}</h3>
         </div>
         <div class="modal-body">
@@ -54,9 +56,10 @@
             {% endif %}
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn">Close</a>
+            <a onclick='$("#modal_").hide()' class="btn">Close</a>
         </div>
     </section>
+
 {% endif %}
 
 <div id="sidr" class="sidr span3">
@@ -96,4 +99,3 @@
         {{tab.text|removetags:"span font div"|safe}}
     </div>
 {% endfor %}
-
