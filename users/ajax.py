@@ -16,6 +16,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
 
 from misc.dajaxice.utils import deserialize_form
 from django.contrib.auth import authenticate
