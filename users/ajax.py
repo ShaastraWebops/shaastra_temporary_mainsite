@@ -504,7 +504,7 @@ def register(request,form_registration=None,college_name=None):
             new_user = User(first_name=data['first_name'],last_name=data['last_name'], username=data['username'], email=data['email'])
             new_user.set_password(data['password']) 
             new_user.save()
-            new_user.is_active = False
+            new_user.is_active = True
             new_user.save()
             x = 1400000 + new_user.id 
             salt = sha.new(str(random.random())).hexdigest()[:5]
@@ -514,34 +514,35 @@ def register(request,form_registration=None,college_name=None):
             else:
                 userprofile = UserProfile(user=new_user,activation_key=activation_key,gender=data['gender'],age=data['age'],branch=data['branch'],mobile_number=data['mobile_number'],college=college,college_roll=data['college_roll'],shaastra_id= ("SHA" + str(x)),key_expires = timezone.now()+datetime.timedelta(2))
             userprofile.save()
-            mail_template = get_template('email/activate.html')
-            body = mail_template.render( Context( {
-                    'username':new_user.username,
-                    'activationkey':userprofile.activation_key,
-                    'SITE_URL':settings.SITE_URL,
-                    'shaastra_id':userprofile.shaastra_id,
-                }))
+            #mail_template = get_template('email/activate.html')
+            #body = mail_template.render( Context( {
+            #        'username':new_user.username,
+            #        'activationkey':userprofile.activation_key,
+            #        'SITE_URL':settings.SITE_URL,
+            #        'shaastra_id':userprofile.shaastra_id,
+            #    }))
             #TODO: empty the entire form!!
-#            dajax.script("$('#form_registration').val('');")\
-            dajax.script("$('#form_registration #id_email').val('');\
-                         $('#form_registration #id_password').val('');\
-                         $('#form_registration #id_password_again').val('');\
-                         $('#form_registration #id_mobile_number').val('');")
+            #dajax.script("$('#form_registration').val('');")\
+            #dajax.script("$('#form_registration #id_email').val('');\
+            #             $('#form_registration #id_password').val('');\
+            #             $('#form_registration #id_password_again').val('');\
+            #             $('#form_registration #id_mobile_number').val('');")
             #if settings.SEND_EMAILS:
-            subject, from_email, to = 'Your new Shaastra2014 account confirmation', 'noreply@shaastra.org', [new_user.email,]
-            html_content = body
-            text_content = strip_tags(body)
+            #subject, from_email, to = 'Your new Shaastra2014 account confirmation', 'noreply@shaastra.org', [new_user.email,]
+            #html_content = body
+            #text_content = strip_tags(body)
             
-            msg = EmailMultiAlternatives(subject, text_content, from_email, to)
-            msg.attach_alternative(html_content, "text/html")
+            #msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+            #msg.attach_alternative(html_content, "text/html")
             
-            msg.send()
+            #msg.send()
             
             #send_mail('Your new Shaastra2014 account confirmation', body,'webops@shaastra.org', [new_user.email,], fail_silently=False)
-            msg='A mail has been sent to the mail id you provided. Please activate your account within 48 hours. Please also check your spam folder'
+            #msg='Hi, A mail has been sent to the mail id you provided. Please activate your account within 48 hours. Please also check your spam folder'
+            msg = 'Successfully Registered ! <br /> Welcome !'
 #            dajax.script('$(".modal-header").find(".close").click();')
-            dajax.script('$.bootstrapGrowl("Hi %s" , {type:"success",delay:20000} );'% msg )
-            dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show()')
+            dajax.script('$.bootstrapGrowl("%s" , {type:"success",delay:20000} );'% msg )
+            dajax.script('$("#gif_registration").hide();$("#form_registration_submit").show();$("#login").modal("hide")')
             dajax.script('$("#form_registration #id_college_roll").attr("readonly", false);$("#form_registration #id_college_roll").val("");')
             return dajax.json()
         else:
