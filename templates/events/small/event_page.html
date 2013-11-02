@@ -12,7 +12,7 @@
 {% else %}
 
     <a onclick="Dajaxice.dashboard.register_event_form(Dajax.process,{'event_id':{{event_pk}}});"
-        class='btn btn-success' style='position : absolute; top : 90%; left : 65%'>
+        class='btn btn-success' style='position : absolute; top : 90%; left : 55%'>
         <b>&nbsp;&nbsp;&nbsp;&nbsp;Register for this event!&nbsp;&nbsp;&nbsp;&nbsp;</b>
 <!--        <b><img src='{{SITE_URL}}static/img/loading.gif' style="height:25px;width:25px;" class="loading" id="gif_eventregister" title="loading..." /></b>-->
     </a>
@@ -28,17 +28,17 @@
     
 {% if updates_list %}
 
-    <a  onclick='$("#modal_").show()'
-        class='btn btn-success' style='position : absolute; left : 30%; top : 90%;'>
+    <!--<a  onclick='$("#modal_").show()'
+        class='btn btn-success' style='position : absolute; left : 25%; top : 90%;'>
         <b>&nbsp;&nbsp;&nbsp;&nbsp;Updates&nbsp;&nbsp;&nbsp;&nbsp;</b>
-    </a>
+    </a>-->
     
-    <section id="modal_{{event.id}}" class="modal hide" tabindex="-1" aria-hidden='false'>
+    <section id="modal_update_event" class="modal span2" style='margin-left : 0; left : auto; right : 0px; width : 350px; top : 150px;' tabindex="-1" aria-hidden='false'>
         <div class="modal-header">
-            <button type="button" class="close" onclick='$("#modal_").hide()'>&times;</button>
-            <h3>Updates for {{event.title}}</h3>
+            <button type="button" class="close" onclick='$("#modal_update_event").hide()'>&times;</button>
+            <h3>Updates</h3>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style='height : 300px; overflow-y : auto;'>
             {% if updates_list %}
                 <ul>
                 {% for update in updates_list %}
@@ -55,14 +55,14 @@
                 </ul>
             {% endif %}
         </div>
-        <div class="modal-footer">
+        <!--<div class="modal-footer">
             <a onclick='$("#modal_").hide()' class="btn">Close</a>
-        </div>
+        </div>-->
     </section>
-
+    
 {% endif %}
 
-<div id="sidr" class="sidr span3">
+<div id="sidr" class="sidr span2_5">
     <ul>
         {% for tab in tab_list %}
             <li {% if forloop.first %} class="active" {% endif %} onclick='show_event_page(this)'> {{tab.title|title}} </li>
@@ -92,9 +92,9 @@
 {% endcomment %}
 {% for tab in tab_list %}
     {% if forloop.first %}
-        <div class="span8 page_content">
+        <div class="span7 page_content">
     {% else %}
-        <div class="span8 page_content" style="display:none;">
+        <div class="span7 page_content" style="display:none;">
     {% endif %}
         {{tab.text|removetags:"span font div"|safe}}
     </div>

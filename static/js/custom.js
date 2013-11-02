@@ -81,9 +81,7 @@ $(window).scroll(function() {
             'border-bottom-left-radius' : left_rad + '% ' + right_rad + '%',
             'border-bottom-right-radius' : left_rad + '% ' + right_rad + '%',
             'height' : (h-ypos)*0.9 + 'px',
-        } );*/
-        
-        
+        } );*/        
         
         $('#banner_div').css( {
             'top' : ypos + 'px',
@@ -103,6 +101,11 @@ $(window).scroll(function() {
         $('.nav a[href="#home"]').removeClass("active")
         clearInterval(hexa_pid)
         hexa_pid = -1;
+    }
+    if(ypos > $("#aboutus").offset().top + 8*$("#aboutus").height()/10 && ypos < $("#events").offset().top + 5*$("#events").height()/10) {
+        $("#modal_update_event").removeClass("hide")
+    } else {
+        $("#modal_update_event").addClass("hide")
     }
 });
 
