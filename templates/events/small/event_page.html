@@ -35,7 +35,7 @@
     
     <section id="modal_update_event" class="modal span2" style='margin-left : 0; left : auto; right : 0px; width : 350px; top : 150px;' tabindex="-1" aria-hidden='false'>
         <div class="modal-header">
-            <button type="button" class="close" onclick='$("#modal_update_event").hide()'>&times;</button>
+            <!--<button type="button" class="close" onclick='$("#modal_update_event").hide()'>&times;</button>-->
             <h3>Updates</h3>
         </div>
         <div class="modal-body" style='height : 300px; overflow-y : auto;'>
@@ -59,7 +59,13 @@
             <a onclick='$("#modal_").hide()' class="btn">Close</a>
         </div>-->
     </section>
-    
+    <script>
+        setTimeout( function() {
+            $("#modal_update_event").css({
+                "width" : ( $("body").width() - ( $("#modal_update_event").parent().children(".page_content").offset().left + $("#modal_update_event").parent().children(".page_content").width() ) - 50 ) +"px",
+            })
+        }, 100);
+    </script>
 {% endif %}
 
 <div id="sidr" class="sidr span2_5">
