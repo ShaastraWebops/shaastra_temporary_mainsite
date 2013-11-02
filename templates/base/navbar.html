@@ -8,40 +8,49 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <div class='row'>
                     <a class="brand" href=""><img src="{% static 'img/logo/small_color.png' %}" /></a>
                     <a class="brand_color hide" href=""><img src="{% static 'img/logo/small_color.png' %}" /></a>
                     <a class="brand_bw hide" href=""><img src="{% static 'img/logo/small_color.png' %}" /></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav pull-right" id='navbar_list'>
-                            <li style='margin-right : 10px;' id="login_logout">
-                                {% if not request.user.is_authenticated%}
-                                    <a href="#login" onclick="$('#login').modal();">Login | Sign Up </a>
-                                {% else %}
-                                <div class='btn-group'>
-                                    <a href="#dashboard" class="btn"><i class='icon-user icon-white'></i>&nbsp;My Dashboard&nbsp;&nbsp;</a>
-                                </div>
-       
-                                {% endif %}
-                            </li>
-                            <li><a href="#home" class="active">Home</a></li>
-                            <!--<li id='nav-aboutus'><a href="#aboutus" class="">AboutUs</a></li>-->
-                            <li><a href="#events" class="">Events</a></li>
-                            <li><a href="#shows" class="">Shows</a></li>
-                            <li><a href="#lectures" class="">Lectures</a></li>
-                            <li><a href="#hospi" class="">Hospitality</a></li> 
-                            <li><a href="#spons" class="">Sponsors</a></li>
-                            <li><a href="#contact" class="">Contact Us</a></li>
-                        </ul>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right" id='navbar_list'>
+                                <li style='margin-right : 10px;' id="login_logout">
+                                    {% if not request.user.is_authenticated%}
+                                        <a href="#login" onclick="$('#login').modal();">Login | Sign Up </a>
+                                    {% else %}
+                                    <div class='btn-group'>
+                                        <a href="#dashboard" class="btn"><i class='icon-user icon-white'></i>&nbsp;My Dashboard&nbsp;&nbsp;</a>
+                                    </div>
+           
+                                    {% endif %}
+                                </li>
+                                <li><a href="#home" class="active">Home</a></li>
+                                <!--<li id='nav-aboutus'><a href="#aboutus" class="">AboutUs</a></li>-->
+                                <li><a href="#events" class="">Events</a></li>
+                                <li><a href="#shows" class="">Shows</a></li>
+                                <li><a href="#lectures" class="">Lectures</a></li>
+                                <li><a href="#hospi" class="">Hospitality</a></li> 
+                                <li><a href="#spons" class="">Sponsors</a></li>
+                                <li><a href="#contact" class="">Contact Us</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    
-                    <marquee width='100%' style='font-weight : 900;' onmouseover="this.stop();" onmouseout="this.start();">
-                        <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
-                        Details of the certificate policy for all the events and workshops can be found <a href='{{MEDIA_URL}}certificate_policy.pdf'>here</a> <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
-                        Details of Finance and Consulting under Online Events is up! You can participate now! <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
-                        Guidelines for event registration can be found <a href='{{ MEDIA_URL }}shaastra_guidelines.pdf'>here</a> <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
-                        Problem statements for all the pre-registered events are up <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
-                        The registrations for workshops and coding events will start soon <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
-                    </marquee>
+                    <div class='row'>
+                        <span class='pull-left'>
+                            <div class='input-append'>
+                                <input style='height : auto' type="text" data-provide="typeahead" data-source='["aaa", "sss", "ddd"]'>
+                                <input class="btn btn-primary" type="button" value="Search" />
+                            </div>
+                        </span>
+                        <marquee style='font-weight : 900;' onmouseover="this.stop();" onmouseout="this.start();" class='span12 pull-right'>
+                            <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
+                            Details of the certificate policy for all the events and workshops can be found <a href='{{MEDIA_URL}}certificate_policy.pdf'>here</a> <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
+                            Details of Finance and Consulting under Online Events is up! You can participate now! <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
+                            Guidelines for event registration can be found <a href='{{ MEDIA_URL }}shaastra_guidelines.pdf'>here</a> <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
+                            Problem statements for all the pre-registered events are up <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
+                            The registrations for workshops and coding events will start soon <i class='icon-bullhorn' style='padding-left:10px;padding-right:10px;'></i>
+                        </marquee>
+                    </div>
                 </div>
             </div>
         </div>
