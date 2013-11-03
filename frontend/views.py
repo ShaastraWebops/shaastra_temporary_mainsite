@@ -25,12 +25,20 @@ from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 from users.models import STATE_CHOICES
+from events.models import ParticipantEvent
+erp_db = settings.DATABASES.keys()[1]
 
 def home(request):  
     form=LoginForm()
     form_registration=AddUserForm()
+    eventlist = [event.title for event in ParticipantEvent.objects.using(erp_db).all()]
     colllist=[coll.name+' | '+coll.city for coll in College.objects.all()]
     collstr=''
+    eventstr=''
+    for ev in eventlist:
+        eventstr+="\""+ev+"\""+","
+    eventstr=eventstr[:len(eventstr)-1]
+    
     for l in colllist:
         collstr+="\""+l+"\""+","
     collstr=collstr[:len(collstr)-1]
