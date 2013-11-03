@@ -164,6 +164,11 @@
             $($(tds[i]).children("input")).attr("placeholder", st);
         }
     }
+  //$("find_my_event")
+  eventSearch = function(){
+  window.location.hash = $('#find_my_event').val().replace(/ /g,'_').toLowerCase();
+  $('#find_my_event').val('');
+  }
   $("#form_registration #id_college_roll").attr("placeholder","Roll Number(if enrolled)");
   $("#form_registration #id_branch" ).width($("#form_registration #id_age").width());
   $(".loading").hide();
