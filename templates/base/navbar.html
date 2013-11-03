@@ -39,9 +39,9 @@
                         <span class='pull-left span4_5' style='margin-top : -10px;'>
                             <center>
                                 <div class='input-append'>
-                                    <input id="find_my_event" type="text" placeholder="Find the event"  style="height:20px" data-provide="typeahead" data-items="4" data-source="[{{eventstr}}]">
+                                    <input style='height : auto' id="find_my_event" type="text" placeholder="Find the event"  style="height:20px" data-provide="typeahead" data-items="4" data-source="[{{eventstr}}]">
 <!--                                    <input style='height : auto' type="text" data-provide="typeahead" data-source='["aaa", "sss", "ddd"]'>-->
-                                    <input class="btn btn-primary" type="button" value="Search" onclick = "window.location.hash = $('#find_my_event').val();"/>
+                                    <input class="btn btn-primary" type="button" value="Search" onclick = "window.location.hash = $('#find_my_event').val().replace(/ /g,'_').toLowerCase();"/>
                                 </div>
                             </center>
                         </span>
