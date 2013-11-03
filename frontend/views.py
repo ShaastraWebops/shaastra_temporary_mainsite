@@ -36,9 +36,9 @@ def home(request):
     collstr=''
     eventstr=''
     for ev in eventlist:
-        eventstr+="\""+ev+"\""+","
+        eventstr+="\"" + ev + "\"" +","
     eventstr=eventstr[:len(eventstr)-1]
-    
+    print '**_%s_' %eventstr
     for l in colllist:
         collstr+="\""+l+"\""+","
     collstr=collstr[:len(collstr)-1]
