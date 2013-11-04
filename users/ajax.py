@@ -400,6 +400,7 @@ def logout(request,**kwargs):
     dajax.script('$.bootstrapGrowl("Successfully logged out!", {type:"success",delay:10000});' )
     dajax.assign("#login_logout", "innerHTML", '<a href="#login" onclick="$(\'#login\').modal(\'show\');">Login | Sign Up </a>')
     dajax.add_css_class("#dashboard","hide hidden")
+    dajax.script("window.location.hash = 'events';")
     return dajax.json()
     
 @dajaxice_register
