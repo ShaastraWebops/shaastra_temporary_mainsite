@@ -83,7 +83,9 @@ function show_event_group(el, hashit) {
         // Populate with events
         category_name = el.attr("id").substring(11);
         populate_event_group(category_name, $(".main_event_item"));
-
+        $(el).parent().parent().children(".event_item").removeClass('hide')
+        $(el).parent().addClass('hide')
+        
         // make other events smaller
         $(".event_items_div .event_item").removeClass("span3");
         $(".event_items_div .event_item").addClass("span1");
@@ -108,8 +110,10 @@ function hide_event_group () {
     // make other events bigger
     $(".event_items_div .event_item").removeClass("span1");
     $(".event_items_div .event_item").addClass("span3");
+    $(".event_items_div .event_item").show()
     $(".event_items_div .buffer").show();
     $(".event_items_div .event_back").hide();
+    
     
     window.location.hash = 'events_page';
     // As back button was pressed 
@@ -127,7 +131,7 @@ function show_event(me) {
     $(".main_event_item.event_item").removeClass("rows_2")
     $(".main_event_item.event_item").removeClass("rows_3")
     $(".main_event_item.event_item").addClass("rows_2")
-
+    
     
     // expand the clicked section and hide the others
     $section.children(".event_content").addClass("loading")
@@ -138,10 +142,13 @@ function show_event(me) {
     $section.addClass( 'expand' );
     $section.children("div").hide();
     $($section.children("div").get(1)).show();
-    
+
+    console.log(me)
+    console.log("de")
+
     //change background of the clicked section
-//    bg_new = $section.css("background").replace(/\d\D[\d]+\)/, "0.1)");
-//    $section.css({"background":"rgba(57, 76, 73, 0.10)"});
+    //bg_new = $section.css("background").replace(/\d\D[\d]+\)/, "0.1)");
+    //$section.css({"background":"rgba(57, 76, 73, 0.10)"});
 };
 
 // A function to bring a person from the event main page to the event group page
@@ -154,7 +161,9 @@ function hide_event () {
     $(".main_event_item.event_item").removeClass("rows_2")
     $(".main_event_item.event_item").removeClass("rows_3")
     $(".main_event_item.event_item").addClass("rows_" + ( 1 + Math.floor($sections.length/4) ))
-
+    
+    
+    
     $sections.show();
     $sections.removeClass( 'expand' );
     $sections.children("div").hide();
