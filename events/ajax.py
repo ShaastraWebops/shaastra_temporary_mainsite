@@ -7,12 +7,12 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 # From shaasta_mainsite_2014
 from mainsite_2014.settings import ERP_PROJECT_PATH, DATABASES
-from models import ParticipantEvent
+from models import ParticipantEvent, Event_html_dump
 erp_db = DATABASES.keys()[1]
 from django.utils import timezone
 # Python imports
 import json
-import os,datetime
+import os, datetime, glob
 
 def get_json_file_path(filename):
     file_path = os.path.abspath( os.path.join( ERP_PROJECT_PATH, 'media', 'json', 'events') )
@@ -53,18 +53,59 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
         dajax.script('$.bootstrapGrowl("Oops : There is some error on the site, please report to WebOps team.", {type:"danger"} );' )
         return dajax.json()
     
+    if not Event_html_dump.objects.all().count():
+        json_dir_path = os.path.abspath( os.path.join( ERP_PROJECT_PATH, 'media', 'json', 'events') )
+        json_filepaths = glob.glob(json_dir_path + '/*.json')
+        
+        for event_json_filepath in json_filepaths:
+            try:
+                create_html_dump(len(json_dir_path)+1, event_json_filepath)
+            except:
+                continue
+    
     event_name = event_name.replace("~", " ")
 
     event_json_filepath = get_json_file_path( str(event_pk) + "_" + event_name +".json" )
-    print event_json_filepath
+
     if not os.path.exists(event_json_filepath):
         dajax.script('$.bootstrapGrowl("Oops : There is some error on the site, please report to WebOps team..", {type:"danger"} );' )
         return dajax.json()
     else:
-        with open(event_json_filepath) as f:
-            json_dict = json.load(f)
-            f.close()
+        try:
+            event_dump = Event_html_dump.objects.get(event_pk = event_pk)
+        except:
+            json_dir_path = os.path.abspath( os.path.join( ERP_PROJECT_PATH, 'media', 'json', 'events') )
+            create_html_dump(len(json_dir_path)+1, event_json_filepath)
+            event_dump = Event_html_dump.objects.get(event_pk = event_pk)
+        
+    html_content = event_dump.html_content
+        
+    if html_content:
+        dajax.script("window.location.hash='"+ event_name.replace(" ","_").lower() +"'")
+        dajax.assign("#event_no_"+str(event_pk)+" > .event_content", "innerHTML", html_content)
+        #dajax.script("show_event(document.getElementById('event_no_"+str(event_pk)+"_click'));")
+        dajax.script("$('#event_no_"+str(event_pk)+"_click').parent().children('.event_content').removeClass('loading');")
+    return dajax.json() 
     
+def create_html_dump(event_name_start_posn, event_json_filepath):
+    '''
+        Renders the html content and stores it in the db
+    '''
+    json_dict = {}
+    event_details = {}
+    tab_details = {}
+    tab_details_list = []
+    update_details = {}
+    update_details_list = []
+
+    # finding event_pk
+    event_underscore_posn = event_json_filepath.find('_')
+    event_pk = event_json_filepath[event_name_start_posn : event_underscore_posn]
+    
+    with open(event_json_filepath) as f:
+        json_dict = json.load(f)
+        f.close()
+        
     #getting event, tab and update data separately from json_dict
     tab_pk_list = []
     update_pk_list = []
@@ -125,12 +166,16 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
     tab_details_list = sorted(tab_details_list, key=lambda x: x["pref"])
     update_details_list = sorted(update_details_list, key=lambda x: x["category"])
     time_now = timezone.now()
-    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'updates_list': update_details_list, 'event_type': event_type, 'time_now':time_now, 'event_pk':event_pk}
-    html_content = render_to_string('events/small/event_page.html', context_dict, RequestContext(request))
+    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'updates_list': update_details_list, 'time_now':time_now, 'event_pk':event_pk}
+    html_content = render_to_string('events/small/event_page.html', context_dict)
     
-    if html_content:
-        dajax.script("window.location.hash='"+ event_name.replace(" ","_").lower() +"'")
-        dajax.assign("#event_no_"+str(event_pk)+" > .event_content", "innerHTML", html_content)
-        #dajax.script("show_event(document.getElementById('event_no_"+str(event_pk)+"_click'));")
-        dajax.script("$('#event_no_"+str(event_pk)+"_click').parent().children('.event_content').removeClass('loading');")
-    return dajax.json() 
+    if Event_html_dump.objects.filter(event_pk = event_pk).count() == 1:
+        event_dump = Event_html_dump.objects.get(event_pk = event_pk)
+        event_content.html_content = html_content
+        event_content.save()
+        return
+    elif Event_html_dump.objects.filter(event_pk = event_pk).count() == 0:
+        Event_html_dump.objects.create(event_pk = event_pk, html_content = html_content)
+        return
+    else:
+        raise Exception
