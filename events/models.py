@@ -254,3 +254,13 @@ class Sponsor(models.Model):
 
     def __unicode__(self):
         return self.name
+        
+class Event_html_dump(models.Model):
+    '''
+        Stores rendered html string of events
+    '''
+    event_pk = models.IntegerField(unique = True)
+    html_content = models.TextField()
+    
+    def __unicode__(self):
+        return unicode(self.event_pk)
