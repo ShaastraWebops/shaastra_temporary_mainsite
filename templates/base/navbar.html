@@ -18,10 +18,9 @@
                                     {% if not request.user.is_authenticated%}
                                         <a href="#login" onclick="$('#login').modal();">Login | Sign Up </a>
                                     {% else %}
-                                    <div class='btn-group'>
-                                        <a href="#dashboard" class="btn"><i class='icon-user icon-white'></i>&nbsp;My Dashboard&nbsp;&nbsp;</a>
-                                    </div>
-           
+                                        <div class='btn-group'>
+                                            <a href="#dashboard" class="btn"><i class='icon-user icon-white'></i>&nbsp;My Dashboard&nbsp;&nbsp;</a>
+                                        </div>
                                     {% endif %}
                                 </li>
                                 <li><a href="#home" class="active">Home</a></li>
