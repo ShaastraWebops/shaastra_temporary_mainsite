@@ -85,6 +85,7 @@ def show_event(request, event_pk=None, event_name=None, event_type=None):
         dajax.assign("#event_no_"+str(event_pk)+" > .event_content", "innerHTML", html_content)
         #dajax.script("show_event(document.getElementById('event_no_"+str(event_pk)+"_click'));")
         dajax.script("$('#event_no_"+str(event_pk)+"_click').parent().children('.event_content').removeClass('loading');")
+        dajax.script('setTimeout( function() {$("#modal_update_event").css({"width" : ( $("body").width() - ( $("#modal_update_event").parent().children(".page_content").offset().left + $("#modal_update_event").parent().children(".page_content").width() ) - 50 ) +"px",})}, 100);')
     return dajax.json() 
     
 def create_html_dump(event_name_start_posn, event_json_filepath):

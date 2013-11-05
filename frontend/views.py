@@ -25,12 +25,75 @@ from users.forms import *
 from django.contrib.sessions.models import Session
 from misc.dajaxice.core import dajaxice_functions
 from users.models import STATE_CHOICES
+erp_db = settings.DATABASES.keys()[1]
+
+eventlist = ['Aerobotics',
+ 'Lunar Rover Challenge',
+ 'Fire n Ice',
+ 'Contraptions',
+ 'Paper and Poster Presentation',
+ 'Forensics',
+ 'Vittaneeti',
+ 'Wright Design',
+ 'Hovercraft Workshop',
+ 'Online Puzzle Champ',
+ 'Shaastra Circuit Design Challenge',
+ 'Project X',
+ 'Robo Oceana',
+ 'Math Modelling',
+ 'How Things Work',
+ 'Paper Planes',
+ 'Chuckglider Workshop',
+ 'Quadrotor Workshop',
+ 'Case Study',
+ 'Robowars',
+ 'Chemical X',
+ '3D Animation Workshop',
+ 'Desmod',
+ 'Shaastra Cube Open',
+ 'Shaastra Main Quiz',
+ 'Autonomous Robotics Workshop',
+ 'Master Builder',
+ 'Robotics',
+ 'Debugging',
+ 'Reverse Coding',
+ 'Junkyard Wars',
+ 'TopGun',
+ 'Streax Workshop',
+ 'Shaastra Junior Quiz',
+ 'Estimus',
+ 'Ultimate Engineer',
+ 'Online Math Modelling',
+ 'Code Obfuscation',
+ 'Forensics Workshop',
+ 'Open Programming Contest',
+ 'Hackfest Workshop',
+ 'Android Workshop',
+ 'Puzzle Champ',
+ 'Sustainable Cityscape',
+ 'Rubiks Cube Workshop',
+ 'Manual Robotics Workshop',
+ 'Onspot Desmod',
+ 'Auto Quiz',
+ 'Paper Plane Workshop',
+ 'Triathlon',
+ 'Finance and Consultancy',
+ 'Boeing National Aeromodelling Competition',
+ 'Automania',
+ 'Ideas Challenge',
+ 'Pan IIT Research Expo']
+
 
 def home(request):  
     form=LoginForm()
     form_registration=AddUserForm()
+    #eventlist = [event.title for event in ParticipantEvent.objects.using(erp_db).all()]
     colllist=[coll.name+' | '+coll.city for coll in College.objects.all()]
     collstr=''
+    eventstr=''
+    for ev in eventlist:
+        eventstr+="\"" + ev + "\"" +","
+    eventstr=eventstr[:len(eventstr)-1]
     for l in colllist:
         collstr+="\""+l+"\""+","
     collstr=collstr[:len(collstr)-1]

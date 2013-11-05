@@ -164,6 +164,11 @@
             $($(tds[i]).children("input")).attr("placeholder", st);
         }
     }
+  //$("find_my_event")
+  eventSearch = function(){
+  window.location.hash = $('#find_my_event').val().replace(/ /g,'_').toLowerCase();
+  $('#find_my_event').val('');
+  }
   $("#form_registration #id_college_roll").attr("placeholder","Roll Number(if enrolled)");
   $("#form_registration #id_branch" ).width($("#form_registration #id_age").width());
   $(".loading").hide();
@@ -324,23 +329,23 @@
                 "<a href=''><img src=\"{% static 'img/logo/spons/pres1.png' %}\" /></a>" +
             "</div>" +
             "<div><h3>Education Partner</h3>" +
-                "<a href=''><img src=\"{% static 'img/logo/spons/edu1.jpg' %}\" /></a>" +
+                "<a href=''><img src=\"{% static 'img/logo/spons/edu1.png' %}\" /></a>" +
                 "<a href=''><img src=\"{% static 'img/logo/spons/edu2.png' %}\" /></a>" +
             "</div>" +
             "<div><h3>Outdoor Gear Partner</h3>" +
-                "<a href=''><img src=\"{% static 'img/logo/spons/og1.jpg' %}\" /></a>" +
+                "<a href=''><img src=\"{% static 'img/logo/spons/og1.png' %}\" /></a>" +
             "</div>" +
             "<div><h3>IDP</h3>" +
-                "<a href=''><img src=\"{% static 'img/logo/spons/idp1.jpg' %}\" /></a>" +
+                "<a href=''><img src=\"{% static 'img/logo/spons/idp1.png' %}\" /></a>" +
             "</div>" +
             "<div><h3>Jotting Partner</h3>" +
-                "<a href=''><img src=\"{% static 'img/logo/spons/jot1.jpg' %}\" /></a>" +
+                "<a href=''><img src=\"{% static 'img/logo/spons/jot1.png' %}\" /></a>" +
             "</div>" +
             "<div><h3>Gift Partner</h3>" +
                 "<a href=''><img src=\"{% static 'img/logo/spons/gift1.jpg' %}\" /></a>" +
             "</div>" +
             "<div><h3>Style Partner</h3>" +
-                "<a href=''><img src=\"{% static 'img/logo/spons/sty1.jpg' %}\" /></a>" +
+                "<a href=''><img src=\"{% static 'img/logo/spons/sty1.png' %}\" /></a>" +
             "</div>" +
             "<div><h3>Green Partner</h3>" +
                 "<a href=''><img src=\"{% static 'img/logo/spons/gre1.jpg' %}\" /></a>" +
