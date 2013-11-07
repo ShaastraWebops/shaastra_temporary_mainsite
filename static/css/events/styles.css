@@ -85,7 +85,8 @@
 #events .main_event_item.event_item.rows_2 {
     height : 60%;
 }
-#events .main_event_item.event_item.rows_3 {
+#events .main_event_item.event_item.rows_3,
+#events .main_event_item.event_item.rows_4 {
     height : 70%;
 }
 
@@ -140,7 +141,8 @@
 .main_event_item.event_item.rows_2 > div {
     height : 50%;
 }
-.main_event_item.event_item.rows_3 > div {
+.main_event_item.event_item.rows_3 > div,
+.main_event_item.event_item.rows_4 > div {
     height : 33.333333%;
 }
 .main_event_item.event_item > div {
