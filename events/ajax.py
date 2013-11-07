@@ -172,8 +172,8 @@ def create_html_dump(event_name_start_posn, event_json_filepath):
     
     if Event_html_dump.objects.filter(event_pk = event_pk).count() == 1:
         event_dump = Event_html_dump.objects.get(event_pk = event_pk)
-        event_content.html_content = html_content
-        event_content.save()
+        event_dump.html_content = html_content
+        event_dump.save()
         return
     elif Event_html_dump.objects.filter(event_pk = event_pk).count() == 0:
         Event_html_dump.objects.create(event_pk = event_pk, html_content = html_content)
