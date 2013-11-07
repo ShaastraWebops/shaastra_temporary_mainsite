@@ -27,6 +27,7 @@ EVENT_CATEGORIES = (
     ('Miscellaneous', 'Miscellaneous'),
     ('Sampark', 'Sampark'),
     ('B- Events','B- Events'),
+    ('Associated Events','Associated Events'),
     )
 
 UPDATE_CATEGORY = (
