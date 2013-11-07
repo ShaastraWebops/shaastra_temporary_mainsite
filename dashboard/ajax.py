@@ -307,7 +307,7 @@ def register_event_form(request,event_id = None):
                 dajax.script('$.bootstrapGrowl("Please wait until %d days for registrations to open for %s", {type:"danger",delay:10000} );' % (days,event.title))
                 return dajax.json()
             elif event.registration_ends < timezone.now():
-                dajax.script('$.bootstrapGrowl("Registrations closed for %s! Sorry", {type:"danger",delay:20000} );'% event.title)
+                dajax.script('$.bootstrapGrowl("Registrations closed for %s! Sorry", {type:"danger",delay:20000,width:"auto",align:"center"} );'% event.title)
                 return dajax.json()
             else:
                 maxteam = event.team_size_max
