@@ -362,7 +362,11 @@ def show_event_tdp(request,teamevent_id=None):
             #dajax.script('$("#event_register").modal("show");')
     return dajax.json()
 
-from events.clean_coll import clean_coll
+try:
+    from events.clean_coll import clean_coll
+    flag_clean_coll = True
+except:
+    flag_clean_coll = False
 @dajaxice_register
 def add_college(request,college=None,city=None,state=None):
     dajax = Dajax()
@@ -381,11 +385,14 @@ def add_college(request,college=None,city=None,state=None):
         dajax.script('$("#add_college").modal(\'hide\');')
         dajax.script('$("#login").show();')
         coll=College(name=college,city=city,state=state)
-        if clean_coll(coll.name) and clean_coll(coll.city):
+        try:
+            if clean_coll(coll.name) and clean_coll(coll.city):
+                coll.save()
+            else:
+                dajax.script('$.bootstrapGrowl("Please refrain from using profanity", {type:"danger",delay:10000});')
+                return dajax.json()
+        except:
             coll.save()
-        else:
-            dajax.script('$.bootstrapGrowl("Please refrain from using profanity", {type:"danger",delay:10000});')
-            return dajax.json()
         dajax.assign("#add_coll_name",'innerHTML','%s'% college)
         dajax.assign("#add_coll_result",'innerHTML','College:')
         #dajax.script("$('#college')[0]value = '%s'" % college)
