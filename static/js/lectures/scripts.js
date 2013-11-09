@@ -10,7 +10,6 @@ function show_lecture(el) {
         console.log(item)
         console.log(item.children("div.content").html()   )
         $(".main_lecture_item").addClass("lecture_item"); // tell main_lecture it has data to show
-        $(".main_lecture_item.lecture_item").show().removeClass( 'expand' ); // Tell the section that it is small.
         $(".main_lecture_item.lecture_item").html(item.children(".content").html()); // Tell the section that it is small.
             
         // Clean up main lecture
@@ -19,6 +18,9 @@ function show_lecture(el) {
         $(".lecture_items_div").addClass("offset2");
         $(".lecture_items_div .lecture_item").removeClass("span3");
         $(".lecture_items_div .lecture_item").addClass("span1");
+        
+        $(".lecture_item").removeClass("active")
+        item.addClass("active")
     }
 }
 
@@ -28,5 +30,6 @@ function lecture_back() {
     $(".main_lecture_item > div > div").hide();
     $(".main_lecture_item.lecture_item > div").hide().removeClass( 'expand' ); // Tell the section that it is small.
     
+    $(".lecture_item").removeClass("active")
     $(".lecture_carousel").show(500) 
 }

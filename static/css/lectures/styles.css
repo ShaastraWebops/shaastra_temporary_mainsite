@@ -74,6 +74,10 @@
     opacity:1;
     filter:alpha(opacity=100);
 }
+#lectures .lecture_item.active span.overlay, .lecture_item.active .cnt {
+    opacity:1;
+    filter:alpha(opacity=100);
+}
 
 /* Sub items */
 #lectures .lecture_items_div.sub_lectures {
@@ -117,90 +121,4 @@
 /* lectures main - Box Layout*/
 .main_lecture_item.lecture_item {
     margin-left : 50px;
-}
-.main_lecture_item.lecture_item > div {
-    position : relative; 
-    height : 50%;
-    padding : 0;
-    margin : 0;
-    cursor : pointer;
-    z-index : 10;
-    vertical-align : middle;
-    vertical-align : center;
-    transition: all .2s;
-    -moz-transition: all .2s;
-    -webkit-transition: all .2s;
-    -o-transition: all .2s;
-}
-.main_lecture_item.lecture_item > div:nth-child(5n+1) {
-    background: rgba(57, 76, 73, 0.60);
-}
-.main_lecture_item.lecture_item > div:nth-child(5n+2) {
-    background: rgba(91, 116, 133, 0.45);
-}
-.main_lecture_item.lecture_item > div:nth-child(5n+3) {
-    background: rgba(0, 0, 0, 0.55);
-}
-.main_lecture_item.lecture_item > div:nth-child(5n+4) {
-    background: rgba(86, 114, 109, 0.50);
-}
-.main_lecture_item.lecture_item > div:nth-child(5n) {
-    background: rgba(115, 152, 146, 0.65);
-}
-.main_lecture_item.lecture_item > div:nth-child(1) {
-    background: rgba(100, 133, 128, 0.40);
-}
-
-.main_lecture_item.lecture_item > div > div {
-    height : 100%;
-    width : 100%;
-    transition: all .2s;
-    -moz-transition: all .2s;
-    -webkit-transition: all .2s;
-    -o-transition: all .2s;
-}
-.main_lecture_item.lecture_item > div.expand {
-    position : absolute;
-    width : 100%;
-    height : 100%;
-    cursor : default;
-}
-.main_lecture_item.lecture_item > div.expand > div:not(first) {
-    overflow-y : scroll;
-}
-.main_lecture_item.lecture_item > div.expand > div:not(first) > ul:nth-child(1) > li {
-    padding-left : 5px;
-    padding-right : 5px;
-    transition: all .5s;
-    -moz-transition: all .5s;
-    -webkit-transition: all .5s;
-    -o-transition: all .5s;
-}
-.main_lecture_item.lecture_item > div.expand > div:not(first) a {
-    color : #fff;
-}
-.main_lecture_item.lecture_item > div.expand > div:not(first) a:hover {
-    color : #ccc;
-    color : rgba(0, 0, 0, 0.5);
-}
-.main_lecture_item.lecture_item > div.expand > div:not(first) li.active > a {
-    color : #000;
-}
-.main_lecture_item.lecture_item > div.expand > div:not(first) li.active > a:hover {
-    color : #444;
-    color : rgba(0, 0, 0, 0.8);
-}
-.main_lecture_item.lecture_item > div.expand > div:not(first) > h4 {
-    color : #000;
-    font-weight : 900;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.9);
-    padding-left : 70px;
-}
-.main_lecture_item.lecture_item > div.expand > div:not(first) > h4:hover {
-    color : rgba(0, 0, 0, 0.9);
-    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
-    
-}
-.main_lecture_item.lecture_item > div.expand > div.title {
-    overflow : hidden;
 }
