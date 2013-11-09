@@ -103,12 +103,16 @@ $(window).scroll(function() {
         hexa_pid = -1;
     }
     if(ypos > $("#aboutus").offset().top + 8*$("#aboutus").height()/10 && ypos < $("#events").offset().top + 5*$("#events").height()/10) {
-        $("#modal_update_event").removeClass("hide")
-        $("#modal_update_event").css({
-            "width" : ( $("body").width() - ( $("#modal_update_event").parent().children(".page_content").offset().left + $("#modal_update_event").parent().children(".page_content").width() ) - 50 ) +"px",
-        })
+        if ( $("#modal_update_event").length  ) {
+            $("#modal_update_event").removeClass("hide")
+            $("#modal_update_event").css({
+                "width" : ( $("body").width() - ( $("#modal_update_event").parent().children(".page_content").offset().left + $("#modal_update_event").parent().children(".page_content").width() ) - 50 ) +"px",
+            })
+        }
     } else {
-        $("#modal_update_event").addClass("hide")
+        if ( $("#modal_update_event").length ) {
+            $("#modal_update_event").addClass("hide")
+        }
     }
 });
 
