@@ -15,12 +15,15 @@ function show_lecture(el) {
         // Clean up main lecture
 
         // make other lectures smaller
-        $(".lecture_items_div").addClass("offset2");
+        $(".lecture_items_div").addClass("offset");
         $(".lecture_items_div .lecture_item").removeClass("span3");
-        $(".lecture_items_div .lecture_item").addClass("span1");
+        $(".lecture_items_div .lecture_item").addClass("span2");
+        $(".lecture_items_div .extra").show()
+        $(".lecture_items_div .span1_5").hide()
         
         $(".lecture_item").removeClass("active")
         item.addClass("active")
+        
     }
 }
 
@@ -30,6 +33,10 @@ function lecture_back() {
     $(".main_lecture_item > div > div").hide();
     $(".main_lecture_item.lecture_item > div").hide().removeClass( 'expand' ); // Tell the section that it is small.
     
+    $(".lecture_items_div .span1_5").show();
+    $(".lecture_items_div .extra").hide()
     $(".lecture_item").removeClass("active")
+    $(".lecture_items_div .lecture_item").removeClass("span2");
+    $(".lecture_items_div .lecture_item").addClass("span3");
     $(".lecture_carousel").show(500) 
 }

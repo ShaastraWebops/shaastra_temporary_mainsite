@@ -1,62 +1,73 @@
 {% load staticfiles %}
-<div class="row lecture_items_div sub_lectures">
-    <div class="span3 lecture_item">
-        <img src="{% static 'img/lectures/9.png' %}" alt="" class="lecture_item_img">
-        <a style='cursor : pointer;' onclick="">
+<div class="lecture_items_div sub_lectures">
+    <div class="span4 lecture_item">
+        <img src="{% static 'img/lectures/7.png' %}" alt="" class="lecture_item_img">
+        <a style='cursor : pointer;' onclick="show_lecture(this)">
             <span class="overlay"></span>
             <div class="cnt"></div>
         </a>
+        <div class='content hide'>
+            <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/7.png' %}" class='' /></div>
+            <div class='span8' style='margin:0px; padding-left:20px;'>Page 7</div>
+        </div>
     </div>
-    <div class="span3 lecture_item">
+    <div class="span4 lecture_item">
+
+        <img src="{% static 'img/lectures/8.png' %}" alt="" class="lecture_item_img">
+        <a style='cursor : pointer;' onclick="show_lecture(this)">
+            <span class="overlay"></span>
+            <div class="cnt"></div>
+        </a>
+        <div class='content hide'>
+            <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/8.png' %}" class='' /></div>
+            <div class='span8' style='margin:0px; padding-left:20px;'>Page 8</div>
+        </div>
+    </div>
+    <div class="span4 lecture_item">
+        <img src="{% static 'img/lectures/9.png' %}" alt="" class="lecture_item_img">
+        <a style='cursor : pointer;' onclick="show_lecture(this)">
+            <span class="overlay"></span>
+            <div class="cnt"></div>
+        </a>
+        <div class='content hide'>
+            <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/9.png' %}" class='' /></div>
+            <div class='span8' style='margin:0px; padding-left:20px;'>Page 9</div>
+        </div>
+    </div>
+    <div class="span4 lecture_item">
 
         <img src="{% static 'img/lectures/10.png' %}" alt="" class="lecture_item_img">
-        <a style='cursor : pointer;' onclick="">
+        <a style='cursor : pointer;' onclick="show_lecture(this)">
             <span class="overlay"></span>
             <div class="cnt"></div>
         </a>
+        <div class='content hide'>
+            <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/10.png' %}" class='' /></div>
+            <div class='span8' style='margin:0px; padding-left:20px;'>Page 10</div>
+        </div>
     </div>
-    <div class="span3 lecture_item">
+    <div class="span4 lecture_item">
 
         <img src="{% static 'img/lectures/11.png' %}" alt="" class="lecture_item_img">
-        <a style='cursor : pointer;' onclick="">
+        <a style='cursor : pointer;' onclick="show_lecture(this)">
             <span class="overlay"></span>
             <div class="cnt"></div>
         </a>
+        <div class='content hide'>
+            <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/11.png' %}" class='' /></div>
+            <div class='span8' style='margin:0px; padding-left:20px;'>Page 11</div>
+        </div>
     </div>
-    <div class="span3 lecture_item">
+    <div class="span4 lecture_item">
 
         <img src="{% static 'img/lectures/12.png' %}" alt="" class="lecture_item_img">
-        <a style='cursor : pointer;' onclick="">
+        <a style='cursor : pointer;' onclick="show_lecture(this)">
             <span class="overlay"></span>
             <div class="cnt"></div>
         </a>
-    </div>
-    <div class="span3 lecture_item">
-        <img src="{% static 'img/lectures/13.png' %}" alt="" class="lecture_item_img">
-        <a style='cursor : pointer;' onclick="">
-            <span class="overlay"></span>
-            <div class="cnt"></div>
-        </a>
-    </div>
-    <div class="span3 lecture_item">
-        <img src="{% static 'img/lectures/14.png' %}" alt="" class="lecture_item_img">
-        <a style='cursor : pointer;' onclick="">
-            <span class="overlay"></span>
-            <div class="cnt"></div>
-        </a>
-    </div>
-    <div class="span3 lecture_item">
-        <img src="{% static 'img/lectures/15.png' %}" alt="" class="lecture_item_img">
-        <a style='cursor : pointer;' onclick="">
-            <span class="overlay"></span>
-            <div class="cnt"></div>
-        </a>
-    </div>
-    <div class="span3 lecture_item">
-        <img src="{% static 'img/lectures/16.png' %}" alt="" class="lecture_item_img">
-        <a style='cursor : pointer;' onclick="">
-            <span class="overlay"></span>
-            <div class="cnt"></div>
-        </a>
+        <div class='content hide'>
+            <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/12.png' %}" class='' /></div>
+            <div class='span8' style='margin:0px; padding-left:20px;'>Page 12</div>
+        </div>
     </div>
 </div>
