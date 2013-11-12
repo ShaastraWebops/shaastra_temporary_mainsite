@@ -1,6 +1,48 @@
 {% load staticfiles %}
 <!-- NAVIGATION  -->        
-        <div class="navbar-wrapper" style="height: auto;">
+        <style>
+		#find_my_event{
+			width: 260px;
+	padding: 5px;
+	padding-right: 40px;
+	outline: none;
+	border: 2px solid #999999;
+	border-radius: 5px;
+	background-color: #FBFBFB;
+	font-family: Cambria, Cochin, Georgia, serif;
+	font-size: 16px;
+	background-position: 270px -10px;
+	background-image: url('http://www.kirupa.com/images/search.png');
+	background-repeat: no-repeat;
+	
+	-webkit-transition: background-color .2s ease-in,
+						background-position .2s ease-in,
+						box-shadow .3s ease-in;
+						
+	-moz-transition: background-color .2s ease-in,
+						background-position .2s ease-in,
+						box-shadow .3s ease-in;
+						
+	-o-transition: background-color .2s ease-in,
+						background-position .2s ease-in,
+						box-shadow .3s ease-in;
+						
+	-ms-transition: background-color .2s ease-in,
+						background-position .2s ease-in,
+						box-shadow .3s ease-in;
+						
+	transition: background-color .2s ease-in,
+						background-position .2s ease-in,
+						box-shadow .3s ease-in;
+		}
+		#find_my_text:active{
+			background-color: #FFFFFF;
+	border-color: #333333;
+	box-shadow: 0px 0px 25px -2px #333;
+	background-position: 270px -80px;
+		}
+		</style>
+		<div class="navbar-wrapper" style="height: auto;">
             <div class="navbar" id="navigation" style="top: 0px;">
                 <div class="navbar-inner">
                     <button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
@@ -39,7 +81,7 @@
                             <center>
                                 <div class='input-append'>
 <!--                                    <input style='height : auto' id="find_my_event" type="select" placeholder="Find the event"  style="height:20px" data-provide="typeahead" data-items="4" data-source="[{{eventstr}}]" data-updater="myFunc();">-->
-<!--THIS WAS THE LAST ONE                                    <input style='height:auto;background:#004477;color:#ffffff;' id="find_my_event" type="select" placeholder="Search for any event here" data-provide="typeahead" data-items="4" data-source="[{{eventstr}}]" onchange = "$($(this).parents()[0]).children('ul').attr('onclick',eventSearch);">-->
+                                   <input style='height:auto;' id="find_my_event" type="select" placeholder="Search for any event here" data-provide="typeahead" data-items="4" data-source="[{{eventstr}}]" onchange = "$($(this).parents()[0]).children('ul').attr('onclick',eventSearch);window.location.hash = '#events';	">
                                     
 <!--                                    <input style='height : auto' id="find_my_event" type="text" placeholder="Find the event"  style="height:20px">-->
 <!--                                    <input style='height : auto' type="text" data-provide="typeahead" data-source='["aaa", "sss", "ddd"]'>-->
