@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 # From shaasta_mainsite_2014
 from mainsite_2014.settings import ERP_PROJECT_PATH, DATABASES
-from models import ParticipantEvent, Event_html_dump
+from events.models import ParticipantEvent, Event_html_dump
 erp_db = DATABASES.keys()[1]
 from django.utils import timezone
 # Python imports
