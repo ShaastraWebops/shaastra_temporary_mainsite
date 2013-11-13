@@ -29,6 +29,18 @@
     padding-left : 30px;
 }
 
+#spons_2014_content {
+    height : 70%;
+    overflow-y : auto;
+    overflow-x : hidden;
+}
+#spons_2014_content > div {
+    text-align : center;
+}
+#spons_2014_content > div > a {
+    padding : 5%;
+}
+
 #spons_2013_content {
     height : 70%;
     overflow-y : auto;
@@ -40,3 +52,25 @@
 #spons_2013_content > div > a {
     padding : 5%;
 }
+#spons_2013_content > div > a > img {
+    height : 75px;
+    width : auto;
+}
+
+
+#spons_2011_content {
+    height : 70%;
+    overflow-y : auto;
+    overflow-x : hidden;
+}
+#spons_2011_content > div {
+    text-align : center;
+}
+#spons_2011_content > div > a {
+    padding : 5%;
+}
+#spons_2011_content > div > a > img {
+    height : 75px;
+    width : auto;
+}
+

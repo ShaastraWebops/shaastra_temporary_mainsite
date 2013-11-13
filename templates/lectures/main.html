@@ -8,14 +8,15 @@
                         <div class="breaker"><span class="left"></span><div class="dice"></div><span class="right"></span></div>
                     </div>
                 </div>
-                <center style='margin-top : 200px;'><h1>Coming Soon</h1></center>
+                
+                <!--<center style='margin-top : 200px;'><h1>Coming Soon</h1></center>
+                
                 <!-- Carousel
-                ================================================== --
-               
+                ================================================== -->
+               <div class='pull-left back_button_lectures' style='display : none; position:relative; left : -100px; cursor : pointer;' onclick="javascript:lecture_back();window.location.hash='#lectures_page';" ><img src="{% static 'img/back-arrow.png' %}"/><span style='font-size:1.2em; font-weight : bold;'> BACK</span></div>
                 <div class="container main_lecture">
                     <div class='lecture_wrapper row'>
                         <div class='main_lecture_item span12'>
-                            
                         </div>
                     </div>
                 </div>
@@ -23,10 +24,11 @@
                 <div id="lecture_carousel" class='container'>
                     <div class="row">
                         <div class="columns">
-                            <div id="myCarousel" class="carousel slide" data-interval="900000">
+                            <div id="myCarousel" class="carousel slide">
                                 <ol class="carousel-indicators">
                                     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                                     <li data-target="#myCarousel" data-slide-to="1"></li>
+                                    <li data-target="#myCarousel" data-slide-to="2"></li>
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="item active"> 
@@ -35,6 +37,9 @@
                                     <div class="item"> 
                                         {% include 'lectures/content/page_2.html' %}
                                     </div>
+                                    <div class="item"> 
+                                        {% include 'lectures/content/page_3.html' %}
+                                    </div>
                                 </div>
                                 <a class="left pull-left carousel-control " href="#myCarousel" data-slide="prev">&lsaquo;</a>
                                 <a class="right pull-right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
@@ -42,7 +47,7 @@
                         </div>
                     </div> 
                 </div>
-                <!-- -->
+                -->
             </div>
         </section>
         <!-- END LECTURES SECTION  -->
