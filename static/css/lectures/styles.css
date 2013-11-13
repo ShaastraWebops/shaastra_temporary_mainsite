@@ -10,8 +10,9 @@
     transition: all 0.3s ease-in-out;
 }
 #lectures .lecture_item img {
-    width:100%;
+    width:70%;
     display:block;
+    margin-left : 15%;
 }
 #lectures .lecture_item.hidden {
     display:none;
@@ -91,7 +92,7 @@
     height : 0;
 }
 #lectures .main_lecture_item.lecture_item {
-    height : 50%;   
+    height : 50%;
     
 }
 
@@ -121,4 +122,35 @@
 /* lectures main - Box Layout*/
 .main_lecture_item.lecture_item {
     margin-left : 50px;
+}
+
+
+
+
+.span0_5 {
+  width: 33.333px;
+}
+.span1_5 {
+  width: 100px;
+}
+.span2_5 {
+  width: 188.889px;
+}
+.span4_5 {
+  width: 340px;
+}
+.span5_5 {
+  width: 373.333px;
+}
+.offset0_5 {
+  margin-left: 33.333px;
+}
+.offset1_5 {
+  margin-left: 100px;
+}
+.offset4_5 {
+  margin-left: 340px;
+}
+.offset5_5 {
+  margin-left: 373.333px;
 }
