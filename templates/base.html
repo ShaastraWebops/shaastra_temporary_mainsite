@@ -44,7 +44,8 @@
     {% include 'base/foot.html' %}
     {% include 'base/cache.html' %}
     
-    {% dajaxice_js_import %}
+    <!-- {% dajaxice_js_import %} -->
+    <script src="{% static 'js/dajaxice.core.js' %}" type="text/javascript"></script>
     {% block extra_css_end %} {% endblock %}
     {% block extra_js_end %} {% endblock %}
     

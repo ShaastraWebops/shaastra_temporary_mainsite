@@ -109,9 +109,18 @@ $(window).scroll(function() {
                 "width" : ( $("body").width() - ( $("#modal_update_event").parent().children(".page_content").offset().left + $("#modal_update_event").parent().children(".page_content").width() ) - 50 ) +"px",
             })
         }
+        if ( $("#modal_spons_event").length  ) {
+            $("#modal_spons_event").removeClass("hide")
+            $("#modal_spons_event").css({
+                "width" : ( $("#modal_spons_event").parent().children(".sidr").offset().left  - 50 ) +"px",
+            })
+        }
     } else {
         if ( $("#modal_update_event").length ) {
             $("#modal_update_event").addClass("hide")
+        }
+        if ( $("#modal_spons_event").length ) {
+            $("#modal_spons_event").addClass("hide")
         }
     }
 });
