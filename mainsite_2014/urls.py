@@ -37,5 +37,5 @@ urlpatterns = patterns('',
     url(dajaxice_config.dajaxice_url, include('misc.dajaxice.urls')), # For dajaxice to function corrently
 )
 
-urlpatterns += staticfiles_urlpatterns() # To enable serving static files
+#urlpatterns += staticfiles_urlpatterns() # To enable serving static files
     
