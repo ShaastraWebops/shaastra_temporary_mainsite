@@ -46,7 +46,7 @@
                         <li id="li_major_update">
                             <p class="text-warning" style='text-align : left;'> <strong>{{update.subject}}</strong>: {{update.description}} </p>
                         </li>
-                    {% else %}
+                    {% elif not update.expired %}
                         <li>
                             <p  style='text-align : left;'> <strong>{{update.subject}}</strong>: {{update.description}} </p>
                         </li>
