@@ -36,7 +36,7 @@
     <section id="modal_update_event" class="modal span2" style='margin-left : 0; left : auto; right : 0px; width : 350px; top : 150px;' tabindex="-1" aria-hidden='false'>
         <div class="modal-header">
             <h3>Updates</h3>
-            <button type="button" class="close" data-dismiss='modal'>&times;</button>
+<!--            <button type="button" class="close" data-dismiss='modal'>&times;</button>-->
         </div>
         <div class="modal-body" style='height : 300px; overflow-y : auto;'>
             {% if updates_list %}
@@ -46,11 +46,12 @@
                         <li id="li_major_update">
                             <p class="text-warning" style='text-align : left;'> <strong>{{update.subject}}</strong>: {{update.description}} </p>
                         </li>
-                    {% elif not update.expired %}
+                    {% endifequal %}
+                    {% if not update.expired %}
                         <li>
                             <p  style='text-align : left;'> <strong>{{update.subject}}</strong>: {{update.description}} </p>
                         </li>
-                    {% endifequal %}
+                    {% endif %}
                 {% endfor %}
                 </ul>
             {% endif %}
@@ -58,10 +59,9 @@
     </section>
 {% endif %}
 
-<section id="modal_spons_event" class="modal span2" style='margin-left : 0; left : 0px; right : auto; width : 350px; top : 150px;' tabindex="-1" aria-hidden='false'>
+<section id="modal_spons_event" class="modal span2" style='display : none; margin-left : 0; left : 0px; right : auto; width : 350px; top : 150px;' tabindex="-1" aria-hidden='false'>
     <div class="modal-header">
         <h3>Spons</h3>
-        <button type="button" class="close" data-dismiss='modal'>&times;</button>
     </div>
     <div class="modal-body" style='height : 300px; overflow-y : auto;'>
         
@@ -73,9 +73,6 @@
         {% for tab in tab_list %}
             <li {% if forloop.first %} class="active" {% endif %} onclick='show_event_page(this)'> {{tab.title|title}} </li>
         {% endfor %}
-        {% comment %}
-<!--        <li><a onclick ="Dajaxice.dashboard.register_event_form(Dajax.process, {'event_id':4});">Register!!</a></li>-->
-        {% endcomment %}
     </ul>
 </div>
 

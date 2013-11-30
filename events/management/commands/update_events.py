@@ -21,9 +21,11 @@ class Command(BaseCommand):
         for event_json_filepath in json_filepaths:
             try:
                 create_html_dump(len(json_dir_path)+1, event_json_filepath)
-            except:
+            except Exception as e:
                 #raise CommandError("Problem updating json file: %s" %event_json_filepath)
                 self.stderr.write("Problem updating json file: %s\n" %event_json_filepath)
+                self.stderr.write("%s" % e)
+                
                 continue
                 
         self.stdout.write("Updating events completed\n")
