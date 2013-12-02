@@ -191,7 +191,7 @@ class AddUserForm(BaseUserForm):
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('branch', 'mobile_number', 'college_roll','gender','age')
+        fields = ('branch', 'college','mobile_number', 'college_roll','gender','age')
 
     def clean_mobile_number(self):
         number1 = self.cleaned_data['mobile_number']
