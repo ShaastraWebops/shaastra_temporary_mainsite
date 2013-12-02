@@ -92,7 +92,9 @@
         $("#login").modal('toggle');
         $("#add_college").modal('toggle');
     }
-    
+    editcoll=function(){
+        $("#add_college").modal('toggle');
+    }
     user_login=function(){
         
         Dajaxice.users.login(Dajax.process, {'login_form':$('#login_form').serialize(true)});
