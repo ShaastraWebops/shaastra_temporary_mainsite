@@ -33,8 +33,12 @@
         <b>&nbsp;&nbsp;&nbsp;&nbsp;Updates&nbsp;&nbsp;&nbsp;&nbsp;</b>
     </a>-->
 
-    <section id="modal_update_event" class="modal span2" style='margin-left : 0; left : auto; right : 0px; width : 350px; top : 150px;' tabindex="-1" aria-hidden='false'>
-        <div class="modal-header">
+    <section id="modal_update_event" class="modal span2" style='margin-left : 0; left : auto;right : 0px; width : 350px; top : 150px;' tabindex="-1" aria-hidden='false'>
+    <!--<div class="modal">-->
+    <div class="modal-header">
+       <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+           
+           <button class="close" onclick="window.scrollBy(0,500);window.scrollBy(0,-500);">×</button>
             <h3>Updates</h3>
         </div>
         <div class="modal-body" style='height : 300px; overflow-y : auto;'>
@@ -55,6 +59,7 @@
                 </ul>
             {% endif %}
         </div>
+        <!--</div>-->
     </section>
 
 {% endif %}
