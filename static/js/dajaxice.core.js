@@ -180,7 +180,7 @@ var Dajaxice = {
 
         var send_data = 'argv='+encodeURIComponent(JSON.stringify(argv)),
             oXMLHttpRequest = new XMLHttpRequest,
-            endpoint = '/2014/main/dajaxice/'+dajaxice_function+'/';
+            endpoint = '/dajaxice/'+dajaxice_function+'/';
 
         if(method == 'GET'){
             endpoint = endpoint + '?' + send_data;
