@@ -440,6 +440,8 @@ def login(request,login_form = None):
                 dajax.script("$('#login_form #id_password').val('');")
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
+                dajax.script('$("#fb_share").modal("show");')
+                
                 profile = UserProfile.objects.get(user=request.user)
                 context_dash_dict = {'profile':profile,'settings':settings}
                 html_stuff = render_to_string('dashboard/profile_view.html',context_dash_dict,RequestContext(request))
