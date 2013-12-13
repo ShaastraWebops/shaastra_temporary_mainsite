@@ -15,7 +15,7 @@
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
-#events .event_item img {
+#events .event_item > img {
     width:100%;
     display:block;
     border-radius:50%;
@@ -24,7 +24,7 @@
     -o-border-radius:50%;
 }
 
-#events .event_item:hover img {
+#events .event_item:hover > img {
     filter: url(../../svg/filters.svg#grayscale); /* Firefox */
     filter: gray; /* IE */
     -webkit-filter: grayscale(1); /* Webkit */
