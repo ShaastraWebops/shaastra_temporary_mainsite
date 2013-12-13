@@ -269,7 +269,7 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     dajax.script('$.bootstrapGrowl("Your team ID: %s",{type:"success",delay:100000})'% teamevent.team_id)
     dajax.script('$("#event_register").modal("toggle")')
     enddate = teamevent.get_event().registration_ends
-    dajax.script('$.bootstrapGrowl("Note:Deadline for the event is %s/%s/%s", {delay:100000} );'% (enddate.day,enddate.month,enddate.year))
+    dajax.script('$.bootstrapGrowl("Please note the deadline for the event given in event details.", {delay:100000} );')
     dajax.script('$("#fb_share").modal("show");')
     #TODO: create updates for other users and him
     return dajax.json()
