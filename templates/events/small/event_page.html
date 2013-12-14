@@ -67,7 +67,7 @@
 {% if event_spons_list %}
     <section id="modal_spons_event" class="modal" style="left:22%; width:190px; top:150px; background-color:transparent; border:0px transparent;" tabindex="-1" aria-hidden='false'>
         <div class="modal-header">
-            <button class="close" onclick="$(this).parent().parent().hide()">×</button>
+            <!-- <button class="close" onclick="$(this).parent().parent().hide()">×</button> -->
             <h4>Sponsors</h4>
         </div>
         <div class="modal-body" style="height:300px; overflow-y:auto;">
@@ -75,7 +75,7 @@
                 {% load static %}
                 {% for spons_img in event_spons_list %}
                     <li style="padding:5px;">
-                        <img src="{% get_static_prefix %}img/events/spons_logos/{{spons_img}}" style="margin-top:8%; width:80%; height:auto; border-radius:0px; border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; -o-border-radius:0px; filter: none; -webkit-filter: none;">
+                        <img src="{% get_static_prefix %}img/events/spons_logos/{{spons_img}}" style="margin-top:2%; width:{{event_spons_img_size}}; height:auto; border-radius:0px; border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; -o-border-radius:0px; filter: none; -webkit-filter: none; position: relative; left:-5%;">
                     </li>
                 {% endfor %}
             </ul>
