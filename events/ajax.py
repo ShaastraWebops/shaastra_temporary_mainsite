@@ -18,7 +18,7 @@ import os, datetime, glob
 EVENT_SPONS = ({"Research Confluence": ["hindu.png","knimbus.png"]}, {"Estimus": ["musigma.png"]}, {"Triathlon": ["vmware.jpg"]},\
                     {"Robowars": ["eaton.jpg"]}, {"Shaastra Cube Open": ["vmware.jpg"]}, {"How Things Work": ["lincpens.png"]},\
                     {"Master Builder": ["nrdave.png"]}, {"GE Industry Defined Problem": ["ge.jpg"]},\
-                    {"Eaton Industry Defined Problem": ["eaton.jpg"]}, {"Ericsson Industry Defined Problem": ["ericsson.tif"]},\
+                    {"Eaton Industry Defined Problem": ["eaton.jpg"]}, {"Ericsson Industry Defined Problem": ["ericsson.png"]},\
                     {"Paper and Poster Presentation": ["tcs.jpg"]})
 
 def get_json_file_path(filename):
