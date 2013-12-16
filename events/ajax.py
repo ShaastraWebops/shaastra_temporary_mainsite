@@ -19,7 +19,8 @@ EVENT_SPONS = ({"Research Confluence": ["hindu.png","knimbus.png", "100%"]}, {"E
                {"Triathlon": ["vmware.jpg", "95%"]}, {"Robowars": ["eaton.jpg", "100%"]}, {"Shaastra Cube Open": ["vmware.jpg", "95%"]},\
                {"How Things Work": ["lincpens.png"]}, {"Master Builder": ["nrdave.png", "80%"]},\
                {"GE Industry Defined Problem": ["ge.png", "100%"]}, {"Eaton Industry Defined Problem": ["eaton.jpg", "100%"]},\
-               {"Ericsson Industry Defined Problem": ["ericsson.png", "60%"]}, {"Paper and Poster Presentation": ["tcs.jpg", "90%"]})
+               {"Ericsson Industry Defined Problem": ["ericsson.png", "60%"]}, {"Paper and Poster Presentation": ["tcs.jpg", "90%"]},\
+               {"Network Security Workshop": ["telelabs.png", "90%"]})
 
 def get_json_file_path(filename):
     file_path = os.path.abspath( os.path.join( ERP_PROJECT_PATH, 'media', 'json', 'events') )
