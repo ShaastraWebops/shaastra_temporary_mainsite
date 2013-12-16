@@ -14,6 +14,14 @@ from django.utils import timezone
 import json
 import os, datetime, glob
 
+#tuple relating events to spons logos
+EVENT_SPONS = ({"Research Confluence": ["hindu.png","knimbus.png", "100%"]}, {"Estimus": ["musigma.png", "50%"]},\
+               {"Triathlon": ["vmware.jpg", "95%"]}, {"Robowars": ["eaton.jpg", "100%"]}, {"Shaastra Cube Open": ["vmware.jpg", "95%"]},\
+               {"How Things Work": ["lincpens.png"]}, {"Master Builder": ["nrdave.png", "80%"]},\
+               {"GE Industry Defined Problem": ["ge.png", "100%"]}, {"Eaton Industry Defined Problem": ["eaton.jpg", "100%"]},\
+               {"Ericsson Industry Defined Problem": ["ericsson.png", "60%"]}, {"Paper and Poster Presentation": ["tcs.jpg", "90%"]},\
+               {"Network Security Workshop": ["telelabs.png", "90%"]})
+
 def get_json_file_path(filename):
     file_path = os.path.abspath( os.path.join( ERP_PROJECT_PATH, 'media', 'json', 'events') )
     if not os.path.exists(file_path):
@@ -167,7 +175,16 @@ def create_html_dump(event_name_start_posn, event_json_filepath):
     tab_details_list = sorted(tab_details_list, key=lambda x: x["pref"])
     update_details_list = sorted(update_details_list, key=lambda x: x["category"])
     time_now = timezone.now()
-    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'updates_list': update_details_list, 'time_now':time_now, 'event_pk':event_pk}
+    
+    #event_spons_list : list containing spons for each event
+    event_spons_list = list()
+    event_spons_img_size = ""
+    for i in EVENT_SPONS:
+        if i.keys()[0] == event_details['title']:
+            event_spons_list = i[i.keys()[0]][0:-1] # exclude the last element which is the image size
+            event_spons_img_size = i[i.keys()[0]][-1]
+    
+    context_dict = {'event' : event_details, 'tab_list': tab_details_list, 'updates_list': update_details_list, 'time_now':time_now, 'event_pk':event_pk, 'event_spons_list': event_spons_list, 'event_spons_img_size': event_spons_img_size}
     html_content = render_to_string('events/small/event_page.html', context_dict)
     
     if Event_html_dump.objects.filter(event_pk = event_pk).count() == 1:

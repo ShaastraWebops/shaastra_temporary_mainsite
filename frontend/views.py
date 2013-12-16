@@ -81,7 +81,10 @@ eventlist = ['Aerobotics',
  'Boeing National Aeromodelling Competition',
  'Automania',
  'Ideas Challenge',
- 'Pan IIT Research Expo']
+ 'Pan IIT Research Expo',
+ 'Ericsson Industry Defined Problem',
+ 'Eaton Industry Defined Problem',
+ 'GE Industry Defined Problem']
 
 
 def home(request):  

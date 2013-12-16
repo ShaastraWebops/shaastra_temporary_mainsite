@@ -109,7 +109,7 @@ def remove_member(request,user_id = None,teamevent_id = None):
         msg_update_user = 'You were removed from team %s for event %s on %s by %s'%(teamevent.team_name,teamevent.get_event().title,str(timezone.now()),request.user.get_full_name())
         update = Update(tag = 'Team Remove',content = msg_update_user,user = user)
         update.save()
-        dajax.script('$.bootstrapGrowl("Removal success! %s is no longer a member of team %s",{type:"info",delay:10000,width:"auto"})'% (user.get_full_name(),teamevent.team_name))
+        dajax.script('$.bootstrapGrowl("Removal succesrs! %s is no longer a member of team %s",{type:"info",delay:10000,width:"auto"})'% (user.get_full_name(),teamevent.team_name))
         #TODO: Update create
         msg_dash = "Removal success! %s is no longer a member of team %s"% (user.get_full_name(),teamevent.team_name)
         html_stuff = render_to_string('dashboard/welcome.html',{'msg_dash':msg_dash},RequestContext(request))
@@ -269,7 +269,8 @@ def register_event(request,event_id=None,team_name=None,**kwargs):
     dajax.script('$.bootstrapGrowl("Your team ID: %s",{type:"success",delay:100000})'% teamevent.team_id)
     dajax.script('$("#event_register").modal("toggle")')
     enddate = teamevent.get_event().registration_ends
-    dajax.script('$.bootstrapGrowl("Note:Deadline for the event is %s/%s/%s", {delay:100000} );'% (enddate.day,enddate.month,enddate.year))
+    dajax.script('$.bootstrapGrowl("Please note the deadline for the event given in event details.", {delay:100000} );')
+    dajax.script('$("#fb_share").modal("show");')
     #TODO: create updates for other users and him
     return dajax.json()
 

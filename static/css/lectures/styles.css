@@ -124,7 +124,17 @@
     margin-left : 50px;
 }
 
-
+.main_lecture_item.lecture_item p {
+    font-size: 0.9em;
+    padding: 10px;
+    line-height: 20px;
+    color: #fff;
+    display: inline-block;
+    background: #000;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 3px 10px;
+    margin: 3px 0px;
+}
 
 
 .span0_5 {
