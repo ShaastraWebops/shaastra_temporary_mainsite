@@ -65,7 +65,7 @@ def paintImage(pdf, x, y, im):
     
     return (x, y)
 
-############Change: /home/gotham to change for local
+############Change: /home/shaastra to change for local
 def initNewPDFPage(pdf, (pageWidth, pageHeight), shaastra_id, username):
     """
     Paints the headers on every new page of the PDF document.
@@ -79,7 +79,7 @@ def initNewPDFPage(pdf, (pageWidth, pageHeight), shaastra_id, username):
     y = pageHeight - cm
     x = cm
 
-    im = Image("/home/gotham/hospi/participantPDFs/shaastralogo.jpg", width=3*inch, height=2*inch)
+    im = Image("/home/shaastra/hospi/participantPDFs_2k14/shaastralogo.jpg", width=3*inch, height=2*inch)
     im.hAlign = 'LEFT'
     
     (x, t) = paintImage(pdf, x, y, im)
@@ -271,10 +271,10 @@ def generateParticipantPDF(user):
 
     return response
     
-###########/home/gotham
+###########/home/shaastra
 def log(msg):
     #!!!!!!!!!!!!!!!!!!!!!!!
-    destination = open('/home/gotham/hospi/participantPDFs/log.txt', 'a')
+    destination = open('/home/shaastra/hospi/participantPDFs_2k14/log.txt', 'a')
     destination.write(str(msg))
     destination.write('\n')
     destination.close()
@@ -320,11 +320,11 @@ def mailPDF(user, pdf):
     ##########
     msg.send()
     log('Mail sent to %s' % email) 
-#######change /home/gotham for pdf location
+#######change /home/shaastra for pdf location
 def savePDF(pdf, user):
     #!!!!!!!
     try:
-        destination = open('/home/gotham/hospi/participantPDFs/'+user.get_profile().shaastra_id+'-registration-details.pdf', 'wb+')
+        destination = open('/home/shaastra/hospi/participantPDFs_2k14/'+user.get_profile().shaastra_id+'-registration-details.pdf', 'wb+')
     except:
         log(user.username + "userprofile does not exist")
         return
@@ -370,7 +370,7 @@ def remainingPDFs():
     
     log('\n\n**********  Now: %s  **********' % datetime.datetime.now())
 
-    fileNameList = ['/home/gotham/hospi/participantPDFs/ssq.txt', '/home/gotham/hospi/participantPDFs/rws.txt']
+    fileNameList = ['/home/shaastra/hospi/participantPDFs_2k14/ssq.txt', '/home/shaastra/hospi/participantPDFs_2k14/rws.txt']
     
     for fileName in fileNameList:
 
@@ -406,7 +406,7 @@ def remainingPDFs():
             if participant.email:
                 mailPDF(participant, pdf)
                 #break  #TODO: Remove this for the finale
-##########/home/gotham mailed.txt  local
+##########/home/shaastra mailed.txt  local
 def mailRoundTwo():
     
     log('\n\n**********  Now: %s  **********' % datetime.datetime.now())
@@ -424,7 +424,7 @@ def mailRoundTwo():
             continue
         participants.append(u)
 
-    fileObj = open('/home/gotham/hospi/participantPDFs/mailed.txt', 'r')
+    fileObj = open('/home/shaastra/hospi/participantPDFs_2k14/mailed.txt', 'r')
     log('\n\nOpened %s to get uids of all mailed participants.' % 'mailed.txt')
     for line in fileObj:
         t = line[:-1]  # -1 to remove the last \n character.
@@ -495,7 +495,7 @@ def checkData(**kwargs):
                 string += '\n    '
                 try:
                     #!!!!
-                    f = open('/home/gotham/hospi/participantPDFs/SHA'+str(1400000+user.pk)+'-registration-details.pdf', 'r')
+                    f = open('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+user.pk)+'-registration-details.pdf', 'r')
                 except:
                     
                     if not userTeams:
@@ -632,7 +632,7 @@ def checkParticipationDetailsCSV(path, event_name):
                 # User is registered
                 # Check if mailed
                 try:
-                    temp = open('/home/gotham/hospi/participantPDFs/SHA'+str(1400000+u.pk)+'-registration-details.pdf', 'r')
+                    temp = open('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+u.pk)+'-registration-details.pdf', 'r')
                 except IOError:
                     # PDF not found.
                     # Not mailed.
@@ -685,7 +685,7 @@ def cleanEmails():
             u.email = u.email[:-1]
             print u.email
             try:
-                os.remove('/home/gotham/hospi/participantPDFs/SHA'+str(1400000+u.id)+'-registration-details.pdf')
+                os.remove('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+u.id)+'-registration-details.pdf')
             except OSError:
                 print 'PDF doesn\'t exist.'
             else:
