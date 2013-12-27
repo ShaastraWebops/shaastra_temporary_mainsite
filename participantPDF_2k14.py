@@ -65,7 +65,7 @@ def paintImage(pdf, x, y, im):
     
     return (x, y)
 
-############Change: /home/shaastra to change for local
+############Change: /home/gotham to change for local
 def initNewPDFPage(pdf, (pageWidth, pageHeight), shaastra_id, username):
     """
     Paints the headers on every new page of the PDF document.
@@ -304,8 +304,8 @@ def mailPDF(user, pdf):
     #!!!!!!!!!!!!!!!!
     #email = 'swopstesting@gmail.com' #TODO: Remove this line for finale
     #######################################*****************************
-    #msg = EmailMultiAlternatives(subject, message, 'noreply@iitm.ac.in' , [email,])
-    msg = EmailMultiAlternatives(subject, message, 'gowtham.vg.7@gmail.com' , [email,])
+    msg = EmailMultiAlternatives(subject, message, 'noreply@shaastra.org' , [email,])
+    #msg = EmailMultiAlternatives(subject, message, 'gowtham.vg.7@gmail.com' , [email,])
     msg.content_subtype = "html"
     try:
         userprofile = user.get_profile()
@@ -685,7 +685,7 @@ def cleanEmails():
             u.email = u.email[:-1]
             print u.email
             try:
-                os.remove('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+u.id)+'-registration-details.pdf')
+                os.remove('/home/gotham/hospi/participantPDFs_2k14/SHA'+str(1400000+u.id)+'-registration-details.pdf')
             except OSError:
                 print 'PDF doesn\'t exist.'
             else:
