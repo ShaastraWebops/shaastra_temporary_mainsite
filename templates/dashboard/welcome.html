@@ -2,7 +2,8 @@
                 <h4><span>Your Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h4></span>
                 
                 <button type="button" class="btn btn-primary btn-inverted" onclick="$('#fb_share').modal();" style="cursor:pointer">Share us on facebook!</button><br/>
-                <span>Click<a href="{MEDIA_URL}participantPDFs/{{request.user.get_profile.shaastra_id}}-registration-details.pdf">here</a> for your participation PDF.</span><br/>
+                <button type="button" class="btn btn-success"><span>Click<a href="{{MEDIA_URL}}participantPDFs/{{request.user.get_profile.shaastra_id}}-registration-details.pdf">here</a></button> for your participation PDF.</span><br/>
+
 
                 {% if request.user.is_authenticated %}
             {% if msg_dash %}
