@@ -97,7 +97,7 @@
                 <h4>Welcome {{request.user.username}},</h4>
                 <h5><span>Your Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h5></span>
                 <button type="button" class="btn btn-primary btn-inverted" onclick="$('#fb_share').modal();" style="cursor:pointer">Share us on facebook!</button><br/>
-
+                <span>Click<a href="{MEDIA_URL}participantPDFs/{{request.user.get_profile.shaastra_id}}-registration-details.pdf">here</a> for your participation PDF.</span><br/>
                 {% if request.user.is_authenticated %}
                             
                 You have registered for {% if request.user.get_profile.no_regd_events > 0 %}
