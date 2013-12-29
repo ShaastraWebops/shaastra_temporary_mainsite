@@ -276,7 +276,7 @@ def generateParticipantPDF(user):
 ###########/home/shaastra
 def log(msg):
     #!!!!!!!!!!!!!!!!!!!!!!!
-    destination = open('/home/shaastra/hospi/participantPDFs_2k14/log.txt', 'a')
+    destination = open('/home/shaastra/hospi/participantPDFs_2k14/log2.txt', 'a')
     destination.write(str(msg))
     destination.write('\n')
     destination.close()
@@ -490,7 +490,7 @@ def checkData(**kwargs):
                 #userTeams = user.joined_teams.all()
                 #!!!!!!
                 try:
-                    userTeams = user.get_profile().get_reg  d_events()
+                    userTeams = user.get_profile().get_regd_events()
                 except:
                     userTeams = None
                 #string += '\n  Singular Events:' + str(singularEventRegistrations)
