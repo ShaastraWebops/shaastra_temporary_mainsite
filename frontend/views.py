@@ -81,7 +81,10 @@ eventlist = ['Aerobotics',
  'Boeing National Aeromodelling Competition',
  'Automania',
  'Ideas Challenge',
- 'Pan IIT Research Expo']
+ 'Pan IIT Research Expo',
+ 'Ericsson Industry Defined Problem',
+ 'Eaton Industry Defined Problem',
+ 'GE Industry Defined Problem']
 
 
 def home(request):  
@@ -119,7 +122,7 @@ def dashboard(request):
     except:
         pass
     SITE_URL = settings.SITE_URL
-    up_list = [up for up in UserProfile.objects.all()]
+    #up_list = [up for up in UserProfile.objects.all()]
     return render_to_response('dashboard/dash_new.html',locals(),context_instance=RequestContext(request))
 
 def serenity(request):

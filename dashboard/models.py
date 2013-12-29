@@ -51,11 +51,14 @@ class TeamEvent(models.Model):
         except:
             pass
     def __unicode__(self):
+        team_str = self.team_id
+        if not team_str:
+            team_str = "Not provided during registration"
         try:
             event=ParticipantEvent.objects.using(erp_db).get(id=self.event_id)
-            return "team id:%s - event:%s" % (self.team_id,event.title)
+            return "Team id:%s, Team name: %s, Event:%s" % (self.team_id,team_str,event.title)
         except:
-            return "team id:%s" % self.team_id
+            return "Team id:%s, Team name: %s" % (self.team_id,self.team_name)
     #returns list of tdp's under team
     def get_tdp(self):
         return list(TDP.objects.filter(teamevent = self))

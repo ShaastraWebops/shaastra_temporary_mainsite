@@ -1,6 +1,7 @@
 {% load staticfiles %}
 <div class="lecture_items_div sub_lectures">
     <div class="span4 lecture_item">
+
         <img src="{% static 'img/lectures/7.png' %}" alt="" class="lecture_item_img">
         <a style='cursor : pointer;' onclick="show_lecture(this)">
             <span class="overlay"></span>
@@ -20,7 +21,7 @@
         </a>
         <div class='content hide'>
             <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/8.png' %}" class='' /></div>
-            <div class='span8' style='margin:0px; padding-left:20px;'>{#{% include 'lectures/content/8.html' %}#}</div>
+            <div class='span8' style='margin:0px; padding-left:20px;'>{% include 'lectures/content/8.html' %}</div>
         </div>
     </div>
     <div class="span4 lecture_item">
@@ -32,7 +33,7 @@
         </a>
         <div class='content hide'>
             <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/9.png' %}" class='' /></div>
-            <div class='span8' style='margin:0px; padding-left:20px;'>{#{% include 'lectures/content/9.html' %}#}</div>
+            <div class='span8' style='margin:0px; padding-left:20px;'>{% include 'lectures/content/9.html' %}</div>
         </div>
     </div>
     <div class="span4 lecture_item">
@@ -60,14 +61,14 @@
         </div>
     </div>
    <div class="span4 lecture_item">
-        <img src="{% static 'img/lectures/17.png' %}" alt="" class="lecture_item_img">
+        <img src="{% static 'img/lectures/12.png' %}" alt="" class="lecture_item_img">
         <a style='cursor : pointer;' onclick="show_lecture(this)">
             <span class="overlay"></span>
             <div class="cnt"></div>
         </a>
         <div class='content hide'>
-            <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/17.png' %}" class='' /></div>
-            <div class='span8' style='margin:0px; padding-left:20px;'>{% include 'lectures/content/17.html' %}</div>
+            <div class='span4' style='margin:0px;'><img src="{% static 'img/lectures/12.png' %}" class='' /></div>
+            <div class='span8' style='margin:0px; padding-left:20px;'>{% include 'lectures/content/12.html' %}</div>
         </div>
     </div>
 </div>
