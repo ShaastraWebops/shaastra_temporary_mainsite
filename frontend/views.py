@@ -122,7 +122,7 @@ def dashboard(request):
     except:
         pass
     SITE_URL = settings.SITE_URL
-    up_list = [up for up in UserProfile.objects.all()]
+    #up_list = [up for up in UserProfile.objects.all()]
     return render_to_response('dashboard/dash_new.html',locals(),context_instance=RequestContext(request))
 
 def serenity(request):
