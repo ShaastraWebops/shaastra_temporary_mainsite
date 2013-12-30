@@ -441,7 +441,6 @@ def login(request,login_form = None):
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
                 dajax.script('$("#fb_share").modal("show");')
-                
                 profile = UserProfile.objects.get(user=request.user)
                 context_dash_dict = {'profile':profile,'settings':settings}
                 html_stuff = render_to_string('dashboard/profile_view.html',context_dash_dict,RequestContext(request))
@@ -462,7 +461,7 @@ def login(request,login_form = None):
                 </button></div>')
                 dajax.remove_css_class("#dashboard","hide hidden")
                 #display logout| edit profile on navbar
-
+                dajax.script('location.reload();')
                 return dajax.json()
             else:
                 msg = 'Username and Password does not match!!!'
