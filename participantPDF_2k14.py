@@ -282,7 +282,7 @@ def log(msg):
 #########Confirm if Dear Participant only or name
 ##########CHange entire content!!!!!!!!!!!!!
 def mailPDF(user, pdf):
-    return None
+    
     subject = '[IMPORTANT] Registration Details, Shaastra 2014'
     message = 'Dear '
     if user.first_name and user.last_name:
@@ -311,16 +311,16 @@ def mailPDF(user, pdf):
         userprofile = user.get_profile()
     except:
         log(user.username + "failed to mail as userProfile does not exist\n")
-        return user
+        return None
     try:
         msg.attach('%s-registration-details.pdf' % user.get_profile().shaastra_id, pdf, 'application/pdf')
     except:
         log("%s: attachment failed" % userprofile.shaastra_id)
-        return user
+        return None
     ##########
     msg.send()
     log('Mail sent to %s' % email) 
-    return None
+    return 1
 
 def savePDF(pdf, user):
     #!!!!!!!
