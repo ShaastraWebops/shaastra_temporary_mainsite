@@ -65,7 +65,7 @@ def paintImage(pdf, x, y, im):
     
     return (x, y)
 
-############Change: /home/shaastra to change for local
+############Change: /home/gotham to change for local
 def initNewPDFPage(pdf, (pageWidth, pageHeight), shaastra_id, username):
     """
     Paints the headers on every new page of the PDF document.
@@ -79,7 +79,7 @@ def initNewPDFPage(pdf, (pageWidth, pageHeight), shaastra_id, username):
     y = pageHeight - cm
     x = cm
 
-    im = Image("/home/shaastra/hospi/participantPDFs_2k14/shaastralogo.jpg", width=3*inch, height=1.8*inch)
+    im = Image("/home/gotham/hospi/participantPDFs_2k14/shaastralogo.jpg", width=3*inch, height=1.8*inch)
     im.hAlign = 'LEFT'
     
     (x, t) = paintImage(pdf, x, y, im)
@@ -185,7 +185,8 @@ def printEventParticipationDetails(pdf, x, y, user, singularEventRegistrations, 
         teamname_str = 'Not provided during regn.'
         if team.team_name:
             teamname_str = team.team_name
-        tableData.append([sNo, team.get_event().title, teamname_str, team.team_id])
+        if team.get_event():
+            tableData.append([sNo, team.get_event().title, teamname_str, team.team_id])
         sNo += 1
         
     t = Table(tableData, repeatRows=1)
@@ -210,7 +211,6 @@ def printEventParticipationDetails(pdf, x, y, user, singularEventRegistrations, 
 def generateParticipantPDF(user):
 
     userProfile = UserProfile.objects.get(user = user)
-    
     # Create a buffer to store the contents of the PDF.
     # http://stackoverflow.com/questions/4378713/django-reportlab-pdf-generation-attached-to-an-email
     buffer = StringIO()
@@ -243,7 +243,6 @@ def generateParticipantPDF(user):
     
     #singularEventRegistrations = EventSingularRegistration.objects.filter(user = user)
     #!!!!!!!!!!!!
-    """
     try:
         teamevents = user.get_profile().get_regd_events()
     except:
@@ -264,7 +263,6 @@ def generateParticipantPDF(user):
         
         printEventParticipationDetails(pdf, x, y, user, None, teamevents)
     #!!!!!!!!!!!!!!!!!!!!!!!!!!Y COMMENTED@@@@@@@@@@@@
-    """
     pdf.showPage()
     pdf.save()
 
@@ -273,10 +271,10 @@ def generateParticipantPDF(user):
 
     return response
     
-###########/home/shaastra
+###########/home/gotham
 def log(msg):
     #!!!!!!!!!!!!!!!!!!!!!!!
-    destination = open('/home/shaastra/hospi/participantPDFs_2k14/log2.txt', 'a')
+    destination = open('/home/gotham/hospi/participantPDFs_2k14/log2.txt', 'a')
     destination.write(str(msg))
     destination.write('\n')
     destination.close()
@@ -284,7 +282,7 @@ def log(msg):
 #########Confirm if Dear Participant only or name
 ##########CHange entire content!!!!!!!!!!!!!
 def mailPDF(user, pdf):
-    return
+    return None
     subject = '[IMPORTANT] Registration Details, Shaastra 2014'
     message = 'Dear '
     if user.first_name and user.last_name:
@@ -313,20 +311,21 @@ def mailPDF(user, pdf):
         userprofile = user.get_profile()
     except:
         log(user.username + "failed to mail as userProfile does not exist\n")
-        return
+        return user
     try:
         msg.attach('%s-registration-details.pdf' % user.get_profile().shaastra_id, pdf, 'application/pdf')
     except:
         log("%s: attachment failed" % userprofile.shaastra_id)
-        return
+        return user
     ##########
     msg.send()
     log('Mail sent to %s' % email) 
-#######change /home/shaastra for pdf location
+    return None
+#######change /home/gotham for pdf location
 def savePDF(pdf, user):
     #!!!!!!!
     try:
-        destination = open('/home/shaastra/hospi/participantPDFs_2k14/'+user.get_profile().shaastra_id+'-registration-details.pdf', 'wb+')
+        destination = open('/home/gotham/hospi/participantPDFs_2k14/'+user.get_profile().shaastra_id+'-registration-details.pdf', 'wb+')
     except:
         log(user.username + "userprofile does not exist")
         return
@@ -349,7 +348,7 @@ def generatePDFs(uid):
     #    participants.append(u)
     #!!!!!!!!!!!!!!finale???
     participants = [User.objects.get(id = uid)] #TODO: Remove this line for finale
-
+    up_fail_list = []
     for participant in participants:
         #if participant.id < 7071:
         #    continue
@@ -358,12 +357,12 @@ def generatePDFs(uid):
         if pdf is None:
             continue
         savePDF(pdf, participant)
-        """
         if participant.email:
-            mailPDF(participant, pdf)
-        """
+            temp = mailPDF(participant, pdf)
+            if temp is None:
+                up_fail_list.append(participant.get_profile())
     #        numPDFsMailed += 1
-        
+    return up_fail_list
     #    numPDFsGenerated += 1
     #log('\n\nPDFs generated: %d' % numPDFsGenerated)
     #log('\n\nPDFs mailed: %d' % numPDFsMailed)
@@ -374,7 +373,7 @@ def remainingPDFs():
     
     log('\n\n**********  Now: %s  **********' % datetime.datetime.now())
 
-    fileNameList = ['/home/shaastra/hospi/participantPDFs_2k14/ssq.txt', '/home/shaastra/hospi/participantPDFs_2k14/rws.txt']
+    fileNameList = ['/home/gotham/hospi/participantPDFs_2k14/ssq.txt', '/home/gotham/hospi/participantPDFs_2k14/rws.txt']
     
     for fileName in fileNameList:
 
@@ -410,7 +409,7 @@ def remainingPDFs():
             if participant.email:
                 mailPDF(participant, pdf)
                 #break  #TODO: Remove this for the finale
-##########/home/shaastra mailed.txt  local
+##########/home/gotham mailed.txt  local
 def mailRoundTwo():
     
     log('\n\n**********  Now: %s  **********' % datetime.datetime.now())
@@ -428,7 +427,7 @@ def mailRoundTwo():
             continue
         participants.append(u)
 
-    fileObj = open('/home/shaastra/hospi/participantPDFs_2k14/mailed.txt', 'r')
+    fileObj = open('/home/gotham/hospi/participantPDFs_2k14/mailed.txt', 'r')
     log('\n\nOpened %s to get uids of all mailed participants.' % 'mailed.txt')
     for line in fileObj:
         t = line[:-1]  # -1 to remove the last \n character.
@@ -504,7 +503,7 @@ def checkData(**kwargs):
                 string += '\n    '
                 try:
                     #!!!!
-                    f = open('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+user.pk)+'-registration-details.pdf', 'r')
+                    f = open('/home/gotham/hospi/participantPDFs_2k14/SHA'+str(1400000+user.pk)+'-registration-details.pdf', 'r')
                 except:
                     
                     if not userTeams:
@@ -651,7 +650,7 @@ def checkParticipationDetailsCSV(path, event_name):
                 # User is registered
                 # Check if mailed
                 try:
-                    temp = open('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+u.pk)+'-registration-details.pdf', 'r')
+                    temp = open('/home/gotham/hospi/participantPDFs_2k14/SHA'+str(1400000+u.pk)+'-registration-details.pdf', 'r')
                 except IOError:
                     # PDF not found.
                     # Not mailed.
@@ -704,7 +703,7 @@ def cleanEmails():
             u.email = u.email[:-1]
             print u.email
             try:
-                os.remove('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+u.id)+'-registration-details.pdf')
+                os.remove('/home/gotham/hospi/participantPDFs_2k14/SHA'+str(1400000+u.id)+'-registration-details.pdf')
             except OSError:
                 print 'PDF doesn\'t exist.'
             else:

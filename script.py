@@ -3,11 +3,12 @@ from participantPDF_2k14 import *
 uidlist = [up.user.id for up in UserProfile.objects.all()]
 ct = 0
 faillist = []
+uid_faillist = []
 for uid in uidlist:
     try:
-        generatePDFs(uid)
+        faillist.append(generatePDFs(uid))
         log("PDF generated for :%s\n" % uid)
         
     except:
         ct = ct+1
-        faillist.append(uid)
+        uid_faillist.append(uid)
