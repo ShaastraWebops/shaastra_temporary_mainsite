@@ -321,7 +321,7 @@ def mailPDF(user, pdf):
     msg.send()
     log('Mail sent to %s' % email) 
     return None
-#######change /home/shaastra for pdf location
+
 def savePDF(pdf, user):
     #!!!!!!!
     try:
