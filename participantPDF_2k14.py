@@ -185,7 +185,8 @@ def printEventParticipationDetails(pdf, x, y, user, singularEventRegistrations, 
         teamname_str = 'Not provided during regn.'
         if team.team_name:
             teamname_str = team.team_name
-        tableData.append([sNo, team.get_event().title, teamname_str, team.team_id])
+        if team.get_event():
+            tableData.append([sNo, team.get_event().title, teamname_str, team.team_id])
         sNo += 1
         
     t = Table(tableData, repeatRows=1)
@@ -210,7 +211,6 @@ def printEventParticipationDetails(pdf, x, y, user, singularEventRegistrations, 
 def generateParticipantPDF(user):
 
     userProfile = UserProfile.objects.get(user = user)
-    
     # Create a buffer to store the contents of the PDF.
     # http://stackoverflow.com/questions/4378713/django-reportlab-pdf-generation-attached-to-an-email
     buffer = StringIO()
@@ -243,7 +243,6 @@ def generateParticipantPDF(user):
     
     #singularEventRegistrations = EventSingularRegistration.objects.filter(user = user)
     #!!!!!!!!!!!!
-    """
     try:
         teamevents = user.get_profile().get_regd_events()
     except:
@@ -264,7 +263,6 @@ def generateParticipantPDF(user):
         
         printEventParticipationDetails(pdf, x, y, user, None, teamevents)
     #!!!!!!!!!!!!!!!!!!!!!!!!!!Y COMMENTED@@@@@@@@@@@@
-    """
     pdf.showPage()
     pdf.save()
 
@@ -284,7 +282,7 @@ def log(msg):
 #########Confirm if Dear Participant only or name
 ##########CHange entire content!!!!!!!!!!!!!
 def mailPDF(user, pdf):
-    return
+    return None
     subject = '[IMPORTANT] Registration Details, Shaastra 2014'
     message = 'Dear '
     if user.first_name and user.last_name:
@@ -313,15 +311,16 @@ def mailPDF(user, pdf):
         userprofile = user.get_profile()
     except:
         log(user.username + "failed to mail as userProfile does not exist\n")
-        return
+        return user
     try:
         msg.attach('%s-registration-details.pdf' % user.get_profile().shaastra_id, pdf, 'application/pdf')
     except:
         log("%s: attachment failed" % userprofile.shaastra_id)
-        return
+        return user
     ##########
     msg.send()
     log('Mail sent to %s' % email) 
+    return None
 #######change /home/shaastra for pdf location
 def savePDF(pdf, user):
     #!!!!!!!
@@ -349,7 +348,7 @@ def generatePDFs(uid):
     #    participants.append(u)
     #!!!!!!!!!!!!!!finale???
     participants = [User.objects.get(id = uid)] #TODO: Remove this line for finale
-
+    up_fail_list = []
     for participant in participants:
         #if participant.id < 7071:
         #    continue
@@ -358,12 +357,12 @@ def generatePDFs(uid):
         if pdf is None:
             continue
         savePDF(pdf, participant)
-        """
         if participant.email:
-            mailPDF(participant, pdf)
-        """
+            temp = mailPDF(participant, pdf)
+            if temp is None:
+                up_fail_list.append(participant.get_profile())
     #        numPDFsMailed += 1
-        
+    return up_fail_list
     #    numPDFsGenerated += 1
     #log('\n\nPDFs generated: %d' % numPDFsGenerated)
     #log('\n\nPDFs mailed: %d' % numPDFsMailed)
