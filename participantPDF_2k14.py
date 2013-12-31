@@ -252,7 +252,7 @@ def generateParticipantPDF(user):
     #if (not singularEventRegistrations) and (not userTeams):
         # The user is not registered for any event.
     if not teamevents:
-        buffer.close()
+        #buffer.close()
         #return None
         y -= cm * 0.5
         pdf.drawString(x, y, 'You are not registered for any events this Shaastra')
@@ -274,7 +274,7 @@ def generateParticipantPDF(user):
 ###########/home/shaastra
 def log(msg):
     #!!!!!!!!!!!!!!!!!!!!!!!
-    destination = open('/home/shaastra/hospi/participantPDFs_2k14/log2.txt', 'a')
+    destination = open('/home/shaastra/hospi/participantPDFs_2k14/log3.txt', 'a')
     destination.write(str(msg))
     destination.write('\n')
     destination.close()
@@ -282,7 +282,7 @@ def log(msg):
 #########Confirm if Dear Participant only or name
 ##########CHange entire content!!!!!!!!!!!!!
 def mailPDF(user, pdf):
-    
+    return
     subject = '[IMPORTANT] Registration Details, Shaastra 2014'
     message = 'Dear '
     if user.first_name and user.last_name:
@@ -357,11 +357,14 @@ def generatePDFs(uid):
         if pdf is None:
             continue
         savePDF(pdf, participant)
+        """ 
         if participant.email:
             temp = mailPDF(participant, pdf)
             if temp is None:
                 up_fail_list.append(participant.get_profile())
+        """
     #        numPDFsMailed += 1
+        
     return up_fail_list
     #    numPDFsGenerated += 1
     #log('\n\nPDFs generated: %d' % numPDFsGenerated)
