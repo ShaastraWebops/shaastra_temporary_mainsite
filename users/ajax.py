@@ -441,10 +441,9 @@ def login(request,login_form = None):
                 dajax.script("$('#login').modal('hide');")
                 dajax.script('$(".modal-header").find(".close").click()')
                 dajax.script('$("#fb_share").modal("show");')
-                
                 profile = UserProfile.objects.get(user=request.user)
                 context_dash_dict = {'profile':profile,'settings':settings}
-                html_stuff = render_to_string('dashboard/profile_view.html',context_dash_dict,RequestContext(request))
+                html_stuff = render_to_string('dashboard/welcome.html',context_dash_dict,RequestContext(request))
                 dajax.script("window.location.hash = 'dashboard'")
                 if html_stuff:
                     dajax.assign('#content_dash','innerHTML',html_stuff)
@@ -462,7 +461,6 @@ def login(request,login_form = None):
                 </button></div>')
                 dajax.remove_css_class("#dashboard","hide hidden")
                 #display logout| edit profile on navbar
-
                 return dajax.json()
             else:
                 msg = 'Username and Password does not match!!!'
@@ -601,7 +599,7 @@ def forgot_password(request,email=None):
                     'passwordkey':profile.activation_key,
                 }))
             #if settings.SEND_EMAILS:
-            send_mail('Shaastra2014 password reset request', body,'webops@shaastra.org', [user.email,], fail_silently=False)
+            send_mail('Shaastra2014 password reset request', body,'noreply@shaastra.org', [user.email,], fail_silently=False)
             dajax.script('$.bootstrapGrowl("An email with a link to reset your password has been sent to your email id: %s", {type:"success",delay:20000} );' % email)
             dajax.script('$.bootstrapGrowl("Please also check your spam", {type:"danger",delay:20000});')
         except ValidationError:

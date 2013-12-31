@@ -97,7 +97,11 @@
                 <h4>Welcome {{request.user.username}},</h4>
                 <h5><span>Your Shaastra ID:</span><b><span id="dashboard_shaastra_id">{{request.user.get_profile.shaastra_id}}</b></h5></span>
                 <button type="button" class="btn btn-primary btn-inverted" onclick="$('#fb_share').modal();" style="cursor:pointer">Share us on facebook!</button><br/>
+                <div class="well" style="background-color:#aaa;">
+                Below is a link to a PDF file with your personal details and your Shaastra ID. Please bring a printed copy of this file while coming to Shaastra. Present this print out to the Registration Desk situated at KV Grounds in IIT Madras. Upon verification with your College ID card, you will be handed over your Shaastra Passport.
 
+                 <span>Click<button type="button" class="btn btn-success btn-xs"><a href="{{MEDIA_URL}}participantPDFs/{{request.user.get_profile.shaastra_id}}-registration-details.pdf">here</a></button> to download your participation PDF.</span>
+                 </div>
                 {% if request.user.is_authenticated %}
                             
                 You have registered for {% if request.user.get_profile.no_regd_events > 0 %}

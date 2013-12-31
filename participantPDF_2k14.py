@@ -65,7 +65,7 @@ def paintImage(pdf, x, y, im):
     
     return (x, y)
 
-############Change: /home/gotham to change for local
+############Change: /home/shaastra to change for local
 def initNewPDFPage(pdf, (pageWidth, pageHeight), shaastra_id, username):
     """
     Paints the headers on every new page of the PDF document.
@@ -79,7 +79,7 @@ def initNewPDFPage(pdf, (pageWidth, pageHeight), shaastra_id, username):
     y = pageHeight - cm
     x = cm
 
-    im = Image("/home/shaastra/hospi/participantPDFs_2k14/shaastralogo.jpg", width=3*inch, height=2*inch)
+    im = Image("/home/shaastra/hospi/participantPDFs_2k14/shaastralogo.jpg", width=3*inch, height=1.8*inch)
     im.hAlign = 'LEFT'
     
     (x, t) = paintImage(pdf, x, y, im)
@@ -152,8 +152,8 @@ def printParticipantDetails(pdf, x, y, user, userProfile):
     
     y -= cm*0.7
     y = paintParagraph(pdf, x, y, qmsInstruction)
-    
-    qmsInstruction = '</para><para alignment="left"><br/><br/><b>1. Every participant must bring a printed/e-copy of this form.</b><br/><br/>2. Present this print out to the Registration Desk situated at KV Grounds in IIT Madras along with your College ID for verification. Alternatively, you may use the desk at the Hospitality Control Rooms as well. <br/><br/>3. Upon paying a registration fee of Rs 150, you would receive your unique Shaastra Passport.<br/><br/>4. This Passport is necessary in order to participate in any event or workshop/ attend any lecture or show at Shaastra.  <br/><br/>5.  For more information, please drop us a mail at outreach@shaastra.org<br/><br/>QMS Team</para>'
+    #--------------------------
+    qmsInstruction = '</para><para alignment="left"><br/><br/><b>1.  Please bring a printed copy of this file while coming to Shaastra.</b><br/><br/>2.Present this print out to the Registration Desk situated at KV Grounds in IIT Madras along with your College ID for verification. If you have already been confirmed accomodation or selected for a pre-registered event, you may proceed to the Hospitality Control Rooms (Godavari for Boys, Sharavati for girls).  <br/><br/>3. Upon paying a registration fee of Rs 150, you would receive your unique Shaastra Passport.<br/><br/>4. This Passport is necessary in order to participate in any event or workshop/ attend any lecture or show at Shaastra.  <br/><br/>5.  For more information, please drop us a mail at outreach@shaastra.org<br/><br/>QMS Team</para>'
     #!!!!!! qms@shaastra.org
     y += cm*0.7
     y = paintParagraph(pdf, x, y, qmsInstruction)
@@ -185,7 +185,8 @@ def printEventParticipationDetails(pdf, x, y, user, singularEventRegistrations, 
         teamname_str = 'Not provided during regn.'
         if team.team_name:
             teamname_str = team.team_name
-        tableData.append([sNo, team.get_event().title, teamname_str, team.team_id])
+        if team.get_event():
+            tableData.append([sNo, team.get_event().title, teamname_str, team.team_id])
         sNo += 1
         
     t = Table(tableData, repeatRows=1)
@@ -210,7 +211,6 @@ def printEventParticipationDetails(pdf, x, y, user, singularEventRegistrations, 
 def generateParticipantPDF(user):
 
     userProfile = UserProfile.objects.get(user = user)
-    
     # Create a buffer to store the contents of the PDF.
     # http://stackoverflow.com/questions/4378713/django-reportlab-pdf-generation-attached-to-an-email
     buffer = StringIO()
@@ -274,7 +274,7 @@ def generateParticipantPDF(user):
 ###########/home/shaastra
 def log(msg):
     #!!!!!!!!!!!!!!!!!!!!!!!
-    destination = open('/home/shaastra/hospi/participantPDFs_2k14/log.txt', 'a')
+    destination = open('/home/shaastra/hospi/participantPDFs_2k14/log2.txt', 'a')
     destination.write(str(msg))
     destination.write('\n')
     destination.close()
@@ -282,7 +282,7 @@ def log(msg):
 #########Confirm if Dear Participant only or name
 ##########CHange entire content!!!!!!!!!!!!!
 def mailPDF(user, pdf):
-
+    
     subject = '[IMPORTANT] Registration Details, Shaastra 2014'
     message = 'Dear '
     if user.first_name and user.last_name:
@@ -311,16 +311,17 @@ def mailPDF(user, pdf):
         userprofile = user.get_profile()
     except:
         log(user.username + "failed to mail as userProfile does not exist\n")
-        return
+        return None
     try:
         msg.attach('%s-registration-details.pdf' % user.get_profile().shaastra_id, pdf, 'application/pdf')
     except:
         log("%s: attachment failed" % userprofile.shaastra_id)
-        return
+        return None
     ##########
     msg.send()
     log('Mail sent to %s' % email) 
-#######change /home/shaastra for pdf location
+    return 1
+
 def savePDF(pdf, user):
     #!!!!!!!
     try:
@@ -347,7 +348,7 @@ def generatePDFs(uid):
     #    participants.append(u)
     #!!!!!!!!!!!!!!finale???
     participants = [User.objects.get(id = uid)] #TODO: Remove this line for finale
-
+    up_fail_list = []
     for participant in participants:
         #if participant.id < 7071:
         #    continue
@@ -357,10 +358,12 @@ def generatePDFs(uid):
             continue
         savePDF(pdf, participant)
         if participant.email:
-            mailPDF(participant, pdf)
+            temp = mailPDF(participant, pdf)
+            if temp is None:
+                up_fail_list.append(participant.get_profile())
     #        numPDFsMailed += 1
+    return up_fail_list
     #    numPDFsGenerated += 1
-        
     #log('\n\nPDFs generated: %d' % numPDFsGenerated)
     #log('\n\nPDFs mailed: %d' % numPDFsMailed)
     
@@ -490,7 +493,12 @@ def checkData(**kwargs):
                 except:
                     userTeams = None
                 #string += '\n  Singular Events:' + str(singularEventRegistrations)
+                repeat_userTeams = clean_Teams(teams = userTeams,profile = user.get_profile())
+                userTeams = [userTeam for userTeam in userTeams if userTeam not in repeat_userTeams]
                 for userTeam in userTeams:
+                    string += '\n  Teams:' + str(userTeam)
+                string += '\n'
+                for userTeam in repeat_userTeams:
                     string += '\n  Teams:' + str(userTeam)
                 string += '\n    '
                 try:
@@ -514,6 +522,16 @@ def checkData(**kwargs):
             else:
                 return users
 #!!! has only return
+def clean_Teams(teams,profile):
+    cteam = []
+    event_id_list = [team.event_id for team in teams]
+    if list(set(event_id_list))!= event_id_list:
+        repeat_event_ids = list(set( [x for x in event_id_list if event_id_list.count(x) > 1]))
+        return [tev for tev in TeamEvent.objects.filter(users__username=profile.user.username) if tev.event_id in repeat_event_ids]
+
+        
+    return None
+        
 
 def addLeadersToMembers():
     return
@@ -685,7 +703,7 @@ def cleanEmails():
             u.email = u.email[:-1]
             print u.email
             try:
-                os.remove('/home/gotham/hospi/participantPDFs_2k14/SHA'+str(1400000+u.id)+'-registration-details.pdf')
+                os.remove('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+u.id)+'-registration-details.pdf')
             except OSError:
                 print 'PDF doesn\'t exist.'
             else:
