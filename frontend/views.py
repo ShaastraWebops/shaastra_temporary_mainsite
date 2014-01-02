@@ -90,6 +90,18 @@ eventlist = ['Aerobotics',
 def home(request):  
     form=LoginForm()
     form_registration=AddUserForm()
+    if request.method == 'POST':
+        form_feedback = Feedback(request.POST)
+        if form_feedback.is_valid():
+            cd = form_feedback.cleaned_data
+            form_feedback.save();
+            #print cd['any_other_suggestions']
+            return HttpResponseRedirect('')
+    else:
+        form_feedback = Feedback()
+    
+
+    form_feedback=Feedback()
     #eventlist = [event.title for event in ParticipantEvent.objects.using(erp_db).all()]
     colllist=[coll.name+' | '+coll.city for coll in College.objects.all()]
     collstr=''

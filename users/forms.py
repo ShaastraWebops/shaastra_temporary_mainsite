@@ -208,4 +208,11 @@ class EditProfileForm(forms.ModelForm):
     
     class Admin:
         pass
+        
+class Feedback(forms.ModelForm):
+	class Meta:
+		model = feedbackmodel
+		field=('comprehensive_rating','navigation_rating','theme_rating','how_came_rating','other_suggestion')
+		
+	
 

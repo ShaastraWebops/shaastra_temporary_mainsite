@@ -94,6 +94,11 @@ STATE_CHOICES = (
     ('Puducherry', 'Puducherry'),
     ('Outside India', 'Outside India'),
 )
+
+RATING_CHOICES = (('1', '1-Very Bad'), ('2', '2-Bad'), ('3', '3-Good'), ('4', '4-Very Good'), ('5', '5-Excellent'),
+)
+SOURCE_CHOICES = (('Facebook', 'Facebook'),('Twitter','Twitter'),('IIT Madras Website','IIT Madras Website'),('Newspaper ad','Newspaper ad'),('I have been a regular Shaastra visitor','I have been a regular Shaastra visitor'),('I am an IITM student','I am an IITM student'),('Other','Other')
+)
 class College(models.Model):
 
     name = models.CharField(max_length=255,
@@ -199,6 +204,15 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return self.name
+        
+class feedbackmodel(models.Model):
+	how_comprehensive_was_the_information_in_the_website= models.CharField(max_length=30, choices=RATING_CHOICES,default='1')
+	how_did_you_find_the_navigation_in_the_website= models.CharField(max_length=30, choices=RATING_CHOICES,default='1')
+	kindly_rate_the_theme_of_the_website= models.CharField(max_length=30, choices=RATING_CHOICES,default='1')
+	how_did_you_come_to_know_of_Shaastra= models.CharField(max_length=30, choices=SOURCE_CHOICES)
+	any_other_suggestions= models.TextField()                          
+	
+	
 
 class SponsLogoUploads(models.Model):
     logo1 = models.FileField(upload_to=upload_handler('sponslogo'), blank=True, null=True)
