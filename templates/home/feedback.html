@@ -1,0 +1,38 @@
+
+{% load staticfiles %}
+
+<div id="feedback" class="modal modal-large hide fade" tabindex="-1" >
+<!--    <center>-->
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss='modal'>&times;</button>
+            <h3 style='width : 100%;'>
+                <span style='position:absolute; left : 24%; display : inline-block;'>We appreciate your valuable feedback</span>
+                
+                &nbsp;
+            </h3>
+        </div>
+        <div class="modal-body feeback">
+            
+                {% if form_feedback.errors %}
+                    <p style="color: red;">
+                        Please correct the error{{ form_feedback.errors|pluralize }} below.
+                    </p>
+                {% endif %}
+                <form action="" method="post" id="form_feedback">{% csrf_token %}
+                
+                    
+                          <div class="row-fluid">
+                            
+                              {{form_feedback.as_table}}
+                            </div>
+                            
+                              <br/><br/><br/>
+                              <input id="form_feedback_submit" type="submit" onclick="$('#feedback').modal('hide');" value="Submit" class="btn "/>
+                          
+                          </div>
+                    </div>
+                </form>
+                
+                
+                
+</div>
