@@ -325,7 +325,7 @@ def mailPDF(user, pdf):
 def savePDF(pdf, user):
     #!!!!!!!
     try:
-        destination = open('/home/shaastra/hospi/participantPDFs_2k14/'+user.get_profile().shaastra_id+'-registration-details.pdf', 'wb+')
+        destination = open('/home/shaastra/django-projects/Shaastra-2014/mainsite/media/participantPDFs/SHA'+user.get_profile().shaastra_id+'-registration-details.pdf', 'wb+')
     except:
         log(user.username + "userprofile does not exist")
         return
@@ -506,7 +506,7 @@ def checkData(**kwargs):
                 string += '\n    '
                 try:
                     #!!!!
-                    f = open('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+user.pk)+'-registration-details.pdf', 'r')
+                    f = open('/home/shaastra/django-projects/Shaastra-2014/mainsite/media/participantPDFs/SHA'+str(1400000+user.pk)+'-registration-details.pdf', 'r')
                 except:
                     
                     if not userTeams:
@@ -653,7 +653,7 @@ def checkParticipationDetailsCSV(path, event_name):
                 # User is registered
                 # Check if mailed
                 try:
-                    temp = open('/home/shaastra/hospi/participantPDFs_2k14/SHA'+str(1400000+u.pk)+'-registration-details.pdf', 'r')
+                    temp = open('/home/shaastra/django-projects/Shaastra-2014/mainsite/media/participantPDFs/SHA'+str(1400000+u.pk)+'-registration-details.pdf', 'r')
                 except IOError:
                     # PDF not found.
                     # Not mailed.
