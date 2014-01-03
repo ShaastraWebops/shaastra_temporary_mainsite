@@ -206,12 +206,11 @@ class Tag(models.Model):
         return self.name
         
 class feedbackmodel(models.Model):
-	how_comprehensive_was_the_information_in_the_website= models.CharField(max_length=30, choices=RATING_CHOICES,default='1')
-	how_did_you_find_the_navigation_in_the_website= models.CharField(max_length=30, choices=RATING_CHOICES,default='1')
-	kindly_rate_the_theme_of_the_website= models.CharField(max_length=30, choices=RATING_CHOICES,default='1')
-	how_did_you_come_to_know_of_Shaastra= models.CharField(max_length=30, choices=SOURCE_CHOICES)
-	any_other_suggestions= models.TextField()                          
-	
+	how_comprehensive_was_the_information_in_the_website= models.CharField(max_length=30, choices=RATING_CHOICES,default='2')
+	how_did_you_find_the_navigation_in_the_website= models.CharField(max_length=30, choices=RATING_CHOICES,default='2')
+	kindly_rate_the_theme_of_the_website= models.CharField(max_length=30, choices=RATING_CHOICES,default='2')
+	how_did_you_come_to_know_of_Shaastra= models.CharField(max_length=30, choices=SOURCE_CHOICES,default = 'Facebook')
+	any_other_suggestions= models.TextField(blank = True)
 	
 
 class SponsLogoUploads(models.Model):

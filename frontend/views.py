@@ -95,8 +95,12 @@ def home(request):
         if form_feedback.is_valid():
             cd = form_feedback.cleaned_data
             form_feedback.save();
+            if form_feedback.cleaned_data['any_other_suggestions']:
+                feedback_message = "Thank You. We will make Shaastra 2015 a better Shaastra with your suggestions"
             #print cd['any_other_suggestions']
-            return HttpResponseRedirect('')
+            else:
+                feedback_message = "Thank You for your feedback."
+            return render_to_response ('home/home.html', locals(), context_instance=RequestContext(request))
     else:
         form_feedback = Feedback()
     
