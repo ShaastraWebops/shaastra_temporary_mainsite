@@ -710,7 +710,7 @@
         } );
         {% if feedback_message %}$.bootstrapGrowl("{{feedback_message}}",{type:"success",delay:2000,align:"center",width:'auto'});{% endif %}
         show_spons();
-       $.bootstrapGrowl("<strong><u>NOTICE:</u> Please login, download and print your registration PDF from your dashboard. Bring this to Shaastra as proof of registration</strong>", { ele: 'body',
+      <!-- $.bootstrapGrowl("<strong><u>NOTICE:</u> Please login, download and print your registration PDF from your dashboard. Bring this to Shaastra as proof of registration</strong>", { ele: 'body',
 
           type: 'error', // (null, 'info', 'error', 'success')
           offset: {from: 'top', amount: 20},
@@ -719,7 +719,7 @@
           delay: 400000,
           allow_dismiss: true,
           stackup_spacing: 10 // spacing between consecutively stacked growls.
-});
+});-->
         
     }, false);
     $(window).resize( function () {
